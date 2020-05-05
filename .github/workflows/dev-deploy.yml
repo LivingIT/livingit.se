@@ -26,6 +26,7 @@ jobs:
 
       - name: Add custom files for dev environment
         run: |
+          rm -rf ./.github
           printf "User-agent: *\nDisallow: /" > ./robots.txt
           echo dev.livingit.se > ./CNAME
 
