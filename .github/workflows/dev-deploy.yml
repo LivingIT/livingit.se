@@ -43,7 +43,7 @@ jobs:
         if: failure()
         with:
           type: ${{ job.status }}
-          job_name: '*Deploy to https://dev.beautyincode.se*'
+          job_name: '*Deploy to https://dev.livingit.se*'
           mention: 'here'
           mention_if: 'failure'
           channel: '#livingit-site'
