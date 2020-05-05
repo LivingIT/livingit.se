@@ -1,0 +1,52 @@
+name: Deploy to dev
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # - name: Setup Node
+      #   uses: actions/setup-node@v1
+      #   with:
+      #     node-version: '10.16'
+
+      # - name: Install Node packages
+      #   run: npm ci --production
+
+      # - name: Build assets
+      #   run: npm run build
+
+      - name: Add custom files for dev environment
+        run: |
+          rm -rf ./.github
+          printf "User-agent: *\nDisallow: /" > ./robots.txt
+          echo dev.livingit.se > ./CNAME
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v2.10.1
+        env:
+          ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEV_DEPLOY_KEY }}
+          EXTERNAL_REPOSITORY: LivingIT/dev.livingit.se
+          PUBLISH_BRANCH: master
+          PUBLISH_DIR: .
+
+      # - name: Slack Notification
+      #   uses: homoluctus/slatify@master
+      #   if: failure()
+      #   with:
+      #     type: ${{ job.status }}
+      #     job_name: '*Deploy to https://dev.beautyincode.se*'
+      #     mention: 'here'
+      #     mention_if: 'failure'
+      #     channel: '#livingit-site'
+      #     url: ${{ secrets.SLACK_WEBHOOK }}
+      #     commit: true
+      #     token: ${{ secrets.GITHUB_TOKEN }}
