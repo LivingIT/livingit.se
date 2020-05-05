@@ -38,15 +38,15 @@ jobs:
           PUBLISH_BRANCH: master
           PUBLISH_DIR: .
 
-      # - name: Slack Notification
-      #   uses: homoluctus/slatify@master
-      #   if: failure()
-      #   with:
-      #     type: ${{ job.status }}
-      #     job_name: '*Deploy to https://dev.beautyincode.se*'
-      #     mention: 'here'
-      #     mention_if: 'failure'
-      #     channel: '#livingit-site'
-      #     url: ${{ secrets.SLACK_WEBHOOK }}
-      #     commit: true
-      #     token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Slack Notification
+        uses: homoluctus/slatify@master
+        if: always()
+        with:
+          type: ${{ job.status }}
+          job_name: '*Deploy to https://dev.beautyincode.se*'
+          mention: 'here'
+          mention_if: 'failure'
+          channel: '#livingit-site'
+          url: ${{ secrets.SLACK_WEBHOOK }}
+          commit: true
+          token: ${{ secrets.GITHUB_TOKEN }}
