@@ -1,0 +1,26 @@
+
+version: '3'
+
+services:
+
+  web:
+    container_name: livingit-web
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    volumes:
+      - $PWD:/web
+      - /web/node_modules
+
+    working_dir: /web
+
+    environment:
+      NODE_ENV: development
+      JEKYLL_ENV: development
+
+    ports:
+      - '4000:4000'
+
+    command: npm start
