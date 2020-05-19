@@ -1,0 +1,8 @@
+_site
+.sass-cache
+.jekyll-metadata
+_includes/main.js
+_includes/sprite.svg
+_includes/styles.css
+node_modules
+.DS_Store

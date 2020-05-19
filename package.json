@@ -1,0 +1,25 @@
+{
+  "name": "www.livingit_homepage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "start": "npm run jekyll:serve",
+    "jekyll:serve": "sleep 1; jekyll serve --incremental",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LivingIT/livingit.se.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/LivingIT/livingit.se/issues"
+  },
+  "homepage": "https://github.com/LivingIT/livingit.se#readme"
+}
