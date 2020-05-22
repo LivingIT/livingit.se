@@ -1,0 +1,12 @@
+- name: Hem
+  link: /
+- name: Våra tjänster
+  link: /#services
+- name: Vi som jobbar på Living it
+  link: /#meet
+- name: Om oss
+  link: /#aboutus
+- name: Bli en i teamet
+  link: /#becomeoneofus
+- name: Kontakta oss
+  link: /#contact
