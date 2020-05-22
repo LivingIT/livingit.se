@@ -1,0 +1,42 @@
+title: 'Living IT'
+baseurl: ''
+url: 'https://livingit.se'
+permalink: 'pretty'
+cssurl: '/assets/css/'
+imageurl: '/assets/images/'
+jsurl: '/assets/js/'
+
+collections:
+  peaple:
+    output: true
+    permalink: /meet/:path
+
+defaults:
+  - scope:
+      type: "peaple"
+    values:
+      layout: "peaple"
+      image: true
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+
+host: 0.0.0.0
+port: 4000
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+exclude:
+  - 'CNAME'
+  - 'Gemfile'
+  - 'Gemfile.lock'
+  - 'README.md'
+  - 'node_modules'
+  - 'package.json'
+  - 'package-lock.json'
+  - 'Dockerfile'
+  - 'docker-compose.yml'

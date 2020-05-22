@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css?family=Lato:300');
-@import url('https://fonts.googleapis.com/css?family=Raleway:100,600');
+@import url("https://fonts.googleapis.com/css?family=Lato:300");
+@import url("https://fonts.googleapis.com/css?family=Raleway:100,600");
 @font-face {
   font-family: LivingITSlogan;
-  src: url('../fonts/LivingITSlogan.ttf');
+  src: url("/assets/fonts/LivingITSlogan.ttf");
 }
 body {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   color: #333;
   font-size: 18px;
   font-weight: 300;
@@ -18,7 +18,7 @@ p {
 }
 a:hover,
 a:focus {
-  color: #333AAA;
+  color: #333aaa;
 }
 a {
   -webkit-transition: all 0.2s linear;
@@ -38,23 +38,23 @@ a {
   -o-transition: all 0.2s linear;
   transition: all 0.2s linear;
   display: inline-block;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
 }
 .btn:focus {
   box-shadow: none;
   outline: none;
 }
 .btn-common {
-  border: 2px solid #333AAA;
-  background-color: #333AAA;
+  border: 2px solid #333aaa;
+  background-color: #333aaa;
   position: relative;
   z-index: 1;
   border-radius: 4px;
 }
 .btn-common:hover {
-  color: #333AAA;
+  color: #333aaa;
   background-color: transparent;
-  border: 2px solid #333AAA;
+  border: 2px solid #333aaa;
   transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
   -webkit-transition: all 0.5s ease-in-out;
@@ -68,7 +68,7 @@ a {
 .btn-border:hover {
   border: 2px solid #fff;
   color: #fff;
-  background-color: #333AAA;
+  background-color: #333aaa;
 }
 .btn-lg {
   padding: 14px 33px;
@@ -83,7 +83,7 @@ a {
   clear: both;
 }
 h1 {
-  font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif;
+  font-family: "Arial Black", "Arial Bold", Gadget, sans-serif;
   font-size: 24px;
   font-weight: normal;
 }
@@ -96,7 +96,7 @@ h2 {
 h3,
 h4,
 h5 {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 24px;
   font-weight: bold;
 }
@@ -117,7 +117,7 @@ a:not([href]):not([tabindex]) {
 }
 a:not([href]):not([tabindex]):focus,
 a:not([href]):not([tabindex]):hover {
-  color: #333AAA;
+  color: #333aaa;
 }
 .logo {
   margin-bottom: -50px;
@@ -142,11 +142,11 @@ a:not([href]):not([tabindex]):hover {
   font-size: 42px;
   margin-top: 0;
   font-weight: 100;
-  color: #231F20;
+  color: #231f20;
   position: relative;
 }
 .section-header .section-title span {
-  color: #333AAA;
+  color: #333aaa;
 }
 .section-header .section-subtitle {
   margin-top: 15px;
@@ -158,7 +158,7 @@ a:not([href]):not([tabindex]):hover {
   margin: auto;
   width: 70px;
   position: relative;
-  border-top: 2px solid #333AAA;
+  border-top: 2px solid #333aaa;
   margin-top: 15px;
 }
 .section-header .lines:before {
@@ -170,7 +170,7 @@ a:not([href]):not([tabindex]):hover {
   top: -10px;
   border: 4px solid #fff;
   border-radius: 50%;
-  background: #333AAA;
+  background: #333aaa;
   left: 27px;
 }
 .image-section-header {
@@ -186,7 +186,7 @@ a:not([href]):not([tabindex]):hover {
   position: relative;
 }
 .image-section-header .section-title span {
-  color: #333AAA;
+  color: #333aaa;
 }
 .image-section-header .section-subtitle {
   margin-top: 15px;
@@ -198,7 +198,7 @@ a:not([href]):not([tabindex]):hover {
   margin: auto;
   width: 70px;
   position: relative;
-  border-top: 2px solid #333AAA;
+  border-top: 2px solid #333aaa;
   margin-top: 15px;
 }
 .image-section-header .lines:before {
@@ -210,7 +210,7 @@ a:not([href]):not([tabindex]):hover {
   top: -10px;
   border: 4px solid #fff;
   border-radius: 50%;
-  background: #333AAA;
+  background: #333aaa;
   left: 27px;
 }
 /* ==========================================================================
@@ -234,10 +234,10 @@ a:not([href]):not([tabindex]):hover {
 }
 .menu-bg .menu-button:hover {
   cursor: pointer;
-  color: #333AAA;
+  color: #333aaa;
 }
 .menu-bg .logo-menu a {
-  color: #333AAA;
+  color: #333aaa;
 }
 .menu-button:hover {
   cursor: pointer;
@@ -250,7 +250,7 @@ a:not([href]):not([tabindex]):hover {
   margin-left: 15px;
 }
 .navbar-light .navbar-nav .nav-link {
-  color: #333AAA;
+  color: #333aaa;
   padding: 7px 0px;
   margin-left: 5px;
   position: relative;
@@ -260,7 +260,7 @@ a:not([href]):not([tabindex]):hover {
 .navbar-light .navbar-nav .nav-link:focus,
 .navbar-light .navbar-nav .nav-link:hover,
 .navbar-light .navbar-nav .nav-link:hover:before {
-  color: #333AAA;
+  color: #333aaa;
   -webkit-transform: scale(1);
   transform: scale(1);
 }
@@ -269,7 +269,7 @@ a:not([href]):not([tabindex]):hover {
 .navbar-light .navbar-nav .nav-link.active:before,
 .navbar-light .navbar-nav .nav-link.open,
 .navbar-light .navbar-nav .open > .nav-link {
-  color: #333AAA;
+  color: #333aaa;
   -webkit-transform: scale(1);
   transform: scale(1);
 }
@@ -300,7 +300,7 @@ a:not([href]):not([tabindex]):hover {
   height: 100%;
   top: 0px;
   left: 0px;
-  background: #333AAA;
+  background: #333aaa;
   opacity: 0.7;
   filter: alpha(opacity=70);
 }
@@ -390,7 +390,7 @@ a:not([href]):not([tabindex]):hover {
   transition: all 0.2s linear;
 }
 #video-area .banner_bottom_btn i:hover {
-  color: #333AAA;
+  color: #333aaa;
 }
 .overlay-2 {
   background: rgba(0, 0, 0, 0.7) !important;
@@ -415,7 +415,7 @@ a:not([href]):not([tabindex]):hover {
   width: 60px;
   height: 60px;
   text-align: center;
-  border: 1px solid #333AAA;
+  border: 1px solid #333aaa;
   display: inline-block;
   border-radius: 5px;
   margin-top: 10px;
@@ -427,7 +427,7 @@ a:not([href]):not([tabindex]):hover {
 .item-boxes .icon i {
   font-size: 30px;
   line-height: 60px;
-  color: #333AAA;
+  color: #333aaa;
 }
 .item-boxes h4 {
   font-size: 24px;
@@ -477,7 +477,7 @@ a:not([href]):not([tabindex]):hover {
   padding-bottom: 30px;
 }
 #features .box-item .icon {
-  border: 1px solid #333AAA;
+  border: 1px solid #333aaa;
   text-align: center;
   margin: 12px;
   -webkit-transition: all 0.2s linear;
@@ -486,7 +486,7 @@ a:not([href]):not([tabindex]):hover {
   transition: all 0.2s linear;
 }
 #features .box-item .icon i {
-  color: #333AAA;
+  color: #333aaa;
   font-size: 24px;
   line-height: 60px;
   -webkit-transition: all 0.2s linear;
@@ -504,7 +504,7 @@ a:not([href]):not([tabindex]):hover {
   line-height: 26px;
 }
 #features .box-item:hover .icon {
-  background: #333AAA;
+  background: #333aaa;
 }
 #features .box-item:hover .icon i {
   color: #ffffff;
@@ -547,8 +547,8 @@ a:not([href]):not([tabindex]):hover {
   transition: all 0.5s ease-in-out;
 }
 .video-promo .video-promo-content .video-popup:hover {
-  background: #333AAA;
-  border-color: #333AAA;
+  background: #333aaa;
+  border-color: #333aaa;
   color: #fff;
 }
 .overlay {
@@ -557,7 +557,7 @@ a:not([href]):not([tabindex]):hover {
   height: 100%;
   top: 0px;
   left: 0px;
-  background: #333AAA;
+  background: #333aaa;
   opacity: 0.7;
   filter: alpha(opacity=70);
 }
@@ -565,7 +565,7 @@ a:not([href]):not([tabindex]):hover {
    Counter Section Style
    ========================================================================== */
 .counters {
-  background: url(../img/bg1.jpg) fixed;
+  background: url(/assets/images/bg1.jpg) fixed;
   position: relative;
 }
 .counters .facts-item {
@@ -604,7 +604,7 @@ footer {
   color: #fff;
 }
 .site-info p a:hover {
-  color: #333AAA;
+  color: #333aaa;
 }
 .social-icons {
   margin-bottom: 20px;
@@ -634,52 +634,52 @@ footer {
   color: #fff;
 }
 .facebook a {
-  color: #4867AA;
+  color: #4867aa;
 }
 .facebook a:hover {
-  background: #4867AA;
+  background: #4867aa;
 }
 .twitter a {
-  color: #1DA1F2;
+  color: #1da1f2;
 }
 .twitter a:hover {
-  background: #1DA1F2;
+  background: #1da1f2;
 }
 .google-plus a {
-  color: #DD4D42;
+  color: #dd4d42;
 }
 .google-plus a:hover {
-  background: #DD4D42;
+  background: #dd4d42;
 }
 .youtube a {
-  color: #DF2926;
+  color: #df2926;
 }
 .youtube a:hover {
-  background: #DF2926;
+  background: #df2926;
 }
 .linkedin a {
-  color: #007BB6;
+  color: #007bb6;
 }
 .linkedin a:hover {
-  background: #007BB6;
+  background: #007bb6;
 }
 .pinterest a {
-  color: #BD081C;
+  color: #bd081c;
 }
 .pinterest a:hover {
-  background: #BD081C;
+  background: #bd081c;
 }
 .dribbble a {
-  color: #EA4C89;
+  color: #ea4c89;
 }
 .dribbble a:hover {
-  background: #EA4C89;
+  background: #ea4c89;
 }
 .behance a {
-  color: #0B7CFF;
+  color: #0b7cff;
 }
 .behance a:hover {
-  background: #0B7CFF;
+  background: #0b7cff;
 }
 .subscribe-box {
   margin-top: 18px;
@@ -701,7 +701,7 @@ footer {
   text-decoration: none;
   color: #fff;
   font-size: 12px;
-  background: #333AAA;
+  background: #333aaa;
   text-transform: uppercase;
   border: none;
   padding: 7px 16px;
@@ -713,7 +713,7 @@ footer {
   -moz-transition: all 0.2s ease-in-out;
   -webkit-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   cursor: pointer;
 }
 .back-to-top {
@@ -731,7 +731,7 @@ footer {
   font-size: 18px;
   text-align: center;
   border-radius: 4px;
-  background-color: #333AAA;
+  background-color: #333aaa;
   -webkit-transition: all 0.2s linear;
   -moz-transition: all 0.2s linear;
   -o-transition: all 0.2s linear;
@@ -758,7 +758,7 @@ footer {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background-color: #333AAA;
+  background-color: #333aaa;
   opacity: 0.6;
   position: absolute;
   top: 0;
