@@ -7,15 +7,15 @@ imageurl: '/assets/images/'
 jsurl: '/assets/js/'
 
 collections:
-  peaple:
+  people:
     output: true
     permalink: /meet/:path
 
 defaults:
   - scope:
-      type: "peaple"
+      type: "people"
     values:
-      layout: "peaple"
+      layout: "people"
       image: true
   - scope:
       path: ""
