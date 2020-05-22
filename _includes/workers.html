@@ -1,0 +1,21 @@
+<section class="section" id="meet">
+	<div class="container">
+		<div class="section-header">
+			<h2 class="section-title wow fadeIn" data-wow-duration="1000ms" data-wow-delay="0.2s">Våra anställda</h2>
+		</div>
+		<div class="row">
+			{% for p in site.peaple %}
+				<div class="col-md-4 col-sm-6">
+					<a class="item-boxes wow fadeInDown" data-wow-delay="0.3s" href="{{ p.url }}">
+						<div class="image">
+							<img src="/meet/{{p.image}}"/>
+						</div>
+						<h4 class="mt-2">{{ p.name }}</h4>
+						<p>{{p.position}}</p>
+					</div>
+				</a>
+			{% endfor %}
+
+		</div>
+	</div>
+</section>

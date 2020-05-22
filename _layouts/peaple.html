@@ -1,0 +1,59 @@
+---
+layout: default
+---
+<header>
+	<div class="menu-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-6 d-flex align-items-center">
+				<a href="/"><i class="lnr lnr-arrow-left"></i> Tillbaka</a>
+				</div>
+				<div class="col-6">
+					<div class="logo-menu">
+						<a href="index.html" class="logo d-flex justify-content-end align-items-center"><img class="logo" border="0" src="{{site.imageurl}}logo-800x800-t.png"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+
+
+<div class="container mt-5">
+	<div class="row">
+		<div class="col-sm-12">
+			<h1 class="profile__name">{{ page.name }}</h1>
+			<h4 class="profile__position">{{page.position}}</h4>
+		</div>
+	</div>
+
+	{% if page.linkedin or page.twitter %}
+		<div class="row">
+			<div class="col-12">
+				<ul class="nav">
+				{% if page.linkedin %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{page.linkedin}}"><img class="img-fluid contact-icon" src="/assets/images/linkedin-original.svg" /></a>
+					</li>
+				{% endif %}
+
+				{% if page.twitter %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{page.twitter}}"><img class="img-fluid contact-icon" src="/assets/images/twitter-original.svg" /></a>
+					</li>
+				{% endif %}
+				</ul>
+			</div>
+		</div>
+	{% endif %}
+
+	<div class="row">
+		<div class="col-sm-8">
+				{{content}}
+		</div>
+		<div class="col-sm-4">
+			<img src="/meet/{{page.image}}" class="img-responsive"/>
+		</div>
+	</div>
+</div>
