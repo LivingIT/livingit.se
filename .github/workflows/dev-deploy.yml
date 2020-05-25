@@ -51,8 +51,8 @@ jobs:
         env:
           ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEV_DEPLOY_KEY }}
           EXTERNAL_REPOSITORY: LivingIT/dev.livingit.se
-          PUBLISH_BRANCH: master
-          PUBLISH_DIR: .
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: _site
 
       - name: Slack Notification
         uses: homoluctus/slatify@master
