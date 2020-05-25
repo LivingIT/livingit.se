@@ -42,9 +42,8 @@ jobs:
 
       - name: Add custom files for dev environment
         run: |
-          rm -rf ./.github
           printf "User-agent: *\nDisallow: /" > ./robots.txt
-          echo dev.livingit.se > ./CNAME
+          echo dev.livingit.se > _site/CNAME
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v2.10.1
