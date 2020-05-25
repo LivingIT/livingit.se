@@ -32,7 +32,6 @@ plugins:
   - jekyll-seo-tag
 
 exclude:
-  - 'CNAME'
   - 'Gemfile'
   - 'Gemfile.lock'
   - 'README.md'
