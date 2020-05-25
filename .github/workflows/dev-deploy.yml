@@ -38,7 +38,7 @@ jobs:
       - name: Jekyll build
         env:
           JEKYLL_ENV: production
-        run: jekyll build --config "_config.yml,_config.prod.yml"
+        run: jekyll build --config "_config.yml"
 
       - name: Add custom files for dev environment
         run: |
