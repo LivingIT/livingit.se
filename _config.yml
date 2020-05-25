@@ -39,3 +39,4 @@ exclude:
   - 'package-lock.json'
   - 'Dockerfile'
   - 'docker-compose.yml'
+  - 'meet_OLD'
