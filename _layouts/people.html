@@ -28,6 +28,26 @@ layout: default
 		</div>
 	</div>
 
+	{% if page.linkedin or page.twitter %}
+		<div class="row">
+			<div class="col-12">
+				<ul class="nav">
+				{% if page.linkedin %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{page.linkedin}}"><img class="img-fluid contact-icon" src="/assets/images/linkedin-original.svg" /></a>
+					</li>
+				{% endif %}
+
+				{% if page.twitter %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{page.twitter}}"><img class="img-fluid contact-icon" src="/assets/images/twitter-original.svg" /></a>
+					</li>
+				{% endif %}
+				</ul>
+			</div>
+		</div>
+	{% endif %}
+
 	<div class="row">
 		<div class="col-sm-8">
 				{{content}}
