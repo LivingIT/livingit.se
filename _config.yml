@@ -13,7 +13,8 @@ collections:
 
 defaults:
   - scope:
-      path: "meet"
+      path: ""
+      type: "people"
     values:
       layout: "people"
       image: true
