@@ -13,7 +13,8 @@ collections:
 
 defaults:
   - scope:
-      type: "people"
+      path: ""
+      type: "pages"
     values:
       layout: "people"
       image: true
@@ -23,7 +24,7 @@ defaults:
       layout: "default"
 
 host: 0.0.0.0
-port: 4000
+port: 5004
 
 plugins:
   - jekyll-feed

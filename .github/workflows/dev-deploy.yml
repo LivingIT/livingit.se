@@ -1,8 +1,9 @@
-name: Deploy to dev
+name: Deploy to dev.livingit.se
 
 on:
   push:
     branches:
+      - master
       - develop
 
 jobs:
@@ -16,13 +17,28 @@ jobs:
       # - name: Setup Node
       #   uses: actions/setup-node@v1
       #   with:
-      #     node-version: '10.16'
-
+      #     node-version: '12.16'
+      #
       # - name: Install Node packages
       #   run: npm ci --production
-
+      #
       # - name: Build assets
       #   run: npm run build
+
+      - name: Set up Ruby 2.6
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.6.x
+
+      - name: Bundle install
+        run: |
+          gem install bundler
+          bundle install --jobs 4 --retry 3
+
+      - name: Jekyll build
+        env:
+          JEKYLL_ENV: production
+        run: jekyll build --config "_config.yml,_config.prod.yml"
 
       - name: Add custom files for dev environment
         run: |
