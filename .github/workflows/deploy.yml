@@ -1,9 +1,9 @@
-name: Deploy to dev.livingit.se
+name: Deploy to production
 
 on:
-  push:
-    branches:
-      - master
+  release:
+    types:
+      - published
 
 jobs:
   deploy:
@@ -39,16 +39,10 @@ jobs:
           JEKYLL_ENV: production
         run: jekyll build --config "_config.yml"
 
-      - name: Add custom files for dev environment
-        run: |
-          printf "User-agent: *\nDisallow: /" > ./robots.txt
-          echo dev.livingit.se > _site/CNAME
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v2.10.1
         env:
-          ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEV_DEPLOY_KEY }}
-          EXTERNAL_REPOSITORY: LivingIT/dev.livingit.se
+          ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: _site
 
@@ -57,7 +51,7 @@ jobs:
         if: failure()
         with:
           type: ${{ job.status }}
-          job_name: '*Deploy to https://dev.livingit.se*'
+          job_name: '*Deploy to https://livingit.se*'
           mention: 'here'
           mention_if: 'failure'
           channel: '#livingit-site'
