@@ -1,17 +1,27 @@
 # Living IT - Homepage
 
-## Contributing 🛠
+## 🐳 Get up and running
+
+The easiest way is to use Docker, then you only need to run
+
+~~~bash
+$ docker-compose up
+~~~
+
+…and you’re good to go!
+
+## 🛠 Contributing
 
 Create a feature branch (i.e. `feature/my-cool-feature`). When done, push your feature branch to Github and open a pull request. Wait for any required tests (if any) to go through, and either merge yourself or request the approval from a team member.
 
-## Branches 🌱
+## 🌱 Branches 
 
 There only two base branches in this repo that are protected (i.e. you shall not delete them):
 
 * **`master`** – Any commits merged to this branch will be deployed automatically to our dev enviroment
 * **`gh-pages`** – Special branch that Github Actions automatically deploys to in order for Github Pages to serve the website. _Do not touch this branch in any way. Do not clone it or try to push to it._
 
-## Deployment 🚀
+## 🚀 Deployment 
 
 ### Deploy to development
 
