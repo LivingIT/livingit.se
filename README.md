@@ -15,8 +15,12 @@ There only two base branches in this repo that are protected (i.e. you shall not
 
 ### Deploy to development
 
-Dev URL is https://dev.livingit.se. Commits and merges to `master` will automatically be deployed here.
+Merges to `master` will automatically be deployed to our development environment on Github Pages. The URL for dev is https://dev.livingit.se.
 
 ### Deploy to production
 
-In order to deploy to production, you must publish a [release via Github](https://github.com/LivingIT/livingit.se/releases). We have an automatic workflow that pulls the titles of merged PR:s into a draft release note. Edit this note and add any manual notes if needed and then publish the release. This will trigger the workflow that pushes to production.
+In order to deploy to production, you must publish a [release via Github](https://github.com/LivingIT/livingit.se/releases). We have an automatic workflow that pulls the titles of merged PR:s into a draft release note. Edit this note and add any manual notes if needed and then publish the release. This will trigger the action that pushes to production.
+
+### Something is not working as I expected it to
+
+First, check the [Actions](https://github.com/LivingIT/livingit.se/actions) tab to see if any of the workflows have run into an error. All jobs have a log output that you can use to debug.
