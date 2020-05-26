@@ -1,6 +1,6 @@
 ---
 name: Martin Stenlund
-position: Kodapa
+position: Kakätare
 image: martin.stenlund.jpg
 ---
 
