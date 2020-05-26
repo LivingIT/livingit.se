@@ -1,7 +1,7 @@
 ---
 name: Oliwer Helsén
 position: Webb- & apputvecklare
-image: oliwerhelsen.jpeg
+image: oliwer.helsen.jpg
 ---
 
 Oliwer är en social och nyfiken person som älskar nya utmaningar. En resultatorienterad person som ständigt leta nya vägar för att uppnå bästa resultat. Jobbar gärna i team eller i ett mindre projekt själv.
