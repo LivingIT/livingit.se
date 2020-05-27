@@ -1,5 +1,7 @@
 # Living IT - Homepage
 
+![Deploy to dev.livingit.se](https://github.com/LivingIT/livingit.se/workflows/Deploy%20to%20dev.livingit.se/badge.svg) ![Deploy to production](https://github.com/LivingIT/livingit.se/workflows/Deploy%20to%20production/badge.svg)
+
 ## 🐳 Get up and running
 
 The easiest way is to use Docker, then you only need to run
