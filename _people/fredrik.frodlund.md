@@ -2,6 +2,8 @@
 name: Fredrik Frodlund
 position: Front end designer
 image: fredrik.frodlund.jpg
+linkedin: https://www.linkedin.com/in/fredrikfrodlund/
+github: https://github.com/frippz
 ---
 
 Fredrik har bygg gränsnitt for webben sedan 1996. Han specialiserar sig på att bygga komponentbibliotek och gränsnitt för webben med hjälp av HTML och CSS (och även presentationell JavaScript emellanåt).
