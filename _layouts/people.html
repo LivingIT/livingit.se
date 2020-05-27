@@ -24,11 +24,12 @@ layout: default
 	<div class="row">
 		<div class="col-sm-12">
 			<h1 class="profile__name">{{ page.name }}</h1>
-			<h4 class="profile__position">{{page.position}}</h4>
+			<h4 class="profile__position">{{ page.position }}</h4>
 		</div>
 	</div>
 
-	{% if page.linkedin or page.twitter %}
+
+	{% if page.linkedin or page.twitter or page.github %}
 		<div class="row">
 			<div class="col-12">
 				<ul class="nav">
@@ -41,6 +42,12 @@ layout: default
 				{% if page.twitter %}
 					<li class="nav-item">
 						<a class="nav-link" href="{{page.twitter}}"><img class="img-fluid contact-icon" src="/assets/images/twitter-original.svg" /></a>
+					</li>
+				{% endif %}
+
+				{% if page.github %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{page.github}}"><img class="img-fluid contact-icon" src="/assets/images/github-original.svg" /></a>
 					</li>
 				{% endif %}
 				</ul>
