@@ -1,4 +1,4 @@
-name: Deploy to dev.livingit.se
+name: Deploy to dev
 
 on:
   push:
