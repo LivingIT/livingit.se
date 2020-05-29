@@ -41,3 +41,4 @@ exclude:
   - 'Dockerfile'
   - 'docker-compose.yml'
   - 'meet_OLD'
+  - 'vendor'
