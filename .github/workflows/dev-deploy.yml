@@ -45,6 +45,7 @@ jobs:
       - name: Jekyll build
         env:
           JEKYLL_ENV: production
+          PATH: $PATH:vendor/bundle
         run: jekyll build --config "_config.yml"
 
       - name: Add custom files for dev environment
