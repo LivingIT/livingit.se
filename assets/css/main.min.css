@@ -288,7 +288,7 @@ a:not([href]):not([tabindex]):hover {
    Work Here Style
    ========================================================================== */
 #work {
-  background: url(../img/bg_2.jpg) fixed;
+  background: url(/assets/images/bg_2.jpg) fixed;
   background-position: cover;
   color: #fff;
   overflow: hidden;

@@ -3,3 +3,12 @@
 
 .item-boxes h4 {
   color: #000; }
+
+#video-area > [data-vide-bg="video/video"] > div {
+  background: url("/assets/images/video-fallback.jpg") no-repeat 50% 50% !important;
+  background-size: cover !important; }
+
+.contact-icon {
+  display: inline-block;
+  height: 1em;
+  width: 1em; }
