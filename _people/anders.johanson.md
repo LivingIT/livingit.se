@@ -2,6 +2,11 @@
 name: Anders Johanson
 position: Kodapa
 image: anders.johanson.jpg
+# social:
+#   linkedin: LINKEDIN_URL
+#   github: GITHUB_URL
+#   facebook: FACEBOOK_URL
+#   twitter: TWITTER_URL
 ---
 
 Nullam tempor turpis a tempor pellentesque. Etiam ut nisl finibus, tristique tortor id, rhoncus risus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
