@@ -10,7 +10,9 @@ layout: default
         </div>
         <div class="col-6">
           <div class="logo-menu">
-            <a href="index.html" class="logo d-flex justify-content-end align-items-center"><img class="logo" border="0" src="{{site.imageurl}}logo-800x800-t.png"></a>
+            <a href="index.html" class="logo d-flex justify-content-end align-items-center">
+              <img class="logo" border="0" src="{{site.imageurl}}logo-800x800-t.png">
+            </a>
           </div>
         </div>
       </div>
@@ -35,7 +37,9 @@ layout: default
         <ul class="nav">
           {% for platform in page.social %}
           <li class="nav-item">
-            <a class="nav-link" href="{{ platform[1] }}"><img alt="{{ platform[0] }}" class="img-fluid contact-icon" src="/assets/images/{{ platform[0] }}-original.svg" /></a>
+            <a class="nav-link" href="{{ platform[1] }}">
+              <img alt="{{ platform[0] }}" class="img-fluid contact-icon" src="/assets/images/{{ platform[0] }}-original.svg">
+            </a>
           </li>
           {% endfor %}
         </ul>
