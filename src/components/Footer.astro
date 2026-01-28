@@ -7,32 +7,54 @@ const iconMap = {
   github: 'simple-icons:github',
   dribbble: 'simple-icons:dribbble',
   linkedin: 'simple-icons:linkedin',
+  facebook: 'simple-icons:facebook',
+  instagram: 'simple-icons:instagram',
 };
 ---
 
 <footer class="bg-mono-black px-4 py-16 text-white sm:px-6 lg:px-8">
   <div class="mx-auto max-w-7xl">
     <div class="mb-12 grid grid-cols-1 gap-12 md:grid-cols-4">
-      <div class="md:col-span-1">
-        <div class="mb-4 text-2xl font-bold">{siteConfig.site.name}</div>
-        <p class="text-mono-light text-sm leading-relaxed">
-          {siteConfig.footer.tagline}
-        </p>
-      </div>
-
       {
         siteConfig.footer.columns.map((column) => (
           <div>
-            <h4 class="mb-4 font-semibold">{column.title}</h4>
-            <ul class="space-y-3 text-sm">
-              {column.links.map((link) => (
-                <li>
-                  <a href={link.href} class="text-mono-light">
-                    {link.name}
+            {column.title && <h4 class="mb-4 font-semibold">{column.title}</h4>}
+            {column.address && (
+              <a href={column.mapsUrl} target="_blank" rel="noopener noreferrer" class="text-mono-light mb-4 whitespace-pre-line text-sm leading-relaxed hover:text-white transition-colors block">
+                {column.address}
+              </a>
+            )}
+            {column.logo && (
+              <div class="mb-4">
+                <img src={column.logo} alt="Living IT Logo" class="h-12" />
+              </div>
+            )}
+            {column.links && (
+              <ul class="space-y-3 text-sm">
+                {column.links.map((link) => (
+                  <li>
+                    <a href={link.href} class="text-mono-light">
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {column.social && (
+              <div class="flex space-x-4">
+                {column.social.map((social) => (
+                  <a
+                    href={social.href}
+                    class="text-mono-light hover:text-white transition-colors"
+                    aria-label={social.name}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Icon name={iconMap[social.icon]} class="h-6 w-6" />
                   </a>
-                </li>
-              ))}
-            </ul>
+                ))}
+              </div>
+            )}
           </div>
         ))
       }
@@ -44,20 +66,6 @@ const iconMap = {
       <p class="text-mono-light mb-4 text-sm md:mb-0">
         &copy; {siteConfig.footer.copyright}
       </p>
-
-      <div class="flex space-x-6">
-        {
-          siteConfig.footer.social.map((social) => (
-            <a
-              href={social.href}
-              class="text-mono-light"
-              aria-label={social.name}
-            >
-              <Icon name={iconMap[social.icon]} class="h-6 w-6" />
-            </a>
-          ))
-        }
-      </div>
     </div>
   </div>
 </footer>

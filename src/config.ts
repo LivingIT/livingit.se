@@ -269,45 +269,31 @@ Det är **The Living IT Way**.`
   // FOOTER
   // ============================================
   footer: {
-    tagline:
-      'Intelligent automation for modern teams. Transform your workflow with AI.',
     columns: [
       {
-        title: 'Product',
-        links: [
-          { name: 'Features', href: '#features' },
-          { name: 'Pricing', href: '#pricing' },
-          { name: 'Integrations', href: '#' },
-          { name: 'API Docs', href: '#' },
-          { name: 'Changelog', href: '#' },
+        title: 'Malmö',
+        address: 'Gustav Adolfs torg 12\n211 39 Malmö\nSweden',
+        mapsUrl: 'https://maps.google.com/?q=55.60191580297133,12.999251168084095',
+        links: [],
+      },
+      {
+        title: 'Göteborg',
+        address: 'Norra Hamngatan 18\n411 06 Göteborg\nSweden',
+        mapsUrl: 'https://maps.google.com/?q=57.70710852992462,11.968320826032762',
+        links: [],
+      },
+      {
+        title: 'Följ oss',
+        social: [
+          { name: 'LinkedIn', href: 'https://www.linkedin.com/company/living-it/', icon: 'linkedin' },
+          { name: 'Facebook', href: 'https://www.facebook.com/LivingITConsulting', icon: 'facebook' },
+          { name: 'Twitter', href: 'https://x.com/LivingITConsult', icon: 'twitter' },
+          { name: 'Instagram', href: 'https://www.instagram.com/LivingITConsulting/', icon: 'instagram' },
         ],
       },
       {
-        title: 'Company',
-        links: [
-          { name: 'About Us', href: '#' },
-          { name: 'Blog', href: '#' },
-          { name: 'Careers', href: '#' },
-          { name: 'Press Kit', href: '#' },
-          { name: 'Contact', href: '#contact' },
-        ],
+        logo: '/images/logo-dark.svg',
       },
-      {
-        title: 'Legal',
-        links: [
-          { name: 'Privacy Policy', href: '#' },
-          { name: 'Terms of Service', href: '#' },
-          { name: 'Cookie Policy', href: '#' },
-          { name: 'Security', href: '#' },
-          { name: 'Compliance', href: '#' },
-        ],
-      },
-    ],
-    social: [
-      { name: 'Twitter', href: '#', icon: 'twitter' },
-      { name: 'GitHub', href: '#', icon: 'github' },
-      { name: 'Dribbble', href: '#', icon: 'dribbble' },
-      { name: 'LinkedIn', href: '#', icon: 'linkedin' },
     ],
     copyright: `${new Date().getFullYear()} Living IT. All rights reserved.`,
   },
