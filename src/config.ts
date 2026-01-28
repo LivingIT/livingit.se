@@ -48,16 +48,6 @@ export const siteConfig = {
     subheadline: 'living it tomorrow.',
     description:
       'Vi är ett konsultföretag i Malmö och Göteborg som tycker att familjen, vännerna och fritiden är det viktigaste vi har, men när vi är på jobbet gör vi alltid vårt bästa för att leverera över våra kunders förväntningar.',
-    cta: {
-      primary: {
-        text: 'Get Started Free',
-        href: '#contact',
-      },
-      secondary: {
-        text: 'See How It Works',
-        href: '#how-it-works',
-      },
-    },
   },
 
   // ============================================
