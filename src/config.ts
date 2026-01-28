@@ -61,6 +61,62 @@ export const siteConfig = {
   },
 
   // ============================================
+  // HERO CAROUSEL / ABOUT SECTION
+  // ============================================
+  heroCarousel: {
+    images: [
+      {
+        mobile: '/images/carousel/mobile/carousel01.jpg',
+        tablet: '/images/carousel/tablet/carousel01.jpg',
+        desktop: '/images/carousel/desktop/carousel01.jpg',
+      },
+      {
+        mobile: '/images/carousel/mobile/carousel02.jpg',
+        tablet: '/images/carousel/tablet/carousel02.jpg',
+        desktop: '/images/carousel/desktop/carousel02.jpg',
+      },
+      {
+        mobile: '/images/carousel/mobile/carousel03.jpg',
+        tablet: '/images/carousel/tablet/carousel03.jpg',
+        desktop: '/images/carousel/desktop/carousel03.jpg',
+      },
+      {
+        mobile: '/images/carousel/mobile/carousel04.jpg',
+        tablet: '/images/carousel/tablet/carousel04.jpg',
+        desktop: '/images/carousel/desktop/carousel04.jpg',
+      },
+      {
+        mobile: '/images/carousel/mobile/carousel05.jpg',
+        tablet: '/images/carousel/tablet/carousel05.jpg',
+        desktop: '/images/carousel/desktop/carousel05.jpg',
+      },
+      {
+        mobile: '/images/carousel/mobile/carousel06.jpg',
+        tablet: '/images/carousel/tablet/carousel06.jpg',
+        desktop: '/images/carousel/desktop/carousel06.jpg',
+      },
+    ],
+    imageAltPrefix: 'Living IT carousel image',
+    intervalMs: 4500,
+    markdown: `## The Living IT Way
+
+För oss handlar The Living IT Way inte om vilket yrke du har, utan hur du möter människor – kollegor såväl som kunder. Vi tror på balans. Att livet utanför jobbet är det som ger energi till det vi gör på jobbet.
+
+**Familj, vänner, fritid – det är där allt börjar.** Det spelar ingen roll om du har en stor eller liten familj, om du umgås med hundra vänner eller några få nära, om du springer milen, spelar brädspel eller helst kryper upp i soffan med en film.<br />
+Det viktiga är att du, när arbetsdagen är slut, har både tid och ork kvar till det som betyder mest för dig.
+
+**När människor mår bra, blir resultaten bättre.** Vi lägger lika mycket kraft på trygghet och trivsel som på teknik och leverans.<br />
+Vi satsar på kompetensutveckling, schyssta villkor och marknadens bästa lönemodell – en unik kombination av tryggheten i en anställning och friheten som egenföretagare.
+
+**Och våra kunder? De får samma omtanke.** Vi anställer bara erfarna konsulter med hög kompetens och starkt ansvarstagande. Det är viktigt för oss att dela kunskap, bygga tillsammans och se till att inget projekt står still om någon blir sjuk eller går vidare.<br />
+Skulle någon av våra konsulter vilja lämna Living IT påverkar det inte kunden. Avtalen är fria från klausuler som förhindrar öppet samarbete. Här sticker vi ut från mängden, och det är vi stolta över.
+
+Det är så vi arbetar.<br />
+Tryggt, öppet och mänskligt.<br />
+Det är **The Living IT Way**.`
+  },
+
+  // ============================================
   // FEATURES SECTION
   // ============================================
   features: {

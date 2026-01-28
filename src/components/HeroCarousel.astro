@@ -1,0 +1,52 @@
+---
+import { marked } from 'marked';
+import { siteConfig } from '../config.ts';
+
+const { heroCarousel } = siteConfig;
+const markdownHtml = marked.parse(heroCarousel.markdown);
+const altPrefix = heroCarousel.imageAltPrefix ?? 'Carousel image';
+const intervalMs = heroCarousel.intervalMs ?? 4500;
+---
+
+<section class="bg-[#dadada] px-4 py-20 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-7xl">
+    <div class="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+      <div class="scroll-fade-left">
+        <div class="carousel-frame" data-carousel data-interval={intervalMs}>
+          {heroCarousel.images.map((images, index) => (
+            <picture>
+              <source media="(min-width: 1024px)" srcset={images.desktop} />
+              <source media="(min-width: 640px)" srcset={images.tablet} />
+              <img
+                src={images.mobile}
+                alt={`${altPrefix} ${index + 1}`}
+                class={`carousel-image ${index === 0 ? 'is-active' : ''}`}
+                loading={index === 0 ? 'eager' : 'lazy'}
+                data-carousel-image
+              />
+            </picture>
+          ))}
+        </div>
+      </div>
+      <div class="scroll-fade-right text-mono-dark">
+        <div class="carousel-markdown" set:html={markdownHtml} />
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('[data-carousel]').forEach((carousel) => {
+    const slides = carousel.querySelectorAll('[data-carousel-image]');
+    if (slides.length < 2) return;
+
+    let index = 0;
+    const interval = Number(carousel.getAttribute('data-interval')) || 4500;
+
+    setInterval(() => {
+      slides[index].classList.remove('is-active');
+      index = (index + 1) % slides.length;
+      slides[index].classList.add('is-active');
+    }, interval);
+  });
+</script>
