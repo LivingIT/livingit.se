@@ -37,23 +37,6 @@ import { siteConfig } from '../config.ts';
           {siteConfig.hero.cta.secondary.text}
         </a>
       </div>
-
-      <div
-        class="border-mono-lighter mx-auto grid max-w-3xl grid-cols-3 gap-8 border-t pt-20"
-      >
-        {
-          siteConfig.hero.stats.map((stat, index) => (
-            <div class={`float scroll-fade-up stagger-${index + 1}`}>
-              <div class="text-mono-black mb-2 text-4xl font-bold">
-                {stat.value}
-              </div>
-              <div class="text-mono-gray text-sm tracking-wide uppercase">
-                {stat.label}
-              </div>
-            </div>
-          ))
-        }
-      </div>
     </div>
   </div>
 </section>

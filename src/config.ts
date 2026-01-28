@@ -58,11 +58,6 @@ export const siteConfig = {
         href: '#how-it-works',
       },
     },
-    stats: [
-      { value: '10k+', label: 'Active Agents' },
-      { value: '99.9%', label: 'Uptime' },
-      { value: '5M+', label: 'Tasks Automated' },
-    ],
   },
 
   // ============================================
