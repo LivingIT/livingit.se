@@ -29,13 +29,10 @@ export const siteConfig = {
   // ============================================
   navigation: {
     links: [
-      { name: 'Features', href: '#features' },
-      { name: 'How It Works', href: '#how-it-works' },
-      { name: 'Pricing', href: '#pricing' },
-      { name: 'FAQ', href: '#faq' },
+      { name: 'Vad vi gör', href: '#services' },
     ],
     cta: {
-      text: 'Get Started',
+      text: 'Kontakta oss',
       href: '#contact',
     },
   },
@@ -121,9 +118,9 @@ Det är **The Living IT Way**.`
   },
 
   // ============================================
-  // FEATURES SECTION
+  // SERVICES SECTION
   // ============================================
-  features: {
+  services: {
     title: 'Powerful Capabilities',
     subtitle:
       'Everything you need to build, deploy, and scale intelligent automation',

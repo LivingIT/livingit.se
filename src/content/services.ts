@@ -1,19 +1,19 @@
-export const featuresContent = [
+export const servicesContent = [
   {
     icon: 'lightning',
-    title: 'Autonomous Execution',
+    title: 'Mjukvarukonsulting',
     description:
       'AI agents that understand context, make decisions, and execute tasks without constant supervision.',
   },
   {
     icon: 'code',
-    title: 'Smart Integration',
+    title: 'Ledarskapskonsulting',
     description:
       'Seamlessly connect with your tools: Slack, email, databases, APIs, and 1000+ platforms.',
   },
   {
     icon: 'chart',
-    title: 'Real-Time Analytics',
+    title: 'Event',
     description:
       'Monitor performance, track success rates, and optimize workflows with detailed insights.',
   },
