@@ -14,6 +14,12 @@ const iconMap = {
   layers: 'heroicons:user-group',
   zap: 'heroicons:arrow-trending-up',
 };
+
+const serviceUrls: Record<string, string> = {
+  'Mjukvarukonsulting': '/mjukvarukonsulting',
+  'Ledarskapskonsulting': '/ledarskapskonsulting',
+  'Evenemang': '/evenemang',
+};
 ---
 
 <section id="services" class="relative bg-white px-4 py-20 sm:px-6 lg:px-8">
@@ -39,8 +45,9 @@ const iconMap = {
     <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
       {
         servicesContent.map((service, index) => (
-          <div
-            class={`group ${index % 2 === 0 ? 'scroll-fade-left' : 'scroll-fade-right'} border-mono-lighter rounded-xl border p-8 stagger-${(index % 9) + 1}`}
+          <a
+            href={serviceUrls[service.title]}
+            class={`group block ${index % 2 === 0 ? 'scroll-fade-left' : 'scroll-fade-right'} border-mono-lighter rounded-xl border p-8 stagger-${(index % 9) + 1} hover:shadow-lg transition-shadow`}
           >
             <div class="feature-icon bg-mono-black mb-6 flex h-14 w-14 items-center justify-center rounded-lg text-white">
               <Icon name={service.icon} class="h-7 w-7" />
@@ -49,7 +56,7 @@ const iconMap = {
               {service.title}
             </h3>
             <p class="text-mono-dark leading-relaxed">{service.description}</p>
-          </div>
+          </a>
         ))
       }
     </div>

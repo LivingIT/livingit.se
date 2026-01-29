@@ -123,7 +123,7 @@ Det är **The Living IT Way**.`
   services: {
     title: 'Vad vi gör',
     subtitle:
-      'Här är de tjänster vi erbjuder våra kunder för att hjälpa dem nå sina mål.',
+      'Här är de tjänster vi erbjuder våra kunder för att hjälpa dem nå sina mål:',
   },
 
 
@@ -171,7 +171,8 @@ Det är **The Living IT Way**.`
     banner: {
       titleSv: 'Cookiesamtycke',
       descriptionSv:
-        'Vi använder endast cookies för rent tekniska ändamål för att förbättra din webbupplevelse. Vi använder inga spårnings- eller analyskookies.',
+        'Vi använder endast cookies för rent tekniska ändamål för att förbättra din webbupplevelse. \
+        Vi använder inga spårnings- eller analyskookies.',
       acceptTextSv: 'Jag förstår',
       policyLinkTextSv: 'Läs mer om vår cookie-policy',
     },
@@ -181,7 +182,8 @@ Det är **The Living IT Way**.`
       essential: {
         titleSv: 'Nödvändiga Cookies (Tekniska)',
         descriptionSv:
-          'Dessa cookies är nödvändiga för att sajten ska fungera. De sparar inte personlig data och kan inte avaktiveras.',
+          'Dessa cookies är nödvändiga för att sajten ska fungera. De sparar inte personlig data \
+          och kan inte avaktiveras.',
         examples: ['Säkerhet', 'Load balancing'],
       }
     },

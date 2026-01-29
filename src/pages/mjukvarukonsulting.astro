@@ -1,0 +1,24 @@
+---
+import Layout from '../components/Layout.astro';
+import { siteConfig } from '../config.ts';
+import { servicesContent } from '../content/services';
+import { Icon } from 'astro-icon/components';
+
+const service = servicesContent[0];
+---
+
+<Layout title={`${service.title} - ${siteConfig.site.title}`} description={service.description}>
+  <main class="min-h-screen bg-white">
+    <div class="mx-auto max-w-4xl px-4 py-20 sm:px-6 lg:px-8">
+      <a href="/" class="text-blue-600 hover:text-blue-800 mb-8 inline-block">← Tillbaka</a>
+      
+      <div class="mb-8">
+        <div class="bg-black mb-6 flex h-16 w-16 items-center justify-center rounded-lg text-white">
+          <Icon name={service.icon} class="h-8 w-8" />
+        </div>
+        <h1 class="text-5xl font-bold mb-4">{service.title}</h1>
+        <p class="text-xl text-gray-700 leading-relaxed">{service.description}</p>
+      </div>
+    </div>
+  </main>
+</Layout>
