@@ -7,21 +7,30 @@ import { Icon } from 'astro-icon/components';
   class="border-mono-lighter fixed top-0 z-50 w-full border-b bg-white/95 backdrop-blur-sm"
 >
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="flex h-16 items-center justify-between">
-      <div class="flex items-center">
+    <div class="flex h-16 items-center">
+      <div class="flex flex-1 items-center">
         <a href="/" class="flex items-center">
           <img src="/images/logo-light.svg" alt="{siteConfig.site.name}" class="h-10 w-auto" />
         </a>
       </div>
 
-      <div class="hidden items-center space-x-8 md:flex">
+      <div class="hidden flex-1 items-center justify-center space-x-6 md:flex">
         {
           siteConfig.navigation.links.map((link) => (
-            <a href={link.href} class="text-mono-dark font-semibold">
-              {link.name}
+            <a
+              href={link.href}
+              class="text-mono-dark rounded-lg p-2 transition hover:text-mono-black"
+              aria-label={link.name}
+              title={link.name}
+            >
+              <Icon name={link.icon} class="h-6 w-6" />
+              <span class="sr-only">{link.name}</span>
             </a>
           ))
         }
+      </div>
+
+      <div class="hidden flex-1 items-center justify-end md:flex">
         <a
           href={siteConfig.navigation.cta.href}
           class="bg-mono-black rounded-lg px-6 py-2 font-semibold text-white"
@@ -45,8 +54,12 @@ import { Icon } from 'astro-icon/components';
       <div class="flex flex-col space-y-3">
         {
           siteConfig.navigation.links.map((link) => (
-            <a href={link.href} class="text-mono-dark font-semibold py-2">
-              {link.name}
+            <a
+              href={link.href}
+              class="text-mono-dark flex items-center gap-3 py-2 font-semibold"
+            >
+              <Icon name={link.icon} class="h-5 w-5" />
+              <span>{link.name}</span>
             </a>
           ))
         }

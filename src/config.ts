@@ -29,7 +29,21 @@ export const siteConfig = {
   // ============================================
   navigation: {
     links: [
-      { name: 'Vad vi gör', href: '#services' },
+      {
+        name: 'Mjukvarukonsulting',
+        href: '/mjukvarukonsulting',
+        icon: 'heroicons:code-bracket',
+      },
+      {
+        name: 'Ledarskapskonsulting',
+        href: '/ledarskapskonsulting',
+        icon: 'heroicons:user-group',
+      },
+      {
+        name: 'Evenemang',
+        href: '/evenemang',
+        icon: 'heroicons:calendar-days',
+      },
     ],
     cta: {
       text: 'Kontakta oss',

@@ -16,15 +16,12 @@ const bodyHtml = await marked(service.body);
       <a href="/" class="text-blue-600 hover:text-blue-800 mb-8 inline-block">← Tillbaka</a>
       
       <div class="mb-12">
-        <div class="bg-black mb-6 flex h-16 w-16 items-center justify-center rounded-lg text-white">
-          <Icon name={service.icon} class="h-8 w-8" />
-        </div>
-        <h1 class="text-5xl font-bold mb-4">{service.title}</h1>
+        <h1 class="text-5xl font-bold mb-4 text-center">{service.title}</h1>
         <div class="md:columns-2 gap-8 text-lg text-gray-700 leading-relaxed [&>p]:mb-4" set:html={bodyHtml}></div>
       </div>
 
       <section class="mt-16">
-        <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
           {
             mjukvarukonsultingContent.map((item, index) => (
               <div
