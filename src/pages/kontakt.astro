@@ -1,0 +1,103 @@
+---
+import Layout from '../components/Layout.astro';
+import { siteConfig } from '../config.ts';
+import { kontaktContent } from '../content/kontakt';
+import { marked } from 'marked';
+
+const ingressHtml = await marked(kontaktContent.ingress);
+
+const getInitials = (name: string) =>
+  name
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join('')
+    .toUpperCase();
+---
+
+<Layout title={`Kontakta oss - ${siteConfig.site.title}`} description={kontaktContent.ingress}>
+  <main class="min-h-screen bg-white">
+    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+      <header class="mt-12 mb-12 text-center">
+        <h1 class="text-5xl font-bold mb-6">{kontaktContent.header}</h1>
+        <div
+          class="mx-auto max-w-3xl text-lg text-gray-700 leading-relaxed [&>p]:mb-4"
+          set:html={ingressHtml}
+        ></div>
+      </header>
+
+      <section class="mb-16">
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {kontaktContent.people.map((person) => (
+            <article class="rounded-2xl border border-mono-lighter bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
+              <div class="mb-5">
+                <div class="relative aspect-[4/5] overflow-hidden rounded-xl bg-gray-100">
+                  <img
+                    src={person.photo}
+                    alt={`Foto på ${person.name}`}
+                    class="h-full w-full object-cover"
+                    loading="lazy"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                  />
+                  <div class="absolute inset-0 hidden items-center justify-center bg-gray-100 text-3xl font-semibold text-mono-dark">
+                    {getInitials(person.name)}
+                  </div>
+                </div>
+              </div>
+              <h3 class="text-xl font-semibold text-mono-black mb-1">{person.name}</h3>
+              <p class="text-mono-dark mb-4">{person.title}</p>
+              <div class="space-y-2 text-sm">
+                <div>
+                  <p class="text-mono-gray">Telefon</p>
+                  <a
+                    href={`tel:${person.phoneNumber}`}
+                    class="text-mono-dark hover:text-mono-black"
+                  >
+                    {person.phoneDisplay}
+                  </a>
+                </div>
+                <div>
+                  <p class="text-mono-gray">E-post</p>
+                  <a
+                    href={`mailto:${person.email}`}
+                    class="text-mono-dark hover:text-mono-black break-all"
+                  >
+                    {person.email}
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+      
+      <section>
+        <div class="rounded-2xl border border-mono-lighter bg-gray-50 p-8 md:p-10">
+          <h2 class="text-2xl font-semibold mb-6">Bolagsuppgifter</h2>
+          <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+            <div>
+              <p class="text-sm uppercase text-mono-gray">Bolag</p>
+              <p class="text-lg font-semibold text-mono-black">
+                {kontaktContent.company.name}
+              </p>
+            </div>
+            <div>
+              <p class="text-sm uppercase text-mono-gray">Org.nr</p>
+              <p class="text-lg font-semibold text-mono-black">
+                {kontaktContent.company.orgNumber}
+              </p>
+            </div>
+            <div>
+              <p class="text-sm uppercase text-mono-gray">Bankgiro</p>
+              <p class="text-lg font-semibold text-mono-black">
+                {kontaktContent.company.bankgiro}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</Layout>

@@ -47,7 +47,7 @@ export const siteConfig = {
     ],
     cta: {
       text: 'Kontakta oss',
-      href: '#contact',
+      href: '/kontakt',
     },
   },
 
