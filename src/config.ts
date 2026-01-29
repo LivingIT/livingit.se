@@ -121,7 +121,7 @@ Det är **The Living IT Way**.`
   // SERVICES SECTION
   // ============================================
   services: {
-    title: 'Powerful Capabilities',
+    title: 'Vad vi gör',
     subtitle:
       'Everything you need to build, deploy, and scale intelligent automation',
     items: [
