@@ -43,7 +43,7 @@ const iconMap = {
             class={`group ${index % 2 === 0 ? 'scroll-fade-left' : 'scroll-fade-right'} border-mono-lighter rounded-xl border p-8 stagger-${(index % 9) + 1}`}
           >
             <div class="feature-icon bg-mono-black mb-6 flex h-14 w-14 items-center justify-center rounded-lg text-white">
-              <Icon name={iconMap[service.icon]} class="h-7 w-7" />
+              <Icon name={service.icon} class="h-7 w-7" />
             </div>
             <h3 class="text-mono-black mb-3 text-xl font-semibold">
               {service.title}

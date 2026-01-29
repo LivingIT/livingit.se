@@ -123,7 +123,7 @@ Det är **The Living IT Way**.`
   services: {
     title: 'Vad vi gör',
     subtitle:
-      'Everything you need to build, deploy, and scale intelligent automation',
+      'Här är de tjänster vi erbjuder våra kunder för att hjälpa dem nå sina mål.',
   },
 
 
