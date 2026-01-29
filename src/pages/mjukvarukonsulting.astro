@@ -13,9 +13,7 @@ const bodyHtml = await marked(service.body);
 <Layout title={`${service.title} - ${siteConfig.site.title}`} description={service.description}>
   <main class="min-h-screen bg-white">
     <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-      <a href="/" class="text-blue-600 hover:text-blue-800 mb-8 inline-block">← Tillbaka</a>
-      
-      <div class="mb-12">
+      <div class="mt-12 mb-12">
         <h1 class="text-5xl font-bold mb-8 text-center">{service.title}</h1>
         <div class="md:columns-2 gap-8 text-lg text-gray-700 leading-relaxed [&>p]:mb-4" set:html={bodyHtml}></div>
       </div>
