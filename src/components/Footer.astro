@@ -27,6 +27,22 @@ const iconMap = {
             {column.logo && (
               <div class="mb-4">
                 <img src={column.logo} alt="Living IT Logo" class="h-12" />
+                {column.legalInfo && (
+                  <div class="mt-6 text-mono-light whitespace-pre-line text-sm leading-relaxed">
+                    {column.legalInfo}
+                  </div>
+                )}
+                {column.showCookieButton && (
+                  <button 
+                    id="restore-cookie-consent" 
+                    class="mt-4 text-mono-light hover:text-white transition-colors cursor-pointer"
+                    aria-label="Hantera cookies"
+                  >
+                    <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM7.5 10.5C6.67 10.5 6 9.83 6 9C6 8.17 6.67 7.5 7.5 7.5C8.33 7.5 9 8.17 9 9C9 9.83 8.33 10.5 7.5 10.5ZM11 17C10.17 17 9.5 16.33 9.5 15.5C9.5 14.67 10.17 14 11 14C11.83 14 12.5 14.67 12.5 15.5C12.5 16.33 11.83 17 11 17ZM12.5 9C11.67 9 11 8.33 11 7.5C11 6.67 11.67 6 12.5 6C13.33 6 14 6.67 14 7.5C14 8.33 13.33 9 12.5 9ZM16.5 14C15.67 14 15 13.33 15 12.5C15 11.67 15.67 11 16.5 11C17.33 11 18 11.67 18 12.5C18 13.33 17.33 14 16.5 14Z"/>
+                    </svg>
+                  </button>
+                )}
               </div>
             )}
             {column.links && (
@@ -61,11 +77,21 @@ const iconMap = {
     </div>
 
     <div
-      class="border-mono-darker flex flex-col items-center justify-between border-t pt-8 md:flex-row"
-    >
-      <p class="text-mono-light mb-4 text-sm md:mb-0">
-        &copy; {siteConfig.footer.copyright}
-      </p>
-    </div>
+      class="border-mono-darker border-t pt-8"
+    ></div>
   </div>
 </footer>
+
+<script>
+  // Handle restore cookie consent button
+  const restoreButton = document.getElementById('restore-cookie-consent');
+  
+  restoreButton?.addEventListener('click', () => {
+    // Remove the consent from localStorage
+    localStorage.removeItem('cookie-consent-accepted');
+    
+    // Show the cookie banner
+    const cookieBanner = document.getElementById('cookie-banner');
+    cookieBanner?.classList.remove('hidden');
+  });
+</script>

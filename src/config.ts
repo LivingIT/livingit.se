@@ -307,8 +307,32 @@ Det är **The Living IT Way**.`
       },
       {
         logo: '/images/logo-dark.svg',
+        legalInfo: `Living IT Consulting Group AB\nVAT Number: SE559291387401\n© ${new Date().getFullYear()} Living IT`,
+        showCookieButton: true,
       },
     ],
-    copyright: `${new Date().getFullYear()} Living IT. All rights reserved.`,
+  },
+
+  // ============================================
+  // COOKIE POLICY
+  // ============================================
+  cookies: {
+    banner: {
+      titleSv: 'Cookiesamtycke',
+      descriptionSv:
+        'Vi använder endast cookies för rent tekniska ändamål för att förbättra din webbupplevelse. Vi använder inga spårnings- eller analyskookies.',
+      acceptTextSv: 'Jag förstår',
+      policyLinkTextSv: 'Läs mer om vår cookie-policy',
+    },
+    policy: {
+      titleSv: 'Cookie Policy',
+      lastUpdatedSv: 'Senast uppdaterad',
+      essential: {
+        titleSv: 'Nödvändiga Cookies (Tekniska)',
+        descriptionSv:
+          'Dessa cookies är nödvändiga för att sajten ska fungera. De sparar inte personlig data och kan inte avaktiveras.',
+        examples: ['Säkerhet', 'Load balancing'],
+      }
+    },
   },
 };

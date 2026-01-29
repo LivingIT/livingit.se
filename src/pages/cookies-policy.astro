@@ -1,0 +1,183 @@
+---
+import '../styles/globals.css';
+import { siteConfig } from '../config.ts';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<!doctype html>
+<html lang="sv" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <title>Cookie Policy - Living IT</title>
+    <meta
+      name="description"
+      content="Läs mer om hur Living IT använder cookies och hur du kan hantera dina inställningar."
+    />
+    <meta name="robots" content="index, follow" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <Navigation />
+
+    <main class="cookie-policy-main">
+      <div class="cookie-policy-container">
+        <header class="cookie-policy-header">
+          <h1>{siteConfig.cookies.policy.titleSv}</h1>
+          <p class="last-updated">
+            {siteConfig.cookies.policy.lastUpdatedSv}: {new Date().toLocaleDateString('sv-SE')}
+          </p>
+        </header>
+
+        <section class="cookie-section">
+          <h2>Om Cookies</h2>
+          <p>
+            Cookies är små textfiler som lagras på din enhet när du besöker en webbsajt. De används
+            för att förbättra din webbupplevelse och ge oss information om hur besökare använder
+            sajten.
+          </p>
+          <p>
+            Vi respekterar din integritet och följer EU:s dataskyddsregler (GDPR) och ePrivacy-direktivet.
+            Du har rätt att veta vilka cookies vi använder och att kontrollera vilka du godkänner.
+          </p>
+        </section>
+
+        <section class="cookie-section">
+          <h2>{siteConfig.cookies.policy.essential.titleSv}</h2>
+          <p>{siteConfig.cookies.policy.essential.descriptionSv}</p>
+          <ul>
+            {siteConfig.cookies.policy.essential.examples.map((example) => <li>{example}</li>)}
+          </ul>
+          <p class="cookie-note">
+            <strong>Status:</strong> Dessa cookies är alltid aktiverade för att sajten ska fungera
+            korrekt.
+          </p>
+        </section>
+
+        <section class="cookie-section">
+          <h2>Kontakt</h2>
+          <p>
+            Om du har frågor om vår cookie-policy eller hur vi hanterar dina data, kontakta oss gärna:
+          </p>
+          <p>
+            <strong>Email:</strong> <a href="mailto:{siteConfig.site.email}">{siteConfig.site.email}</a>
+          </p>
+        </section>
+
+      </div>
+    </main>
+
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .cookie-policy-main {
+    min-height: 80vh;
+    padding: 4rem 1.5rem 2rem;
+    background-color: #fafafa;
+  }
+
+  .cookie-policy-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .cookie-policy-header {
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+
+  .cookie-policy-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    color: #000;
+  }
+
+  .last-updated {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0;
+  }
+
+  .cookie-section {
+    margin-bottom: 2.5rem;
+    padding: 1.5rem;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .cookie-section h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+    color: #000;
+  }
+
+  .cookie-section p {
+    margin: 1rem 0;
+    line-height: 1.6;
+    color: #333;
+  }
+
+  .cookie-section ul,
+  .cookie-section ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+    color: #333;
+  }
+
+  .cookie-section li {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+  }
+
+  .cookie-note {
+    margin: 1rem 0 0 0;
+    padding: 1rem;
+    background-color: #f0f9ff;
+    border-left: 4px solid #0284c7;
+    border-radius: 0.25rem;
+    font-size: 0.9rem;
+  }
+
+  .cookie-section a {
+    color: #0284c7;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .cookie-section a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .cookie-policy-main {
+      padding: 2rem 1rem 1.5rem;
+    }
+
+    .cookie-policy-header h1 {
+      font-size: 1.875rem;
+    }
+
+    .cookie-section {
+      padding: 1rem;
+    }
+
+    .cookie-section h2 {
+      font-size: 1.25rem;
+    }
+  }
+</style>

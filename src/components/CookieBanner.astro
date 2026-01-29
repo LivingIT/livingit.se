@@ -1,0 +1,156 @@
+---
+import { siteConfig } from '../config.ts';
+// Cookie Banner Component - GDPR compliant cookie consent
+---
+
+<div id="cookie-banner" class="cookie-banner">
+  <div class="cookie-banner-content">
+    <div class="cookie-banner-text">
+      <h3>{siteConfig.cookies.banner.titleSv}</h3>
+      <p>
+        {siteConfig.cookies.banner.descriptionSv}
+      </p>
+      <a href="/cookies-policy" class="cookie-policy-link"
+        >{siteConfig.cookies.banner.policyLinkTextSv}</a
+      >
+    </div>
+    <div class="cookie-banner-buttons">
+      <button id="accept-cookies" class="cookie-banner-button"
+        >{siteConfig.cookies.banner.acceptTextSv}</button
+      >
+    </div>
+  </div>
+</div>
+
+<style>
+  .cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #000000;
+    color: #ffffff;
+    padding: 1.5rem;
+    z-index: 1000;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    animation: slideUp 0.3s ease-in-out;
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .cookie-banner-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .cookie-banner-text h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+
+  .cookie-banner-text p {
+    margin: 0 0 0.5rem 0;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    opacity: 0.9;
+  }
+
+  .cookie-policy-link {
+    display: inline-block;
+    font-size: 0.875rem;
+    color: #e5e5e5;
+    text-decoration: underline;
+    transition: color 0.2s ease;
+  }
+
+  .cookie-policy-link:hover {
+    color: #ffffff;
+  }
+
+  .cookie-banner-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-shrink: 0;
+    align-items: center;
+  }
+
+  .cookie-banner-button {
+    padding: 0.75rem 1.5rem;
+    background-color: #ffffff;
+    color: #000000;
+    border: none;
+    border-radius: 0.375rem;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.2s ease;
+    font-family: inherit;
+  }
+
+  .cookie-banner-button:hover {
+    background-color: #e5e5e5;
+  }
+
+  .cookie-banner-button:active {
+    background-color: #d4d4d4;
+  }
+
+  .cookie-banner.hidden {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .cookie-banner-content {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .cookie-banner-buttons {
+      width: 100%;
+      flex-direction: column;
+    }
+
+    .cookie-banner-button {
+      width: 100%;
+    }
+
+    .cookie-banner {
+      padding: 1rem;
+    }
+  }
+</style>
+
+<script>
+  // Cookie Banner - Essential Cookies Notice
+  const cookieBanner = document.getElementById('cookie-banner');
+  const acceptButton = document.getElementById('accept-cookies');
+
+  const COOKIE_NOTICE_KEY = 'cookie-notice-acknowledged';
+
+  // Check if user has already acknowledged the notice
+  if (localStorage.getItem(COOKIE_NOTICE_KEY) === 'true') {
+    cookieBanner?.classList.add('hidden');
+  }
+
+  // Handle acknowledgment button click
+  acceptButton?.addEventListener('click', () => {
+    localStorage.setItem(COOKIE_NOTICE_KEY, 'true');
+    cookieBanner?.classList.add('hidden');
+  });
+</script>
