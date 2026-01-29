@@ -3,8 +3,10 @@ import Layout from '../components/Layout.astro';
 import { siteConfig } from '../config.ts';
 import { servicesContent } from '../content/services';
 import { Icon } from 'astro-icon/components';
+import { marked } from 'marked';
 
 const service = servicesContent[1];
+const bodyHtml = await marked(service.body);
 ---
 
 <Layout title={`${service.title} - ${siteConfig.site.title}`} description={service.description}>
@@ -17,7 +19,7 @@ const service = servicesContent[1];
           <Icon name={service.icon} class="h-8 w-8" />
         </div>
         <h1 class="text-5xl font-bold mb-4">{service.title}</h1>
-        <p class="text-xl text-gray-700 leading-relaxed">{service.description}</p>
+        <div class="text-lg text-gray-700 leading-relaxed [&>p]:mb-6" set:html={bodyHtml}></div>
       </div>
     </div>
   </main>
