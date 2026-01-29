@@ -16,7 +16,7 @@ const bodyHtml = await marked(service.body);
       <a href="/" class="text-blue-600 hover:text-blue-800 mb-8 inline-block">← Tillbaka</a>
       
       <div class="mb-12">
-        <h1 class="text-5xl font-bold mb-4 text-center">{service.title}</h1>
+        <h1 class="text-5xl font-bold mb-8 text-center">{service.title}</h1>
         <div class="md:columns-2 gap-8 text-lg text-gray-700 leading-relaxed [&>p]:mb-4" set:html={bodyHtml}></div>
       </div>
 
