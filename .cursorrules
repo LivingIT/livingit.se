@@ -1,3 +1,5 @@
 # AI Agent Instructions
 
 This website is entirely in Swedish. All content, text, labels, and user-facing strings should be in Swedish unless specifically requested to be in English for particular sections.
+
+When writing human-readable text (not code), aim for approximately 80 characters per line when possible to improve readability.

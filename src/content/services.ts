@@ -12,10 +12,12 @@ precision och ett genuint engagemang. Vårt fokus är att bygga \
 hållbara och tydliga system som gör verklig skillnad – för både \
 team och verksamhet.
 
-När **utvecklingsbehoven** växer finns vi där – som en pålitlig \
+När utvecklingsbehoven växer finns vi där – som en pålitlig \
 partner genom hela resan. Våra utvecklare och arkitekter kliver in \
 med säker hand och ny energi, redo att forma strukturer som fungerar \
-över tid. Tillsammans med våra specialister inom kvalitetssäkring, \
+över tid.
+
+Tillsammans med våra specialister inom kvalitetssäkring, \
 samarbetsflöden och moderna arbetssätt hjälper vi er att frigöra \
 potentialen i systemen och skapa resultat som märks – i stabilitet, \
 i tempo och i användarupplevelse.
