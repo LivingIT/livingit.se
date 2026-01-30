@@ -206,7 +206,7 @@ Det är **The Living IT Way**.`
         links: [],
       },
       {
-        title: 'Följ oss',
+        title: 'Följ oss här',
         social: [
           { name: 'LinkedIn', href: 'https://www.linkedin.com/company/living-it/', icon: 'linkedin' },
           { name: 'Facebook', href: 'https://www.facebook.com/LivingITConsulting', icon: 'facebook' },
