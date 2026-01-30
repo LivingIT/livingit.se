@@ -2,10 +2,11 @@
 import Layout from '../components/Layout.astro';
 import { siteConfig, getImageSrcSet, imageSizes } from '../config.ts';
 import { contactContent } from '../content/contact';
+import { Icon } from 'astro-icon/components';
 import { marked } from 'marked';
 
-const contactGeneralHtml = await marked(contactContent.contactGeneral);
-const contactStartHtml = await marked(contactContent.contactStart);
+const contactGeneralHtml = await marked(contactContent.contactGeneral.text);
+const contactStartHtml = await marked(contactContent.contactStart.text);
 
 const getInitials = (name: string) =>
   name
@@ -27,9 +28,15 @@ const getInitials = (name: string) =>
       <section class="mb-16">
         <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
           <div class="rounded-2xl border border-mono-lighter p-8" style="background-color: rgb(250, 250, 250);">
+            <div class="feature-icon bg-[var(--color-orange)] mb-6 flex h-14 w-14 items-center justify-center rounded-lg text-white">
+              <Icon name={contactContent.contactGeneral.icon} class="h-7 w-7" />
+            </div>
             <div class="text-lg text-gray-700 leading-relaxed space-y-4 [&>p]:mb-4 [&>em]:italic [&>strong]:font-semibold" set:html={contactGeneralHtml}></div>
           </div>
           <div class="rounded-2xl border border-mono-lighter p-8" style="background-color: rgb(250, 250, 250);">
+            <div class="feature-icon bg-[var(--color-orange)] mb-6 flex h-14 w-14 items-center justify-center rounded-lg text-white">
+              <Icon name={contactContent.contactStart.icon} class="h-7 w-7" />
+            </div>
             <div class="text-lg text-gray-700 leading-relaxed space-y-4 [&>p]:mb-4 [&>em]:italic [&>strong]:font-semibold" set:html={contactStartHtml}></div>
           </div>
         </div>

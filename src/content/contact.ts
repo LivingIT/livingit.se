@@ -3,16 +3,22 @@ import { getResponsiveImage, type ResponsiveImage } from '../config';
 export const contactContent = {
   header: 'Kontakta oss',
 
-  contactGeneral: `
+  contactGeneral: {
+    icon: 'heroicons:chat-bubble-left-right',
+    text: `
 Har ni behov av en IT- eller ledarskapskonsult? Intresserad av att veta mer om våra events? 🤔
 
 Skicka ett mail till ***hello@livingit.se*** eller ta kontakt med någon av våra affärsutvecklare nedan!`,
-  contactStart: `
+  },
+  contactStart: {
+    icon: 'heroicons:sparkles',
+    text: `
   Är du nyfiken på hur det är att jobba hos oss? ⭐
   
   Eller är du rent av ***ready to start Living IT?***
   
   Maila ***start@livingit.se***, så tar vi det därifrån! 🙂`,
+  },
 
   company: {
     name: 'Living IT Consulting Group AB',
