@@ -2,12 +2,18 @@ import { getResponsiveImage, type ResponsiveImage } from '../config';
 
 export const contactContent = {
   header: 'Kontakta oss',
-  ingress: `Är du nyfiken på att börja jobba hos oss?
-Har ni behov av en IT- eller ledarskapskonsult?
 
-Intresserad av att veta mer om våra events?
+  contactGeneral: `
+Har ni behov av en IT- eller ledarskapskonsult? Intresserad av att veta mer om våra events? 🤔
 
-**Hör av dig, så tar vi det därifrån!**`,
+Skicka ett mail till ***hello@livingit.se*** eller ta kontakt med någon av våra affärsutvecklare nedan!`,
+  contactStart: `
+  Är du nyfiken på hur det är att jobba hos oss?
+  
+  Eller är du rent av ***ready to start Living IT?***
+  
+  Maila ***start@livingit.se***, så tar vi det därifrån! 🙂`,
+
   company: {
     name: 'Living IT Consulting Group AB',
     orgNumber: '559291-3874',
@@ -65,7 +71,7 @@ Intresserad av att veta mer om våra events?
     {
       name: 'Martin Stenlund',
       title: 'Grundare och visionär',
-      phoneDisplay: '0722-01 07 20',
+      phoneDisplay: '072-201 07 20',
       phoneNumber: '+46722010720',
       email: 'martin.stenlund@livingit.se',
       photo: getResponsiveImage('contact/martin-stenlund.jpg'),
@@ -73,7 +79,7 @@ Intresserad av att veta mer om våra events?
     {
       name: 'Mattias Larsson',
       title: 'Grundare och ordningsman',
-      phoneDisplay: '0763-90 60 54',
+      phoneDisplay: '076-390 60 54',
       phoneNumber: '+46763906054',
       email: 'mattias.larsson@livingit.se',
       photo: getResponsiveImage('contact/mattias-larsson.jpg'),
