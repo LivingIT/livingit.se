@@ -14,8 +14,8 @@ som möjligt ska kunna komma. Avgiften är låg, faktum är att du endast
 betalar för lunch och fika – själva konferensen bjuder vi på! Vi ser
 det som ett sätt att ge tillbaka till kunder, anställda och communityn.
 
-Besök beautyincode.se och läs mer om konferensen och hur man anmäler
-sig! Där kan du också titta på tidigare års föreläsningar!`,
+Besök gärna **[beautyincode.se](https://beautincode.se)** och läs mer om
+konferensen och hur du anmäler dig! Där kan du också titta på tidigare års föreläsningar!`,
     image: getResponsiveImage('events/beautyincode.jpg'),
     alt: 'Beauty in Code – föreläsare på scen',
   },
