@@ -1,3 +1,5 @@
+import { getResponsiveImage, type ResponsiveImage } from '../config';
+
 export const evenemangContent = [
   {
     title: 'Beauty in Code',
@@ -14,7 +16,7 @@ det som ett sätt att ge tillbaka till kunder, anställda och communityn.
 
 Besök beautyincode.se och läs mer om konferensen och hur man anmäler
 sig! Där kan du också titta på tidigare års föreläsningar!`,
-    image: '/images/desktop/events/beautyincode.jpg',
+    image: getResponsiveImage('events/beautyincode.jpg'),
     alt: 'Beauty in Code – föreläsare på scen',
   },
   {
@@ -31,7 +33,7 @@ verkligheten. Fokus ligger på att verkligen grotta ner sig i ett ämne
 
 Våra workshops är öppna både för våra anställda och för externa
 deltagare som vill utvecklas tillsammans med oss.`,
-    image: '/images/desktop/events/workshop.jpg',
+    image: getResponsiveImage('events/workshop.jpg'),
     alt: 'Workshop – deltagare i loungemiljö',
   },
   {
@@ -47,7 +49,7 @@ och branschkollegor för allt de gjort och fortsätter göra för oss.
 
 Ta din popcorn och dricka, slå dig ner i salongen och gör dig redo för
 kvällens film!`,
-    image: '/images/desktop/events/it-bio.jpg',
+    image: getResponsiveImage('events/it-bio.jpg'),
     alt: 'IT-bio – presentation före filmvisning',
   },
   {
@@ -59,7 +61,7 @@ kombinerar föreläsningar med hands-on övningar i något intressant ämne.
 
 Kombinationen av workshops och sociala aktiviteter ger oss inte bara ny
 kunskap, utan också massor av energi och glädje!`,
-    image: '/images/desktop/events/it-helg.jpg',
+    image: getResponsiveImage('events/it-helg.jpg'),
     alt: 'IT-helg – föreläsning inför grupp',
   },
 ];

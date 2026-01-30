@@ -1,6 +1,6 @@
 ---
 import Layout from '../components/Layout.astro';
-import { siteConfig } from '../config.ts';
+import { siteConfig, getImageSrcSet, imageSizes } from '../config.ts';
 import { kontaktContent } from '../content/kontakt';
 import { marked } from 'marked';
 
@@ -34,7 +34,9 @@ const getInitials = (name: string) =>
               <div class="mb-5">
                 <div class="relative aspect-[4/5] overflow-hidden rounded-xl bg-gray-100">
                   <img
-                    src={person.photo}
+                    srcset={getImageSrcSet(person.photo)}
+                    sizes={imageSizes.contactPhoto}
+                    src={person.photo.desktop}
                     alt={`Foto på ${person.name}`}
                     class="h-full w-full object-cover"
                     loading="lazy"

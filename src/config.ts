@@ -2,6 +2,74 @@
 // SITE CONFIGURATION
 // ============================================
 
+// ============================================
+// RESPONSIVE IMAGE UTILITIES
+// ============================================
+
+/**
+ * Responsive image configuration for srcset and picture elements
+ */
+export interface ResponsiveImage {
+  mobile: string;
+  tablet: string;
+  desktop: string;
+}
+
+/**
+ * Creates a responsive image object from a base path
+ * Automatically generates paths for mobile, tablet, and desktop versions
+ * 
+ * @param baseImagePath - The path without device prefix, e.g., "events/beautyincode.jpg" or "contact/emil-sigvant.jpg"
+ * @returns ResponsiveImage object with mobile, tablet, and desktop paths
+ * 
+ * @example
+ * const image = getResponsiveImage("events/beautyincode.jpg");
+ * // Returns:
+ * // {
+ * //   mobile: "/images/mobile/events/beautyincode.jpg",
+ * //   tablet: "/images/tablet/events/beautyincode.jpg",
+ * //   desktop: "/images/desktop/events/beautyincode.jpg"
+ * // }
+ */
+export function getResponsiveImage(baseImagePath: string): ResponsiveImage {
+  // Remove leading slash if present
+  const cleanPath = baseImagePath.replace(/^\/+/, '');
+  
+  return {
+    mobile: `/images/mobile/${cleanPath}`,
+    tablet: `/images/tablet/${cleanPath}`,
+    desktop: `/images/desktop/${cleanPath}`,
+  };
+}
+
+/**
+ * Generates a srcset string from a ResponsiveImage object
+ * 
+ * @param image - ResponsiveImage object with mobile, tablet, and desktop paths
+ * @returns srcset string for use in img elements
+ * 
+ * @example
+ * const srcset = getImageSrcSet(getResponsiveImage("events/beautyincode.jpg"));
+ * // Returns: "/images/mobile/events/beautyincode.jpg 640w, /images/tablet/events/beautyincode.jpg 1024w, /images/desktop/events/beautyincode.jpg 1920w"
+ */
+export function getImageSrcSet(image: ResponsiveImage): string {
+  return image.mobile + ' 640w, ' + image.tablet + ' 1024w, ' + image.desktop + ' 1920w';
+}
+
+/**
+ * Predefined sizes configurations for different image types
+ */
+export const imageSizes = {
+  /** For contact/team member photos in a grid */
+  contactPhoto: '(min-width: 1024px) 50vw, (min-width: 640px) 50vw, 100vw',
+  
+  /** For event images in alternating layout */
+  eventImage: '(min-width: 768px) 33vw, 100vw',
+  
+  /** For hero carousel images */
+  carouselImage: '(min-width: 1024px) 50vw, 100vw',
+} as const;
+
 export const siteConfig = {
   // ============================================
   // SITE METADATA & SEO
@@ -66,36 +134,12 @@ export const siteConfig = {
   // ============================================
   heroCarousel: {
     images: [
-      {
-        mobile: '/images/mobile/carousel/carousel01.jpg',
-        tablet: '/images/tablet/carousel/carousel01.jpg',
-        desktop: '/images/desktop/carousel/carousel01.jpg',
-      },
-      {
-        mobile: '/images/mobile/carousel/carousel02.jpg',
-        tablet: '/images/tablet/carousel/carousel02.jpg',
-        desktop: '/images/desktop/carousel/carousel02.jpg',
-      },
-      {
-        mobile: '/images/mobile/carousel/carousel03.jpg',
-        tablet: '/images/tablet/carousel/carousel03.jpg',
-        desktop: '/images/desktop/carousel/carousel03.jpg',
-      },
-      {
-        mobile: '/images/mobile/carousel/carousel04.jpg',
-        tablet: '/images/tablet/carousel/carousel04.jpg',
-        desktop: '/images/desktop/carousel/carousel04.jpg',
-      },
-      {
-        mobile: '/images/mobile/carousel/carousel05.jpg',
-        tablet: '/images/tablet/carousel/carousel05.jpg',
-        desktop: '/images/desktop/carousel/carousel05.jpg',
-      },
-      {
-        mobile: '/images/mobile/carousel/carousel06.jpg',
-        tablet: '/images/tablet/carousel/carousel06.jpg',
-        desktop: '/images/desktop/carousel/carousel06.jpg',
-      },
+      getResponsiveImage('carousel/carousel01.jpg'),
+      getResponsiveImage('carousel/carousel02.jpg'),
+      getResponsiveImage('carousel/carousel03.jpg'),
+      getResponsiveImage('carousel/carousel04.jpg'),
+      getResponsiveImage('carousel/carousel05.jpg'),
+      getResponsiveImage('carousel/carousel06.jpg'),
     ],
     imageAltPrefix: 'Living IT carousel image',
     intervalMs: 4500,

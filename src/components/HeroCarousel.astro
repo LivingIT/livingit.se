@@ -1,6 +1,6 @@
 ---
 import { marked } from 'marked';
-import { siteConfig } from '../config.ts';
+import { siteConfig, getImageSrcSet, imageSizes } from '../config.ts';
 
 const { heroCarousel } = siteConfig;
 const markdownHtml = marked.parse(heroCarousel.markdown);
@@ -14,17 +14,15 @@ const intervalMs = heroCarousel.intervalMs ?? 4500;
       <div class="scroll-fade-left">
         <div class="carousel-frame" data-carousel data-interval={intervalMs}>
           {heroCarousel.images.map((images, index) => (
-            <picture>
-              <source media="(min-width: 1024px)" srcset={images.desktop} />
-              <source media="(min-width: 640px)" srcset={images.tablet} />
-              <img
-                src={images.mobile}
-                alt={`${altPrefix} ${index + 1}`}
-                class={`carousel-image ${index === 0 ? 'is-active' : ''}`}
-                loading={index === 0 ? 'eager' : 'lazy'}
-                data-carousel-image
-              />
-            </picture>
+            <img
+              srcset={getImageSrcSet(images)}
+              sizes={imageSizes.carouselImage}
+              src={images.desktop}
+              alt={`${altPrefix} ${index + 1}`}
+              class={`carousel-image ${index === 0 ? 'is-active' : ''}`}
+              loading={index === 0 ? 'eager' : 'lazy'}
+              data-carousel-image
+            />
           ))}
         </div>
       </div>

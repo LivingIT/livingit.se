@@ -1,6 +1,6 @@
 ---
 import Layout from '../components/Layout.astro';
-import { siteConfig } from '../config.ts';
+import { siteConfig, getImageSrcSet, imageSizes } from '../config.ts';
 import { servicesContent } from '../content/services';
 import { evenemangContent } from '../content/evenemang';
 import { marked } from 'marked';
@@ -39,7 +39,9 @@ const eventsWithHtml = await Promise.all(
               </div>
               <div class={`${index % 2 === 0 ? 'order-2' : 'order-1'} h-72 md:h-full`}>
                 <img
-                  src={event.image}
+                  srcset={getImageSrcSet(event.image)}
+                  sizes={imageSizes.eventImage}
+                  src={event.image.desktop}
                   alt={event.alt}
                   class="h-full w-full object-cover"
                   loading="lazy"
