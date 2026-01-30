@@ -2,14 +2,14 @@
 import Layout from '../components/Layout.astro';
 import { siteConfig, getImageSrcSet, imageSizes } from '../config.ts';
 import { servicesContent } from '../content/services';
-import { evenemangContent } from '../content/evenemang';
+import { eventsContent } from '../content/events';
 import { marked } from 'marked';
 
 const service = servicesContent[2];
 const bodyHtml = await marked(service.body);
 
 const eventsWithHtml = await Promise.all(
-  evenemangContent.map(async (event) => ({
+  eventsContent.map(async (event) => ({
     ...event,
     bodyHtml: await marked(event.body),
   }))

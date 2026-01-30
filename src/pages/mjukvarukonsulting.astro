@@ -2,7 +2,7 @@
 import Layout from '../components/Layout.astro';
 import { siteConfig } from '../config.ts';
 import { servicesContent } from '../content/services';
-import { mjukvarukonsultingContent } from '../content/mjukvarukonsulting';
+import { consultingSWContent } from '../content/consultingSW';
 import { Icon } from 'astro-icon/components';
 import { marked } from 'marked';
 
@@ -21,7 +21,7 @@ const bodyHtml = await marked(service.body);
       <section class="mt-16">
         <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
           {
-            mjukvarukonsultingContent.map((item, index) => (
+            consultingSWContent.map((item, index) => (
               <div
                 class={`group block border-mono-lighter rounded-xl border p-8 hover:shadow-lg transition-shadow`}
               >

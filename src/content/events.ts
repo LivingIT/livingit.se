@@ -1,6 +1,6 @@
 import { getResponsiveImage, type ResponsiveImage } from '../config';
 
-export const evenemangContent = [
+export const eventsContent = [
   {
     title: 'Beauty in Code',
     body: `Första lördagen i mars arrangerar vi vår egna IT-konferens

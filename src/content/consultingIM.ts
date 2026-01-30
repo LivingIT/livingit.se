@@ -1,4 +1,4 @@
-export const ledarskapskonsultingContent = [
+export const consultingIMContent = [
   {
     groupTitle: 'Interim Management',
     items: [

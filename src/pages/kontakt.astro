@@ -1,10 +1,10 @@
 ---
 import Layout from '../components/Layout.astro';
 import { siteConfig, getImageSrcSet, imageSizes } from '../config.ts';
-import { kontaktContent } from '../content/kontakt';
+import { contactContent } from '../content/contact';
 import { marked } from 'marked';
 
-const ingressHtml = await marked(kontaktContent.ingress);
+const ingressHtml = await marked(contactContent.ingress);
 
 const getInitials = (name: string) =>
   name
@@ -16,11 +16,11 @@ const getInitials = (name: string) =>
     .toUpperCase();
 ---
 
-<Layout title={`Kontakta oss - ${siteConfig.site.title}`} description={kontaktContent.ingress}>
+<Layout title={`Kontakta oss - ${siteConfig.site.title}`} description={contactContent.ingress}>
   <main class="min-h-screen bg-white">
     <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
       <header class="mt-12 mb-12 text-center">
-        <h1 class="text-5xl font-bold mb-6">{kontaktContent.header}</h1>
+        <h1 class="text-5xl font-bold mb-6">{contactContent.header}</h1>
         <div
           class="mx-auto max-w-3xl text-lg text-gray-700 leading-relaxed [&>p]:mb-4"
           set:html={ingressHtml}
@@ -29,7 +29,7 @@ const getInitials = (name: string) =>
 
       <section class="mb-16">
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {kontaktContent.people.map((person) => (
+          {contactContent.people.map((person) => (
             <article class="rounded-2xl border border-mono-lighter bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
               <div class="mb-5">
                 <div class="relative aspect-[4/5] overflow-hidden rounded-xl bg-gray-100">
@@ -81,19 +81,19 @@ const getInitials = (name: string) =>
             <div>
               <p class="text-sm uppercase text-mono-gray">Bolag</p>
               <p class="text-lg font-semibold text-mono-black">
-                {kontaktContent.company.name}
+                {contactContent.company.name}
               </p>
             </div>
             <div>
               <p class="text-sm uppercase text-mono-gray">Org.nr</p>
               <p class="text-lg font-semibold text-mono-black">
-                {kontaktContent.company.orgNumber}
+                {contactContent.company.orgNumber}
               </p>
             </div>
             <div>
               <p class="text-sm uppercase text-mono-gray">Bankgiro</p>
               <p class="text-lg font-semibold text-mono-black">
-                {kontaktContent.company.bankgiro}
+                {contactContent.company.bankgiro}
               </p>
             </div>
           </div>

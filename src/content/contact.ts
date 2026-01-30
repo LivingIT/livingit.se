@@ -1,6 +1,6 @@
 import { getResponsiveImage, type ResponsiveImage } from '../config';
 
-export const kontaktContent = {
+export const contactContent = {
   header: 'Kontakta oss',
   ingress: `Är du nyfiken på att börja jobba hos oss?
 Har ni behov av en IT- eller ledarskapskonsult?

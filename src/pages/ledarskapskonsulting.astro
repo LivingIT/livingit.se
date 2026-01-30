@@ -2,7 +2,7 @@
 import Layout from '../components/Layout.astro';
 import { siteConfig } from '../config.ts';
 import { servicesContent } from '../content/services';
-import { ledarskapskonsultingContent } from '../content/ledarskapskonsulting';
+import { consultingIMContent } from '../content/consultingIM';
 import { Icon } from 'astro-icon/components';
 import { marked } from 'marked';
 
@@ -19,7 +19,7 @@ const bodyHtml = await marked(service.body);
       </div>
 
       {
-        ledarskapskonsultingContent.map((group) => (
+        consultingIMContent.map((group) => (
           <section class="mt-16">
             <h2 class="text-3xl font-bold mb-8 text-center">{group.groupTitle}</h2>
             <div class="grid grid-cols-1 gap-8 md:grid-cols-3">

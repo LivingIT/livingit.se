@@ -1,4 +1,4 @@
-export const mjukvarukonsultingContent = [
+export const consultingSWContent = [
   {
     icon: 'heroicons:cube-transparent',
     title: 'Kodarkitekten',
