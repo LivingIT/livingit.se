@@ -46,10 +46,16 @@ body {
   --color-mono-lighter: #e5e5e5;
   --color-mono-white: #ffffff;
 
-  --color-bg-service-card: #f9fafb;
-  --color-bg-service-sw-card: #f9fafb;
-  --color-bg-service-im-card: #f9fafb;
-  --color-bg-event-card: #f9fafb;
+  --color-bg-living-it-way: #dadada;
+
+  --color-bg-service-card: #fafafa;
+  --color-bg-service-sw-card: #fafafa;
+  --color-bg-service-im-card: #fafafa;
+  --color-bg-event-card: #fafafa;
+  --color-bg-contact-us-card: #fafafa;
+  
+  --color-bg-navigation: #f4f4ff; /*rgba(255, 250, 214, 1);*/
+  --color-bg-footer: #0f0f0f;
 
   --font-sans: Atak, system-ui, -apple-system, sans-serif;
 
