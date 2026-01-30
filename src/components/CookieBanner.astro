@@ -1,9 +1,19 @@
 ---
-import { siteConfig } from '../config.ts';
+import { siteConfig, getResponsiveImage } from '../config.ts';
 // Cookie Banner Component - GDPR compliant cookie consent
+
+const cookieBackgroundImage = getResponsiveImage('cookies-back.jpg');
 ---
 
-<div id="cookie-banner" class="cookie-banner">
+<div 
+  id="cookie-banner" 
+  class="cookie-banner" 
+  style={`
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${cookieBackgroundImage.desktop}');
+    --mobile-bg: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${cookieBackgroundImage.mobile}');
+    --tablet-bg: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${cookieBackgroundImage.tablet}');
+  `}
+>
   <div class="cookie-banner-content">
     <div class="cookie-banner-text">
       <h3>{siteConfig.cookies.banner.titleSv}</h3>
@@ -28,7 +38,8 @@ import { siteConfig } from '../config.ts';
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: #000000;
+    background-size: cover;
+    background-position: center;
     color: #ffffff;
     padding: 1.5rem;
     z-index: 1000;
@@ -132,6 +143,13 @@ import { siteConfig } from '../config.ts';
 
     .cookie-banner {
       padding: 1rem;
+      background-image: var(--mobile-bg) !important;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .cookie-banner {
+      background-image: var(--tablet-bg) !important;
     }
   }
 </style>
