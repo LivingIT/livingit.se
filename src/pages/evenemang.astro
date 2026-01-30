@@ -27,7 +27,7 @@ const eventsWithHtml = await Promise.all(
       <section class="mt-16">
         <div class="flex flex-col gap-8">
         {eventsWithHtml.map((event, index) => (
-          <article class="w-full rounded-2xl bg-gray-50 overflow-hidden shadow-sm" key={event.title}>
+          <article class="w-full rounded-2xl bg-[var(--color-bg-event-card)] overflow-hidden shadow-sm" key={event.title}>
             <div class="grid gap-0 md:grid-cols-3">
               <div
                 class={`flex flex-col justify-center p-8 md:p-10 md:col-span-2 ${

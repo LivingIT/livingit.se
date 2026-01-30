@@ -46,6 +46,11 @@ body {
   --color-mono-lighter: #e5e5e5;
   --color-mono-white: #ffffff;
 
+  --color-bg-service-card: #f9fafb;
+  --color-bg-service-sw-card: #f9fafb;
+  --color-bg-service-im-card: #f9fafb;
+  --color-bg-event-card: #f9fafb;
+
   --font-sans: Atak, system-ui, -apple-system, sans-serif;
 
   --animate-fade-in: fade-in 1200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
