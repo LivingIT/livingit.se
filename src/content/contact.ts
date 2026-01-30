@@ -8,7 +8,7 @@ Har ni behov av en IT- eller ledarskapskonsult? Intresserad av att veta mer om v
 
 Skicka ett mail till ***hello@livingit.se*** eller ta kontakt med någon av våra affärsutvecklare nedan!`,
   contactStart: `
-  Är du nyfiken på hur det är att jobba hos oss?
+  Är du nyfiken på hur det är att jobba hos oss? ⭐
   
   Eller är du rent av ***ready to start Living IT?***
   
