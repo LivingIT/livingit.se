@@ -60,7 +60,7 @@ Skicka ett mail till ***hello@livingit.se*** eller ta kontakt med någon av vår
     },
     {
       name: 'Daniel Weberg',
-      title: 'Ledarskapskonsult',
+      title: 'Interimschefskonsult',
       phoneDisplay: '076-119 49 96',
       phoneNumber: '+46761194996',
       email: 'daniel.weberg@livingit.se',
@@ -68,7 +68,7 @@ Skicka ett mail till ***hello@livingit.se*** eller ta kontakt med någon av vår
     },
     {
       name: 'Linn Wähler',
-      title: 'Ledarskapskonsult',
+      title: 'Interimschefskonsult',
       phoneDisplay: '070-972 27 62',
       phoneNumber: '+46709722762',
       email: 'linn.wahler@livingit.se',
