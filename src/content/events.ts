@@ -3,6 +3,7 @@ import { getResponsiveImage, type ResponsiveImage } from '../config';
 export const eventsContent = [
   {
     title: 'Beauty in Code',
+    icon: 'heroicons:sparkles',
     body: `Första lördagen i mars arrangerar vi vår egna IT-konferens
 **Beauty in Code**. Där har du möjlighet att lyssna på talare i
 världsklass, träffa kollegor i branschen och fördjupa dig i aktuella
@@ -21,6 +22,7 @@ konferensen och hur du anmäler dig! Där kan du också titta på tidigare års 
   },
   {
     title: 'Workshops',
+    icon: 'heroicons:user-group',
     body: `För dig som vill gå på djupet i ett ämne arrangerar vi workshops i
 mindre format. Här bjuder vi in externa experter och föreläsare och
 begränsar deltagarantalet för att skapa utrymme för dialog, reflektion
@@ -38,6 +40,7 @@ deltagare som vill utvecklas tillsammans med oss.`,
   },
   {
     title: 'IT-bio',
+    icon: 'heroicons:film',
     body: `Två gånger om året – en gång på våren och en på hösten – bjuder vi in
 till IT-bio. Det är vårt sätt att tacka våra familjer, vänner, kunder
 och branschkollegor för allt de gjort och fortsätter göra för oss.
@@ -53,6 +56,7 @@ kvällens film!`,
   },
   {
     title: 'IT-helg',
+    icon: 'heroicons:calendar-days',
     body: `För att riktigt kunna fördjupa oss i ett ämne så samlas alla
 anställda på ett spa, en herrgård, ett gästgiveri eller liknande för en
 fantastiskt rolig och inspirerande helg. Med oss har vi en expert som

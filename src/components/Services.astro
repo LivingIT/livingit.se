@@ -43,12 +43,14 @@ const serviceUrls: Record<string, string> = {
             class={`group block ${index % 2 === 0 ? 'scroll-fade-left' : 'scroll-fade-right'} bg-[var(--color-bg-service-card)] border-mono-lighter rounded-xl border p-8 stagger-${(index % 9) + 1} hover:shadow-lg transition-shadow flex flex-col`}
           >
             <div>
-              <div class="feature-icon bg-[var(--color-orange)] mb-6 flex h-14 w-14 items-center justify-center rounded-lg text-white">
-                <Icon name={service.icon} class="h-7 w-7" />
+              <div class="flex items-center gap-4 mb-3">
+                <div class="feature-icon bg-[var(--color-orange)] flex h-14 w-14 items-center justify-center rounded-lg text-white flex-shrink-0">
+                  <Icon name={service.icon} class="h-7 w-7" />
+                </div>
+                <h3 class="text-mono-black text-xl font-semibold card-title">
+                  {service.title}
+                </h3>
               </div>
-              <h3 class="text-mono-black mb-3 text-xl font-semibold">
-                {service.title}
-              </h3>
               <p class="text-mono-dark leading-relaxed">{service.description}</p>
             </div>
             <div class="mt-auto pt-4 text-right">

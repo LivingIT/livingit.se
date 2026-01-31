@@ -3,6 +3,7 @@ import Layout from '../components/Layout.astro';
 import { siteConfig, getImageSrcSet, imageSizes } from '../config.ts';
 import { servicesContent } from '../content/services';
 import { eventsContent } from '../content/events';
+import { Icon } from 'astro-icon/components';
 import { marked } from 'marked';
 
 const service = servicesContent[2];
@@ -34,7 +35,12 @@ const eventsWithHtml = await Promise.all(
                   index % 2 === 0 ? 'order-1' : 'order-2'
                 }`}
               >
-                <h2 class="text-3xl font-semibold mb-4">{event.title}</h2>
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="feature-icon bg-[var(--color-orange)] flex h-14 w-14 items-center justify-center rounded-lg text-white flex-shrink-0">
+                    <Icon name={event.icon} class="h-7 w-7" />
+                  </div>
+                  <h2 class="text-3xl font-semibold card-title">{event.title}</h2>
+                </div>
                 <div class="text-gray-700 leading-relaxed [&>p]:mb-4" set:html={event.bodyHtml}></div>
               </div>
               <div class={`${index % 2 === 0 ? 'order-2' : 'order-1'} h-72 md:h-full`}>
