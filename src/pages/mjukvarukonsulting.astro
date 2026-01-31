@@ -11,7 +11,7 @@ const bodyHtml = await marked(service.body);
 ---
 
 <Layout title={`${service.title} - ${siteConfig.site.title}`} description={service.description}>
-  <main class="min-h-screen bg-white">
+  <main class="min-h-screen">
     <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
       <div class="mt-12 mb-12">
         <h1 class="text-5xl font-bold mb-8 text-center">{service.title}</h1>
@@ -23,7 +23,7 @@ const bodyHtml = await marked(service.body);
           {
             consultingSWContent.map((item, index) => (
               <div
-                class={`group block bg-[var(--color-bg-service-sw-card)] border-mono-lighter rounded-xl border p-8 hover:shadow-lg transition-shadow`}
+                class={`group block bg-[var(--color-bg-card)] border-mono-lighter rounded-xl border p-8 hover:shadow-lg transition-shadow`}
               >
               <div class="flex items-center gap-4 mb-3">
                   <div class="feature-icon bg-[var(--color-orange)] flex h-14 w-14 items-center justify-center rounded-lg text-white flex-shrink-0">

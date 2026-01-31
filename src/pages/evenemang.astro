@@ -18,7 +18,7 @@ const eventsWithHtml = await Promise.all(
 ---
 
 <Layout title={`${service.title} - ${siteConfig.site.title}`} description={service.description}>
-  <main class="min-h-screen bg-white">
+  <main class="min-h-screen">
     <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
       <div class="mt-12 mb-12">
         <h1 class="text-5xl font-bold mb-8 text-center">{service.title}</h1>
@@ -28,7 +28,7 @@ const eventsWithHtml = await Promise.all(
       <section class="mt-16">
         <div class="flex flex-col gap-8">
         {eventsWithHtml.map((event, index) => (
-          <article class="w-full rounded-2xl bg-[var(--color-bg-event-card)] overflow-hidden shadow-sm" key={event.title}>
+          <article class="w-full rounded-2xl bg-[var(--color-bg-card)] overflow-hidden shadow-sm" key={event.title}>
             <div class="grid gap-0 md:grid-cols-3">
               <div
                 class={`flex flex-col justify-center p-8 md:p-10 md:col-span-2 ${
