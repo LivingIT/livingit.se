@@ -34,7 +34,7 @@ export interface ResponsiveImage {
 export function getResponsiveImage(baseImagePath: string): ResponsiveImage {
   // Remove leading slash if present
   const cleanPath = baseImagePath.replace(/^\/+/, '');
-  
+
   return {
     mobile: `/images/mobile/${cleanPath}`,
     tablet: `/images/tablet/${cleanPath}`,
@@ -62,10 +62,10 @@ export function getImageSrcSet(image: ResponsiveImage): string {
 export const imageSizes = {
   /** For contact/team member photos in a grid */
   contactPhoto: '(min-width: 1024px) 50vw, (min-width: 640px) 50vw, 100vw',
-  
+
   /** For event images in alternating layout */
   eventImage: '(min-width: 768px) 33vw, 100vw',
-  
+
   /** For hero carousel images */
   carouselImage: '(min-width: 1024px) 50vw, 100vw',
 } as const;
@@ -76,20 +76,10 @@ export const siteConfig = {
   // ============================================
   site: {
     name: 'Living IT',
-    title: 'Living IT - Dreaming today, living it tomorrow.',
-    description:
-      'Vi är ett konsultföretag i Malmö och Göteborg som tycker att familjen, vännerna och fritiden är det viktigaste vi har, men när vi är på jobbet gör vi alltid vårt bästa för att leverera över våra kunders förväntningar.',
-    keywords:
-      'konsult, management, IT, Malmö, Göteborg',
-    email: 'hello@livingit.se',
-
-    // Open Graph / Twitter
-    ogTitle: 'Living IT - Dreaming today, living it tomorrow.',
-    ogDescription:
-      'Vi är ett konsultföretag i Malmö och Göteborg som tycker att familjen, vännerna och fritiden är det viktigaste vi har, men när vi är på jobbet gör vi alltid vårt bästa för att leverera över våra kunders förväntningar.',
-    twitterCard: 'summary_large_image',
-    twitterTitle: 'Living IT',
-    twitterDescription: 'Dreaming today, living it tomorrow.',
+    title: 'Living IT',
+    description: 'Vi är ett konsultföretag i Malmö och Göteborg som värnar livet utanför jobbet – men alltid strävar efter att överträffa våra kunders förväntningar.',
+    keywords: 'konsult, management, IT, Malmö, Göteborg',
+    email: 'hello@livingit.se'
   },
 
   // ============================================
