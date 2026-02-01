@@ -195,13 +195,13 @@ Det är **The Living IT Way**.`
     columns: [
       {
         title: 'Malmö',
-        address: 'Gustav Adolfs torg 12\n211 39 Malmö\nSweden',
+        address: 'Gustav Adolfs torg 12\n211 39 Malmö\nSverige',
         mapsUrl: 'https://maps.google.com/?q=55.60191580297133,12.999251168084095',
         links: [],
       },
       {
         title: 'Göteborg',
-        address: 'Norra Hamngatan 18\n411 06 Göteborg\nSweden',
+        address: 'Norra Hamngatan 18\n411 06 Göteborg\nSverige',
         mapsUrl: 'https://maps.google.com/?q=57.70710852992462,11.968320826032762',
         links: [],
       },

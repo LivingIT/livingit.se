@@ -47,14 +47,13 @@ body {
   --color-mono-lighter: #e5e5e5;
   --color-mono-white: #ffffff;
 
-  --color-bg-main-default: #eaebf1;
-  --color-bg-main-section: #d7d7dd;
-  --color-bg-card: #f2f3f9;
+  --color-bg-navigation: #f8f9ff;
+  --color-bg-main-default: #f0f1f7;
+  --color-bg-main-section: #e3e4ea;
+  --color-bg-card: #f8f9ff;
+  --color-bg-footer: #1c1c1a;
 
   --color-orange: #ff8705;
-
-  --color-bg-navigation: #f2f3f9;
-  --color-bg-footer: #1c1c1a;
 
   --font-sans: Atak, system-ui, -apple-system, sans-serif;
 
