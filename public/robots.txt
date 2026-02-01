@@ -2,6 +2,9 @@
 # For dev environment (devingit.se), use robots-dev.txt
 
 User-agent: *
-Allow: /
+Disallow: /
 
-Sitemap: https://livingit.se/sitemap.xml
+### User-agent: *
+### Allow: /
+### 
+### Sitemap: https://livingit.se/sitemap.xml
