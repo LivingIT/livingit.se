@@ -1,0 +1,5 @@
+# Development robots.txt (devingit.se)
+# This file blocks all search engine crawlers
+
+User-agent: *
+Disallow: /

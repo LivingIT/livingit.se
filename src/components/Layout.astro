@@ -14,6 +14,10 @@ const {
   title = siteConfig.site.title, 
   description = siteConfig.site.description 
 } = Astro.props;
+
+// Prevent dev site from being indexed
+const isDev = Astro.url.hostname === 'devingit.se';
+const robotsContent = isDev ? 'noindex, nofollow' : 'index, follow';
 ---
 
 <!doctype html>
@@ -21,6 +25,7 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content={robotsContent} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <title>{title}</title>

@@ -1,0 +1,7 @@
+# Production robots.txt (livingit.se)
+# For dev environment (devingit.se), use robots-dev.txt
+
+User-agent: *
+Allow: /
+
+Sitemap: https://livingit.se/sitemap.xml
