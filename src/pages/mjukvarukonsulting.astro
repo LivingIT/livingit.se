@@ -25,7 +25,7 @@ const bodyHtml = await marked(service.body);
               const IconComponent = LucideIcons[item.icon];
               return (
               <div
-                class={`group block bg-[var(--color-bg-card)] border-mono-lighter rounded-xl border p-8 hover:shadow-lg transition-shadow`}
+                class={`group block scroll-fade-up bg-[var(--color-bg-card)] border-mono-lighter rounded-xl border p-8 stagger-${(index % 9) + 1} hover:shadow-lg transition-shadow`}
               >
               <div class="flex items-center gap-4 mb-3">
                   <div class="feature-icon bg-[var(--color-orange)] flex h-14 w-14 items-center justify-center rounded-lg text-white flex-shrink-0">

@@ -27,7 +27,7 @@ const getInitials = (name: string) =>
 
       <section class="mb-16">
         <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          <div class="group block bg-[var(--color-bg-card)] border-mono-lighter rounded-2xl border p-8 hover:shadow-lg transition-shadow">
+          <div class="group block scroll-fade-up bg-[var(--color-bg-card)] border-mono-lighter rounded-2xl border p-8 stagger-1 hover:shadow-lg transition-shadow">
             <div class="flex items-start gap-4 mb-6">
               <div class="feature-icon bg-[var(--color-orange)] flex h-14 w-14 items-center justify-center rounded-lg text-white flex-shrink-0">
                 {(() => { const IconComponent = LucideIcons[contactContent.contactGeneral.icon]; return <IconComponent class="h-7 w-7" />; })()}
@@ -35,7 +35,7 @@ const getInitials = (name: string) =>
             </div>
             <div class="text-lg text-gray-700 leading-relaxed space-y-4 [&>p]:mb-4 [&>em]:italic [&>strong]:font-semibold" set:html={contactGeneralHtml}></div>
           </div>
-          <div class="group block bg-[var(--color-bg-card)] border-mono-lighter rounded-2xl border p-8 hover:shadow-lg transition-shadow">
+          <div class="group block scroll-fade-up bg-[var(--color-bg-card)] border-mono-lighter rounded-2xl border p-8 stagger-2 hover:shadow-lg transition-shadow">
             <div class="flex items-start gap-4 mb-6">
               <div class="feature-icon bg-[var(--color-orange)] flex h-14 w-14 items-center justify-center rounded-lg text-white flex-shrink-0">
                 {(() => { const IconComponent = LucideIcons[contactContent.contactStart.icon]; return <IconComponent class="h-7 w-7" />; })()}
@@ -48,8 +48,8 @@ const getInitials = (name: string) =>
 
       <section class="mb-16">
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {contactContent.people.map((person) => (
-            <article class="group block bg-[var(--color-bg-card)] border-mono-lighter rounded-2xl border p-6 hover:shadow-lg transition-shadow">
+          {contactContent.people.map((person, index) => (
+            <article class={`group block scroll-fade-up bg-[var(--color-bg-card)] border-mono-lighter rounded-2xl border p-6 stagger-${(index % 9) + 1} hover:shadow-lg transition-shadow`}>
               <div class="mb-5">
                 <div class="relative aspect-[4/5] overflow-hidden rounded-xl bg-gray-100">
                   <img
@@ -94,7 +94,7 @@ const getInitials = (name: string) =>
       </section>
       
       <section>
-        <div class="group block bg-[var(--color-bg-card)] border-mono-lighter rounded-2xl border p-8 md:p-10 hover:shadow-lg transition-shadow">
+        <div class="group block scroll-fade-up bg-[var(--color-bg-card)] border-mono-lighter rounded-2xl border p-8 md:p-10 hover:shadow-lg transition-shadow">
           <h2 class="text-2xl font-semibold mb-6 card-title">Bolagsuppgifter</h2>
           <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
             <div>

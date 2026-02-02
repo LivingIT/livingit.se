@@ -30,7 +30,7 @@ const eventsWithHtml = await Promise.all(
         {eventsWithHtml.map((event, index) => {
           const IconComponent = LucideIcons[event.icon];
           return (
-          <article class="w-full rounded-2xl bg-[var(--color-bg-card)] overflow-hidden shadow-sm" key={event.title}>
+          <article class="scroll-fade-up w-full rounded-2xl bg-[var(--color-bg-card)] overflow-hidden shadow-sm stagger-${(index % 9) + 1}" key={event.title}>
             <div class="grid gap-0 md:grid-cols-3">
               <div
                 class={`flex flex-col justify-center p-8 md:p-10 md:col-span-2 ${
