@@ -60,12 +60,13 @@ håller över tid.
 som inspirerar, fördjupar och bygger gemenskap. Vårt mål är att dela \
 kunskap, väcka nyfikenhet och ge tillbaka till branschen på ett \
 sätt som engagerar både människor och community.',
-    body: `Vi skapar mötesplatser genom konferenser, workshops och andra evenemang där kunskap,
-    inspiration och gemenskap står i centrum. Genom att samla människor med olika erfarenheter 
-    och perspektiv vill vi skapa utrymme för lärande, samtal och nya idéer. 
-    Vårt mål är att dela erfarenheter, väcka nyfikenhet och bygga starka relationer
-    som lever vidare även efter att evenemanget är slut – både inom branschen och bortom den.
+    body: `Vi skapar mötesplatser genom konferenser, workshops och andra \
+evenemang där kunskap, inspiration och gemenskap står i centrum. \
+Genom att samla människor med olika erfarenheter och perspektiv vill vi \
+skapa utrymme för lärande, samtal och nya idéer.
 
-Du hittar våra aktuella evenemang på vår **[event-sida](https://events.livingit.se)**.`,
+Vårt mål är att dela erfarenheter, väcka nyfikenhet och bygga starka \
+relationer som lever vidare även efter att evenemanget är slut – både \
+inom branschen och bortom den.`,
   }
 ];
