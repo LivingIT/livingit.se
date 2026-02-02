@@ -124,12 +124,16 @@ export const siteConfig = {
   // ============================================
   heroCarousel: {
     images: [
-      getResponsiveImage('carousel/carousel01.jpg'),
-      getResponsiveImage('carousel/carousel02.jpg'),
-      getResponsiveImage('carousel/carousel03.jpg'),
-      getResponsiveImage('carousel/carousel04.jpg'),
-      getResponsiveImage('carousel/carousel05.jpg'),
-      getResponsiveImage('carousel/carousel06.jpg'),
+      getResponsiveImage('carousel/01.jpg'),
+      getResponsiveImage('carousel/02.jpg'),
+      getResponsiveImage('carousel/03.jpg'),
+      getResponsiveImage('carousel/04.jpg'),
+      getResponsiveImage('carousel/05.jpg'),
+      getResponsiveImage('carousel/06.jpg'),
+      getResponsiveImage('carousel/07.jpg'),
+      getResponsiveImage('carousel/08.jpg'),
+      getResponsiveImage('carousel/09.jpg'),
+      getResponsiveImage('carousel/10.jpg'),
     ],
     imageAltPrefix: 'Living IT carousel image',
     intervalMs: 4500,
