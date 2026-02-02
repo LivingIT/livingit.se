@@ -2,7 +2,10 @@
 import { siteConfig } from '../config.ts';
 import { Icon } from 'astro-icon/components';
 
-const currentPath = Astro.url.pathname;
+// Normalize pathname by removing trailing slash (except for root)
+const currentPath = Astro.url.pathname === '/' 
+  ? '/' 
+  : Astro.url.pathname.replace(/\/$/, '');
 ---
 
 <nav

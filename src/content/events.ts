@@ -5,7 +5,7 @@ export const eventsContent = [
     title: 'Beauty in Code',
     icon: 'heroicons:sparkles',
     body: `Första lördagen i mars arrangerar vi vår egna IT-konferens
-**Beauty in Code**. Där har du möjlighet att lyssna på talare i
+**[Beauty in Code](https://beautincode.se)**. Där har du möjlighet att lyssna på talare i
 världsklass, träffa kollegor i branschen och fördjupa dig i aktuella
 ämnen.
 
