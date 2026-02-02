@@ -1,7 +1,7 @@
 export const servicesContent = [
   {
     icon: 'heroicons:code-bracket',
-    title: 'Mjukvarukonsulting',
+    title: 'Mjukvaru­konsulting',
     description:
       'Vi skapar digitala lösningar genom att kombinera nyfikenhet, \
 precision och ett genuint engagemang. Vårt fokus är att bygga \
@@ -29,7 +29,7 @@ digital utveckling som gör skillnad, idag och imorgon.
   },
   {
     icon: 'heroicons:user-group',
-    title: 'Ledarskapskonsulting',
+    title: 'Ledarskaps­konsulting',
     description:
       'Vi förstärker organisationer genom att kombinera nyfikenhet, \
 innovation och ett genuint engagemang. Vårt mål är att skapa \

@@ -1,6 +1,8 @@
 ---
 import { siteConfig } from '../config.ts';
 import { Icon } from 'astro-icon/components';
+
+const currentPath = Astro.url.pathname;
 ---
 
 <nav
@@ -16,17 +18,21 @@ import { Icon } from 'astro-icon/components';
 
       <div class="hidden flex-1 items-center justify-center space-x-6 md:flex">
         {
-          siteConfig.navigation.links.map((link) => (
-            <a
-              href={link.href}
-              class="text-mono-dark rounded-lg p-2 transition hover:text-mono-black"
-              aria-label={link.name}
-              title={link.name}
-            >
-              <Icon name={link.icon} class="h-6 w-6" />
-              <span class="sr-only">{link.name}</span>
-            </a>
-          ))
+          siteConfig.navigation.links.map((link) => {
+            const isActive = currentPath === link.href;
+            return (
+              <a
+                href={link.href}
+                class={`text-mono-dark rounded-lg p-2 transition hover:text-mono-black relative ${isActive ? 'border-b-4 border-[var(--color-orange)]' : ''}`}
+                aria-label={link.name}
+                title={link.name}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                <Icon name={link.icon} class="h-6 w-6" />
+                <span class="sr-only">{link.name}</span>
+              </a>
+            );
+          })
         }
       </div>
 
@@ -53,15 +59,19 @@ import { Icon } from 'astro-icon/components';
     <div id="mobileMenu" class="hidden pb-4 md:hidden" aria-hidden="true">
       <div class="flex flex-col space-y-3">
         {
-          siteConfig.navigation.links.map((link) => (
-            <a
-              href={link.href}
-              class="text-mono-dark flex items-center gap-3 py-2 font-semibold"
-            >
-              <Icon name={link.icon} class="h-5 w-5" />
-              <span>{link.name}</span>
-            </a>
-          ))
+          siteConfig.navigation.links.map((link) => {
+            const isActive = currentPath === link.href;
+            return (
+              <a
+                href={link.href}
+                class={`text-mono-dark flex items-center gap-3 py-2 font-semibold ${isActive ? 'border-b-4 border-[var(--color-orange)]' : ''}`}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                <Icon name={link.icon} class="h-5 w-5" />
+                <span>{link.name}</span>
+              </a>
+            );
+          })
         }
         <a
           href={siteConfig.navigation.cta.href}
