@@ -2,7 +2,7 @@
 import Layout from '../components/Layout.astro';
 import { siteConfig, getImageSrcSet, imageSizes } from '../config.ts';
 import { contactContent } from '../content/contact';
-import { Icon } from 'astro-icon/components';
+import * as LucideIcons from '@lucide/astro';
 import { marked } from 'marked';
 
 const contactGeneralHtml = await marked(contactContent.contactGeneral.text);
@@ -30,7 +30,7 @@ const getInitials = (name: string) =>
           <div class="group block bg-[var(--color-bg-card)] border-mono-lighter rounded-2xl border p-8 hover:shadow-lg transition-shadow">
             <div class="flex items-start gap-4 mb-6">
               <div class="feature-icon bg-[var(--color-orange)] flex h-14 w-14 items-center justify-center rounded-lg text-white flex-shrink-0">
-                <Icon name={contactContent.contactGeneral.icon} class="h-7 w-7" />
+                {(() => { const IconComponent = LucideIcons[contactContent.contactGeneral.icon]; return <IconComponent class="h-7 w-7" />; })()}
               </div>
             </div>
             <div class="text-lg text-gray-700 leading-relaxed space-y-4 [&>p]:mb-4 [&>em]:italic [&>strong]:font-semibold" set:html={contactGeneralHtml}></div>
@@ -38,7 +38,7 @@ const getInitials = (name: string) =>
           <div class="group block bg-[var(--color-bg-card)] border-mono-lighter rounded-2xl border p-8 hover:shadow-lg transition-shadow">
             <div class="flex items-start gap-4 mb-6">
               <div class="feature-icon bg-[var(--color-orange)] flex h-14 w-14 items-center justify-center rounded-lg text-white flex-shrink-0">
-                <Icon name={contactContent.contactStart.icon} class="h-7 w-7" />
+                {(() => { const IconComponent = LucideIcons[contactContent.contactStart.icon]; return <IconComponent class="h-7 w-7" />; })()}
               </div>
             </div>
             <div class="text-lg text-gray-700 leading-relaxed space-y-4 [&>p]:mb-4 [&>em]:italic [&>strong]:font-semibold" set:html={contactStartHtml}></div>

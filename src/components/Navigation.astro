@@ -1,6 +1,6 @@
 ---
 import { siteConfig } from '../config.ts';
-import { Icon } from 'astro-icon/components';
+import * as LucideIcons from '@lucide/astro';
 
 // Normalize pathname by removing trailing slash (except for root)
 const currentPath = Astro.url.pathname === '/' 
@@ -23,6 +23,7 @@ const currentPath = Astro.url.pathname === '/'
         {
           siteConfig.navigation.links.map((link) => {
             const isActive = currentPath === link.href;
+            const IconComponent = LucideIcons[link.icon];
             return (
               <a
                 href={link.href}
@@ -31,7 +32,7 @@ const currentPath = Astro.url.pathname === '/'
                 title={link.name}
                 aria-current={isActive ? 'page' : undefined}
               >
-                <Icon name={link.icon} class="h-6 w-6" />
+                <IconComponent class="h-6 w-6" />
                 <span class="sr-only">{link.name}</span>
               </a>
             );
@@ -55,7 +56,7 @@ const currentPath = Astro.url.pathname === '/'
         aria-expanded="false"
         aria-label="Toggle navigation menu"
       >
-        <Icon name="heroicons:bars-3" class="text-[var(--color-orange)] h-6 w-6" />
+        <LucideIcons.Menu class="text-[var(--color-orange)] h-6 w-6" />
       </button>
     </div>
 
@@ -64,13 +65,14 @@ const currentPath = Astro.url.pathname === '/'
         {
           siteConfig.navigation.links.map((link) => {
             const isActive = currentPath === link.href;
+            const IconComponent = LucideIcons[link.icon];
             return (
               <a
                 href={link.href}
                 class={`text-mono-dark flex items-center gap-3 py-2 font-semibold ${isActive ? 'border-b-4 border-[var(--color-orange)]' : ''}`}
                 aria-current={isActive ? 'page' : undefined}
               >
-                <Icon name={link.icon} class="h-5 w-5" />
+                <IconComponent class="h-5 w-5" />
                 <span>{link.name}</span>
               </a>
             );

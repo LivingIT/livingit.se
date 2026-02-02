@@ -1,6 +1,6 @@
 export const servicesContent = [
   {
-    icon: 'heroicons:code-bracket',
+    icon: 'Code2',
     title: 'Mjukvaru­konsulting',
     description:
       'Vi skapar digitala lösningar genom att kombinera nyfikenhet, \
@@ -28,7 +28,7 @@ digital utveckling som gör skillnad, idag och imorgon.
 `,
   },
   {
-    icon: 'heroicons:user-group',
+    icon: 'Users',
     title: 'Ledarskaps­konsulting',
     description:
       'Vi förstärker organisationer genom att kombinera nyfikenhet, \
@@ -53,7 +53,7 @@ håller över tid.
 `,
   },
   {
-    icon: 'heroicons:calendar-days',
+    icon: 'CalendarDays',
     title: 'Evenemang',
     description:
       'Vi skapar mötesplatser genom konferenser, workshops och event \

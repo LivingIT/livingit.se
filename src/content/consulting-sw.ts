@@ -1,6 +1,6 @@
 export const consultingSWContent = [
   {
-    icon: 'heroicons:cube-transparent',
+    icon: 'Code2',
     title: 'Kodarkitekten',
     description:
       'Vi bygger inte bara system – vi bygger trygghet, tydlighet och framtid. \
@@ -9,7 +9,7 @@ export const consultingSWContent = [
       växer och verkligheten förändras.',
   },
   {
-    icon: 'heroicons:beaker',
+    icon: 'FlaskConical',
     title: 'Testpiloten',
     description:
       'Vi trycker inte bara på "Run Tests" – vi tänker, ifrågasätter och \
@@ -19,7 +19,7 @@ export const consultingSWContent = [
       ska kunna sova gott om nätterna.',
   },
   {
-    icon: 'heroicons:sparkles',
+    icon: 'Palette',
     title: 'Formgivaren',
     description:
       'Våra konsulter kombinerar frontend-hantverk med UX-förståelse för att \
@@ -28,7 +28,7 @@ export const consultingSWContent = [
       håller ihop från första klick till sista interaktion.',
   },
   {
-    icon: 'heroicons:academic-cap',
+    icon: 'GraduationCap',
     title: 'Kunskapsspridaren',
     description:
       'Vi lär oss inte bara nytt – vi delar, stärker och bygger upp. Våra \
@@ -39,7 +39,7 @@ export const consultingSWContent = [
       om att skapa en kultur där vi lär av varandra – varje dag.',
   },
   {
-    icon: 'heroicons:cpu-chip',
+    icon: 'BrainCircuit',
     title: 'AI-tämjaren',
     description:
       'Vi ser bortom hypen och hjälper organisationer att förstå vad AI faktiskt \
@@ -51,7 +51,7 @@ export const consultingSWContent = [
       ansvar och tydligt syfte.',
   },
   {
-    icon: 'heroicons:light-bulb',
+    icon: 'Lightbulb',
     title: 'Värdeskaparen',
     description:
       'Vi börjar inte med teknik – vi börjar med frågan varför. Våra problemlösare \
@@ -63,7 +63,7 @@ export const consultingSWContent = [
       skapa verkligt värde som håller över tid.',
   },
   {
-    icon: 'heroicons:cloud',
+    icon: 'CloudCog',
     title: 'Molnmakaren',
     description:
       'Vi trivs där det är luftigt och bygger lösningar som fungerar oavsett \
@@ -73,7 +73,7 @@ export const consultingSWContent = [
       och helt enkelt bara fungerar.',
   },
   {
-    icon: 'heroicons:bolt',
+    icon: 'GitBranchPlus',
     title: 'Devopsaren',
     description:
       'Allt ska flyta. Från commit till produktion – utan draman, utan väntan. \
@@ -82,7 +82,7 @@ export const consultingSWContent = [
       löfte om tempo, kvalitet och glädje i leveransen.',
   },
   {
-    icon: 'heroicons:chat-bubble-left-right',
+    icon: 'MessageCircle',
     title: 'Teamkompisen',
     description:
       'Kod och teknik är viktigt – men människor är viktigare. Vi tror på \

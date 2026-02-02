@@ -3,7 +3,7 @@ import Layout from '../components/Layout.astro';
 import { siteConfig } from '../config.ts';
 import { servicesContent } from '../content/services';
 import { consultingIMContent } from '../content/consulting-im';
-import { Icon } from 'astro-icon/components';
+import * as LucideIcons from '@lucide/astro';
 import { marked } from 'marked';
 
 const service = servicesContent[1];
@@ -24,13 +24,15 @@ const bodyHtml = await marked(service.body);
             <h2 class="text-3xl font-bold mb-8 text-center">{group.groupTitle}</h2>
             <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
               {
-                group.items.map((item) => (
+                group.items.map((item) => {
+                  const IconComponent = LucideIcons[item.icon];
+                  return (
                   <div
                     class={`group block bg-[var(--color-bg-card)] border-mono-lighter rounded-xl border p-8 hover:shadow-lg transition-shadow`}
                   >
                     <div class="flex items-center gap-4 mb-3">
                       <div class="feature-icon bg-[var(--color-orange)] flex h-14 w-14 items-center justify-center rounded-lg text-white flex-shrink-0">
-                        <Icon name={item.icon} class="h-7 w-7" />
+                        <IconComponent class="h-7 w-7" />
                       </div>
                       <h3 class="text-mono-black text-xl font-semibold card-title">
                         {item.title}
@@ -38,7 +40,8 @@ const bodyHtml = await marked(service.body);
                     </div>
                     <p class="text-mono-dark leading-relaxed">{item.description}</p>
                   </div>
-                ))
+                  );
+                })
               }
             </div>
           </section>

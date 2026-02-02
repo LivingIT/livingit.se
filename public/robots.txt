@@ -1,2 +1,6 @@
-# Dummy robots.txt
-# This file should be replaced during deployment.
+# robots.txt for livingit.se
+
+User-agent: *
+Allow: /
+
+Sitemap: https://livingit.se/sitemap.xml

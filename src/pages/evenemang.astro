@@ -3,7 +3,7 @@ import Layout from '../components/Layout.astro';
 import { siteConfig, getImageSrcSet, imageSizes } from '../config.ts';
 import { servicesContent } from '../content/services';
 import { eventsContent } from '../content/events';
-import { Icon } from 'astro-icon/components';
+import * as LucideIcons from '@lucide/astro';
 import { marked } from 'marked';
 
 const service = servicesContent[2];
@@ -27,7 +27,9 @@ const eventsWithHtml = await Promise.all(
 
       <section class="mt-16">
         <div class="flex flex-col gap-8">
-        {eventsWithHtml.map((event, index) => (
+        {eventsWithHtml.map((event, index) => {
+          const IconComponent = LucideIcons[event.icon];
+          return (
           <article class="w-full rounded-2xl bg-[var(--color-bg-card)] overflow-hidden shadow-sm" key={event.title}>
             <div class="grid gap-0 md:grid-cols-3">
               <div
@@ -37,7 +39,7 @@ const eventsWithHtml = await Promise.all(
               >
                 <div class="flex items-center gap-4 mb-4">
                   <div class="feature-icon bg-[var(--color-orange)] flex h-14 w-14 items-center justify-center rounded-lg text-white flex-shrink-0">
-                    <Icon name={event.icon} class="h-7 w-7" />
+                    <IconComponent class="h-7 w-7" />
                   </div>
                   <h2 class="text-3xl font-semibold card-title">{event.title}</h2>
                 </div>
@@ -55,7 +57,8 @@ const eventsWithHtml = await Promise.all(
               </div>
             </div>
           </article>
-        ))}
+          );
+        })}
         </div>
       </section>
     </div>

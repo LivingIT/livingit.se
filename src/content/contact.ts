@@ -4,14 +4,14 @@ export const contactContent = {
   header: 'Kontakta oss',
 
   contactGeneral: {
-    icon: 'heroicons:chat-bubble-left-right',
+    icon: 'MessageCircle',
     text: `
 Har ni behov av en IT- eller ledarskapskonsult? Intresserad av att veta mer om våra events? 🤔
 
 Skicka ett mail till ***hello@livingit.se*** eller ta kontakt med någon av våra affärsutvecklare nedan!`,
   },
   contactStart: {
-    icon: 'heroicons:sparkles',
+    icon: 'Sparkles',
     text: `
   Är du nyfiken på hur det är att jobba hos oss? ⭐
   

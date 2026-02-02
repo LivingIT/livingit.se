@@ -1,6 +1,6 @@
 ---
 import { siteConfig } from '../config.ts';
-import { Icon } from 'astro-icon/components';
+import * as LucideIcons from '@lucide/astro';
 import { servicesContent } from '../content/services';
 
 const serviceUrls: Record<string, string> = {
@@ -25,7 +25,9 @@ const serviceUrls: Record<string, string> = {
 
     <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
       {
-        servicesContent.map((service, index) => (
+        servicesContent.map((service, index) => {
+          const IconComponent = LucideIcons[service.icon];
+          return (
           <a
             href={serviceUrls[service.title]}
             class={`group block ${index % 2 === 0 ? 'scroll-fade-left' : 'scroll-fade-right'} bg-[var(--color-bg-card)] border-mono-lighter rounded-xl border p-8 stagger-${(index % 9) + 1} hover:shadow-lg transition-shadow flex flex-col`}
@@ -33,7 +35,7 @@ const serviceUrls: Record<string, string> = {
             <div>
               <div class="flex items-center gap-4 mb-3">
                 <div class="feature-icon bg-[var(--color-orange)] flex h-14 w-14 items-center justify-center rounded-lg text-white flex-shrink-0">
-                  <Icon name={service.icon} class="h-7 w-7" />
+                  <IconComponent class="h-7 w-7" />
                 </div>
                 <h3 class="text-mono-black text-xl font-semibold card-title">
                   {service.title}
@@ -45,7 +47,8 @@ const serviceUrls: Record<string, string> = {
               <p class="text-gray-500 text-sm">Läs mer...</p>
             </div>
           </a>
-        ))
+          );
+        })
       }
     </div>
   </div>

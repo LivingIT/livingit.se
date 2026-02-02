@@ -90,17 +90,17 @@ export const siteConfig = {
       {
         name: 'Mjukvarukonsulting',
         href: '/mjukvarukonsulting',
-        icon: 'heroicons:code-bracket',
+        icon: 'Code2',
       },
       {
         name: 'Ledarskapskonsulting',
         href: '/ledarskapskonsulting',
-        icon: 'heroicons:user-group',
+        icon: 'Users',
       },
       {
         name: 'Evenemang',
         href: '/evenemang',
-        icon: 'heroicons:calendar-days',
+        icon: 'CalendarDays',
       },
     ],
     cta: {
