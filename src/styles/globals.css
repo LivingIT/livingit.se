@@ -40,11 +40,11 @@ body {
 
 @theme {
   --color-mono-black: #000000;
-  --color-mono-darker: #171717;
-  --color-mono-dark: #404040;
-  --color-mono-gray: #737373;
-  --color-mono-light: #a3a3a3;
-  --color-mono-lighter: #e5e5e5;
+  --color-mono-darker: #303132;
+  --color-mono-dark: #414243;
+  --color-mono-gray: #757779;
+  --color-mono-light: #a3a5a8;
+  --color-mono-lighter: #e5e8ec;
   --color-mono-white: #ffffff;
 
   --color-bg-navigation: #f8f9ff;
