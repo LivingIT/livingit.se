@@ -15,7 +15,7 @@ Skicka ett mail till ***hello@livingit.se*** eller ta kontakt med någon av vår
     text: `
   Är du nyfiken på hur det är att jobba hos oss? ⭐
   
-  Eller är du rent av ***ready to start Living IT?***
+  Eller känner du dig rent av ***ready to start Living IT?***
   
   Maila ***start@livingit.se***, så tar vi det därifrån! 🙂`,
   },
