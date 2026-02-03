@@ -27,7 +27,7 @@ const currentPath = Astro.url.pathname === '/'
             return (
               <a
                 href={link.href}
-                class={`text-mono-dark rounded-lg p-2 transition hover:text-mono-black relative ${isActive ? 'border-b-4 border-[var(--color-orange)]' : ''}`}
+                class={`text-mono-dark rounded-lg p-2 transition hover:text-mono-black relative ${isActive ? 'border-b-4 border-[var(--color-orange)] rounded-none' : ''}`}
                 aria-label={link.name}
                 title={link.name}
                 aria-current={isActive ? 'page' : undefined}
