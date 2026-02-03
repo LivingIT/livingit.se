@@ -124,6 +124,7 @@ export const siteConfig = {
   // ============================================
   heroCarousel: {
     images: [
+      getResponsiveImage('carousel/10.jpg'),
       getResponsiveImage('carousel/01.jpg'),
       getResponsiveImage('carousel/02.jpg'),
       getResponsiveImage('carousel/03.jpg'),
@@ -133,7 +134,6 @@ export const siteConfig = {
       getResponsiveImage('carousel/07.jpg'),
       getResponsiveImage('carousel/08.jpg'),
       getResponsiveImage('carousel/09.jpg'),
-      getResponsiveImage('carousel/10.jpg'),
     ],
     imageAltPrefix: 'Living IT carousel image',
     intervalMs: 4500,
