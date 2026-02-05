@@ -50,7 +50,7 @@ const eventsWithHtml = await Promise.all(
           const IconComponent = LucideIcons[event.icon];
           return (
           <article class="scroll-fade-up w-full rounded-2xl bg-[var(--color-bg-card)] overflow-hidden shadow-sm stagger-${(index % 9) + 1} hover:shadow-lg transition-shadow" key={event.title}>
-            <div class="grid gap-0 md:grid-cols-3">
+            <div class="grid gap-0 grid-cols-1 md:grid-cols-3">
               <div
                 class={`flex flex-col justify-center p-8 md:p-10 md:col-span-2 ${
                   index % 2 === 0 ? 'order-1' : 'order-2'
@@ -64,8 +64,8 @@ const eventsWithHtml = await Promise.all(
                 </div>
                 <div class="text-gray-700 leading-relaxed [&>p]:mb-4" set:html={event.bodyHtml}></div>
               </div>
-              <div class={`${index % 2 === 0 ? 'order-2' : 'order-1'} h-72 md:h-full`}>
-                <div class="carousel-frame carousel-frame-square" data-carousel data-interval="4500">
+              <div class={`${index % 2 === 0 ? 'order-2' : 'order-1'} h-72 md:h-full w-full p-10`}>
+                <div class="carousel-frame" data-carousel data-interval="4500">
                   {event.images.map((images, imgIndex) => (
                     <Image
                       srcset={getImageSrcSet(images)}
