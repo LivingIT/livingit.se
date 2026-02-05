@@ -16,7 +16,7 @@ const currentPath = Astro.url.pathname === '/'
     <div class="flex h-16 items-center">
       <div class="flex flex-1 items-center">
         <a href="/" class="flex items-center">
-          <Image src="/images/logo-light.svg" alt="{siteConfig.site.name}" width={120} height={40} class="h-10 w-auto" />
+          <Image src="/images/logo-light.svg" alt="{siteConfig.site.name}" width={120} height={40} class="h-10 w-auto" loading="eager" />
         </a>
       </div>
 
