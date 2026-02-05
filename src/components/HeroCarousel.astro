@@ -13,7 +13,7 @@ const intervalMs = heroCarousel.intervalMs ?? 4500;
   <div class="mx-auto max-w-7xl">
     <div class="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
       <div class="scroll-fade-left">
-        <div class="carousel-frame" data-carousel data-interval={intervalMs}>
+        <div class="carousel-frame carousel-frame-portrait" data-carousel data-interval={intervalMs}>
           {heroCarousel.images.map((images, index) => (
             <Image
               srcset={getImageSrcSet(images)}

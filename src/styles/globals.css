@@ -228,13 +228,20 @@ body {
 .carousel-frame {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 5;
   border-radius: 24px;
   overflow: hidden;
   background: #0a0a0a;
   box-shadow:
     0 20px 40px rgba(0, 0, 0, 0.2),
     0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.carousel-frame-portrait {
+  aspect-ratio: 4 / 5;
+}
+
+.carousel-frame-square {
+  aspect-ratio: 1 / 1;
 }
 
 .carousel-image {

@@ -17,7 +17,11 @@ det som ett sätt att ge tillbaka till kunder, anställda och communityn.
 
 Besök gärna **[beautyincode.se](https://beautincode.se)** och läs mer om
 konferensen och hur du anmäler dig! Där kan du också titta på tidigare års föreläsningar!`,
-    image: getResponsiveImage('events/beautyincode.jpg'),
+    images: [
+      getResponsiveImage('events/beautyincode-1.jpg'),
+      getResponsiveImage('events/beautyincode-2.jpg'),
+      getResponsiveImage('events/beautyincode-3.jpg'),
+    ],
     alt: 'Beauty in Code – föreläsare på scen',
   },
   {
@@ -35,7 +39,11 @@ verkligheten. Fokus ligger på att verkligen grotta ner sig i ett ämne
 
 Våra workshops är öppna både för våra anställda och för externa
 deltagare som vill utvecklas tillsammans med oss.`,
-    image: getResponsiveImage('events/workshop.jpg'),
+    images: [
+      getResponsiveImage('events/workshop-1.jpg'),
+      getResponsiveImage('events/workshop-2.jpg'),
+      getResponsiveImage('events/workshop-3.jpg'),
+    ],
     alt: 'Workshop – deltagare i loungemiljö',
   },
   {
@@ -51,7 +59,11 @@ I Göteborg håller vi till på Biopalatset, också en rymlig salong med modern 
 
 Ta din popcorn och dricka, slå dig ner i salongen och gör dig redo för
 kvällens film!`,
-    image: getResponsiveImage('events/it-bio.jpg'),
+    images: [
+      getResponsiveImage('events/it-bio-1.jpg'),
+      getResponsiveImage('events/it-bio-2.jpg'),
+      getResponsiveImage('events/it-bio-3.jpg'),
+    ],
     alt: 'IT-bio – presentation före filmvisning',
   },
   {
@@ -64,7 +76,11 @@ kombinerar föreläsningar med hands-on övningar i något intressant ämne.
 
 Kombinationen av workshops och sociala aktiviteter ger oss inte bara ny
 kunskap, utan också massor av energi och glädje!`,
-    image: getResponsiveImage('events/it-helg.jpg'),
+    images: [
+      getResponsiveImage('events/it-helg-1.jpg'),
+      getResponsiveImage('events/it-helg-2.jpg'),
+      getResponsiveImage('events/it-helg-3.jpg'),
+    ],
     alt: 'IT-helg – föreläsning inför grupp',
   },
 ];

@@ -65,16 +65,21 @@ const eventsWithHtml = await Promise.all(
                 <div class="text-gray-700 leading-relaxed [&>p]:mb-4" set:html={event.bodyHtml}></div>
               </div>
               <div class={`${index % 2 === 0 ? 'order-2' : 'order-1'} h-72 md:h-full`}>
-                <Image
-                  srcset={getImageSrcSet(event.image)}
-                  sizes={imageSizes.eventImage}
-                  src={event.image.desktop}
-                  alt={event.alt}
-                  width={800}
-                  height={800}
-                  class="h-full w-full object-cover"
-                  loading="lazy"
-                />
+                <div class="carousel-frame carousel-frame-square" data-carousel data-interval="4500">
+                  {event.images.map((images, imgIndex) => (
+                    <Image
+                      srcset={getImageSrcSet(images)}
+                      sizes={imageSizes.eventImage}
+                      src={images.desktop}
+                      alt={`${event.alt} ${imgIndex + 1}`}
+                      width={800}
+                      height={800}
+                      class={`carousel-image ${imgIndex === 0 ? 'is-active' : ''}`}
+                      loading={index === 0 && imgIndex === 0 ? 'eager' : 'lazy'}
+                      data-carousel-image
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </article>
@@ -85,3 +90,19 @@ const eventsWithHtml = await Promise.all(
     </div>
   </main>
 </Layout>
+
+<script>
+  document.querySelectorAll('[data-carousel]').forEach((carousel) => {
+    const slides = carousel.querySelectorAll('[data-carousel-image]');
+    if (slides.length < 2) return;
+
+    let index = 0;
+    const interval = Number(carousel.getAttribute('data-interval')) || 4500;
+
+    setInterval(() => {
+      slides[index].classList.remove('is-active');
+      index = (index + 1) % slides.length;
+      slides[index].classList.add('is-active');
+    }, interval);
+  });
+</script>
