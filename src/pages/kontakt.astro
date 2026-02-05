@@ -1,5 +1,6 @@
 ---
 import Layout from '../components/Layout.astro';
+import { Image } from 'astro:assets';
 import { siteConfig, getImageSrcSet, imageSizes } from '../config.ts';
 import { contactContent } from '../content/contact';
 import * as LucideIcons from '@lucide/astro';
@@ -52,11 +53,13 @@ const getInitials = (name: string) =>
             <article class={`group block scroll-fade-up bg-[var(--color-bg-card)] border-mono-lighter rounded-2xl border p-6 stagger-${(index % 9) + 1} hover:shadow-lg transition-shadow`}>
               <div class="mb-5">
                 <div class="relative aspect-[4/5] overflow-hidden rounded-xl bg-gray-100">
-                  <img
+                  <Image
                     srcset={getImageSrcSet(person.photo)}
                     sizes={imageSizes.contactPhoto}
                     src={person.photo.desktop}
                     alt={`Foto på ${person.name}`}
+                    width={400}
+                    height={500}
                     class="h-full w-full object-cover"
                     loading="lazy"
                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"

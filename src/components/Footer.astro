@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import { siteConfig } from '../config.ts';
 import { Icon } from 'astro-icon/components';
 
@@ -26,7 +27,7 @@ const iconMap = {
             )}
             {column.logo && (
               <div class="mb-4">
-                <img src={column.logo} alt="Living IT Logo" class="h-12" />
+                <Image src={column.logo} alt="Living IT Logo" width={120} height={48} class="h-12" />
                 {column.legalInfo && (
                   <div class="mt-6 text-mono-light whitespace-pre-line text-sm leading-relaxed">
                     {column.legalInfo}

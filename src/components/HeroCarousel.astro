@@ -1,5 +1,6 @@
 ---
 import { marked } from 'marked';
+import { Image } from 'astro:assets';
 import { siteConfig, getImageSrcSet, imageSizes } from '../config.ts';
 
 const { heroCarousel } = siteConfig;
@@ -14,11 +15,13 @@ const intervalMs = heroCarousel.intervalMs ?? 4500;
       <div class="scroll-fade-left">
         <div class="carousel-frame" data-carousel data-interval={intervalMs}>
           {heroCarousel.images.map((images, index) => (
-            <img
+            <Image
               srcset={getImageSrcSet(images)}
               sizes={imageSizes.carouselImage}
               src={images.desktop}
               alt={`${altPrefix} ${index + 1}`}
+              width={800}
+              height={600}
               class={`carousel-image ${index === 0 ? 'is-active' : ''}`}
               loading={index === 0 ? 'eager' : 'lazy'}
               data-carousel-image
