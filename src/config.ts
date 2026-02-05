@@ -79,7 +79,8 @@ export const siteConfig = {
     title: 'Living IT',
     description: 'Vi är ett konsultföretag i Malmö och Göteborg som värnar livet utanför jobbet – men alltid strävar efter att överträffa våra kunders förväntningar.',
     keywords: 'konsult, management, IT, Malmö, Göteborg',
-    email: 'hello@livingit.se'
+    email: 'hello@livingit.se',
+    url: 'https://livingit.se'
   },
 
   // ============================================
