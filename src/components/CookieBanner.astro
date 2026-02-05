@@ -9,9 +9,9 @@ const cookieBackgroundImage = getResponsiveImage('cookies-back.jpg');
   id="cookie-banner" 
   class="cookie-banner" 
   style={`
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${cookieBackgroundImage.desktop}');
-    --mobile-bg: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${cookieBackgroundImage.mobile}');
-    --tablet-bg: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${cookieBackgroundImage.tablet}');
+    background-image: url('${cookieBackgroundImage.desktop}');
+    --mobile-bg: url('${cookieBackgroundImage.mobile}');
+    --tablet-bg: url('${cookieBackgroundImage.tablet}');
   `}
 >
   <div class="cookie-banner-content">
@@ -40,7 +40,7 @@ const cookieBackgroundImage = getResponsiveImage('cookies-back.jpg');
     right: 0;
     background-size: cover;
     background-position: center;
-    color: #ffffff;
+    color: #1a1a1a;
     padding: 1.5rem;
     z-index: 1000;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
@@ -83,13 +83,13 @@ const cookieBackgroundImage = getResponsiveImage('cookies-back.jpg');
   .cookie-policy-link {
     display: inline-block;
     font-size: 0.875rem;
-    color: #e5e5e5;
+    color: #333333;
     text-decoration: underline;
     transition: color 0.2s ease;
   }
 
   .cookie-policy-link:hover {
-    color: #ffffff;
+    color: #000000;
   }
 
   .cookie-banner-buttons {
@@ -101,8 +101,8 @@ const cookieBackgroundImage = getResponsiveImage('cookies-back.jpg');
 
   .cookie-banner-button {
     padding: 0.75rem 1.5rem;
-    background-color: #ffffff;
-    color: #000000;
+    background-color: #1a1a1a;
+    color: #ffffff;
     border: none;
     border-radius: 0.375rem;
     font-weight: 600;
@@ -114,11 +114,11 @@ const cookieBackgroundImage = getResponsiveImage('cookies-back.jpg');
   }
 
   .cookie-banner-button:hover {
-    background-color: #e5e5e5;
+    background-color: #333333;
   }
 
   .cookie-banner-button:active {
-    background-color: #d4d4d4;
+    background-color: #4a4a4a;
   }
 
   .cookie-banner.hidden {
