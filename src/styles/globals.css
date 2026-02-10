@@ -322,3 +322,24 @@ body {
 .stagger-9 {
   transition-delay: 900ms;
 }
+
+/* Shared tooltip styles */
+.tooltip-above {
+  position: relative;
+}
+
+.tooltip-above:hover::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.25rem;
+  white-space: nowrap;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  z-index: 10;
+}

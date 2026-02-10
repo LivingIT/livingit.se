@@ -192,27 +192,24 @@ Det är **The Living IT Way**.`
         title: 'Malmö',
         address: 'Gustav Adolfs torg 12\n211 39 Malmö\nSverige',
         mapsUrl: 'https://maps.google.com/?q=55.60191580297133,12.999251168084095',
-        links: [],
       },
       {
         title: 'Göteborg',
         address: 'Norra Hamngatan 18\n411 06 Göteborg\nSverige',
         mapsUrl: 'https://maps.google.com/?q=57.70710852992462,11.968320826032762',
-        links: [],
       },
       {
-        title: 'Följ oss',
+      },
+      {
+        logo: '/images/logo-dark.svg',
+        legalInfo: `Living IT Consulting Group AB\nVAT Number: SE559291387401\n© ${new Date().getFullYear()} Living IT`,
         social: [
           { name: 'LinkedIn', href: 'https://www.linkedin.com/company/living-it/', icon: 'linkedin' },
           { name: 'Facebook', href: 'https://www.facebook.com/LivingITConsulting', icon: 'facebook' },
           { name: 'Twitter', href: 'https://x.com/LivingITConsult', icon: 'twitter' },
           { name: 'Instagram', href: 'https://www.instagram.com/LivingITConsulting/', icon: 'instagram' },
+          { name: 'Hantera cookies', href: '#', icon: 'cookie', isCookieButton: true },
         ],
-      },
-      {
-        logo: '/images/logo-dark.svg',
-        legalInfo: `Living IT Consulting Group AB\nVAT Number: SE559291387401\n© ${new Date().getFullYear()} Living IT`,
-        showCookieButton: true,
       },
     ],
   },
