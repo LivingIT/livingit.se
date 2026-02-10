@@ -24,7 +24,7 @@ We offer two core consulting services:
 - **Home** (index.astro) - Hero section and overview
 - **Software Consulting** (mjukvarukonsulting.astro) - Detailed service information
 - **Leadership Consulting** (ledarskapskonsulting.astro) - Detailed service information
-- **Events** (evenemang.astro) - Upcoming events
+- **Events** (events.astro) - Upcoming events
 - **Cookie Policy** (cookies-policy.astro) - Cookie policy information
 
 ## Quick Start

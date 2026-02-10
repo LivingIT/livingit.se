@@ -54,7 +54,7 @@ till IT-bio. Det är vårt sätt att tacka våra familjer, vänner, kunder
 och branschkollegor för allt de gjort och fortsätter göra för oss.
 
 I Malmö kör vi naturligtvis på Royal, som är Malmös äldsta och största biograf.
-Den byggdes 1961 och är med sina 500 sittplatser en fantastisk lokal för våra evenemang.
+Den byggdes 1961 och är med sina 500 sittplatser en fantastisk lokal för våra events.
 I Göteborg håller vi till på Biopalatset, också en rymlig salong med modern teknik.
 
 Ta din popcorn och dricka, slå dig ner i salongen och gör dig redo för
