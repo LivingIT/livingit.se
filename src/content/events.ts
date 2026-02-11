@@ -5,7 +5,7 @@ export const eventsContent = [
     title: 'Beauty in Code',
     icon: 'MicVocal',
     body: `Första lördagen i mars arrangerar vi vår egna IT-konferens
-**[Beauty in Code](https://beautincode.se)**. Där har du möjlighet att lyssna på talare i
+**[Beauty in Code](https://beautyincode.se)**. Där har du möjlighet att lyssna på talare i
 världsklass, träffa kollegor i branschen och fördjupa dig i aktuella
 ämnen.
 
@@ -15,7 +15,7 @@ som möjligt ska kunna komma. Avgiften är låg, faktum är att du endast
 betalar för lunch och fika – själva konferensen bjuder vi på! Vi ser
 det som ett sätt att ge tillbaka till kunder, anställda och communityn.
 
-Besök gärna **[beautyincode.se](https://beautincode.se)** och läs mer om
+Besök gärna **[beautyincode.se](https://beautyincode.se)** och läs mer om
 konferensen och hur du anmäler dig! Där kan du också titta på tidigare års föreläsningar!`,
     images: [
       getResponsiveImage('events/beautyincode-1.jpg'),
