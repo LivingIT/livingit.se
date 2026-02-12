@@ -9,6 +9,7 @@ const currentPath = Astro.url.pathname === '/'
   : Astro.url.pathname.replace(/\/$/, '');
 ---
 
+<header aria-label="Site Navigation">
 <nav
   class="border-mono-light fixed top-0 z-50 w-full border-b bg-[var(--color-bg-navigation)] backdrop-blur-sm"
 >
@@ -89,6 +90,7 @@ const currentPath = Astro.url.pathname === '/'
     </div>
   </div>
 </nav>
+</header>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {

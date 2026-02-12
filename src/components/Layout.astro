@@ -59,7 +59,9 @@ const robotsContent = isDev ? 'noindex, nofollow' : 'index, follow';
 
   <body class="text-mono-black bg-white font-sans antialiased">
     <Navigation />
-    <slot />
+    <main aria-label="Main Content">
+      <slot />
+    </main>
     <Footer />
     <CookieBanner />
 
