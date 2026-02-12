@@ -66,7 +66,7 @@ Genom att samla människor med olika erfarenheter och perspektiv vill vi \
 skapa utrymme för lärande, samtal och nya idéer.
 
 Vårt mål är att dela erfarenheter, väcka nyfikenhet och bygga starka \
-relationer som lever vidare även efter att evenemanget är slut – både \
+relationer som lever vidare även efter att eventet är slut – både \
 inom branschen och bortom den.`,
   }
 ];
