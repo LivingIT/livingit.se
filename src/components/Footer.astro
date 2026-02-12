@@ -18,9 +18,21 @@ const iconMap = {
   <div class="mx-auto max-w-7xl px-12 py-16">
     <div class="mb-12 grid grid-cols-1 gap-12 md:grid-cols-4 items-start">
       {
-        siteConfig.footer.columns.map((column) => (
-          <div>
-            {column.title && <h4 class="mb-4 font-semibold">{column.title}</h4>}
+        siteConfig.footer.columns.map((column) => {
+          const sectionLabel = column.title
+            ? `Office in ${column.title}`
+            : column.logo
+              ? 'Living IT information and social media links'
+              : column.social
+                ? 'Social media links'
+                : column.address
+                  ? 'Kontorsadress'
+                  : null;
+
+          return (
+            <div>
+              {sectionLabel && <h2 class="sr-only">{sectionLabel}</h2>}
+              {column.title && <h3 class="mb-4 font-semibold">{column.title}</h3>}
             {column.address && (
               <a href={column.mapsUrl} target="_blank" rel="noopener noreferrer" class="text-mono-light mb-4 whitespace-pre-line text-sm leading-relaxed hover:text-white transition-colors block">
                 {column.address}
@@ -63,8 +75,9 @@ const iconMap = {
                 ))}
               </div>
             )}
-          </div>
-        ))
+            </div>
+          );
+        })
       }
     </div>
 
