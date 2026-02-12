@@ -1,10 +1,14 @@
 ---
 import { siteConfig, getResponsiveImage } from '../config.ts';
 // Cookie Banner Component - GDPR compliant cookie consent
+// DISABLED: Only technical cookies are used. Users can access the cookie policy via footer link.
+// To re-enable, uncomment the HTML below and restore the script section.
 
 const cookieBackgroundImage = getResponsiveImage('cookies-back.jpg');
 ---
 
+{/* COOKIE BANNER DISABLED - See footer for cookie policy link */}
+{/*
 <div 
   id="cookie-banner" 
   class="cookie-banner" 
@@ -31,6 +35,7 @@ const cookieBackgroundImage = getResponsiveImage('cookies-back.jpg');
     </div>
   </div>
 </div>
+*/}
 
 <style>
   .cookie-banner {

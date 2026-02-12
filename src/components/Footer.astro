@@ -40,14 +40,14 @@ const iconMap = {
               <div class="flex space-x-4">
                 {column.social.map((social) => (
                   social.isCookieButton ? (
-                    <button 
-                      id="restore-cookie-consent" 
+                    <a 
+                      href="/cookies-policy"
                       class="text-mono-light hover:text-white transition-colors tooltip-above"
                       aria-label={social.name}
                       data-tooltip={social.name}
                     >
                       <LucideIcons.Cookie class="h-6 w-6" />
-                    </button>
+                    </a>
                   ) : (
                     <a
                       href={social.href}
@@ -74,6 +74,7 @@ const iconMap = {
   </div>
 </footer>
 
+{/* Cookie button script - DISABLED: Button now links directly to /cookies-policy
 <script>
   // Handle restore cookie consent button
   const restoreButton = document.getElementById('restore-cookie-consent');
@@ -87,3 +88,4 @@ const iconMap = {
     cookieBanner?.classList.remove('hidden');
   });
 </script>
+*/}

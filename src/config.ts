@@ -208,7 +208,7 @@ Det är **The Living IT Way**.`
           { name: 'Facebook', href: 'https://www.facebook.com/LivingITConsulting', icon: 'facebook' },
           { name: 'Twitter', href: 'https://x.com/LivingITConsult', icon: 'twitter' },
           { name: 'Instagram', href: 'https://www.instagram.com/LivingITConsulting/', icon: 'instagram' },
-          { name: 'Hantera cookies', href: '#', icon: 'cookie', isCookieButton: true },
+          { name: 'Cookies', href: '#', icon: 'cookie', isCookieButton: true },
         ],
       },
     ],
@@ -222,7 +222,7 @@ Det är **The Living IT Way**.`
       titleSv: 'Cookiesamtycke',
       descriptionSv:
         'Vi använder endast cookies för rent tekniska ändamål för att förbättra din webbupplevelse. \
-        Vi använder inga spårnings- eller analyskookies.',
+        Vi använder inga spårnings- eller analyscookies.',
       acceptTextSv: 'Jag förstår',
       policyLinkTextSv: 'Läs mer om vår cookie-policy',
     },
