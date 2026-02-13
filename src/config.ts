@@ -199,6 +199,9 @@ Det är **The Living IT Way**.`
         mapsUrl: 'https://maps.google.com/?q=57.70710852992462,11.968320826032762',
       },
       {
+        title: 'Helsingborg',
+        address: 'Redaregatan 48\n252 36 Helsingborg\nSverige',
+        mapsUrl: 'https://maps.google.com/?q=56.04241359644715,12.690902828836114',
       },
       {
         logo: '/images/logo-dark.svg',
