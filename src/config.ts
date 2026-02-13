@@ -209,7 +209,7 @@ Det är **The Living IT Way**.`
         social: [
           { name: 'LinkedIn', href: 'https://www.linkedin.com/company/living-it/', icon: 'linkedin' },
           { name: 'Facebook', href: 'https://www.facebook.com/LivingITConsulting', icon: 'facebook' },
-          { name: 'Twitter', href: 'https://x.com/LivingITConsult', icon: 'twitter' },
+          { name: 'X', href: 'https://x.com/LivingITConsult', icon: 'x' },
           { name: 'Instagram', href: 'https://www.instagram.com/LivingITConsulting/', icon: 'instagram' },
           { name: 'Cookies', href: '#', icon: 'cookie', isCookieButton: true },
         ],

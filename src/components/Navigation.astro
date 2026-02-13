@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { siteConfig } from '../config.ts';
 import * as LucideIcons from '@lucide/astro';
+const iconMap = LucideIcons as Record<string, any>;
 
 // Normalize pathname by removing trailing slash (except for root)
 const currentPath = Astro.url.pathname === '/' 
@@ -17,7 +18,7 @@ const currentPath = Astro.url.pathname === '/'
     <div class="flex h-16 items-center">
       <div class="flex flex-1 items-center">
         <a href="/" class="flex items-center">
-          <Image src="/images/logo-light.svg" alt="{siteConfig.site.name}" width={120} height={40} class="h-10 w-auto" loading="eager" />
+          <Image src="/images/logo-light.svg" alt="Living IT logo" width={120} height={40} class="h-10 w-auto" loading="eager" />
         </a>
       </div>
 
@@ -25,17 +26,15 @@ const currentPath = Astro.url.pathname === '/'
         {
           siteConfig.navigation.links.map((link) => {
             const isActive = currentPath === link.href;
-            const IconComponent = LucideIcons[link.icon];
+            const IconComponent = iconMap[link.icon];
             return (
               <a
                 href={link.href}
-                class={`text-mono-dark rounded-lg p-2 transition hover:text-mono-black relative tooltip-above ${isActive ? 'border-b-4 border-[var(--color-orange)] rounded-none' : ''}`}
-                aria-label={link.name}
-                data-tooltip={link.name}
+                class={`text-mono-dark flex items-center gap-2 rounded-lg py-2 transition hover:text-mono-black ${isActive ? 'border-b-4 border-[var(--color-orange)] rounded-none' : ''}`}
                 aria-current={isActive ? 'page' : undefined}
               >
                 <IconComponent class="h-6 w-6" />
-                <span class="sr-only">{link.name}</span>
+                <span class="font-semibold">{link.name}</span>
               </a>
             );
           })
@@ -67,7 +66,7 @@ const currentPath = Astro.url.pathname === '/'
         {
           siteConfig.navigation.links.map((link) => {
             const isActive = currentPath === link.href;
-            const IconComponent = LucideIcons[link.icon];
+            const IconComponent = iconMap[link.icon];
             return (
               <a
                 href={link.href}
