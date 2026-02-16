@@ -4,7 +4,7 @@ A modern, fast, and accessible website for Living IT consulting company. Built w
 
 ## About Living IT
 
-Living IT is a consulting company based in Malmö and Göteborg, Sweden. We believe that family, friends, and leisure are the most important things in life, but when we're at work, we always do our best to exceed our clients' expectations.
+Living IT is a consulting company based in Malmö, Helsingborg and Göteborg, Sweden. We believe that family, friends, and leisure are the most important things in life, but when we're at work, we always do our best to exceed our clients' expectations.
 
 We offer two core consulting services:
 - **Mjukvarukonsulting** (Software Consulting) - Creating digital solutions with curiosity, precision, and genuine commitment
