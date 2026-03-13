@@ -67,7 +67,7 @@ Devops för oss är inte bara teknik, det är ett löfte om smidighet, kvalitet 
     icon: 'MessageCircle',
     title: 'Teamkompisen',
     description:
-      'Kod och teknik i all ära; det är så klart väldigt viktigt – men människor är viktigare. \
+      'Kod och teknik i all ära, det är så klart väldigt viktigt – men människor är viktigare. \
 Vi tror på delade skratt, öppen feedback och en laganda som håller även under press när deadlines närmar sig. \
 Våra konsulter tar ansvar, samarbetar i teamet och bygger kultur lika självklart som de bygger kod.',
   }
