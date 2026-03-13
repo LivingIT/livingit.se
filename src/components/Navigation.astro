@@ -1,8 +1,16 @@
 ---
+import { Image } from 'astro:assets';
 import { siteConfig } from '../config.ts';
-import { Icon } from 'astro-icon/components';
+import * as LucideIcons from '@lucide/astro';
+const iconMap = LucideIcons as Record<string, any>;
+
+// Normalize pathname by removing trailing slash (except for root)
+const currentPath = Astro.url.pathname === '/' 
+  ? '/' 
+  : Astro.url.pathname.replace(/\/$/, '');
 ---
 
+<header aria-label="Site Navigation">
 <nav
   class="border-mono-light fixed top-0 z-50 w-full border-b bg-[var(--color-bg-navigation)] backdrop-blur-sm"
 >
@@ -10,30 +18,33 @@ import { Icon } from 'astro-icon/components';
     <div class="flex h-16 items-center">
       <div class="flex flex-1 items-center">
         <a href="/" class="flex items-center">
-          <img src="/images/logo-light.svg" alt="{siteConfig.site.name}" class="h-10 w-auto" />
+          <Image src="/images/logo-light.svg" alt="Living IT logo" width={120} height={40} class="h-10 w-auto" loading="eager" />
         </a>
       </div>
 
       <div class="hidden flex-1 items-center justify-center space-x-6 md:flex">
         {
-          siteConfig.navigation.links.map((link) => (
-            <a
-              href={link.href}
-              class="text-mono-dark rounded-lg p-2 transition hover:text-mono-black"
-              aria-label={link.name}
-              title={link.name}
-            >
-              <Icon name={link.icon} class="h-6 w-6" />
-              <span class="sr-only">{link.name}</span>
-            </a>
-          ))
+          siteConfig.navigation.links.map((link) => {
+            const isActive = currentPath === link.href;
+            const IconComponent = iconMap[link.icon];
+            return (
+              <a
+                href={link.href}
+                class={`text-mono-dark flex items-center gap-2 rounded-lg py-2 transition hover:text-mono-black ${isActive ? 'border-b-4 border-[var(--color-orange)] rounded-none' : ''}`}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                <IconComponent class="h-6 w-6" />
+                <span class="font-semibold">{link.name}</span>
+              </a>
+            );
+          })
         }
       </div>
 
       <div class="hidden flex-1 items-center justify-end md:flex">
         <a
           href={siteConfig.navigation.cta.href}
-          class="bg-mono-black rounded-lg px-6 py-2 font-semibold text-white"
+          class="bg-[var(--color-orange)] rounded-lg px-6 py-2 font-semibold text-white"
         >
           {siteConfig.navigation.cta.text}
         </a>
@@ -46,26 +57,31 @@ import { Icon } from 'astro-icon/components';
         aria-expanded="false"
         aria-label="Toggle navigation menu"
       >
-        <Icon name="heroicons:bars-3" class="text-mono-black h-6 w-6" />
+        <LucideIcons.Menu class="text-[var(--color-orange)] h-6 w-6" />
       </button>
     </div>
 
     <div id="mobileMenu" class="hidden pb-4 md:hidden" aria-hidden="true">
       <div class="flex flex-col space-y-3">
         {
-          siteConfig.navigation.links.map((link) => (
-            <a
-              href={link.href}
-              class="text-mono-dark flex items-center gap-3 py-2 font-semibold"
-            >
-              <Icon name={link.icon} class="h-5 w-5" />
-              <span>{link.name}</span>
-            </a>
-          ))
+          siteConfig.navigation.links.map((link) => {
+            const isActive = currentPath === link.href;
+            const IconComponent = iconMap[link.icon];
+            return (
+              <a
+                href={link.href}
+                class={`text-mono-dark flex items-center gap-3 py-2 font-semibold ${isActive ? 'border-b-4 border-[var(--color-orange)]' : ''}`}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                <IconComponent class="h-5 w-5" />
+                <span>{link.name}</span>
+              </a>
+            );
+          })
         }
         <a
           href={siteConfig.navigation.cta.href}
-          class="bg-mono-black rounded-lg px-6 py-3 text-center font-semibold text-white"
+          class="bg-[var(--color-orange)] rounded-lg px-6 py-3 text-center font-semibold text-white"
         >
           {siteConfig.navigation.cta.text}
         </a>
@@ -73,6 +89,7 @@ import { Icon } from 'astro-icon/components';
     </div>
   </div>
 </nav>
+</header>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {

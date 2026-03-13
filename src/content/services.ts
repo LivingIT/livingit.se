@@ -1,13 +1,13 @@
 export const servicesContent = [
   {
-    icon: 'heroicons:code-bracket',
-    title: 'Mjukvarukonsulting',
+    icon: 'Code2',
+    title: 'Mjukvaru­konsulting',
     description:
-      'Vi skapar digitala lösningar genom att kombinera nyfikenhet, \
+      'Med vår expertis hjälper vi er att skapa digitala lösningar genom att kombinera nyfikenhet, \
 precision och ett genuint engagemang. Vårt fokus är att bygga \
 hållbara och tydliga system som gör verklig skillnad – för både \
 team och verksamhet.',
-    body: `Vi skapar digitala lösningar genom att kombinera nyfikenhet,
+    body: `Med vår expertis hjälper vi er att skapa digitala lösningar genom att kombinera nyfikenhet,
 precision och ett genuint engagemang. Vårt fokus är att bygga
 hållbara och tydliga system som gör verklig skillnad – för både
 team och verksamhet.
@@ -28,8 +28,8 @@ digital utveckling som gör skillnad, idag och imorgon.
 `,
   },
   {
-    icon: 'heroicons:user-group',
-    title: 'Ledarskapskonsulting',
+    icon: 'Users',
+    title: 'Ledarskaps­konsulting',
     description:
       'Vi förstärker organisationer genom att kombinera nyfikenhet, \
 innovation och ett genuint engagemang. Vårt mål är att skapa \
@@ -53,19 +53,19 @@ håller över tid.
 `,
   },
   {
-    icon: 'heroicons:calendar-days',
-    title: 'Evenemang',
+    icon: 'CalendarDays',
+    title: 'Events',
     description:
-      'Vi skapar mötesplatser genom konferenser, workshops och event \
-som inspirerar, fördjupar och bygger gemenskap. Vårt mål är att dela \
-kunskap, väcka nyfikenhet och ge tillbaka till branschen på ett \
-sätt som engagerar både människor och community.',
-    body: `Vi skapar mötesplatser genom konferenser, workshops och andra evenemang där kunskap,
-    inspiration och gemenskap står i centrum. Genom att samla människor med olika erfarenheter 
-    och perspektiv vill vi skapa utrymme för lärande, samtal och nya idéer. 
-    Vårt mål är att dela erfarenheter, väcka nyfikenhet och bygga starka relationer
-    som lever vidare även efter att evenemanget är slut – både inom branschen och bortom den.
+      'Sist men inte minst skapar vi mötesplatser genom konferenser, \
+workshops och andra tillställningar som inspirerar, fördjupar och bygger gemenskap. Vi vill gärna dela \
+kunskap, väcka nyfikenhet och ge tillbaka till branschen och vår community.',
+    body: `Vi arrangerar mötesplatser genom konferenser, workshops och andra \
+events där kunskap, inspiration och gemenskap står i centrum. \
+Genom att samla människor med olika erfarenheter och perspektiv vill vi \
+skapa utrymme för lärande, samtal och nya idéer.
 
-Du hittar våra aktuella evenemang på vår **[event-sida](https://events.livingit.se)**.`,
+Målet är att dela erfarenheter på olika sätt, väcka nyfikenhet och bygga starka \
+relationer som lever vidare även efter att eventet är slut – både \
+inom branschen och bortom den.`,
   }
 ];

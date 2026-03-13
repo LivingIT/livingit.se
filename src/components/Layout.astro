@@ -14,6 +14,13 @@ const {
   title = siteConfig.site.title, 
   description = siteConfig.site.description 
 } = Astro.props;
+
+// Construct absolute URL for Open Graph image
+const ogImageUrl = new URL('/og-image.png', siteConfig.site.url).href;
+
+// Prevent dev site from being indexed
+const isDev = Astro.url.hostname === 'devingit.se';
+const robotsContent = isDev ? 'noindex, nofollow' : 'index, follow';
 ---
 
 <!doctype html>
@@ -21,6 +28,7 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content={robotsContent} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <title>{title}</title>
@@ -30,14 +38,16 @@ const {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/screenshot.jpeg" />
+    <meta property="og:locale" content="sv_SE" />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image:height" content="400" />
 
-    <meta name="twitter:card" content={siteConfig.site.twitterCard} />
+    <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="/og-image.png" />
+    <meta name="twitter:image" content={ogImageUrl} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -49,15 +59,17 @@ const {
 
   <body class="text-mono-black bg-white font-sans antialiased">
     <Navigation />
-    <slot />
+    <main aria-label="Main Content">
+      <slot />
+    </main>
     <Footer />
     <CookieBanner />
 
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         const observerOptions = {
-          threshold: 0.1,
-          rootMargin: '0px 0px -100px 0px',
+          threshold: 0.01,
+          rootMargin: '0px 0px -10px 0px',
         };
         const observer = new IntersectionObserver((entries) => {
           entries.forEach((entry) => {

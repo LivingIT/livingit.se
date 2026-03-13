@@ -1,0 +1,6 @@
+# robots.txt for livingit.se
+
+User-agent: *
+Allow: /
+
+Sitemap: https://livingit.se/sitemap.xml

@@ -1,11 +1,13 @@
 ---
 import Layout from '../components/Layout.astro';
+import { Image } from 'astro:assets';
 import { siteConfig, getImageSrcSet, imageSizes } from '../config.ts';
 import { contactContent } from '../content/contact';
+import * as LucideIcons from '@lucide/astro';
 import { marked } from 'marked';
 
-const contactGeneralHtml = await marked(contactContent.contactGeneral);
-const contactStartHtml = await marked(contactContent.contactStart);
+const contactGeneralHtml = await marked(contactContent.contactGeneral.text);
+const contactStartHtml = await marked(contactContent.contactStart.text);
 
 const getInitials = (name: string) =>
   name
@@ -17,8 +19,8 @@ const getInitials = (name: string) =>
     .toUpperCase();
 ---
 
-<Layout title={`Kontakta oss - ${siteConfig.site.title}`} description={contactContent.ingress}>
-  <main class="min-h-screen bg-white">
+<Layout title={`Kontakta oss - ${siteConfig.site.title}`} description={siteConfig.site.description}>
+  <main class="min-h-screen">
     <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
       <header class="mt-12 mb-12 text-center">
         <h1 class="text-5xl font-bold mb-6">{contactContent.header}</h1>
@@ -26,10 +28,20 @@ const getInitials = (name: string) =>
 
       <section class="mb-16">
         <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          <div class="rounded-2xl border border-mono-lighter p-8" style="background-color: rgb(250, 250, 250);">
+          <div class="group block scroll-fade-up bg-[var(--color-bg-card)] border-mono-lighter rounded-2xl border p-8 stagger-1 hover:shadow-lg transition-shadow">
+            <div class="flex items-start gap-4 mb-6">
+              <div class="feature-icon bg-[var(--color-orange)] flex h-14 w-14 items-center justify-center rounded-lg text-white flex-shrink-0">
+                {(() => { const IconComponent = LucideIcons[contactContent.contactGeneral.icon]; return <IconComponent class="h-7 w-7" />; })()}
+              </div>
+            </div>
             <div class="text-lg text-gray-700 leading-relaxed space-y-4 [&>p]:mb-4 [&>em]:italic [&>strong]:font-semibold" set:html={contactGeneralHtml}></div>
           </div>
-          <div class="rounded-2xl border border-mono-lighter p-8" style="background-color: rgb(250, 250, 250);">
+          <div class="group block scroll-fade-up bg-[var(--color-bg-card)] border-mono-lighter rounded-2xl border p-8 stagger-2 hover:shadow-lg transition-shadow">
+            <div class="flex items-start gap-4 mb-6">
+              <div class="feature-icon bg-[var(--color-orange)] flex h-14 w-14 items-center justify-center rounded-lg text-white flex-shrink-0">
+                {(() => { const IconComponent = LucideIcons[contactContent.contactStart.icon]; return <IconComponent class="h-7 w-7" />; })()}
+              </div>
+            </div>
             <div class="text-lg text-gray-700 leading-relaxed space-y-4 [&>p]:mb-4 [&>em]:italic [&>strong]:font-semibold" set:html={contactStartHtml}></div>
           </div>
         </div>
@@ -37,15 +49,17 @@ const getInitials = (name: string) =>
 
       <section class="mb-16">
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {contactContent.people.map((person) => (
-            <article class="rounded-2xl border border-mono-lighter bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
+          {contactContent.people.map((person, index) => (
+            <article class={`group block scroll-fade-up bg-[var(--color-bg-card)] border-mono-lighter rounded-2xl border p-6 stagger-${(index % 9) + 1} hover:shadow-lg transition-shadow`}>
               <div class="mb-5">
                 <div class="relative aspect-[4/5] overflow-hidden rounded-xl bg-gray-100">
-                  <img
+                  <Image
                     srcset={getImageSrcSet(person.photo)}
                     sizes={imageSizes.contactPhoto}
                     src={person.photo.desktop}
                     alt={`Foto på ${person.name}`}
+                    width={400}
+                    height={500}
                     class="h-full w-full object-cover"
                     loading="lazy"
                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
@@ -55,7 +69,7 @@ const getInitials = (name: string) =>
                   </div>
                 </div>
               </div>
-              <h3 class="text-xl font-semibold text-mono-black mb-1">{person.name}</h3>
+              <h3 class="text-xl font-semibold text-mono-black mb-1 card-title">{person.name}</h3>
               <p class="text-mono-dark mb-4">{person.title}</p>
               <div class="space-y-2 text-sm">
                 <div>
@@ -83,8 +97,8 @@ const getInitials = (name: string) =>
       </section>
       
       <section>
-        <div class="rounded-2xl border border-mono-lighter bg-gray-50 p-8 md:p-10">
-          <h2 class="text-2xl font-semibold mb-6">Bolagsuppgifter</h2>
+        <div class="group block scroll-fade-up bg-[var(--color-bg-card)] border-mono-lighter rounded-2xl border p-8 md:p-10 hover:shadow-lg transition-shadow">
+          <h2 class="text-2xl font-semibold mb-6 card-title">Bolagsuppgifter</h2>
           <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
             <div>
               <p class="text-sm uppercase text-mono-gray">Bolag</p>

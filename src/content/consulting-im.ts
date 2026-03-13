@@ -3,7 +3,7 @@ export const consultingIMContent = [
     groupTitle: 'Interim Management',
     items: [
       {
-        icon: 'heroicons:bolt',
+        icon: 'Zap',
         title: 'Krislösaren',
         description:
           'Vi dyker in när det blåser hårt – inte för att lappa ' +
@@ -12,7 +12,7 @@ export const consultingIMContent = [
           'och med massor av erfarenhet i bagaget.',
       },
       {
-        icon: 'heroicons:shield-check',
+        icon: 'ShieldCheck',
         title: 'Trygga handen',
         description:
           'Behöver ni en kapten som håller kursen? Vi ser till att ' +
@@ -21,7 +21,7 @@ export const consultingIMContent = [
           'skapar lugn i organisationen.',
       },
       {
-        icon: 'heroicons:map',
+        icon: 'Compass',
         title: 'Kompassen',
         description:
           'Vill ni ha en klok sparringpartner som både lyssnar och ' +
@@ -35,7 +35,7 @@ export const consultingIMContent = [
     groupTitle: 'Projektledning',
     items: [
       {
-        icon: 'heroicons:star',
+        icon: 'Star',
         title: 'Visionären',
         description:
           'Snabb, flexibel och alltid steget före. Vi leder projekt ' +
@@ -45,7 +45,7 @@ export const consultingIMContent = [
           'på vägen.',
       },
       {
-        icon: 'heroicons:chart-bar',
+        icon: 'ChartBar',
         title: 'Strategiska mästaren',
         description:
           'Här får ni projektledaren som planerar, strukturerar och ' +
@@ -55,7 +55,7 @@ export const consultingIMContent = [
           'ledare som får styrgruppen att andas ut.',
       },
       {
-        icon: 'heroicons:users',
+        icon: 'Users',
         title: 'Relationsexperten',
         description:
           'Människor först – alltid. Vi bygger starka team som trivs, ' +
@@ -69,7 +69,7 @@ export const consultingIMContent = [
     groupTitle: 'Förändringsledning',
     items: [
       {
-        icon: 'heroicons:sparkles',
+        icon: 'Sparkles',
         title: 'Utveckla & förfina',
         description:
           'Vi skruvar, slipar och vässar det som redan finns. Små ' +
@@ -78,7 +78,7 @@ export const consultingIMContent = [
           'era processer och system.',
       },
       {
-        icon: 'heroicons:arrows-pointing-out',
+        icon: 'Maximize2',
         title: 'Komplexa förflyttningar',
         description:
           'När pusslet blir knepigt är vi där. Vi tar oss an de ' +
@@ -87,7 +87,7 @@ export const consultingIMContent = [
           'lösa Rubiks kub med precision och tålamod.',
       },
       {
-        icon: 'heroicons:fire',
+        icon: 'Flame',
         title: 'Större transformationer',
         description:
           'Dags att tänka stort? Vi hjälper er att rita om kartan – i ' +

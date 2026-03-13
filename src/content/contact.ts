@@ -3,16 +3,22 @@ import { getResponsiveImage, type ResponsiveImage } from '../config';
 export const contactContent = {
   header: 'Kontakta oss',
 
-  contactGeneral: `
+  contactGeneral: {
+    icon: 'MessageCircle',
+    text: `
 Har ni behov av en IT- eller ledarskapskonsult? Intresserad av att veta mer om våra events? 🤔
 
 Skicka ett mail till ***hello@livingit.se*** eller ta kontakt med någon av våra affärsutvecklare nedan!`,
-  contactStart: `
-  Är du nyfiken på hur det är att jobba hos oss?
+  },
+  contactStart: {
+    icon: 'Sparkles',
+    text: `
+  Är du nyfiken på hur det är att jobba hos oss? ⭐
   
-  Eller är du rent av ***ready to start Living IT?***
+  Eller känner du dig rent av ***ready to start Living IT?***
   
   Maila ***start@livingit.se***, så tar vi det därifrån! 🙂`,
+  },
 
   company: {
     name: 'Living IT Consulting Group AB',
@@ -54,7 +60,7 @@ Skicka ett mail till ***hello@livingit.se*** eller ta kontakt med någon av vår
     },
     {
       name: 'Daniel Weberg',
-      title: 'Ledarskapskonsult',
+      title: 'Interimschefskonsult',
       phoneDisplay: '076-119 49 96',
       phoneNumber: '+46761194996',
       email: 'daniel.weberg@livingit.se',
@@ -62,7 +68,7 @@ Skicka ett mail till ***hello@livingit.se*** eller ta kontakt med någon av vår
     },
     {
       name: 'Linn Wähler',
-      title: 'Ledarskapskonsult',
+      title: 'Interimschefskonsult',
       phoneDisplay: '070-972 27 62',
       phoneNumber: '+46709722762',
       email: 'linn.wahler@livingit.se',

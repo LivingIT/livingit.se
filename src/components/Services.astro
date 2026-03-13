@@ -1,28 +1,16 @@
 ---
 import { siteConfig } from '../config.ts';
-import { Icon } from 'astro-icon/components';
+import * as LucideIcons from '@lucide/astro';
 import { servicesContent } from '../content/services';
 
-const iconMap = {
-  lightning: 'heroicons:bolt',
-  code: 'heroicons:code-bracket',
-  chart: 'heroicons:chart-bar',
-  chat: 'heroicons:chat-bubble-left-right',
-  shield: 'heroicons:lock-closed',
-  clock: 'heroicons:clock',
-  brush: 'heroicons:paint-brush',
-  layers: 'heroicons:user-group',
-  zap: 'heroicons:arrow-trending-up',
-};
-
 const serviceUrls: Record<string, string> = {
-  'Mjukvarukonsulting': '/mjukvarukonsulting',
-  'Ledarskapskonsulting': '/ledarskapskonsulting',
-  'Evenemang': '/evenemang',
+  'Mjukvaru­konsulting': '/mjukvarukonsulting',
+  'Ledarskaps­konsulting': '/ledarskapskonsulting',
+  'Events': '/events',
 };
 ---
 
-<section id="services" class="relative bg-white px-4 py-20 sm:px-6 lg:px-8">
+<section id="services" class="relative bg-[var(--color-bg-main-default)] px-4 py-20 sm:px-6 lg:px-8">
 
 
   <div class="mx-auto max-w-7xl">
@@ -37,25 +25,30 @@ const serviceUrls: Record<string, string> = {
 
     <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
       {
-        servicesContent.map((service, index) => (
+        servicesContent.map((service, index) => {
+          const IconComponent = LucideIcons[service.icon];
+          return (
           <a
             href={serviceUrls[service.title]}
-            class={`group block ${index % 2 === 0 ? 'scroll-fade-left' : 'scroll-fade-right'} bg-[var(--color-bg-service-card)] border-mono-lighter rounded-xl border p-8 stagger-${(index % 9) + 1} hover:shadow-lg transition-shadow flex flex-col`}
+            class={`group block ${index % 2 === 0 ? 'scroll-fade-left' : 'scroll-fade-right'} bg-[var(--color-bg-card)] border-mono-lighter rounded-xl border p-8 stagger-${(index % 9) + 1} hover:shadow-lg transition-shadow flex flex-col`}
           >
             <div>
-              <div class="feature-icon bg-mono-black mb-6 flex h-14 w-14 items-center justify-center rounded-lg text-white">
-                <Icon name={service.icon} class="h-7 w-7" />
+              <div class="flex items-center gap-4 mb-3">
+                <div class="feature-icon bg-[var(--color-orange)] flex h-14 w-14 items-center justify-center rounded-lg text-white flex-shrink-0">
+                  <IconComponent class="h-7 w-7" />
+                </div>
+                <h3 class="text-mono-black text-xl font-semibold card-title">
+                  {service.title}
+                </h3>
               </div>
-              <h3 class="text-mono-black mb-3 text-xl font-semibold">
-                {service.title}
-              </h3>
               <p class="text-mono-dark leading-relaxed">{service.description}</p>
             </div>
             <div class="mt-auto pt-4 text-right">
-              <p class="text-gray-500 text-sm">Läs mer...</p>
+              <LucideIcons.ArrowRight class="h-5 w-5 text-gray-400 inline opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
           </a>
-        ))
+          );
+        })
       }
     </div>
   </div>

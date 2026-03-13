@@ -3,20 +3,21 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "node scripts/copy-robots.mjs && astro build",
     "preview": "astro preview",
     "format": "prettier --write .",
     "astro": "astro"
   },
   "dependencies": {
-    "@iconify-json/heroicons": "^1.2.3",
-    "@iconify-json/simple-icons": "^1.2.55",
+    "@iconify-json/simple-icons": "^1.2.69",
+    "@lucide/astro": "^0.563.0",
     "astro": "^5.17.1",
     "astro-icon": "^1.1.5",
     "marked": "^15.0.4"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.16",
+    "@types/node": "^25.2.0",
     "prettier": "^3.6.2",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.7.1",
