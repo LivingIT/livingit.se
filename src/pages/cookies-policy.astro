@@ -70,7 +70,7 @@ import Footer from '../components/Footer.astro';
             Om du har frågor om vår cookie-policy eller hur vi hanterar dina data, kontakta oss gärna:
           </p>
           <p>
-            <strong>Email:</strong> <a href="mailto:{siteConfig.site.email}">{siteConfig.site.email}</a>
+            <strong>Email:</strong> <a href={`mailto:${siteConfig.site.email}`}>{siteConfig.site.email}</a>
           </p>
         </section>
 
