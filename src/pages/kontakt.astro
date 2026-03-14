@@ -3,7 +3,7 @@ import Layout from '../components/Layout.astro';
 import { Image } from 'astro:assets';
 import { siteConfig, getImageSrcSet, imageSizes } from '../config.ts';
 import { contactContent } from '../content/contact';
-import * as LucideIcons from '@lucide/astro';
+import * as LucideIcons from 'lucide-astro';
 import { marked } from 'marked';
 
 const contactGeneralHtml = await marked(contactContent.contactGeneral.text);

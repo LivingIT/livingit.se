@@ -4,9 +4,9 @@ import { Image } from 'astro:assets';
 import { siteConfig, getImageSrcSet, imageSizes } from '../config.ts';
 import { servicesContent } from '../content/services';
 import { eventsContent } from '../content/events';
-import * as LucideIcons from '@lucide/astro';
+import * as LucideIcons from 'lucide-astro';
 import { marked } from 'marked';
-import { Calendar } from '@lucide/astro';
+import { Calendar } from 'lucide-astro';
 
 const service = servicesContent[2];
 const bodyHtml = await marked(service.body);
