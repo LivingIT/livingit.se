@@ -1,0 +1,45 @@
+name: Sync Develop → Master
+
+# Runs when develop receives a push.
+# Only acts on Dependabot-merged commits (identified by the "chore(deps)" prefix).
+# Builds the site on develop; merges into master if the build succeeds and there are no conflicts.
+on:
+  push:
+    branches: [develop]
+
+# Required for GITHUB_TOKEN to push to master.
+# Enable in: GitHub → Settings → Actions → General → Workflow permissions → Read and write
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    # Only run for Dependabot package update commits
+    if: startsWith(github.event.head_commit.message, 'chore(deps)')
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Merge develop into master
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout master
+          git pull origin master
+          git merge origin/develop --no-ff -m "chore: sync package updates from develop"
+          git push origin master
