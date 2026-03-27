@@ -21,6 +21,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Set build environment
+        run: echo "ROBOTS_ENV=${{ github.ref == 'refs/heads/develop' && 'develop' || 'production' }}" >> $GITHUB_ENV
+
       - name: Build
         run: npm run build
 
