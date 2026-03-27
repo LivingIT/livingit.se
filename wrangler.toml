@@ -6,7 +6,7 @@
 #   npx wrangler deploy              (staging / devingit.se)
 #   npx wrangler deploy --env production  (production / livingit.se)
 
-name = "livingit-se"
+name = "devingit-se"
 compatibility_date = "2026-03-27"
 
 [assets]

@@ -1,6 +1,6 @@
 name: Deploy to Cloudflare Workers
 
-# develop  → staging Worker (livingit-se-staging → devingit.se)
+# develop  → staging Worker (devingit-se → devingit.se)
 # master   → production Worker (livingit-se → livingit.se)
 on:
   push:
@@ -31,12 +31,12 @@ jobs:
             const fs = require('fs');
             const p = 'dist/server/wrangler.json';
             const c = JSON.parse(fs.readFileSync(p, 'utf8'));
-            c.name = 'livingit-se-staging';
-            c.topLevelName = 'livingit-se-staging';
+            c.name = 'devingit-se';
+            c.topLevelName = 'devingit-se';
             fs.writeFileSync(p, JSON.stringify(c));
           "
 
-      - name: Deploy to staging (devingit.se)
+      - name: Deploy to devingit-se (devingit.se)
         if: github.ref == 'refs/heads/develop'
         run: npx wrangler deploy
         env:
