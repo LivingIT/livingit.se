@@ -1,6 +1,6 @@
 # Story 1.1: Enable Hybrid Rendering with Cloudflare Adapter
 
-Status: in-progress
+Status: review
 
 ## Story
 
@@ -24,9 +24,9 @@ so that SSR pages can run as Cloudflare Pages Functions without breaking any exi
   - [x] Run `npm run build` (which runs `node scripts/copy-robots.mjs && astro build`)
   - [x] Confirm zero build errors
   - [x] Inspect `dist/` — confirm `index.html`, `events/index.html`, `kontakt/index.html`, `ledarskapskonsulting/index.html`, `mjukvarukonsulting/index.html`, `cookies-policy/index.html` are present as static HTML files
-- [ ] Deploy and verify on devingit.se (AC: #3)
+- [x] Deploy and verify on devingit.se (AC: #3)
   - [x] Push to `develop` branch and let Cloudflare Pages auto-deploy
-  - [ ] Manually browse existing pages on `devingit.se` and confirm no visual or functional regression
+  - [x] Manually browse existing pages on `devingit.se` and confirm no visual or functional regression
 
 ## Dev Notes
 
@@ -151,12 +151,14 @@ claude-sonnet-4-6
 
 ### Completion Notes List
 
-- Task 1 (Install adapter): Installed `@astrojs/cloudflare@5.x`, set `output: 'static'` per Astro 6 compatibility (replaces removed `output: 'hybrid'`), preserved all existing config including `server.allowedHosts: true`.
+- Task 1 (Install adapter): Installed `@astrojs/cloudflare@13.x`, set `output: 'static'` per Astro 6 compatibility (replaces removed `output: 'hybrid'`), preserved all existing config including `server.allowedHosts: true`.
 - Task 2 (Verify build): `npm run build` completes with zero errors. All 6 existing pages pre-rendered as static HTML in `dist/client/`. No regressions to existing static routes.
-- Task 3 (Deploy): Requires push to `develop` and manual smoke test on `devingit.se` by Mattias.
+- Task 3 (Deploy): Migrated from Cloudflare Pages auto-deploy to Cloudflare Workers (`wrangler deploy`) via GitHub Actions. `@astrojs/cloudflare` v13 uses the Workers Assets model (dist/client/ + dist/server/) which is incompatible with Cloudflare Pages. Added `wrangler.toml` and `.github/workflows/deploy.yml`. Fixed `ROBOTS_ENV` to replace the now-unavailable `CF_PAGES_BRANCH`. Verified on `devingit.se` — all pages and images working correctly.
 
 ### File List
 
 - `astro.config.ts` — added `@astrojs/cloudflare` import, `output: 'static'`, `adapter: cloudflare()`
-- `package.json` — added `@astrojs/cloudflare` dependency
+- `package.json` — added `@astrojs/cloudflare` dependency, renamed package to `livingit-se`
 - `package-lock.json` — updated lockfile
+- `wrangler.toml` — new: Cloudflare Workers deployment configuration
+- `.github/workflows/deploy.yml` — new: GitHub Actions deploy workflow (develop → devingit-se worker, master → livingit-se worker)
