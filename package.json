@@ -1,5 +1,5 @@
 {
-  "name": "astrogent",
+  "name": "livingit-se",
   "type": "module",
   "scripts": {
     "dev": "astro dev",

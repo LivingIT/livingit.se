@@ -1,0 +1,17 @@
+# Cloudflare Workers deployment configuration.
+# The adapter generates dist/server/wrangler.json (the actual deploy config).
+# This file provides the base configuration read by the vite plugin during build.
+#
+# Deploy after building:
+#   npx wrangler deploy              (staging / devingit.se)
+#   npx wrangler deploy --env production  (production / livingit.se)
+
+name = "livingit-se"
+compatibility_date = "2026-03-27"
+
+[assets]
+binding = "ASSETS"
+directory = "dist/client"
+
+[env.production]
+name = "livingit-se"

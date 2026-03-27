@@ -1,0 +1,51 @@
+name: Deploy to Cloudflare Workers
+
+# develop  → staging Worker (livingit-se-staging → devingit.se)
+# master   → production Worker (livingit-se → livingit.se)
+on:
+  push:
+    branches: [develop, master]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Patch worker name for staging
+        if: github.ref == 'refs/heads/develop'
+        run: |
+          node -e "
+            const fs = require('fs');
+            const p = 'dist/server/wrangler.json';
+            const c = JSON.parse(fs.readFileSync(p, 'utf8'));
+            c.name = 'livingit-se-staging';
+            c.topLevelName = 'livingit-se-staging';
+            fs.writeFileSync(p, JSON.stringify(c));
+          "
+
+      - name: Deploy to staging (devingit.se)
+        if: github.ref == 'refs/heads/develop'
+        run: npx wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Deploy to production (livingit.se)
+        if: github.ref == 'refs/heads/master'
+        run: npx wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
