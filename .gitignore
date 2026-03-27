@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # BMAD runtime memory
 _bmad/_memory/
+
+# Wrangler local state
+.wrangler/

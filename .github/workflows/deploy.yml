@@ -35,7 +35,17 @@ jobs:
             const p = 'dist/server/wrangler.json';
             const c = JSON.parse(fs.readFileSync(p, 'utf8'));
             c.name = 'devingit-se';
-            c.topLevelName = 'devingit-se';
+            fs.writeFileSync(p, JSON.stringify(c));
+          "
+
+      - name: Patch worker name for production
+        if: github.ref == 'refs/heads/master'
+        run: |
+          node -e "
+            const fs = require('fs');
+            const p = 'dist/server/wrangler.json';
+            const c = JSON.parse(fs.readFileSync(p, 'utf8'));
+            c.name = 'livingit-se';
             fs.writeFileSync(p, JSON.stringify(c));
           "
 

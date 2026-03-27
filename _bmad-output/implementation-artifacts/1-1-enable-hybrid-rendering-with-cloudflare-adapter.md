@@ -10,7 +10,7 @@ so that SSR pages can run as Cloudflare Pages Functions without breaking any exi
 
 ## Acceptance Criteria
 
-1. **Given** the existing fully-static Astro site, **When** `npx astro add cloudflare` is run and `astro.config.ts` is updated to `output: 'hybrid'`, **Then** `npm run build` completes successfully with no errors.
+1. **Given** the existing fully-static Astro site, **When** `npx astro add cloudflare` is run and `astro.config.ts` is updated to `output: 'static'` with `adapter: cloudflare()`, **Then** `npm run build` completes successfully with no errors.
 2. **And** all existing static routes remain pre-rendered (verified by inspecting build output — each existing page should appear as a static HTML file under `dist/`).
 3. **And** the deployed site on `devingit.se` shows no visual or functional regression on existing pages.
 
@@ -18,21 +18,23 @@ so that SSR pages can run as Cloudflare Pages Functions without breaking any exi
 
 - [x] Install Cloudflare adapter (AC: #1)
   - [x] Run `npx astro add cloudflare` — this installs `@astrojs/cloudflare` and patches `astro.config.ts`
-  - [x] After the command runs, manually verify and set `output: 'hybrid'` in `astro.config.ts` (the CLI may write `output: 'server'` — correct it to `'hybrid'`)
+  - [x] After the command runs, manually verify and set `output: 'static'` in `astro.config.ts` (`'hybrid'` was removed in Astro 6; `output: 'static'` with the adapter is the Astro 6 equivalent)
   - [x] Preserve all existing config: `integrations: [icon()]`, redirects, and `server` block (especially `allowedHosts: true` — do not remove this comment or setting)
 - [x] Verify build passes (AC: #1, #2)
   - [x] Run `npm run build` (which runs `node scripts/copy-robots.mjs && astro build`)
   - [x] Confirm zero build errors
   - [x] Inspect `dist/` — confirm `index.html`, `events/index.html`, `kontakt/index.html`, `ledarskapskonsulting/index.html`, `mjukvarukonsulting/index.html`, `cookies-policy/index.html` are present as static HTML files
 - [x] Deploy and verify on devingit.se (AC: #3)
-  - [x] Push to `develop` branch and let Cloudflare Pages auto-deploy
+  - [x] Migrate from Cloudflare Pages to Cloudflare Workers (`@astrojs/cloudflare` v13 uses Workers Assets, which is incompatible with Pages)
+  - [x] Add `wrangler.toml` and `.github/workflows/deploy.yml` (necessary scope expansion due to adapter incompatibility with Pages)
+  - [x] Push to `develop` branch and let GitHub Actions deploy to the `devingit-se` Worker
   - [x] Manually browse existing pages on `devingit.se` and confirm no visual or functional regression
 
 ## Dev Notes
 
 ### This Story Scope
 
-**Infrastructure ONLY.** This story adds the adapter and changes the rendering config. No new pages, components, routes, or files beyond `astro.config.ts` and the auto-installed package changes.
+**Infrastructure ONLY.** This story adds the adapter and changes the rendering config. No new pages, components, or routes. Files beyond `astro.config.ts` and the auto-installed package changes are permitted only if required by adapter incompatibility (see Task 3 — the `@astrojs/cloudflare` v13 adapter is incompatible with Cloudflare Pages, which necessitated adding `wrangler.toml` and `.github/workflows/deploy.yml`).
 
 Do NOT:
 - Create any new `.astro` pages or components
@@ -73,7 +75,7 @@ import icon from 'astro-icon';
 import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
-  output: 'hybrid',
+  output: 'static',
   adapter: cloudflare(),
   integrations: [icon()],
   redirects: {
@@ -90,9 +92,9 @@ export default defineConfig({
 });
 ```
 
-### Hybrid Mode Behaviour — What Changes for Existing Pages
+### Static Mode with Adapter — What Changes for Existing Pages
 
-In `output: 'hybrid'` mode, **all pages default to static (pre-rendered)**. Existing pages require **zero changes** — they will remain statically pre-rendered without any `export const prerender = true` annotation. SSR is opt-in per page via `export const prerender = false` (added only in future stories).
+In `output: 'static'` mode with the Cloudflare adapter, **all pages default to static (pre-rendered)**. Existing pages require **zero changes** — they will remain statically pre-rendered without any `export const prerender = true` annotation. SSR is opt-in per page via `export const prerender = false` (added only in future stories).
 
 Existing pages that MUST remain static and need no changes:
 - `src/pages/index.astro`
@@ -104,7 +106,7 @@ Existing pages that MUST remain static and need no changes:
 
 ### Astro 6 Compatibility Note
 
-`output: 'hybrid'` is valid in Astro 6. In Astro 5 the `hybrid` and `server` modes were unified, but `'hybrid'` is still accepted. If the build reports a deprecation warning for `'hybrid'`, switch to `output: 'server'` — in Astro 5+, `output: 'server'` has the same default-static behaviour as the old `'hybrid'` mode. Confirm before switching by checking the Astro 6 docs or the build warning message.
+`output: 'hybrid'` was **removed in Astro 6**. The correct mode is `output: 'static'` with `adapter: cloudflare()`. In Astro 6, `static` mode combined with an adapter is the equivalent of the old `hybrid` mode: all pages default to pre-rendered, and SSR is opt-in per page via `export const prerender = false`.
 
 ### Build Command
 
