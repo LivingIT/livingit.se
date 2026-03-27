@@ -25,7 +25,7 @@ so that SSR pages can run as Cloudflare Pages Functions without breaking any exi
   - [x] Confirm zero build errors
   - [x] Inspect `dist/` — confirm `index.html`, `events/index.html`, `kontakt/index.html`, `ledarskapskonsulting/index.html`, `mjukvarukonsulting/index.html`, `cookies-policy/index.html` are present as static HTML files
 - [ ] Deploy and verify on devingit.se (AC: #3)
-  - [ ] Push to `develop` branch and let Cloudflare Pages auto-deploy
+  - [x] Push to `develop` branch and let Cloudflare Pages auto-deploy
   - [ ] Manually browse existing pages on `devingit.se` and confirm no visual or functional regression
 
 ## Dev Notes
