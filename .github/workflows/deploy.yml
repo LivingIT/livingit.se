@@ -6,6 +6,10 @@ on:
   push:
     branches: [develop, master]
 
+env:
+  STAGING_API_URL: "https://api.devingit.se"
+  PRODUCTION_API_URL: "https://api.livingit.se"
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -24,12 +28,12 @@ jobs:
       - name: Set build environment
         run: |
           echo "ROBOTS_ENV=${{ github.ref == 'refs/heads/develop' && 'develop' || 'production' }}" >> $GITHUB_ENV
-          echo "PUBLIC_API_URL=${{ github.ref == 'refs/heads/develop' && 'https://api.devingit.se' || 'https://api.livingit.se' }}" >> $GITHUB_ENV
+          echo "PUBLIC_API_URL=${{ github.ref == 'refs/heads/develop' && env.STAGING_API_URL || env.PRODUCTION_API_URL }}" >> $GITHUB_ENV
 
       - name: Build
         run: npm run build
 
-      - name: Patch worker name for staging
+      - name: Patch wrangler.json for staging
         if: github.ref == 'refs/heads/develop'
         run: |
           node -e "
@@ -37,10 +41,11 @@ jobs:
             const p = 'dist/server/wrangler.json';
             const c = JSON.parse(fs.readFileSync(p, 'utf8'));
             c.name = 'devingit-se';
+            c.vars = { ...c.vars, PUBLIC_API_URL: '${{ env.STAGING_API_URL }}' };
             fs.writeFileSync(p, JSON.stringify(c));
           "
 
-      - name: Patch worker name for production
+      - name: Patch wrangler.json for production
         if: github.ref == 'refs/heads/master'
         run: |
           node -e "
@@ -48,7 +53,7 @@ jobs:
             const p = 'dist/server/wrangler.json';
             const c = JSON.parse(fs.readFileSync(p, 'utf8'));
             c.name = 'livingit-se';
-            c.vars = { ...c.vars, PUBLIC_API_URL: 'https://api.livingit.se' };
+            c.vars = { ...c.vars, PUBLIC_API_URL: '${{ env.PRODUCTION_API_URL }}' };
             fs.writeFileSync(p, JSON.stringify(c));
           "
 
