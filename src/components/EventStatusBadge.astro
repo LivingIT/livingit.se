@@ -1,0 +1,22 @@
+---
+import type { EventStatus } from '../types/api';
+import type { Translations } from '../i18n';
+
+interface Props {
+  status: EventStatus;
+  translations: Translations['event'];
+}
+
+const { status, translations: t } = Astro.props;
+
+const base = 'inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium text-mono-white';
+const colorClass: Record<EventStatus, string> = {
+  upcoming: 'bg-orange',
+  past: 'bg-mono-gray',
+  full: 'bg-mono-darker',
+};
+const label = { upcoming: t.statusUpcoming, past: t.statusPast, full: t.statusFull }[status];
+---
+<span class={`${base} ${colorClass[status]}`} role="status">
+  {label}
+</span>
