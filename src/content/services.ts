@@ -54,7 +54,7 @@ håller över tid.
   },
   {
     icon: 'CalendarDays',
-    title: 'Events',
+    title: 'Event',
     description:
       'Sist men inte minst skapar vi mötesplatser genom konferenser, \
 workshops och andra tillställningar som inspirerar, fördjupar och bygger gemenskap. Vi vill gärna dela \

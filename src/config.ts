@@ -99,7 +99,7 @@ export const siteConfig = {
         icon: 'Users',
       },
       {
-        name: 'Events',
+        name: 'Event',
         href: '/events',
         icon: 'CalendarDays',
       },
