@@ -5,7 +5,9 @@
       "WebFetch(domain:docs.astro.build)",
       "Bash(npm install:*)",
       "Bash(npm run:*)",
-      "Bash(npx wrangler:*)"
+      "Bash(npx wrangler:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ]
   }
 }
