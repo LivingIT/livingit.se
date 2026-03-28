@@ -22,7 +22,9 @@ jobs:
         run: npm ci
 
       - name: Set build environment
-        run: echo "ROBOTS_ENV=${{ github.ref == 'refs/heads/develop' && 'develop' || 'production' }}" >> $GITHUB_ENV
+        run: |
+          echo "ROBOTS_ENV=${{ github.ref == 'refs/heads/develop' && 'develop' || 'production' }}" >> $GITHUB_ENV
+          echo "PUBLIC_API_URL=${{ github.ref == 'refs/heads/develop' && 'https://api.devingit.se' || 'https://api.livingit.se' }}" >> $GITHUB_ENV
 
       - name: Build
         run: npm run build
@@ -46,6 +48,7 @@ jobs:
             const p = 'dist/server/wrangler.json';
             const c = JSON.parse(fs.readFileSync(p, 'utf8'));
             c.name = 'livingit-se';
+            c.vars = { ...c.vars, PUBLIC_API_URL: 'https://api.livingit.se' };
             fs.writeFileSync(p, JSON.stringify(c));
           "
 
