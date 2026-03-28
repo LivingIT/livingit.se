@@ -13,5 +13,11 @@ compatibility_date = "2026-03-27"
 binding = "ASSETS"
 directory = "dist/client"
 
+[vars]
+PUBLIC_API_URL = "https://api.devingit.se"
+
 [env.production]
 name = "livingit-se"
+
+[env.production.vars]
+PUBLIC_API_URL = "https://api.livingit.se"

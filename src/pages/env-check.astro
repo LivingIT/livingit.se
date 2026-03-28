@@ -1,0 +1,11 @@
+---
+// src/pages/env-check.astro — TEMPORARY, delete after verification
+export const prerender = false;
+
+const apiUrl = import.meta.env.PUBLIC_API_URL;
+---
+<html>
+  <body>
+    <p>PUBLIC_API_URL: {apiUrl ?? 'NOT SET'}</p>
+  </body>
+</html>
