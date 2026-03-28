@@ -29,10 +29,10 @@ _This document builds collaboratively through step-by-step discovery. Sections a
 **Functional Requirements (25 total):**
 This initiative is a brownfield extension — all existing static pages are preserved unchanged.
 New capabilities are purely additive across 6 categories:
-- *Event Discovery* (FR1–FR4): SSR listing at `/events/upcoming`; detail pages at `/events/[lang]/[slug]`
+- *Event Discovery* (FR1–FR4): SSR listing integrated into `/events`; detail pages at `/events/[slug]`
 - *Event Registration* (FR5–FR10): Server-processed form with validation; confirmation page; state-aware display (upcoming/past/full)
-- *Content Management* (FR11–FR14): TypeScript content file authoring model; language field drives URL locale
-- *Localisation* (FR15–FR18): URL-scoped language routing (sv/en); locale-appropriate form error messages
+- *Content Management* (FR11–FR14): Event data owned by backend API; language field drives UI rendering
+- *Localisation* (FR15–FR18): Language derived from `event.language` field (no locale prefix in URL); locale-appropriate form error messages
 - *Site Integration* (FR19–FR22): Shared Layout.astro (header/footer/design system) on all new pages; existing `/events` page unchanged
 - *Accessibility & Compliance* (FR23–FR25): WCAG 2.1 AA on all new pages; keyboard-navigable form; event routes excluded from indexing
 
@@ -60,9 +60,9 @@ New capabilities are purely additive across 6 categories:
 ### Cross-Cutting Concerns Identified
 
 1. **Layout/brand consistency** — `<Layout>` component wraps all new event pages; title prop, meta description, and Open Graph must be set per page
-2. **URL-based localisation** — `language` field in event content model is sole locale authority; routing and UI language derived from URL segment (`/sv/` or `/en/`)
+2. **Language from data** — `language` field in API event response is sole locale authority; UI language derived from `event.language`, not the URL
 3. **Form validation** — both client-side (UX) and server-side (security); error messages locale-matched to page language
-4. **SEO robots exclusion** — `robots.txt` generation logic (`seo/` folder + `copy-robots.mjs`) must be updated to disallow `/events/upcoming`, `/events/sv/`, `/events/en/`
+4. **SEO robots exclusion** — `robots.txt` generation logic (`seo/` folder + `copy-robots.mjs`) must be updated to add `Disallow: /events/` (excludes all event detail and confirmation pages; static `/events` remains indexable)
 5. **WCAG 2.1 AA** — applies to every new page and the registration form; colour contrast, keyboard operability, focus management
 6. **Error handling** — all SSR pages must explicitly set `Astro.response.status` for 404/500; do not rely on implicit inference
 7. **Environment variables** — `PUBLIC_API_URL` for event data endpoint; any API secrets must use non-`PUBLIC_` prefix (server-only)
@@ -173,8 +173,8 @@ The Astro site is a pure rendering layer — it fetches and displays, never stor
 `/events` overview page only (4 event-type descriptions + images).
 
 **Data flow:**
-- Listing page (`/events/upcoming`) → `GET api.livingit.se/[events endpoint]` on each request
-- Detail page (`/events/[lang]/[slug]`) → `GET api.livingit.se/[event endpoint]/{slug}` on each request
+- Listing page (`/events`) → `GET api.livingit.se/api/events/public` on each request
+- Detail page (`/events/[slug]`) → `GET api.livingit.se/api/events/public/{slug}` on each request
 - Registration → `POST src/pages/api/register.ts` → proxied to `api.livingit.se`
 
 **Caching:** None on SSR event pages — registration status (upcoming/past/full) must be
@@ -261,14 +261,14 @@ src/i18n/
   en.ts   — English translations (typed, same keys)
   index.ts — getTranslations(lang: 'sv' | 'en') helper
 ```
-Language derived from URL segment (`/sv/` or `/en/`) — no browser detection.
+Language derived from `event.language` field returned by API — no URL segment, no browser detection.
 Passed as prop to all locale-aware components.
 
 **State management:** None. All state is request-derived (URL params, server fetch results).
 No client-side stores. PRG pattern via redirect after successful registration.
 
-**Confirmation data:** URL-encoded params on redirect to `/events/[lang]/[slug]/confirmation`
-(e.g. `?name=Erik`). Matches existing events site pattern. Stateless — no session required.
+**Confirmation data:** URL-encoded params on redirect to `/events/[slug]/confirmation`
+(e.g. `?name=Erik`). Stateless — no session required. Language resolved by fetching event on the confirmation page.
 
 ---
 
@@ -286,10 +286,9 @@ No client-side stores. PRG pattern via redirect after successful registration.
 
 **robots.txt:** `seo/robots-livingit.txt` must be updated to disallow:
 ```
-Disallow: /events/upcoming
-Disallow: /events/sv/
-Disallow: /events/en/
+Disallow: /events/
 ```
+This excludes all event detail pages (`/events/[slug]`) and confirmation pages (`/events/[slug]/confirmation`) while leaving the static `/events` marketing page indexable.
 
 **Monitoring:** Cloudflare Analytics (included with Pages). No additional tooling for MVP.
 
@@ -298,16 +297,15 @@ Disallow: /events/en/
 ### Decision Impact Analysis
 
 **Implementation Sequence (order matters):**
-1. Add Cloudflare adapter + switch to `output: 'hybrid'` → verify existing static site builds
-2. Add env vars + verify `api.livingit.se` connectivity
-3. Create `src/i18n/` translation files
-4. Implement `/events/upcoming` listing page (SSR, read-only)
-5. Implement `/events/[lang]/[slug]` detail + registration form
+1. ✅ Add Cloudflare adapter + switch to `output: 'hybrid'` → verify existing static site builds
+2. ✅ Add env vars + verify `api.livingit.se` connectivity
+3. ✅ Create `src/i18n/` translation files
+4. ✅ Integrate event listing into `/events` page (SSR, read-only)
+5. Implement `/events/[slug]` detail + registration form placeholder
 6. Implement `src/pages/api/register.ts` (validate + proxy)
-7. Implement `/events/[lang]/[slug]/confirmation` page
-8. Add link from existing `/events` page to `/events/upcoming`
-9. Update `robots.txt` to exclude new routes
-10. Decommission `events.livingit.se`
+7. Implement `/events/[slug]/confirmation` page
+8. Update `robots.txt` to exclude `/events/`
+9. Decommission `events.livingit.se`
 
 **Cross-Component Dependencies:**
 - `src/i18n/` must exist before any locale-aware page/component can be built
@@ -411,11 +409,9 @@ src/
 ├── i18n/               ← NEW: sv.ts, en.ts, index.ts
 ├── pages/
 │   ├── events/
-│   │   ├── upcoming.astro              ← SSR listing
-│   │   ├── [lang]/
-│   │   │   ├── [slug].astro            ← SSR detail + form
-│   │   │   └── [slug]/
-│   │   │       └── confirmation.astro  ← SSR confirmation
+│   │   ├── [slug].astro                ← SSR detail + form
+│   │   └── [slug]/
+│   │       └── confirmation.astro      ← SSR confirmation
 │   └── api/
 │       └── register.ts                 ← API route
 ├── types/
@@ -529,11 +525,13 @@ Components never read `Astro.params` directly — they receive `lang` as a typed
 
 ```astro
 ---
-// [lang]/[slug].astro
-const { lang, slug } = Astro.params as { lang: 'sv' | 'en', slug: string };
-const t = getTranslations(lang);
+// events/[slug].astro
+const { slug } = Astro.params as { slug: string };
+const response = await apiFetch(`/api/events/public/${slug}`);
+const event = await response.json() as ApiEvent;
+const t = getTranslations(event.language);
 ---
-<RegistrationForm lang={lang} eventSlug={slug} translations={t.form} />
+<RegistrationForm lang={event.language} eventSlug={slug} translations={t.form} />
 ```
 
 **CSRF Validation Pattern (API route):**
@@ -611,7 +609,7 @@ livingit.se/
 ├── postcss.config.js            ← UNCHANGED
 │
 ├── seo/
-│   ├── robots-livingit.txt      ← MODIFIED: Disallow /events/upcoming, /events/sv/, /events/en/
+│   ├── robots-livingit.txt      ← MODIFIED: Disallow /events/
 │   └── robots-devingit.txt      ← UNCHANGED
 │
 ├── scripts/
@@ -656,16 +654,14 @@ livingit.se/
         ├── index.astro              ← UNCHANGED
         ├── mjukvarukonsulting.astro ← UNCHANGED
         ├── ledarskapskonsulting.astro ← UNCHANGED
-        ├── events.astro             ← MODIFIED: add link to /events/upcoming
+        ├── events.astro             ← MODIFIED: SSR listing integrated (prerender=false)
         ├── kontakt.astro            ← UNCHANGED
         ├── cookies-policy.astro     ← UNCHANGED
         │
         ├── events/                  ← NEW directory
-        │   ├── upcoming.astro       ← NEW: SSR listing (prerender=false)
-        │   └── [lang]/              ← NEW: dynamic lang segment ('sv' | 'en')
-        │       ├── [slug].astro     ← NEW: SSR event detail + registration form (prerender=false)
-        │       └── [slug]/
-        │           └── confirmation.astro ← NEW: SSR confirmation page (prerender=false)
+        │   ├── [slug].astro         ← NEW: SSR event detail + registration form (prerender=false)
+        │   └── [slug]/
+        │       └── confirmation.astro ← NEW: SSR confirmation page (prerender=false)
         │
         └── api/                     ← NEW directory
             └── register.ts          ← NEW: POST handler (Zod validate → proxy to api.livingit.se)
@@ -699,8 +695,8 @@ livingit.se/
 
 | FR | File |
 |---|---|
-| FR1: Browse upcoming events | `src/pages/events/upcoming.astro` + `src/components/EventCard.astro` |
-| FR2: View event details | `src/pages/events/[lang]/[slug].astro` + `src/types/api.ts` |
+| FR1: Browse upcoming events | `src/pages/events.astro` (integrated listing) + `src/components/EventCard.astro` |
+| FR2: View event details | `src/pages/events/[slug].astro` + `src/types/api.ts` |
 | FR3: Event status display | `src/components/EventStatusBadge.astro` |
 | FR4: Link from /events page | `src/pages/events.astro` (add link only) |
 
@@ -709,17 +705,17 @@ livingit.se/
 | FR | File |
 |---|---|
 | FR5: Registration form | `src/components/RegistrationForm.astro` |
-| FR6: Confirmation page | `src/pages/events/[lang]/[slug]/confirmation.astro` |
+| FR6: Confirmation page | `src/pages/events/[slug]/confirmation.astro` |
 | FR7: Inline validation | `src/components/RegistrationForm.astro` (client script + server Zod) |
-| FR8: No form for past events | `src/pages/events/[lang]/[slug].astro` (conditional render on `status`) |
-| FR9: No form when full | `src/pages/events/[lang]/[slug].astro` (conditional render on `status`) |
+| FR8: No form for past events | `src/pages/events/[slug].astro` (conditional render on `status`) |
+| FR9: No form when full | `src/pages/events/[slug].astro` (conditional render on `status`) |
 | FR10: Server-side processing | `src/pages/api/register.ts` |
 
 **Localisation (FR15–FR18):**
 
 | FR | File |
 |---|---|
-| FR15–FR16: Locale URLs | `src/pages/events/[lang]/` directory structure |
+| FR15–FR16: Events at `/events/[slug]` | `src/pages/events/[slug].astro` |
 | FR17: UI in event language | `src/i18n/sv.ts`, `src/i18n/en.ts`, `src/i18n/index.ts` |
 | FR18: Locale error messages | `src/i18n/sv.ts` + `src/i18n/en.ts` form error keys |
 

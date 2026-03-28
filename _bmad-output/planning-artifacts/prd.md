@@ -91,16 +91,16 @@ The events functionality is maintained as part of a single codebase (`livingit.s
 **Resource requirements:** 1 developer, estimated 3–4 days.
 
 **Core journeys supported:**
-- Visitor browses upcoming events (`/events/upcoming`)
-- Visitor registers for an event (`/events/[lang]/[slug]`)
-- Visitor receives registration confirmation (`/events/[lang]/[slug]/confirmation`)
+- Visitor browses upcoming events on `/events`
+- Visitor registers for an event (`/events/[slug]`)
+- Visitor receives registration confirmation (`/events/[slug]/confirmation`)
 - Developer adds/updates events via TypeScript content files
 
 **Must-have capabilities:**
 - Astro hybrid rendering mode (`output: 'hybrid'`) + server adapter
-- `/events/upcoming` — SSR listing page (all events, sv + en)
-- `/events/sv/[slug]` and `/events/en/[slug]` — SSR event detail + registration form
-- `/events/[lang]/[slug]/confirmation` — confirmation page
+- `/events` — SSR listing page (all events, sv + en, merged into existing page)
+- `/events/[slug]` — SSR event detail + registration form (language from `event.language`)
+- `/events/[slug]/confirmation` — confirmation page
 - `src/pages/api/register.ts` — registration form API route
 - Event content model with `language` field driving locale URL
 - Shared header/footer/design system on all event pages
@@ -124,7 +124,7 @@ To be defined in a future initiative.
 - *Astro Actions cookie limit*: Mitigated by using standard API route instead of Astro Actions for form submission
 - *Hybrid mode performance*: Low risk — static pages are unaffected by SSR configuration
 
-**Resource risks:** If time is short, `/events/upcoming` can launch after detail/registration pages since individual event URLs can be shared directly.
+**Resource risks:** Low — the event listing is already integrated into `/events`. Individual event detail URLs can be shared directly without the listing page.
 
 ## User Journeys
 
@@ -132,37 +132,37 @@ To be defined in a future initiative.
 
 **Meet Erik.** He's a software developer at a mid-sized company in Malmö. A colleague mentions Living IT's *Beauty in Code* conference over lunch. He searches, lands on `livingit.se`, and browses briefly — the site feels polished and professional.
 
-He spots "Events" in the navigation and clicks through to `/events`. The page gives a general overview of Living IT events. He sees a link to upcoming events and clicks through to `/events/upcoming` — a live listing of all scheduled events, mixing Swedish and English entries.
+He spots "Events" in the navigation and clicks through to `/events`. The page shows a general overview of Living IT events along with a live listing of upcoming events — mixing Swedish and English entries.
 
-He finds Beauty in Code, clicks through to `/events/en/beauty-in-code`. Same header, same colours, same feel as the rest of the site. He fills in the registration form (name, email, employer) and submits. He lands on `/events/en/beauty-in-code/confirmation`, still on `livingit.se`, with a clear confirmation message.
+He finds Beauty in Code, clicks through to `/events/beauty-in-code`. Same header, same colours, same feel as the rest of the site. He fills in the registration form (name, email, employer) and submits. He lands on `/events/beauty-in-code/confirmation`, still on `livingit.se`, with a clear confirmation message.
 
-**Capabilities revealed:** `/events/upcoming` SSR listing, `/events/[lang]/[slug]` SSR event detail, registration form, API route, confirmation page, shared header/footer.
+**Capabilities revealed:** `/events` integrated SSR listing, `/events/[slug]` SSR event detail, registration form, API route, confirmation page, shared header/footer.
 
 ---
 
 ### Journey 2: Visitor Hits a Problem During Registration (Edge Case)
 
-**Meet Anna.** A team lead in Göteborg who found out about a Swedish workshop the day before it starts. She navigates to `/events/upcoming`, finds *IT-helg April*, and clicks through to `/events/sv/it-helg-april`. The page is in Swedish throughout.
+**Meet Anna.** A team lead in Göteborg who found out about a Swedish workshop the day before it starts. She navigates to `/events`, finds *IT-helg April*, and clicks through to `/events/it-helg-april`. The page is in Swedish throughout (language derived from the event's `language: 'sv'` field).
 
 She submits the form with an invalid email. An inline error appears in Swedish: "Ange en giltig e-postadress." She corrects it and resubmits successfully.
 
-Second scenario: Anna arrives at `/events/sv/it-helg-mars` — an event that ended last week. The page exists but clearly marks it as past, shows no registration form, and links to `/events/upcoming`.
+Second scenario: Anna arrives at `/events/it-helg-mars` — an event that ended last week. The page exists but clearly marks it as past, shows no registration form, and links back to `/events`.
 
 Third scenario: The event she wants is fully booked. The form is replaced with a "Det här eventet är fullbokat" message.
 
-**Capabilities revealed:** Locale-scoped rendering, form validation with locale-appropriate error messages, event state display (upcoming / past / full).
+**Capabilities revealed:** Language-aware rendering from event data, form validation with locale-appropriate error messages, event state display (upcoming / past / full).
 
 ---
 
 ### Journey 3: Developer Adds a New Event
 
-**The Living IT developer** needs to add a new IT-helg weekend. They open `src/content/events.ts`, add a new entry with title, date, description, slug, capacity, and `language: 'sv'`. The site generates the event at `/events/sv/it-helg-maj`.
+**The Living IT developer** needs to add a new IT-helg weekend. All event data — title, date, description, slug, capacity, and `language: 'sv'` — is managed in the backend API. The site generates the event at `/events/it-helg-maj`.
 
-They run `npm run dev` locally, verify it appears in `/events/upcoming` with the shared site layout, push to `develop`, and CI deploys it.
+They run `npm run dev` locally, verify it appears on `/events` with the shared site layout, push to `develop`, and CI deploys it.
 
-No admin panel or CMS. The `language` field is the source of truth for URL locale — no frontend language-detection logic required.
+No admin panel or CMS on the frontend. The `language` field returned by the API is the source of truth for UI language — no frontend language-detection logic required.
 
-**Capabilities revealed:** Event content model with `language` field, locale-driven URL generation, dynamic routing (`src/pages/events/[lang]/[slug].astro`), dev/preview workflow.
+**Capabilities revealed:** API-driven event data, language-from-data rendering, dynamic routing (`src/pages/events/[slug].astro`), dev/preview workflow.
 
 ## Web App Specific Requirements
 
@@ -174,14 +174,12 @@ No admin panel or CMS. The `language` field is the source of truth for URL local
 
 | Route | Type |
 |---|---|
-| `/events` | Static — unchanged |
-| `/events/upcoming` | SSR |
-| `/events/sv/[slug]` | SSR — Swedish event detail + registration |
-| `/events/en/[slug]` | SSR — English event detail + registration |
-| `/events/[lang]/[slug]/confirmation` | SSR |
+| `/events` | SSR — event listing (upcoming events from API) + static marketing content |
+| `/events/[slug]` | SSR — event detail + registration form |
+| `/events/[slug]/confirmation` | SSR — registration confirmation |
 | `/api/register` | Server API route |
 
-**Locale routing:** Language determined by `language` field in event content model; drives URL generation. `/sv/` routes render in Swedish; `/en/` routes render in English.
+**Language routing:** Language determined by the `language` field in the API event response. No locale prefix in URL. `getTranslations(event.language)` drives all UI strings on detail and confirmation pages.
 
 ### Browser Support
 
@@ -206,7 +204,7 @@ Existing static pages: unchanged. New event routes: not intended for search inde
 - **FR1:** Visitor can browse all upcoming events on a single listing page
 - **FR2:** Visitor can view full event details (description, date, location, capacity status)
 - **FR3:** Visitor can see whether an event is upcoming, past, or fully booked
-- **FR4:** Visitor can navigate from the `/events` overview page to the upcoming events listing
+- **FR4:** Visitor can browse upcoming events directly on the `/events` page (listing integrated into the existing overview page)
 
 ### Event Registration
 
@@ -226,9 +224,9 @@ Existing static pages: unchanged. New event routes: not intended for search inde
 
 ### Localisation
 
-- **FR15:** Swedish events are served at locale-prefixed URLs (`/events/sv/[slug]`)
-- **FR16:** English events are served at locale-prefixed URLs (`/events/en/[slug]`)
-- **FR17:** Event detail and registration pages are presented in the language matching their URL locale
+- **FR15:** All events (Swedish and English) are served at `/events/[slug]`
+- **FR16:** Event detail pages are rendered in the event's own language, determined by the `language` field returned by the API
+- **FR17:** Event detail and registration pages are presented in the language matching the event's `language` field via `getTranslations(event.language)`
 - **FR18:** Form validation messages are displayed in the language of the event page
 
 ### Site Integration

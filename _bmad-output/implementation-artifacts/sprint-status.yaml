@@ -53,7 +53,7 @@ development_status:
   epic-2: in-progress
   2-1-create-shared-event-components: done
   2-2-build-the-upcoming-events-listing-page: review
-  2-3-link-events-overview-page-to-upcoming-listing: backlog
+  2-3-link-events-overview-page-to-upcoming-listing: done  # superseded: listing merged into /events directly
   epic-2-retrospective: optional
 
   # Epic 3: Event Registration

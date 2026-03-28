@@ -35,9 +35,9 @@ FR11: Developer can define a new event by adding an entry to the TypeScript even
 FR12: Developer can specify Swedish or English as the language for each event
 FR13: Developer can set event capacity, date, description, and URL slug per event
 FR14: Developer can preview new event pages locally before deploying
-FR15: Swedish events are served at locale-prefixed URLs (`/events/sv/[slug]`)
-FR16: English events are served at locale-prefixed URLs (`/events/en/[slug]`)
-FR17: Event detail and registration pages are presented in the language matching their URL locale
+FR15: All events (Swedish and English) are served at `/events/[slug]`
+FR16: Event detail pages are rendered in the event's own language, determined by the `language` field from the API
+FR17: Event detail and registration pages are presented in the language matching the event's `language` field via `getTranslations(event.language)`
 FR18: Form validation messages are displayed in the language of the event page
 FR19: All event pages display the shared `livingit.se` header
 FR20: All event pages display the shared `livingit.se` footer
@@ -65,15 +65,14 @@ NFR8: Colour contrast ratios on event pages meet WCAG 2.1 AA minimums (4.5:1 for
 - All event data sourced live from `api.livingit.se` REST API — no TypeScript content file for event instances; existing `src/content/events.ts` is unchanged
 - Form submission proxied through `src/pages/api/register.ts` → `api.livingit.se` (NOT Astro Actions — cookie limit risk confirmed)
 - Localisation implemented via typed `src/i18n/` objects (`sv.ts`, `en.ts`, `index.ts` with `getTranslations(lang)` helper) — not Astro native i18n
-- Confirmation data passed as URL-encoded params on redirect to `/events/[lang]/[slug]/confirmation` (stateless, no session)
+- Confirmation data passed as URL-encoded params on redirect to `/events/[slug]/confirmation` (stateless, no session)
 - CSRF protection via Origin header validation in `src/pages/api/register.ts` — reject non-`livingit.se` origins with 403
 - API authentication via `API_SECRET_KEY` env var (non-`PUBLIC_` prefix — server-only, never exposed to browser)
 - All SSR pages must explicitly set `Astro.response.status` for 404/500 — never rely on Astro implicit inference
 - HTTP redirects (`Astro.redirect()`) must be at page frontmatter level only — never inside components (Astro streaming constraint)
-- `robots.txt` generated via `seo/robots-livingit.txt` — add Disallow rules for `/events/upcoming`, `/events/sv/`, `/events/en/`
+- `robots.txt` generated via `seo/robots-livingit.txt` — add `Disallow: /events/` to exclude all event detail and confirmation pages; the static `/events` marketing page remains indexable (no trailing slash match)
 - New shared Astro components to create: `EventCard.astro`, `RegistrationForm.astro`, `EventStatusBadge.astro`
-- Add navigation link from existing `/events` marketing page to `/events/upcoming`
-- Implementation sequence enforced: adapter → env vars → i18n → listing page → detail+form → API route → confirmation → /events link → robots.txt → decommission `events.livingit.se`
+- Implementation sequence enforced: adapter → env vars → i18n → event listing on `/events` → `/events/[slug]` detail+form → API route → `/events/[slug]/confirmation` → robots.txt → decommission `events.livingit.se`
 
 ### UX Design Requirements
 
@@ -86,7 +85,7 @@ _No UX Design document exists for this project. UX follows existing site design 
 | FR1 | Epic 2 | Upcoming listing page |
 | FR2 | Epic 2 | Event detail on listing + detail pages |
 | FR3 | Epic 2 | EventStatusBadge component |
-| FR4 | Epic 2 | Link from `/events` → `/events/upcoming` |
+| FR4 | Epic 2 | Event listing integrated directly into `/events` (no separate upcoming page) |
 | FR5 | Epic 3 | Registration form |
 | FR6 | Epic 3 | Confirmation page |
 | FR7 | Epic 3 | Client + server validation |
@@ -97,8 +96,8 @@ _No UX Design document exists for this project. UX follows existing site design 
 | FR12 | Epic 1 | Language field drives URL locale via API data |
 | FR13 | Epic 1 | Capacity/date/slug owned by backend |
 | FR14 | Epic 1 | `npm run dev` works once adapter in place |
-| FR15 | Epic 2 | `/events/sv/[slug]` routing |
-| FR16 | Epic 2 | `/events/en/[slug]` routing |
+| FR15 | Epic 2 | All events served at `/events/[slug]` regardless of language |
+| FR16 | Epic 2 | UI language derived from `event.language` field via `getTranslations(event.language)` |
 | FR17 | Epic 3 | Locale-aware detail page rendering |
 | FR18 | Epic 3 | i18n error messages in form |
 | FR19 | Epic 2 | Shared `<Layout>` wraps listing page |
@@ -202,7 +201,7 @@ So that event data from the API can be rendered consistently across all event pa
 
 **Given** `src/components/EventCard.astro` and `src/components/EventStatusBadge.astro` are created
 **When** an event object with `title`, `date`, `location`, `slug`, `lang`, and `status` (`'upcoming' | 'past' | 'full'`) is passed as props
-**Then** `EventCard` renders the event title, date, location, and links to `/events/[lang]/[slug]`
+**Then** `EventCard` renders the event title, date, location, and links to `/events/[slug]`
 **And** `EventStatusBadge` renders "Kommande" / "Avslutat" / "Fullbokat" (or English equivalents) based on status
 **And** both components use Tailwind CSS 4 design tokens consistent with the existing site
 **And** TypeScript strict-mode compilation passes with no type errors
@@ -217,30 +216,19 @@ So that I can find events I'm interested in without leaving the main site.
 
 **Acceptance Criteria:**
 
-**Given** I navigate to `/events/upcoming`
+**Given** I navigate to `/events`
 **When** the page loads
 **Then** the page is SSR (`export const prerender = false`) and displays the shared `<Layout>` with site header and footer
-**And** all events fetched from `GET $PUBLIC_API_URL/[events endpoint]` are displayed as `EventCard` components
+**And** all events fetched from `GET $PUBLIC_API_URL/api/events/public` are displayed as `EventCard` components
 **And** each event card shows title, date, location, and status badge
 **And** the page sets `Astro.response.status = 500` and shows an error message if the API call fails
 **And** `npm run dev` correctly renders the page locally
 
 ---
 
-### Story 2.3: Link Events Overview Page to Upcoming Listing
+### Story 2.3: ~~Link Events Overview Page to Upcoming Listing~~ _(Done — superseded)_
 
-As a **visitor**,
-I want to navigate from the `/events` overview page to the upcoming events listing,
-So that I have a clear path from the marketing page to live event listings.
-
-**Acceptance Criteria:**
-
-**Given** I am on the existing static `/events` page
-**When** I view the page
-**Then** there is a clearly visible link or button pointing to `/events/upcoming`
-**And** the existing `/events` page remains statically rendered (no `prerender = false`)
-**And** the link text is appropriate in context (e.g. "Upcoming events" / "Kommande evenemang")
-**And** `npm run build` output confirms `/events` is still a static HTML file
+The live event listing from the API is displayed directly on the `/events` page (merged in story 2.2). There is no separate `/events/upcoming` route. This story is complete by virtue of the listing being integrated into `/events` itself.
 
 ---
 
@@ -251,21 +239,21 @@ Visitors can register for events and receive confirmation without ever leaving `
 ### Story 3.1: Build Event Detail Page with State-Aware Display
 
 As a **visitor**,
-I want to view a full event detail page at `/events/[lang]/[slug]`,
+I want to view a full event detail page at `/events/[slug]`,
 So that I can read event information and understand whether registration is available.
 
 **Acceptance Criteria:**
 
-**Given** I navigate to `/events/sv/[slug]` or `/events/en/[slug]`
+**Given** I navigate to `/events/[slug]`
 **When** the page loads
-**Then** the page is SSR and displays the shared `<Layout>` with the correct `title` and meta description
-**And** event details (title, date, location, description, capacity status) are fetched from `GET $PUBLIC_API_URL/[event endpoint]/{slug}`
+**Then** the page is SSR (`export const prerender = false`) and displays the shared `<Layout>` with the correct `title` and meta description
+**And** event details (title, date, location, description, capacity status) are fetched from `GET $PUBLIC_API_URL/api/events/public/{slug}`
 **And** an `EventStatusBadge` is shown reflecting the event's status
 **And** if the event status is `'upcoming'`, a registration form placeholder is shown (implemented in Story 3.2)
-**And** if the event status is `'past'`, no registration form is shown and a link to `/events/upcoming` is displayed
+**And** if the event status is `'past'`, no registration form is shown and a link back to `/events` is displayed
 **And** if the event status is `'full'`, no registration form is shown and a "fully booked" message is displayed in the page language
-**And** if the slug is not found, `Astro.response.status` is set to 404 and a "not found" page is shown
-**And** the page language matches the URL locale (`/sv/` → Swedish UI, `/en/` → English UI) via `getTranslations(lang)`
+**And** if the slug is not found (API returns 404), `Astro.response.status` is set to 404 and a "not found" page is shown
+**And** the page language matches the event's `language` field from the API (`'sv'` → Swedish UI, `'en'` → English UI) via `getTranslations(event.language)`
 
 ---
 
@@ -301,7 +289,7 @@ So that form data is securely processed and only valid, authorised submissions r
 **When** the request originates from `livingit.se` or `devingit.se`
 **Then** the request body is validated with Zod (name required, email valid format, employer required)
 **And** on validation success, the data is proxied to `api.livingit.se` (or `api.devingit.se`) using `API_SECRET_KEY` in the Authorization header
-**And** on successful backend response, the route redirects to `/events/[lang]/[slug]/confirmation?name=[name]` (302)
+**And** on successful backend response, the route redirects to `/events/[slug]/confirmation?name=[name]` (302)
 **And** on validation failure, the route returns HTTP 400 with `{ error: string, field?: string }` and the form re-renders with locale-appropriate error messages
 **And** requests with an Origin header not matching `livingit.se` or `devingit.se` are rejected with HTTP 403
 **And** all input is validated via Zod (`astro/zod`) before forwarding — no raw data reaches the backend
@@ -316,12 +304,13 @@ So that I know my registration was received.
 
 **Acceptance Criteria:**
 
-**Given** the `/api/register` route redirects to `/events/[lang]/[slug]/confirmation?name=[name]`
+**Given** the `/api/register` route redirects to `/events/[slug]/confirmation?name=[name]`
 **When** I land on the confirmation page
 **Then** the page is SSR and displays the shared `<Layout>` with site header and footer
-**And** a confirmation message is shown in the page language, personalised with the registrant's name from the `name` query param
+**And** event details are fetched from `GET $PUBLIC_API_URL/api/events/public/{slug}` to determine page language via `event.language`
+**And** a confirmation message is shown in the event's language, personalised with the registrant's name from the `name` query param
 **And** if `name` is missing or empty, a generic confirmation message is shown (no error)
-**And** a link back to `/events/upcoming` is displayed
+**And** a link back to `/events` is displayed
 **And** the page meets WCAG 2.1 AA (keyboard accessible, sufficient contrast)
 
 ---
@@ -340,9 +329,9 @@ So that search engines do not index dynamic event pages that are not intended fo
 
 **Given** `seo/robots-livingit.txt` is updated
 **When** the site is built and deployed
-**Then** the generated `robots.txt` contains `Disallow: /events/upcoming`, `Disallow: /events/sv/`, and `Disallow: /events/en/`
+**Then** the generated `robots.txt` contains `Disallow: /events/` (excludes all event detail and confirmation pages)
 **And** the existing `Disallow` rules for other paths remain unchanged
-**And** the static `/events` marketing page is not disallowed
+**And** the static `/events` marketing page remains indexable (path `/events` without trailing slash does not match `Disallow: /events/`)
 
 ---
 
