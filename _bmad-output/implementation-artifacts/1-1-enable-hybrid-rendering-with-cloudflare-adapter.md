@@ -1,6 +1,6 @@
 # Story 1.1: Enable Hybrid Rendering with Cloudflare Adapter
 
-Status: review
+Status: done
 
 ## Story
 

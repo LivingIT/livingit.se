@@ -39,6 +39,7 @@ jobs:
           node -e "
             const fs = require('fs');
             const p = 'dist/server/wrangler.json';
+            if (!fs.existsSync(p)) { console.error('ERROR: ' + p + ' not found — adapter may not have generated it'); process.exit(1); }
             const c = JSON.parse(fs.readFileSync(p, 'utf8'));
             c.name = 'devingit-se';
             c.vars = { ...c.vars, PUBLIC_API_URL: '${{ env.STAGING_API_URL }}' };
@@ -51,6 +52,7 @@ jobs:
           node -e "
             const fs = require('fs');
             const p = 'dist/server/wrangler.json';
+            if (!fs.existsSync(p)) { console.error('ERROR: ' + p + ' not found — adapter may not have generated it'); process.exit(1); }
             const c = JSON.parse(fs.readFileSync(p, 'utf8'));
             c.name = 'livingit-se';
             c.vars = { ...c.vars, PUBLIC_API_URL: '${{ env.PRODUCTION_API_URL }}' };
