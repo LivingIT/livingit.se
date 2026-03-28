@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-03-28
-last_updated: 2026-03-28  # updated for story 2-1-create-shared-event-components
+last_updated: 2026-03-28  # in-progress: 2-2-build-the-upcoming-events-listing-page
 project: livingit.se
 project_key: NOKEY
 tracking_system: file-system
@@ -52,7 +52,7 @@ development_status:
   # Epic 2: Event Discovery
   epic-2: in-progress
   2-1-create-shared-event-components: done
-  2-2-build-the-upcoming-events-listing-page: backlog
+  2-2-build-the-upcoming-events-listing-page: review
   2-3-link-events-overview-page-to-upcoming-listing: backlog
   epic-2-retrospective: optional
 

@@ -2,6 +2,7 @@
 import type { ApiEvent } from '../types/api';
 import { getTranslations } from '../i18n';
 import EventStatusBadge from './EventStatusBadge.astro';
+import { Film, MicVocal, Users } from 'lucide-astro';
 
 interface Props {
   event: ApiEvent;
@@ -13,36 +14,77 @@ const t = getTranslations(lang);
 
 let formatted: string;
 try {
-  const d = new Date(event.date);
+  const d = new Date(event.startDateTime);
   if (isNaN(d.getTime())) throw new RangeError('Invalid date');
   formatted = new Intl.DateTimeFormat(lang === 'sv' ? 'sv-SE' : 'en-GB', {
     dateStyle: 'long',
     timeStyle: 'short',
   }).format(d);
 } catch {
-  formatted = event.date;
+  formatted = event.startDateTime;
 }
 
-const href = event.slug ? `/events/${event.slug}` : null;
+const status: import('../types/api').EventStatus = event.isSoldOut ? 'full' : event.isActive ? 'upcoming' : 'past';
+const href = event.eventId ? `/events/${event.eventId}` : null;
+
+const iconType = event.eventType === 'ItBio' ? 'film'
+  : event.eventType === 'BeautyInCode' ? 'mic'
+  : 'users';
 ---
-<article class="group bg-bg-card rounded-xl border border-mono-lighter p-6 hover:shadow-lg transition-shadow">
+<article class="group bg-[var(--color-bg-card)] border border-mono-lighter rounded-xl overflow-hidden hover:shadow-lg transition-shadow">
   {href ? (
     <a href={href} class="block">
-      <div class="mb-3 flex items-start justify-between gap-4">
-        <h2 class="text-mono-black text-xl font-semibold card-title">{event.title}</h2>
-        <EventStatusBadge status={event.status} translations={t.event} />
+      <div class="px-8 pt-8 pb-4">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="feature-icon bg-[var(--color-orange)] flex h-14 w-14 items-center justify-center rounded-lg text-white flex-shrink-0">
+            {iconType === 'film' && <Film class="h-7 w-7" />}
+            {iconType === 'mic' && <MicVocal class="h-7 w-7" />}
+            {iconType === 'users' && <Users class="h-7 w-7" />}
+          </div>
+          <h2 class="text-mono-black text-xl font-semibold card-title">{event.title}</h2>
+        </div>
+        <p class="text-mono-dark text-sm">{formatted}</p>
+        <p class="text-mono-gray mt-1 text-sm">{event.location}</p>
+        {status !== 'upcoming' && (
+          <div class="mt-3">
+            <EventStatusBadge status={status} translations={t.event} />
+          </div>
+        )}
       </div>
-      <p class="text-mono-dark text-sm">{formatted}</p>
-      <p class="text-mono-gray mt-1 text-sm">{event.location}</p>
+      {event.imageUrl && (
+        <div class="px-10 pt-2 pb-10">
+          <div class="rounded-[24px] overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.2),0_6px_18px_rgba(0,0,0,0.12)]">
+            <img src={event.imageUrl} alt={event.title} class="w-full block" loading="lazy" />
+          </div>
+        </div>
+      )}
     </a>
   ) : (
     <div>
-      <div class="mb-3 flex items-start justify-between gap-4">
-        <h2 class="text-mono-black text-xl font-semibold card-title">{event.title}</h2>
-        <EventStatusBadge status={event.status} translations={t.event} />
+      <div class="px-8 pt-8 pb-4">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="feature-icon bg-[var(--color-orange)] flex h-14 w-14 items-center justify-center rounded-lg text-white flex-shrink-0">
+            {iconType === 'film' && <Film class="h-7 w-7" />}
+            {iconType === 'mic' && <MicVocal class="h-7 w-7" />}
+            {iconType === 'users' && <Users class="h-7 w-7" />}
+          </div>
+          <h2 class="text-mono-black text-xl font-semibold card-title">{event.title}</h2>
+        </div>
+        <p class="text-mono-dark text-sm">{formatted}</p>
+        <p class="text-mono-gray mt-1 text-sm">{event.location}</p>
+        {status !== 'upcoming' && (
+          <div class="mt-3">
+            <EventStatusBadge status={status} translations={t.event} />
+          </div>
+        )}
       </div>
-      <p class="text-mono-dark text-sm">{formatted}</p>
-      <p class="text-mono-gray mt-1 text-sm">{event.location}</p>
+      {event.imageUrl && (
+        <div class="px-10 pt-2 pb-10">
+          <div class="rounded-[24px] overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.2),0_6px_18px_rgba(0,0,0,0.12)]">
+            <img src={event.imageUrl} alt={event.title} class="w-full block" loading="lazy" />
+          </div>
+        </div>
+      )}
     </div>
   )}
 </article>
