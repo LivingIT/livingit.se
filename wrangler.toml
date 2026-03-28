@@ -14,8 +14,10 @@ directory = "dist/client"
 [vars]
 PUBLIC_API_URL = "https://api.devingit.se"
 
-# [env.production] is not reachable via the CI pipeline (which deploys using the
-# patched dist/server/wrangler.json directly). Kept here for reference only.
+# WARNING: DO NOT DEPLOY DIRECTLY USING --env production.
+# [env.production] is not reachable via the CI pipeline (which deploys the
+# patched dist/server/wrangler.json directly). This block is reference-only.
+# All production deployments must go through .github/workflows/deploy.yml.
 [env.production]
 name = "livingit-se"
 
