@@ -13,7 +13,8 @@ export interface ApiEvent {
   startDateTime: string;  // ISO 8601
   endDateTime: string;    // ISO 8601
   location: string;
-  geo: { latitude: number; longitude: number };
+  city: string;
+  geo: { latitude: number; longitude: number; googlePlaceId?: string | null };
   defaultTicketSeatCount: number;
   maxTicketSeatCount: number;
   isAlmostSoldOut: boolean;

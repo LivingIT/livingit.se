@@ -132,7 +132,16 @@ const pageDescription = event
                 <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
                 <circle cx="12" cy="10" r="3" />
               </svg>
-              {event.location}
+              <span class="event__city-chip">{event.city}</span>
+              <a
+                href={event.geo.googlePlaceId
+                ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location)}&query_place_id=${event.geo.googlePlaceId}`
+                : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location + ', Sweden')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="event__location-link"
+                aria-label={`${event.location} (opens in Google Maps)`}
+              >{event.location}</a>
             </p>
             {event.price && event.price.ticketPrice > 0 && (
               <p class="event__price">
@@ -245,12 +254,40 @@ const pageDescription = event
     margin-bottom: 1rem;
   }
 
+  .event__city-chip {
+    display: inline-block;
+    background-color: var(--color-orange);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.625rem;
+    border-radius: 9999px;
+    flex-shrink: 0;
+  }
+
   .event__time-range,
   .event__location {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 1rem;
+  }
+
+  .event__location-link {
+    flex: 1;
+    color: var(--color-orange);
+    text-decoration: underline;
+  }
+
+  .event__location-link:hover {
+    text-decoration: none;
+  }
+
+  .event__location-link:focus-visible {
+    outline: 2px solid var(--color-orange);
+    outline-offset: 2px;
+    border-radius: 2px;
+    text-decoration: none;
   }
 
   .event__price {
