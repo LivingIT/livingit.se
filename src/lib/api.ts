@@ -17,11 +17,15 @@ export async function apiFetch(path: string, init: RequestInit = {}): Promise<Re
   const callerHeaders = init.headers instanceof Headers
     ? Object.fromEntries(init.headers)
     : (init.headers ?? {});
-  return fetch(url, {
-    ...init,
-    headers: {
-      'X-Api-Key': apiKey,
-      ...callerHeaders,
-    },
-  });
+  try {
+    return await fetch(url, {
+      ...init,
+      headers: {
+        'X-Api-Key': apiKey,
+        ...callerHeaders,
+      },
+    });
+  } catch {
+    return new Response(null, { status: 502, statusText: 'Upstream Unreachable' });
+  }
 }
