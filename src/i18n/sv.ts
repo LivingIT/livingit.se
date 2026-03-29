@@ -81,7 +81,7 @@ export const sv = {
     registered: 'Din bokning är nu bekräftad!',
   },
   nav: {
-    backToEvents: 'Gå till event',
+    backToEvents: 'Tillbaka till event',
     upcomingEvents: 'Kommande evenemang',
   },
   invoice: {

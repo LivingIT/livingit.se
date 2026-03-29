@@ -57,53 +57,42 @@ const pageDescription = event
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
-  <a href="/events" class="home-button" aria-label={t.common.goToHome}>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    >
-      <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
-      <path
-        d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
-      />
-    </svg>
-  </a>
+  <main class="min-h-screen">
 
-  {is404 && (
-    <section class="error-section">
-      <p class="error-message">{t.event.notFound}</p>
-      <a href="/events" class="error-back-link">{t.nav.backToEvents}</a>
-    </section>
-  )}
+    {is404 && (
+      <section class="error-section">
+        <p class="error-message">{t.event.notFound}</p>
+        <a href="/events" class="error-back-link">{t.nav.backToEvents}</a>
+      </section>
+    )}
 
-  {!event && !is404 && (
-    <section class="error-section">
-      <p class="error-message">{t.error.somethingWentWrong}</p>
-      <a href="/events" class="error-back-link">{t.nav.backToEvents}</a>
-    </section>
-  )}
+    {!event && !is404 && (
+      <section class="error-section">
+        <p class="error-message">{t.error.somethingWentWrong}</p>
+        <a href="/events" class="error-back-link">{t.nav.backToEvents}</a>
+      </section>
+    )}
 
-  {event && (
-    <section class="promotion">
-      <div class="section__content">
-        <img class="promotion__img" src={event.imageUrl} alt={t.common.eventPromotion} />
+    {event && status && (
+      <div class="mx-auto max-w-7xl px-4 pt-20 sm:px-6 lg:px-8">
+        <div class="mt-12">
+          <h1 class="text-5xl font-bold mb-8 text-center">{event.title}</h1>
+        </div>
       </div>
-    </section>
-  )}
+    )}
 
-  {event && status && (
-    <section class="section section--dark">
-      <div class="section__content content">
+    {event && (
+      <section class="promotion">
+        <div class="section__content">
+          <img class="promotion__img" src={event.imageUrl} alt={t.common.eventPromotion} />
+        </div>
+      </section>
+    )}
+
+    {event && status && (
+      <section class="section">
+        <div class="section__content content">
         <div class="event">
-          <h1 class="event__title">{event.title}</h1>
-          <EventStatusBadge status={status} translations={t.event} />
 
           <div class="event__details">
             <h2>{t.common.timeAndLocation}</h2>
@@ -173,6 +162,7 @@ const pageDescription = event
         </div>
 
         <div class="reservation">
+          <a href="/events" class="back-link">{t.nav.backToEvents}</a>
           {showRegistrationPlaceholder && (
             <div id="registration-form-placeholder">
               {/* TODO Story 3.2: Replace this with:
@@ -185,38 +175,15 @@ const pageDescription = event
               <p class="placeholder-text">{t.form.submitButton}</p>
             </div>
           )}
-          {!showRegistrationPlaceholder && (
-            <a href="/events" class="back-link">{t.nav.backToEvents}</a>
-          )}
         </div>
       </div>
     </section>
-  )}
+    )}
+  </main>
 </Layout>
 
 <style>
-  .home-button {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    z-index: 50;
-    background-color: color-mix(in srgb, var(--color-mono-darker) 85%, transparent);
-    color: var(--color-mono-white);
-    border-radius: 50%;
-    width: 2.5rem;
-    height: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    transition: background-color 0.2s ease;
-  }
-
-  .home-button:hover {
-    background-color: var(--color-mono-darker);
-  }
-
-  .error-section {
+.error-section {
     min-height: 60vh;
     display: flex;
     flex-direction: column;
@@ -241,18 +208,16 @@ const pageDescription = event
     margin: auto;
   }
 
-  .promotion,
+  .promotion {
+    padding: 0 1rem 0.5rem;
+  }
+
   .promotion > .section__content {
     padding: 0;
   }
 
   .section {
-    padding: 4rem 1rem;
-  }
-
-  .section--dark {
-    background-color: var(--color-mono-darker);
-    color: var(--color-mono-white);
+    padding: 2rem 1rem 4rem;
   }
 
   .promotion__img {
@@ -270,13 +235,7 @@ const pageDescription = event
     flex: 2;
   }
 
-  .event__title {
-    font-size: clamp(2rem, 5vw, 4rem);
-    font-weight: 700;
-    margin-bottom: 2rem;
-  }
-
-  .event__details {
+.event__details {
     margin-top: 1.5rem;
   }
 
@@ -319,11 +278,17 @@ const pageDescription = event
 
   .reservation {
     flex: 1;
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-mono-lighter);
+    border-radius: 0.75rem;
+    padding: 2rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
+    margin-top: 2rem;
   }
 
   .placeholder-text {
     font-style: italic;
-    color: var(--color-mono-light);
+    color: var(--color-mono-gray);
     padding: 1rem;
     border: 1px dashed var(--color-mono-gray);
     border-radius: 0.5rem;
@@ -344,11 +309,11 @@ const pageDescription = event
     }
 
     .section {
-      padding: 4rem 0;
+      padding: 2rem 0 4rem;
     }
 
     .promotion {
-      padding: 3rem 0 0;
+      padding: 0 0 0.5rem;
     }
 
     .promotion__img {
@@ -361,7 +326,8 @@ const pageDescription = event
     }
 
     .reservation {
-      margin-top: 6em;
+      margin-top: 3rem;
+      align-self: flex-start;
     }
   }
 </style>
