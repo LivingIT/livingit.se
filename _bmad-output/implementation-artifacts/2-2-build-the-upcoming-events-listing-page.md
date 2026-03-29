@@ -1,6 +1,6 @@
 # Story 2.2: Build the Upcoming Events Listing Page
 
-Status: review
+Status: done
 
 ## Story
 
