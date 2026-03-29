@@ -17,15 +17,11 @@ export async function apiFetch(path: string, init: RequestInit = {}): Promise<Re
   const callerHeaders = init.headers instanceof Headers
     ? Object.fromEntries(init.headers)
     : (init.headers ?? {});
-  console.log('[apiFetch] URL:', url);
-  console.log('[apiFetch] API key (first 6 chars):', apiKey?.slice(0, 6) ?? 'MISSING');
-  const response = await fetch(url, {
+  return fetch(url, {
     ...init,
     headers: {
       'X-Api-Key': apiKey,
       ...callerHeaders,
     },
   });
-  console.log('[apiFetch] Response status:', response.status, response.statusText);
-  return response;
 }

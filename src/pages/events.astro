@@ -27,10 +27,11 @@ try {
     const allEvents = await response.json() as ApiEvent[];
     upcomingEvents = allEvents.filter((e) => e.isActive);
   } else {
+    Astro.response.status = 500;
     fetchFailed = true;
   }
-} catch (err) {
-  console.error('[events] fetch threw:', err);
+} catch {
+  Astro.response.status = 500;
   fetchFailed = true;
 }
 
@@ -64,9 +65,12 @@ const eventsWithHtml = await Promise.all(
 
         {!fetchFailed && upcomingEvents !== null && upcomingEvents.length > 0 && (
           <ul class="grid grid-cols-1 gap-8 md:grid-cols-2">
-            {upcomingEvents.map((event) => (
-              <li class="[&:last-child:nth-child(odd)]:col-span-full"><EventCard event={event} lang={event.language} /></li>
-            ))}
+            {upcomingEvents.map((event) => {
+              const safeLang = event.language === 'en' ? 'en' : 'sv';
+              return (
+                <li class="[&:last-child:nth-child(odd)]:col-span-full"><EventCard event={event} lang={safeLang} /></li>
+              );
+            })}
           </ul>
         )}
       </div>
