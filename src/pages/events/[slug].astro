@@ -28,7 +28,8 @@ const status: EventStatus | null = event
 const showRegistrationPlaceholder = event?.isActive ?? false;
 
 const isOneDayEvent = event
-  ? new Date(event.startDateTime).toDateString() === new Date(event.endDateTime).toDateString()
+  ? new Intl.DateTimeFormat('sv-SE', { dateStyle: 'short', timeZone: 'Europe/Stockholm' }).format(new Date(event.startDateTime))
+    === new Intl.DateTimeFormat('sv-SE', { dateStyle: 'short', timeZone: 'Europe/Stockholm' }).format(new Date(event.endDateTime))
   : false;
 
 const t = event ? getTranslations(event.language) : getTranslations('sv');
@@ -37,7 +38,7 @@ function formatDate(isoDate: string, lang: 'sv' | 'en', options: Intl.DateTimeFo
   try {
     const d = new Date(isoDate);
     if (isNaN(d.getTime())) throw new RangeError('invalid');
-    return new Intl.DateTimeFormat(lang === 'sv' ? 'sv-SE' : 'en-GB', options).format(d);
+    return new Intl.DateTimeFormat(lang === 'sv' ? 'sv-SE' : 'en-GB', { ...options, timeZone: 'Europe/Stockholm' }).format(d);
   } catch {
     return isoDate;
   }
@@ -140,7 +141,7 @@ const pageDescription = event
                 target="_blank"
                 rel="noopener noreferrer"
                 class="event__location-link"
-                aria-label={`${event.location} (opens in Google Maps)`}
+                aria-label={`${event.location} (${t.common.opensInGoogleMaps})`}
               >{event.location}</a>
             </p>
             {event.price && event.price.ticketPrice > 0 && (
@@ -167,7 +168,7 @@ const pageDescription = event
           </div>
 
           <div class="event__description" set:html={event.description} />
-          <div class="event__agenda" set:html={event.agenda} />
+          {event.agenda && <div class="event__agenda" set:html={event.agenda} />}
         </div>
 
         <div class="reservation">

@@ -14,6 +14,7 @@ export const en: Translations = {
     pleaseWait: 'Please wait...',
     cancel: 'Cancel',
     eventPromotion: 'Event promotion',
+    opensInGoogleMaps: 'opens in Google Maps',
   },
   form: {
     labelName: 'Name',

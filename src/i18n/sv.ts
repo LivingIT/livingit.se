@@ -12,6 +12,7 @@ export const sv = {
     pleaseWait: 'Vänta...',
     cancel: 'Avbryt',
     eventPromotion: 'Event promotion',
+    opensInGoogleMaps: 'öppnas i Google Maps',
   },
   form: {
     labelName: 'Namn',
