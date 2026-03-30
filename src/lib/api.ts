@@ -6,14 +6,13 @@ if (typeof window !== 'undefined') {
  * Fetch wrapper for all API calls. Attaches the API secret key as a Bearer
  * token. Must only be called from server-side contexts (SSR pages, API routes).
  *
- * Env vars are read lazily (inside the function) so that Cloudflare Worker
- * runtime secrets — which are only injected per-request — are available.
+ * apiKey must be passed by the caller from Astro.locals.runtime.env.API_SECRET_KEY
+ * (or context.locals.runtime.env.API_SECRET_KEY in API routes). Cloudflare secrets
+ * are not available via import.meta.env — only via the Worker runtime env.
  */
-export async function apiFetch(path: string, init: RequestInit = {}): Promise<Response> {
+export async function apiFetch(path: string, apiKey: string, init: RequestInit = {}): Promise<Response> {
   const baseUrl = import.meta.env.PUBLIC_API_URL;
   if (!baseUrl) throw new Error('PUBLIC_API_URL is not set');
-
-  const apiKey = import.meta.env.API_SECRET_KEY;
   if (!apiKey) throw new Error('API_SECRET_KEY is not set');
 
   const url = `${baseUrl}${path.startsWith('/') ? path : '/' + path}`;

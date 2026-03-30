@@ -1,7 +1,9 @@
 import type { APIRoute } from 'astro';
 import { apiFetch } from '../../lib/api';
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const apiKey: string = (locals as any).runtime?.env?.API_SECRET_KEY ?? '';
   let body: { eventId?: string; referralCode?: string };
   try {
     body = await request.json();
@@ -21,7 +23,8 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   const response = await apiFetch(
-    `/api/events/public/${encodeURIComponent(eventId)}/${encodeURIComponent(referralCode)}`
+    `/api/events/public/${encodeURIComponent(eventId)}/${encodeURIComponent(referralCode)}`,
+    apiKey
   );
 
   if (response.ok) {
