@@ -519,6 +519,8 @@ const invoiceContactText = t.invoice.contactForInvoice.replace('{{email}}', even
           if (regCode) regCode.value = code;
           updateSeatCountUI(maxSeatCount);
           showSection('registration');
+          const firstNameEl = document.getElementById('firstName') as HTMLInputElement | null;
+          firstNameEl?.focus();
         }
       } else {
         if (errorEl) {
@@ -694,12 +696,14 @@ const invoiceContactText = t.invoice.contactForInvoice.replace('{{email}}', even
         const data = await res.json() as { nextStep: string };
         showSuccess(data.nextStep, isSoldOut);
       } else {
+        console.error('[register] non-ok response:', res.status, res.statusText);
         if (errorEl) {
           errorEl.textContent = msgSomethingWentWrong;
           errorEl.hidden = false;
         }
       }
-    } catch {
+    } catch (err) {
+      console.error('[register] fetch failed:', err);
       if (errorEl) {
         errorEl.textContent = msgSomethingWentWrong;
         errorEl.hidden = false;
