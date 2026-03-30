@@ -27,10 +27,12 @@ try {
     const allEvents = await response.json() as ApiEvent[];
     upcomingEvents = allEvents.filter((e) => e.isActive);
   } else {
+    console.error(`[events] API responded ${response.status} ${response.statusText}`);
     Astro.response.status = 500;
     fetchFailed = true;
   }
-} catch {
+} catch (err) {
+  console.error('[events] fetch threw:', err);
   Astro.response.status = 500;
   fetchFailed = true;
 }
