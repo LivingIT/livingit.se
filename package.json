@@ -11,7 +11,7 @@
   "dependencies": {
     "@astrojs/cloudflare": "^13.1.4",
     "@iconify-json/simple-icons": "^1.2.75",
-    "astro": "^6.1.1",
+    "astro": "^6.1.2",
     "astro-icon": "^1.1.5",
     "lucide-astro": "^0.556.0",
     "marked": "^17.0.5"
