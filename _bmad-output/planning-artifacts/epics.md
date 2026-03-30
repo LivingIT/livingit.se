@@ -296,6 +296,26 @@ So that form data is securely processed and only valid, authorised submissions r
 
 ---
 
+### Story 3.6: Build Order Success Page
+
+As a **visitor**,
+I want a success page after completing a paid ticket purchase,
+So that I know my order was processed and I'll receive my tickets by email.
+
+**Acceptance Criteria:**
+
+**Given** Stripe redirects me to `/events/[slug]/ordersuccess` after a successful checkout
+**When** the page loads
+**Then** the page is SSR (`export const prerender = false`) and displays the shared `<Layout>` with site header and footer
+**And** event details are fetched from `GET $PUBLIC_API_URL/api/events/public/{slug}` to determine page language via `event.language`
+**And** a success message is shown using `t.messages.purchaseSuccess` in the event's language
+**And** an email confirmation note is shown using `t.messages.purchaseEmailSent` in the event's language
+**And** a link back to `/events` is displayed
+**And** if the event is not found (API returns 404), the page still renders gracefully (fallback to Swedish)
+**And** the page meets WCAG 2.1 AA (sufficient contrast, keyboard accessible)
+
+---
+
 ### Story 3.4: Build Registration Confirmation Page
 
 As a **visitor**,

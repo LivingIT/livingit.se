@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-03-28
-last_updated: 2026-03-30  # stories 3-2, 3-3, 3-4 done; code review complete
+last_updated: 2026-03-30  # story 3-6 done
 project: livingit.se
 project_key: NOKEY
 tracking_system: file-system
@@ -62,7 +62,8 @@ development_status:
   3-2-build-registration-form-component: done
   3-3-implement-registration-api-route: done
   3-4-build-registration-confirmation-page: done
-  3-5-implement-purchase-api-route: backlog  # /api/purchase missing; required for paid events + Turnstile validation
+  3-5-implement-purchase-api-route: done
+  3-6-build-order-success-page: done
   epic-3-retrospective: optional
 
   # Epic 4: Production Readiness & Consolidation

@@ -11,7 +11,7 @@ import RegistrationForm from '../../components/RegistrationForm.astro';
 const { slug } = Astro.params as { slug: string };
 const ticketId = Astro.url.searchParams.get('ticketid') ?? Astro.url.searchParams.get('ticketId') ?? undefined;
 
-const response = await apiFetch(`/api/events/public/${slug}`);
+const response = await apiFetch(`/api/events/public/${encodeURIComponent(slug)}`);
 
 if (!response.ok) {
   Astro.response.status = response.status === 404 ? 404 : 500;

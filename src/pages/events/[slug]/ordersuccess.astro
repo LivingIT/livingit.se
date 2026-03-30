@@ -1,0 +1,87 @@
+---
+export const prerender = false;
+
+import { apiFetch } from '../../../lib/api';
+import { getTranslations } from '../../../i18n';
+import type { ApiEvent, SupportedLanguage } from '../../../types/api';
+import Layout from '../../../components/Layout.astro';
+
+const { slug } = Astro.params as { slug: string };
+
+let event: ApiEvent | null = null;
+try {
+  const response = await apiFetch(`/api/events/public/${encodeURIComponent(slug)}`);
+  if (response.ok) {
+    event = await response.json() as ApiEvent;
+  }
+} catch (err) {
+  console.error('[ordersuccess] apiFetch failed:', err);
+}
+
+const resolvedLang: SupportedLanguage = event?.language ?? 'sv';
+const t = getTranslations(resolvedLang);
+---
+
+<Layout title={`${t.messages.purchaseSuccess} - Living IT Event`}>
+  <main class="confirm-main">
+    <div class="confirm-card">
+      <div class="confirm-icon" aria-hidden="true">🎉</div>
+      <h1 class="confirm-heading">{t.messages.purchaseSuccess}</h1>
+      <p class="confirm-body">{t.messages.purchaseEmailSent}</p>
+      <a href="/events" class="confirm-link confirm-back">{t.nav.backToEvents}</a>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .confirm-main {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 1rem;
+  }
+
+  .confirm-card {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-mono-lighter);
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
+    padding: 3rem 2rem;
+    max-width: 36rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  .confirm-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .confirm-heading {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--color-mono-dark);
+  }
+
+  .confirm-body {
+    font-size: 1.125rem;
+    margin-bottom: 0.75rem;
+    color: var(--color-mono-dark);
+  }
+
+  .confirm-link {
+    color: var(--color-orange);
+    text-decoration: underline;
+  }
+
+  .confirm-link:hover {
+    text-decoration: none;
+  }
+
+  .confirm-back {
+    display: inline-block;
+    margin-top: 0.5rem;
+  }
+</style>
