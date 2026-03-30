@@ -1,0 +1,1146 @@
+---
+import type { ApiEvent, SupportedLanguage } from '../types/api';
+import type { Translations } from '../i18n/sv';
+
+interface Props {
+  event: ApiEvent;
+  lang: SupportedLanguage;
+  translations: Translations;
+  ticketId?: string;
+}
+
+const { event, translations: t, ticketId } = Astro.props;
+
+const hasPrice = (event.price?.ticketPrice ?? 0) > 0;
+const hasFoodOptions = event.foodOptions !== undefined;
+const hasFoodAllergies = hasFoodOptions && !!event.foodOptions?.acceptAllergies;
+const hasTerms = !!(event.termsUrl || event.privacyUrl);
+
+let termsHtml = '';
+if (event.termsUrl && event.privacyUrl) {
+  const termsLink = `<a href="${event.termsUrl}" target="_blank" rel="noopener noreferrer">${t.terms.termsLink}</a>`;
+  const privacyLink = `<a href="${event.privacyUrl}" target="_blank" rel="noopener noreferrer">${t.terms.privacyLink}</a>`;
+  termsHtml = t.terms.acceptBoth.replace('{{terms}}', termsLink).replace('{{privacy}}', privacyLink);
+} else if (event.termsUrl) {
+  const link = `<a href="${event.termsUrl}" target="_blank" rel="noopener noreferrer">${t.terms.termsLink}</a>`;
+  termsHtml = t.terms.acceptTerms.replace('{{terms}}', link);
+} else if (event.privacyUrl) {
+  const link = `<a href="${event.privacyUrl}" target="_blank" rel="noopener noreferrer">${t.terms.privacyLink}</a>`;
+  termsHtml = t.terms.acceptPrivacy.replace('{{privacy}}', link);
+}
+
+const invoiceMinText = event.price
+  ? t.invoice.minimumTicketsRequired.replace('{{count}}', String(event.price.minimumTicketsForInvoicing))
+  : '';
+const invoiceContactText = t.invoice.contactForInvoice.replace('{{email}}', event.contactEmail);
+---
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline></script>
+
+<div
+  id="registration-form"
+  data-event-id={event.eventId}
+  data-is-sold-out={String(event.isSoldOut)}
+  data-is-almost-sold-out={String(event.isAlmostSoldOut)}
+  data-has-price={String(hasPrice)}
+  data-max-seat-count={String(event.maxTicketSeatCount)}
+  data-default-seat-count={String(event.defaultTicketSeatCount)}
+  data-ticket-id={ticketId ?? ''}
+  data-has-food-options={String(hasFoodOptions)}
+  data-food-accepts-allergies={String(hasFoodAllergies)}
+  data-has-terms={String(hasTerms)}
+  data-msg-referral-code-bad={t.validation.referralCodeBad}
+  data-msg-something-went-wrong={t.error.somethingWentWrong}
+  data-msg-referral-code-required={t.validation.referralCodeRequired}
+  data-msg-please-wait={t.common.pleaseWait}
+>
+
+  <!-- Paid Initial State: two buttons (buy / have code) — only for hasPrice -->
+  {hasPrice && (
+    <div data-state="paid-initial" hidden>
+      <div class="button-group button-group--vertical">
+        <button type="button" class="button" id="btn-buy-ticket">
+          {t.form.buyTicket}
+        </button>
+        <button type="button" class="button button--secondary" id="btn-have-code">
+          {t.form.haveCode}
+        </button>
+      </div>
+    </div>
+  )}
+
+  <!-- Code Input State: referral code input + validate button + optional back button -->
+  <div data-state="code-input" hidden>
+    <div class="form-field">
+      <div class="field__control">
+        <input
+          class="field__input"
+          id="referralCode"
+          type="text"
+          placeholder=""
+          autocomplete="off"
+          aria-errormessage="error-referralCode"
+        />
+        <label for="referralCode" class="field__label">{t.form.labelReferralCode}</label>
+      </div>
+      <p id="error-referralCode" class="field__error" hidden></p>
+      <p id="validating-text" class="field__info" hidden>{t.form.validating}</p>
+    </div>
+    <div class={`code-input-actions${hasPrice ? ' button-group' : ''}`}>
+      {hasPrice && (
+        <button type="button" class="button button--secondary" id="btn-back-from-code">
+          {t.common.cancel}
+        </button>
+      )}
+      <button type="button" class="button" id="btn-validate-code">
+        {t.form.validateCode}
+      </button>
+    </div>
+  </div>
+
+  <!-- Registration State: full form -->
+  <div data-state="registration" hidden>
+    <p id="reg-error-message" class="form-error" hidden></p>
+    <form id="registration-form-submit" class="reservation__form">
+      <!-- Referral Code (readonly, pre-filled by JS) -->
+      <div class="form-field">
+        <div class="field__control">
+          <input
+            class="field__input"
+            id="regReferralCode"
+            type="text"
+            placeholder=""
+            readonly
+            autocomplete="off"
+          />
+          <label for="regReferralCode" class="field__label">{t.form.labelReferralCode}</label>
+        </div>
+      </div>
+      <!-- First Name -->
+      <div class="form-field">
+        <div class="field__control">
+          <input
+            class="field__input"
+            id="firstName"
+            name="firstName"
+            type="text"
+            placeholder=""
+            autocomplete="given-name"
+            required
+          />
+          <label for="firstName" class="field__label">{t.form.labelFirstName}</label>
+        </div>
+      </div>
+      <!-- Last Name -->
+      <div class="form-field">
+        <div class="field__control">
+          <input
+            class="field__input"
+            id="lastName"
+            name="lastName"
+            type="text"
+            placeholder=""
+            autocomplete="family-name"
+            required
+          />
+          <label for="lastName" class="field__label">{t.form.labelLastName}</label>
+        </div>
+      </div>
+      <!-- Email -->
+      <div class="form-field">
+        <div class="field__control">
+          <input
+            class="field__input"
+            id="regEmail"
+            name="email"
+            type="email"
+            placeholder=""
+            autocomplete="email"
+            required
+          />
+          <label for="regEmail" class="field__label">{t.form.labelEmail}</label>
+        </div>
+      </div>
+      <!-- Company (label uses t.form.labelEmployer per i18n, field name is "company") -->
+      <div class="form-field">
+        <div class="field__control">
+          <input
+            class="field__input"
+            id="company"
+            name="company"
+            type="text"
+            placeholder=""
+            autocomplete="organization"
+          />
+          <label for="company" class="field__label">{t.form.labelEmployer}</label>
+        </div>
+      </div>
+      <!-- Food Options (only if event.foodOptions exists) -->
+      {hasFoodOptions && (
+        <div class="form-field">
+          <div class="field__control">
+            <select
+              class="field__input"
+              id="foodChoiceOptionId"
+              name="foodChoiceOptionId"
+            >
+              <option value="" disabled selected>{t.form.labelChooseOption}</option>
+              {event.foodOptions!.options.map(option => (
+                <option value={option.optionId}>{option.description}</option>
+              ))}
+            </select>
+            <label for="foodChoiceOptionId" class="field__label">{t.form.labelFoodPreference}</label>
+          </div>
+        </div>
+      )}
+      <!-- Food Allergies (only if event.foodOptions.acceptAllergies) -->
+      {hasFoodAllergies && (
+        <div class="form-field">
+          <div class="field__control">
+            <textarea
+              class="field__input field__input--textarea"
+              id="foodChoiceAllergies"
+              name="foodChoiceAllergies"
+              placeholder=""
+            ></textarea>
+            <label for="foodChoiceAllergies" class="field__label">{t.form.labelAllergies}</label>
+          </div>
+        </div>
+      )}
+      <!-- Seat Count: three variants, JS shows correct one after validation -->
+      <div class="form-field">
+        <div class="flex align-center">
+          <label for="claimedSeatCountStepper" class="field__tickets-label">{t.form.labelTicketCount}</label>
+          <!-- Variant: fixed (max === 1) -->
+          <div id="seat-count-fixed" hidden>
+            <span class="seat-count-fixed-text">1</span>
+          </div>
+          <!-- Variant: select (max 2–6) -->
+          <div id="seat-count-select-wrapper" class="field__control" hidden>
+            <select
+              class="field__input field__input--no-label seat-count-select"
+              id="claimedSeatCountSelect"
+              aria-label={t.form.labelTicketCount}
+            >
+            </select>
+          </div>
+          <!-- Variant: stepper (max >= 7 or default) -->
+          <div id="seat-count-stepper" class="field__control" hidden>
+            <div class="flex align-center gap">
+              <button type="button" class="button button--round" id="btn-decrement" aria-label="-">−</button>
+              <input
+                class="field__input field__input--no-label"
+                id="claimedSeatCountStepper"
+                type="number"
+                min="1"
+                value="1"
+                placeholder=""
+                autocomplete="off"
+              />
+              <button type="button" class="button button--round" id="btn-increment" aria-label="+">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Turnstile widget -->
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAAAxEPDEDZFCyjeIx" data-theme="light"></div>
+      <!-- Terms (only if event.termsUrl || event.privacyUrl) -->
+      {hasTerms && (
+        <div class="form-field">
+          <label class="checkbox-label">
+            <input
+              type="checkbox"
+              id="termsAccepted"
+              name="termsAccepted"
+              class="checkbox-input"
+              aria-errormessage="error-termsAccepted"
+            />
+            <span class="checkbox-text" set:html={termsHtml} />
+          </label>
+          <p id="error-termsAccepted" class="field__error" hidden></p>
+        </div>
+      )}
+      <!-- Submit button -->
+      <button type="submit" class="button" id="btn-register-submit" disabled={hasTerms}>
+        {event.isSoldOut ? t.form.joinQueue : t.form.submitButton}
+      </button>
+      <!-- Conditional warnings -->
+      {!event.isSoldOut && event.isAlmostSoldOut && (
+        <p class="reservation__tickets-info">{t.messages.fewTicketsLeft}</p>
+      )}
+      {event.isSoldOut && (
+        <p class="reservation__tickets-info">{t.messages.soldOutMessage}</p>
+      )}
+    </form>
+  </div>
+
+  <!-- Purchase State: email, seatCount +/-, terms, submit + invoice details — only for hasPrice -->
+  {hasPrice && (
+    <div data-state="purchase" hidden>
+      <h3 class="purchase-form__title">{t.form.buyTicket}</h3>
+      <p id="pur-error-message" class="form-error" hidden></p>
+      <form id="purchase-form-submit" class="reservation__form">
+        <!-- Email -->
+        <div class="form-field">
+          <div class="field__control">
+            <input
+              class="field__input"
+              id="purEmail"
+              name="email"
+              type="email"
+              placeholder=""
+              autocomplete="email"
+              required
+            />
+            <label for="purEmail" class="field__label">{t.form.labelBuyerEmail}</label>
+          </div>
+        </div>
+        <!-- Seat Count (always stepper for purchase) -->
+        <div class="form-field">
+          <div class="flex align-center">
+            <label for="purSeatCount" class="field__tickets-label">{t.form.labelTicketCount}</label>
+            <div class="field__control">
+              <div class="flex align-center gap">
+                <button type="button" class="button button--round" id="btn-pur-decrement" aria-label="-">−</button>
+                <input
+                  class="field__input field__input--no-label"
+                  id="purSeatCount"
+                  type="number"
+                  min="1"
+                  max={String(event.maxTicketSeatCount)}
+                  value="1"
+                  placeholder=""
+                  autocomplete="off"
+                />
+                <button type="button" class="button button--round" id="btn-pur-increment" aria-label="+">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Terms (only if event.termsUrl || event.privacyUrl) -->
+        {hasTerms && (
+          <div class="form-field">
+            <label class="checkbox-label">
+              <input
+                type="checkbox"
+                id="purTermsAccepted"
+                name="termsAccepted"
+                class="checkbox-input"
+                aria-errormessage="error-purTermsAccepted"
+              />
+              <span class="checkbox-text" set:html={termsHtml} />
+            </label>
+            <p id="error-purTermsAccepted" class="field__error" hidden></p>
+          </div>
+        )}
+        <!-- Buttons -->
+        <div class="button-group">
+          <button type="button" class="button button--secondary" id="btn-cancel-purchase">
+            {t.common.cancel}
+          </button>
+          <button type="submit" class="button" id="btn-purchase-submit" disabled={hasTerms}>
+            {t.form.goToPayment}
+          </button>
+        </div>
+      </form>
+      <!-- Invoice details -->
+      <details class="event__invoice">
+        <summary class="event__invoice-summary">{t.invoice.payByInvoice}</summary>
+        <div class="event__invoice-content">
+          <p>{invoiceMinText}</p>
+          <p>{invoiceContactText}</p>
+        </div>
+      </details>
+    </div>
+  )}
+
+  <!-- Success State: all variants rendered server-side, JS shows correct one -->
+  <div data-state="success" hidden>
+    <div class="success-message" data-success-variant="queue" hidden>
+      <p>{t.messages.queueSuccessLine1}</p>
+      <p>{t.messages.queueSuccessLine2}</p>
+    </div>
+    <div class="success-message" data-success-variant="need-to-confirm" hidden>
+      <p>{t.messages.registrationNeedToConfirmLine1}</p>
+      <p>{t.messages.registrationNeedToConfirmLine2}</p>
+    </div>
+    <div class="success-message" data-success-variant="expect-confirmation" hidden>
+      <p>{t.messages.registrationConfirmationLine1}</p>
+      <p>{t.messages.registrationConfirmationLine2}</p>
+    </div>
+    <div class="success-message" data-success-variant="failed-email" hidden>
+      <p>{t.messages.registrationFailedLine1}</p>
+      <p>{t.messages.registrationFailedLine2}</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const wrapper = document.getElementById('registration-form') as HTMLElement | null;
+  if (!wrapper) throw new Error('RegistrationForm: wrapper element not found');
+
+  // Read event data from data attributes
+  const eventId = wrapper.dataset.eventId ?? '';
+  const isSoldOut = wrapper.dataset.isSoldOut === 'true';
+  const hasPrice = wrapper.dataset.hasPrice === 'true';
+  const maxTicketSeatCount = parseInt(wrapper.dataset.maxSeatCount ?? '0', 10);
+  const defaultSeatCount = parseInt(wrapper.dataset.defaultSeatCount ?? '1', 10);
+  const ticketId = wrapper.dataset.ticketId ?? '';
+  const hasFoodOptions = wrapper.dataset.hasFoodOptions === 'true';
+  const foodAcceptsAllergies = wrapper.dataset.foodAcceptsAllergies === 'true';
+  const hasTerms = wrapper.dataset.hasTerms === 'true';
+
+  // i18n strings from data attributes
+  const msgReferralCodeBad = wrapper.dataset.msgReferralCodeBad ?? 'Invalid code';
+  const msgReferralCodeRequired = wrapper.dataset.msgReferralCodeRequired ?? 'Code is required';
+  const msgSomethingWentWrong = wrapper.dataset.msgSomethingWentWrong ?? 'Something went wrong';
+  const msgPleaseWait = wrapper.dataset.msgPleaseWait ?? '...';
+
+  // State
+  let maxSeatCount = 0;
+  let isSubmitting = false;
+  let currentRegSeatCount = Math.max(1, defaultSeatCount);
+  let currentPurSeatCount = 1;
+
+  // Cache original button texts (set from server-rendered HTML)
+  const btnRegisterSubmit = document.getElementById('btn-register-submit') as HTMLButtonElement | null;
+  const btnPurchaseSubmit = document.getElementById('btn-purchase-submit') as HTMLButtonElement | null;
+  const btnValidateCode = document.getElementById('btn-validate-code') as HTMLButtonElement | null;
+  const regSubmitOrigText = btnRegisterSubmit?.textContent?.trim() ?? '';
+  const purSubmitOrigText = btnPurchaseSubmit?.textContent?.trim() ?? '';
+  const validateOrigText = btnValidateCode?.textContent?.trim() ?? '';
+
+  // ── State machine ────────────────────────────────────────────────────────────
+
+  function showSection(name: string) {
+    wrapper.querySelectorAll<HTMLElement>('[data-state]').forEach(el => { el.hidden = true; });
+    const target = wrapper.querySelector<HTMLElement>(`[data-state="${name}"]`);
+    if (target) target.hidden = false;
+  }
+
+  // Initial state
+  showSection(hasPrice ? 'paid-initial' : 'code-input');
+
+  // Auto-validate on mount if ticketId from URL
+  if (ticketId) {
+    const codeInput = document.getElementById('referralCode') as HTMLInputElement | null;
+    if (codeInput) codeInput.value = ticketId;
+    showSection('code-input');
+    void validateCode();
+  }
+
+  // ── Terms checkbox → toggle submit buttons ───────────────────────────────────
+
+  if (hasTerms) {
+    document.getElementById('termsAccepted')?.addEventListener('change', (e) => {
+      if (btnRegisterSubmit && !isSubmitting) {
+        btnRegisterSubmit.disabled = !(e.target as HTMLInputElement).checked;
+      }
+    });
+    document.getElementById('purTermsAccepted')?.addEventListener('change', (e) => {
+      if (btnPurchaseSubmit && !isSubmitting) {
+        btnPurchaseSubmit.disabled = !(e.target as HTMLInputElement).checked;
+      }
+    });
+  }
+
+  // ── Paid initial buttons ─────────────────────────────────────────────────────
+
+  document.getElementById('btn-buy-ticket')?.addEventListener('click', () => {
+    const purInput = document.getElementById('purSeatCount') as HTMLInputElement | null;
+    if (purInput) purInput.value = '1';
+    currentPurSeatCount = 1;
+    showSection('purchase');
+  });
+
+  document.getElementById('btn-have-code')?.addEventListener('click', () => {
+    showSection('code-input');
+  });
+
+  // ── Code input buttons ───────────────────────────────────────────────────────
+
+  document.getElementById('btn-back-from-code')?.addEventListener('click', () => {
+    showSection('paid-initial');
+  });
+
+  btnValidateCode?.addEventListener('click', () => {
+    void validateCode();
+  });
+
+  // Auto-blur validation on referral code field
+  const referralCodeInput = document.getElementById('referralCode') as HTMLInputElement | null;
+  referralCodeInput?.addEventListener('blur', () => {
+    const value = referralCodeInput.value.trim();
+    if (value && !isSubmitting) {
+      void validateCode();
+    }
+  });
+
+  // ── Code validation ──────────────────────────────────────────────────────────
+
+  async function validateCode() {
+    if (isSubmitting) return;
+    const codeInput = document.getElementById('referralCode') as HTMLInputElement | null;
+    const code = codeInput?.value.trim() ?? '';
+    const errorEl = document.getElementById('error-referralCode') as HTMLElement | null;
+    const validatingText = document.getElementById('validating-text') as HTMLElement | null;
+
+    if (!code) {
+      if (errorEl) {
+        errorEl.textContent = msgReferralCodeRequired;
+        errorEl.hidden = false;
+      }
+      return;
+    }
+
+    isSubmitting = true;
+    if (btnValidateCode) btnValidateCode.disabled = true;
+    if (validatingText) validatingText.hidden = false;
+    if (errorEl) errorEl.hidden = true;
+
+    try {
+      const res = await fetch('/api/validate-ticket', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ eventId, referralCode: code }),
+      });
+
+      if (res.ok) {
+        const data = await res.json() as { maxSeatCount: number };
+        maxSeatCount = data.maxSeatCount;
+        if (maxSeatCount <= 0) {
+          if (errorEl) {
+            errorEl.textContent = msgReferralCodeBad;
+            errorEl.hidden = false;
+          }
+        } else {
+          const regCode = document.getElementById('regReferralCode') as HTMLInputElement | null;
+          if (regCode) regCode.value = code;
+          updateSeatCountUI(maxSeatCount);
+          showSection('registration');
+        }
+      } else {
+        if (errorEl) {
+          errorEl.textContent = msgReferralCodeBad;
+          errorEl.hidden = false;
+        }
+      }
+    } catch {
+      if (errorEl) {
+        errorEl.textContent = msgSomethingWentWrong;
+        errorEl.hidden = false;
+      }
+    } finally {
+      isSubmitting = false;
+      if (btnValidateCode) {
+        btnValidateCode.disabled = false;
+        btnValidateCode.textContent = validateOrigText;
+      }
+      if (validatingText) validatingText.hidden = true;
+    }
+  }
+
+  // ── Seat count UI (registration form) ────────────────────────────────────────
+
+  function updateSeatCountUI(max: number) {
+    const fixedEl = document.getElementById('seat-count-fixed') as HTMLElement | null;
+    const selectWrapper = document.getElementById('seat-count-select-wrapper') as HTMLElement | null;
+    const stepperEl = document.getElementById('seat-count-stepper') as HTMLElement | null;
+    const selectEl = document.getElementById('claimedSeatCountSelect') as HTMLSelectElement | null;
+    const stepperInput = document.getElementById('claimedSeatCountStepper') as HTMLInputElement | null;
+
+    if (fixedEl) fixedEl.hidden = true;
+    if (selectWrapper) selectWrapper.hidden = true;
+    if (stepperEl) stepperEl.hidden = true;
+
+    if (max === 1) {
+      currentRegSeatCount = 1;
+      if (fixedEl) fixedEl.hidden = false;
+    } else if (max >= 2 && max <= 6) {
+      if (selectEl) {
+        selectEl.innerHTML = '';
+        for (let i = 1; i <= max; i++) {
+          const opt = document.createElement('option');
+          opt.value = String(i);
+          opt.textContent = String(i);
+          selectEl.appendChild(opt);
+        }
+        selectEl.value = String(max);
+      }
+      currentRegSeatCount = max;
+      if (selectWrapper) selectWrapper.hidden = false;
+    } else {
+      const cappedMax = max > 0 ? max : maxTicketSeatCount;
+      currentRegSeatCount = cappedMax;
+      if (stepperInput) {
+        stepperInput.value = String(currentRegSeatCount);
+        stepperInput.max = String(max > 0 ? max : maxTicketSeatCount);
+      }
+      if (stepperEl) stepperEl.hidden = false;
+    }
+  }
+
+  // Seat count select change
+  (document.getElementById('claimedSeatCountSelect') as HTMLSelectElement | null)
+    ?.addEventListener('change', (e) => {
+      currentRegSeatCount = parseInt((e.target as HTMLSelectElement).value, 10) || 1;
+    });
+
+  // Seat count stepper
+  document.getElementById('btn-decrement')?.addEventListener('click', () => {
+    if (currentRegSeatCount > 1) {
+      currentRegSeatCount -= 1;
+      const input = document.getElementById('claimedSeatCountStepper') as HTMLInputElement | null;
+      if (input) input.value = String(currentRegSeatCount);
+    }
+  });
+
+  document.getElementById('btn-increment')?.addEventListener('click', () => {
+    const max = maxSeatCount > 0 ? Math.min(maxSeatCount, maxTicketSeatCount) : maxTicketSeatCount;
+    if (currentRegSeatCount < max) {
+      currentRegSeatCount += 1;
+      const input = document.getElementById('claimedSeatCountStepper') as HTMLInputElement | null;
+      if (input) input.value = String(currentRegSeatCount);
+    }
+  });
+
+  // Sync JS variable when user types directly into stepper input
+  (document.getElementById('claimedSeatCountStepper') as HTMLInputElement | null)
+    ?.addEventListener('change', (e) => {
+      const input = e.target as HTMLInputElement;
+      const val = parseInt(input.value, 10);
+      const max = maxSeatCount > 0 ? Math.min(maxSeatCount, maxTicketSeatCount) : maxTicketSeatCount;
+      currentRegSeatCount = isNaN(val) ? 1 : Math.max(1, Math.min(val, max));
+      input.value = String(currentRegSeatCount);
+    });
+
+  function getCurrentRegSeatCount(): number {
+    const fixedEl = document.getElementById('seat-count-fixed') as HTMLElement | null;
+    const selectWrapper = document.getElementById('seat-count-select-wrapper') as HTMLElement | null;
+    const selectEl = document.getElementById('claimedSeatCountSelect') as HTMLSelectElement | null;
+
+    if (fixedEl && !fixedEl.hidden) return 1;
+    if (selectWrapper && !selectWrapper.hidden) return parseInt(selectEl?.value ?? '1', 10) || 1;
+    return currentRegSeatCount;
+  }
+
+  // ── Registration form submission ─────────────────────────────────────────────
+
+  document.getElementById('registration-form-submit')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (isSubmitting) return;
+
+    const regCode = document.getElementById('regReferralCode') as HTMLInputElement | null;
+    const firstName = document.getElementById('firstName') as HTMLInputElement | null;
+    const lastName = document.getElementById('lastName') as HTMLInputElement | null;
+    const regEmail = document.getElementById('regEmail') as HTMLInputElement | null;
+    const company = document.getElementById('company') as HTMLInputElement | null;
+    const errorEl = document.getElementById('reg-error-message') as HTMLElement | null;
+
+    interface RegPayload {
+      eventId: string;
+      referralCode: string;
+      firstName: string;
+      lastName: string;
+      email: string;
+      company: string;
+      claimedSeatCount: number;
+      foodChoiceOptionId?: string;
+      foodChoiceAllergies?: string;
+      termsAccepted?: boolean;
+    }
+
+    const payload: RegPayload = {
+      eventId,
+      referralCode: regCode?.value ?? '',
+      firstName: firstName?.value ?? '',
+      lastName: lastName?.value ?? '',
+      email: regEmail?.value ?? '',
+      company: company?.value ?? '',
+      claimedSeatCount: getCurrentRegSeatCount(),
+    };
+
+    if (hasFoodOptions) {
+      const foodOption = document.getElementById('foodChoiceOptionId') as HTMLSelectElement | null;
+      if (foodOption?.value) payload.foodChoiceOptionId = foodOption.value;
+    }
+
+    if (foodAcceptsAllergies) {
+      const allergies = document.getElementById('foodChoiceAllergies') as HTMLTextAreaElement | null;
+      if (allergies?.value) payload.foodChoiceAllergies = allergies.value;
+    }
+
+    if (hasTerms) {
+      const terms = document.getElementById('termsAccepted') as HTMLInputElement | null;
+      payload.termsAccepted = terms?.checked ?? false;
+    }
+
+    isSubmitting = true;
+    if (btnRegisterSubmit) {
+      btnRegisterSubmit.disabled = true;
+      btnRegisterSubmit.textContent = msgPleaseWait;
+    }
+    if (errorEl) errorEl.hidden = true;
+
+    try {
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        const data = await res.json() as { nextStep: string };
+        showSuccess(data.nextStep, isSoldOut);
+      } else {
+        if (errorEl) {
+          errorEl.textContent = msgSomethingWentWrong;
+          errorEl.hidden = false;
+        }
+      }
+    } catch {
+      if (errorEl) {
+        errorEl.textContent = msgSomethingWentWrong;
+        errorEl.hidden = false;
+      }
+    } finally {
+      isSubmitting = false;
+      if (btnRegisterSubmit) {
+        const termsOk = !hasTerms || (document.getElementById('termsAccepted') as HTMLInputElement | null)?.checked;
+        btnRegisterSubmit.disabled = !termsOk;
+        btnRegisterSubmit.textContent = regSubmitOrigText;
+      }
+    }
+  });
+
+  // ── Success display ───────────────────────────────────────────────────────────
+
+  function showSuccess(nextStep: string, soldOut: boolean) {
+    const variant = soldOut ? 'queue'
+      : nextStep === 'NeedToConfirmEmailAddress' ? 'need-to-confirm'
+      : nextStep === 'ExpectConfirmationEmail' ? 'expect-confirmation'
+      : 'failed-email';
+    wrapper.querySelectorAll<HTMLElement>('[data-success-variant]').forEach(el => { el.hidden = true; });
+    const el = wrapper.querySelector<HTMLElement>(`[data-success-variant="${variant}"]`);
+    if (el) el.hidden = false;
+    showSection('success');
+  }
+
+  // ── Purchase seat count stepper ───────────────────────────────────────────────
+
+  document.getElementById('btn-pur-decrement')?.addEventListener('click', () => {
+    if (currentPurSeatCount > 1) {
+      currentPurSeatCount -= 1;
+      const input = document.getElementById('purSeatCount') as HTMLInputElement | null;
+      if (input) input.value = String(currentPurSeatCount);
+    }
+  });
+
+  document.getElementById('btn-pur-increment')?.addEventListener('click', () => {
+    if (currentPurSeatCount < maxTicketSeatCount) {
+      currentPurSeatCount += 1;
+      const input = document.getElementById('purSeatCount') as HTMLInputElement | null;
+      if (input) input.value = String(currentPurSeatCount);
+    }
+  });
+
+  // Sync JS variable when user types directly into purchase stepper input
+  (document.getElementById('purSeatCount') as HTMLInputElement | null)
+    ?.addEventListener('change', (e) => {
+      const input = e.target as HTMLInputElement;
+      const val = parseInt(input.value, 10);
+      currentPurSeatCount = isNaN(val) ? 1 : Math.max(1, Math.min(val, maxTicketSeatCount));
+      input.value = String(currentPurSeatCount);
+    });
+
+  // ── Cancel purchase ───────────────────────────────────────────────────────────
+
+  document.getElementById('btn-cancel-purchase')?.addEventListener('click', () => {
+    showSection('paid-initial');
+  });
+
+  // ── Purchase form submission ──────────────────────────────────────────────────
+
+  document.getElementById('purchase-form-submit')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (isSubmitting) return;
+
+    const purEmail = document.getElementById('purEmail') as HTMLInputElement | null;
+    const errorEl = document.getElementById('pur-error-message') as HTMLElement | null;
+
+    interface PurPayload {
+      eventId: string;
+      email: string;
+      seatCount: number;
+      termsAccepted?: boolean;
+    }
+
+    const payload: PurPayload = {
+      eventId,
+      email: purEmail?.value ?? '',
+      seatCount: currentPurSeatCount,
+    };
+
+    if (hasTerms) {
+      const terms = document.getElementById('purTermsAccepted') as HTMLInputElement | null;
+      payload.termsAccepted = terms?.checked ?? false;
+    }
+
+    isSubmitting = true;
+    if (btnPurchaseSubmit) {
+      btnPurchaseSubmit.disabled = true;
+      btnPurchaseSubmit.textContent = msgPleaseWait;
+    }
+    if (errorEl) errorEl.hidden = true;
+
+    try {
+      const res = await fetch('/api/purchase', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        const data = await res.json() as { checkoutUrl: string };
+        if (data.checkoutUrl) {
+          window.location.href = data.checkoutUrl;
+        } else if (errorEl) {
+          errorEl.textContent = msgSomethingWentWrong;
+          errorEl.hidden = false;
+        }
+      } else {
+        if (errorEl) {
+          errorEl.textContent = msgSomethingWentWrong;
+          errorEl.hidden = false;
+        }
+      }
+    } catch {
+      if (errorEl) {
+        errorEl.textContent = msgSomethingWentWrong;
+        errorEl.hidden = false;
+      }
+    } finally {
+      isSubmitting = false;
+      if (btnPurchaseSubmit) {
+        const termsOk = !hasTerms || (document.getElementById('purTermsAccepted') as HTMLInputElement | null)?.checked;
+        btnPurchaseSubmit.disabled = !termsOk;
+        btnPurchaseSubmit.textContent = purSubmitOrigText;
+      }
+    }
+  });
+</script>
+
+<style>
+  .reservation__form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .form-error {
+    color: #dc2626;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  .success-message {
+    font-size: 1.1rem;
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  .success-message p {
+    margin-bottom: 0.75rem;
+  }
+
+  .field__control {
+    position: relative;
+    width: 100%;
+  }
+
+  .field__label {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 1rem;
+    transition: all 100ms ease-in;
+    cursor: text;
+    color: var(--color-mono-gray);
+    font-size: 0.875rem;
+    pointer-events: none;
+  }
+
+  .field__input {
+    padding: 1.375rem 0.5rem 0.5rem;
+    background-color: var(--color-mono-white);
+    border: 1px solid var(--color-mono-lighter);
+    border-radius: 0.25rem;
+    width: 100%;
+    font-size: 1rem;
+    color: var(--color-mono-dark);
+  }
+
+  .field__input:focus {
+    outline: 2px solid var(--color-orange);
+    outline-offset: 0;
+    border-color: var(--color-orange);
+  }
+
+  .field__input:focus ~ .field__label,
+  .field__input:not(:placeholder-shown) ~ .field__label {
+    top: 0.625rem;
+    transform: none;
+    font-size: 0.75rem;
+    left: 0.5rem;
+    color: var(--color-mono-gray);
+  }
+
+  .field__input--textarea {
+    padding-top: 1.75rem;
+    min-height: 4rem;
+    resize: vertical;
+  }
+
+  .field__input--textarea ~ .field__label {
+    top: 1.25rem;
+    transform: none;
+  }
+
+  .field__input--textarea:focus ~ .field__label,
+  .field__input--textarea:not(:placeholder-shown) ~ .field__label {
+    top: 0.5rem;
+  }
+
+  /* Hide number spinners */
+  .field__input[type='number']::-webkit-outer-spin-button,
+  .field__input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .field__input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
+  .field__input--no-label {
+    padding: 0.875rem;
+    text-align: center;
+  }
+
+  .field__error {
+    color: #dc2626;
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  .field__info {
+    color: var(--color-mono-gray);
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    font-style: italic;
+  }
+
+  .field__tickets-label {
+    flex-shrink: 0;
+    margin-right: 1rem;
+    font-size: 0.875rem;
+    color: var(--color-mono-dark);
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .seat-count-fixed-text {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--color-mono-dark);
+  }
+
+  .seat-count-select {
+    width: 5rem;
+    text-align: center;
+    font-weight: 600;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    padding: 0.875rem 2.5rem 0.875rem 0.875rem;
+  }
+
+  .seat-count-select:focus {
+    outline: 2px solid var(--color-orange);
+    outline-offset: 2px;
+    border-color: var(--color-orange);
+  }
+
+  .button {
+    padding: 1rem 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-orange);
+    background-color: var(--color-orange);
+    color: var(--color-mono-white);
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+  .button:hover {
+    background-color: hsl(31, 100%, 44%);
+    border-color: hsl(31, 100%, 44%);
+  }
+
+  .button:focus-visible {
+    outline: 2px solid var(--color-mono-dark);
+    outline-offset: 2px;
+  }
+
+  .button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .button--secondary {
+    background-color: var(--color-mono-white);
+    color: var(--color-mono-dark);
+    border: 1px solid var(--color-mono-lighter);
+  }
+
+  .button--secondary:hover {
+    background-color: var(--color-bg-main-default);
+    border-color: var(--color-mono-light);
+  }
+
+  .button--round {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex-shrink: 0;
+    padding: 0;
+  }
+
+  .code-input-actions {
+    margin-top: 0.75rem;
+  }
+
+  .code-input-actions:not(.button-group) .button {
+    width: 100%;
+  }
+
+  .button-group {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .button-group .button {
+    flex: 1;
+  }
+
+  .button-group--vertical {
+    flex-direction: column;
+  }
+
+  .flex {
+    display: flex;
+  }
+
+  .align-center {
+    align-items: center;
+  }
+
+  .gap {
+    gap: 0.5rem;
+  }
+
+  .reservation__tickets-info {
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--color-mono-gray);
+    margin-top: 0.5rem;
+  }
+
+  .purchase-form__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .event__invoice {
+    margin-top: 1.5rem;
+  }
+
+  .event__invoice-summary {
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    color: var(--color-mono-dark);
+  }
+
+  .event__invoice-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .event__invoice-summary::before {
+    content: '▶';
+    display: inline-block;
+    margin-right: 0.5rem;
+    transition: transform 0.2s ease;
+    color: var(--color-orange);
+  }
+
+  .event__invoice[open] .event__invoice-summary::before {
+    transform: rotate(90deg);
+  }
+
+  .event__invoice-content {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    color: var(--color-mono-gray);
+  }
+
+  .event__invoice-content p {
+    margin-bottom: 0.5rem;
+  }
+
+  .checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .checkbox-input {
+    flex-shrink: 0;
+    width: 1.125rem;
+    height: 1.125rem;
+    margin-top: 0.125rem;
+    cursor: pointer;
+    accent-color: var(--color-orange);
+  }
+
+  .checkbox-text {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .checkbox-text :global(a) {
+    color: var(--color-orange);
+    text-decoration: underline;
+    font-weight: 600;
+  }
+
+  .checkbox-text :global(a:hover) {
+    text-decoration: none;
+  }
+</style>

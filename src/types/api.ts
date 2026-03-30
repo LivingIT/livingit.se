@@ -38,9 +38,14 @@ export interface ApiEvent {
 
 export interface ApiRegistrationRequest {
   eventId: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  employer: string;
+  company: string;
+  claimedSeatCount: number;
+  foodChoiceOptionId?: string;
+  foodChoiceAllergies?: string;
+  termsAccepted?: boolean;
 }
 
 export interface ApiErrorResponse {

@@ -1,6 +1,6 @@
 # Story 3.1: Build Event Detail Page with State-Aware Display
 
-Status: review
+Status: done
 
 ## Story
 
@@ -18,6 +18,7 @@ so that I can read event information and understand whether registration is avai
 6. **And** if the slug is not found (API returns 404), `Astro.response.status` is set to 404 and a "not found" page is shown.
 7. **And** if the API returns a non-404 error, `Astro.response.status` is set to 500 and an error message is shown.
 8. **And** the page language matches the event's `language` field from the API (`'sv'` → Swedish UI, `'en'` → English UI) via `getTranslations(event.language)`.
+9. **And** a neutral "Tillbaka" / "Back" button (`.btn-back`, `t.nav.back`) is shown in the left column above the "Tid och plats" heading, linking to `/events`.
 
 ## Tasks / Subtasks
 
@@ -395,3 +396,4 @@ claude-sonnet-4-6
 ## Change Log
 
 - 2026-03-28: Created `src/pages/events/[slug].astro` — SSR event detail page with state-aware display, error handling (404/500), two-column layout, locale-aware date formatting, and registration placeholder. Build passes with zero TypeScript errors.
+- 2026-03-30: Added neutral `.btn-back` button above "Tid och plats" heading in left column (links to `/events`, uses new `t.nav.back` i18n key). Added `t.nav.back` (`'Back'` / `'Tillbaka'`) to `src/i18n/en.ts` and `src/i18n/sv.ts`. Fixed `ticketId` URL param to be accepted case-insensitively (`ticketid` or `ticketId`).

@@ -84,6 +84,7 @@ export const en: Translations = {
     registered: 'Your booking is now confirmed!',
   },
   nav: {
+    back: 'Back',
     backToEvents: 'Back to events',
     upcomingEvents: 'Upcoming events',
   },

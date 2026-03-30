@@ -6,8 +6,10 @@ import type { ApiEvent, EventStatus } from '../../types/api';
 import { getTranslations } from '../../i18n';
 import Layout from '../../components/Layout.astro';
 import EventStatusBadge from '../../components/EventStatusBadge.astro';
+import RegistrationForm from '../../components/RegistrationForm.astro';
 
 const { slug } = Astro.params as { slug: string };
+const ticketId = Astro.url.searchParams.get('ticketid') ?? Astro.url.searchParams.get('ticketId') ?? undefined;
 
 const response = await apiFetch(`/api/events/public/${slug}`);
 
@@ -96,6 +98,7 @@ const pageDescription = event
         <div class="event">
 
           <div class="event__details">
+            <a href="/events" class="btn-back">{t.nav.back}</a>
             <h2>{t.common.timeAndLocation}</h2>
             <p class="event__time-range">
               <svg
@@ -172,18 +175,15 @@ const pageDescription = event
         </div>
 
         <div class="reservation">
-          <a href="/events" class="back-link">{t.nav.backToEvents}</a>
-          {showRegistrationPlaceholder && (
-            <div id="registration-form-placeholder">
-              {/* TODO Story 3.2: Replace this with:
-                  <RegistrationForm
-                    event={event}
-                    lang={event.language}
-                    translations={t}
-                  />
-              */}
-              <p class="placeholder-text">{t.form.submitButton}</p>
-            </div>
+          {showRegistrationPlaceholder ? (
+            <RegistrationForm
+              event={event}
+              lang={event.language}
+              translations={t}
+              ticketId={ticketId}
+            />
+          ) : (
+            <a href="/events" class="back-link">{t.nav.backToEvents}</a>
           )}
         </div>
       </div>
@@ -324,17 +324,33 @@ const pageDescription = event
     margin-top: 2rem;
   }
 
-  .placeholder-text {
-    font-style: italic;
-    color: var(--color-mono-gray);
-    padding: 1rem;
-    border: 1px dashed var(--color-mono-gray);
-    border-radius: 0.5rem;
-  }
-
   .back-link {
     color: var(--color-orange);
     text-decoration: underline;
+  }
+
+  .btn-back {
+    display: inline-block;
+    margin-bottom: 1.25rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-mono-lighter);
+    background-color: var(--color-mono-white);
+    color: var(--color-mono-dark);
+    font-weight: 700;
+    font-size: 0.9375rem;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .btn-back:hover {
+    background-color: var(--color-bg-main-default);
+    border-color: var(--color-mono-light);
+  }
+
+  .btn-back:focus-visible {
+    outline: 2px solid var(--color-mono-dark);
+    outline-offset: 2px;
   }
 
   @media (min-width: 768px) {
