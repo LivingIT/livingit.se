@@ -243,7 +243,7 @@ const invoiceContactText = t.invoice.contactForInvoice.replace('{{email}}', even
         </div>
       </div>
       <!-- Turnstile widget -->
-      <div class="cf-turnstile" data-sitekey="0x4AAAAAAAxEPDEDZFCyjeIx" data-theme="light"></div>
+      <div class="cf-turnstile" data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY} data-theme="light"></div>
       <!-- Terms (only if event.termsUrl || event.privacyUrl) -->
       {hasTerms && (
         <div class="form-field">
