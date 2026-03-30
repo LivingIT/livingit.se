@@ -45,7 +45,7 @@ export const sv = {
     emailInvalid: 'E-postadressen är inte giltig',
     companyRequired: 'Företag är obligatoriskt',
     referralCodeRequired: 'Anmälningskod är obligatoriskt',
-    referralCodeBad: 'Ogiltig Anmälningskod',
+    referralCodeBad: 'Ogiltig anmälningskod',
     seatCountMin: 'Du måste välja minst en biljett',
     seatCountMax: 'Max {{max}} biljetter per reservation',
     foodPreferenceRequired: 'Matpreferens är obligatorisk',
