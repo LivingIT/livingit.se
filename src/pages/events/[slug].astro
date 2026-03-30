@@ -11,9 +11,7 @@ import RegistrationForm from '../../components/RegistrationForm.astro';
 const { slug } = Astro.params as { slug: string };
 const ticketId = Astro.url.searchParams.get('ticketid') ?? Astro.url.searchParams.get('ticketId') ?? undefined;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const apiKey: string = (Astro.locals as any).runtime?.env?.API_SECRET_KEY ?? '';
-const response = await apiFetch(`/api/events/public/${slug}`, apiKey);
+const response = await apiFetch(`/api/events/public/${slug}`);
 
 if (!response.ok) {
   Astro.response.status = response.status === 404 ? 404 : 500;

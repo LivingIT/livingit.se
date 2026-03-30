@@ -21,11 +21,8 @@ const bodyHtml = await marked(service.body);
 let upcomingEvents: ApiEvent[] | null = null;
 let fetchFailed = false;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const apiKey: string = (Astro.locals as any).runtime?.env?.API_SECRET_KEY ?? '';
-
 try {
-  const response = await apiFetch('/api/events/public', apiKey);
+  const response = await apiFetch('/api/events/public');
   if (response.ok) {
     const allEvents = await response.json() as ApiEvent[];
     upcomingEvents = allEvents.filter((e) => e.isActive);
