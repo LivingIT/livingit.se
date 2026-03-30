@@ -54,7 +54,9 @@ try {
         <div class="confirm-error">
           <div class="confirm-icon" aria-hidden="true">😕</div>
           <h1 class="confirm-heading">{t.error.somethingWentWrong}</h1>
-          <p class="confirm-body">{t.messages.confirmationFailed}</p>
+          <p class="confirm-body">
+            {serverError ? t.messages.confirmationFailed : t.messages.confirmationExpired}
+          </p>
           <p class="confirm-contact">
             {t.common.contactUsAt}
             {' '}

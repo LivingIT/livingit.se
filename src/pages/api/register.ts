@@ -46,12 +46,20 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
+  const seatCount = claimedSeatCount ?? 1;
+  if (!Number.isInteger(seatCount) || seatCount < 1 || seatCount > 100) {
+    return new Response(JSON.stringify({ error: true }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
   const payload: BackendPayload = {
     firstName,
     lastName,
     email,
     company: company ?? '',
-    claimedSeatCount: claimedSeatCount ?? 1,
+    claimedSeatCount: seatCount,
   };
 
   if (body.foodChoiceOptionId) {

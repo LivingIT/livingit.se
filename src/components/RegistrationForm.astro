@@ -210,7 +210,7 @@ const invoiceContactText = t.invoice.contactForInvoice.replace('{{email}}', even
       <!-- Seat Count: three variants, JS shows correct one after validation -->
       <div class="form-field">
         <div class="flex align-center">
-          <label for="claimedSeatCountStepper" class="field__tickets-label">{t.form.labelTicketCount}</label>
+          <label class="field__tickets-label">{t.form.labelTicketCount}</label>
           <!-- Variant: fixed (max === 1) -->
           <div id="seat-count-fixed" hidden>
             <span class="seat-count-fixed-text">1</span>
@@ -227,7 +227,7 @@ const invoiceContactText = t.invoice.contactForInvoice.replace('{{email}}', even
           <!-- Variant: stepper (max >= 7 or default) -->
           <div id="seat-count-stepper" class="field__control" hidden>
             <div class="flex align-center gap">
-              <button type="button" class="button button--round" id="btn-decrement" aria-label="-">−</button>
+              <button type="button" class="button button--round" id="btn-decrement" aria-label={t.form.ariaDecrement}>−</button>
               <input
                 class="field__input field__input--no-label"
                 id="claimedSeatCountStepper"
@@ -236,8 +236,9 @@ const invoiceContactText = t.invoice.contactForInvoice.replace('{{email}}', even
                 value="1"
                 placeholder=""
                 autocomplete="off"
+                aria-label={t.form.labelTicketCount}
               />
-              <button type="button" class="button button--round" id="btn-increment" aria-label="+">+</button>
+              <button type="button" class="button button--round" id="btn-increment" aria-label={t.form.ariaIncrement}>+</button>
             </div>
           </div>
         </div>
@@ -301,7 +302,7 @@ const invoiceContactText = t.invoice.contactForInvoice.replace('{{email}}', even
             <label for="purSeatCount" class="field__tickets-label">{t.form.labelTicketCount}</label>
             <div class="field__control">
               <div class="flex align-center gap">
-                <button type="button" class="button button--round" id="btn-pur-decrement" aria-label="-">−</button>
+                <button type="button" class="button button--round" id="btn-pur-decrement" aria-label={t.form.ariaDecrement}>−</button>
                 <input
                   class="field__input field__input--no-label"
                   id="purSeatCount"
@@ -311,8 +312,9 @@ const invoiceContactText = t.invoice.contactForInvoice.replace('{{email}}', even
                   value="1"
                   placeholder=""
                   autocomplete="off"
+                  aria-label={t.form.labelTicketCount}
                 />
-                <button type="button" class="button button--round" id="btn-pur-increment" aria-label="+">+</button>
+                <button type="button" class="button button--round" id="btn-pur-increment" aria-label={t.form.ariaIncrement}>+</button>
               </div>
             </div>
           </div>
@@ -481,6 +483,7 @@ const invoiceContactText = t.invoice.contactForInvoice.replace('{{email}}', even
 
   async function validateCode() {
     if (isSubmitting) return;
+    maxSeatCount = 0;
     const codeInput = document.getElementById('referralCode') as HTMLInputElement | null;
     const code = codeInput?.value.trim() ?? '';
     const errorEl = document.getElementById('error-referralCode') as HTMLElement | null;
@@ -724,6 +727,7 @@ const invoiceContactText = t.invoice.contactForInvoice.replace('{{email}}', even
     const variant = soldOut ? 'queue'
       : nextStep === 'NeedToConfirmEmailAddress' ? 'need-to-confirm'
       : nextStep === 'ExpectConfirmationEmail' ? 'expect-confirmation'
+      : nextStep === 'FailedToSendEmail' ? 'failed-email'
       : 'failed-email';
     wrapper.querySelectorAll<HTMLElement>('[data-success-variant]').forEach(el => { el.hidden = true; });
     const el = wrapper.querySelector<HTMLElement>(`[data-success-variant="${variant}"]`);

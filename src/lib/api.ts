@@ -19,8 +19,8 @@ export async function apiFetch(path: string, init: RequestInit = {}): Promise<Re
   if (!apiKey) throw new Error('API_SECRET_KEY is not set');
 
   const url = `${baseUrl}${path.startsWith('/') ? path : '/' + path}`;
-  const callerHeaders = init.headers instanceof Headers
-    ? Object.fromEntries(init.headers)
+  const callerHeaders = init.headers instanceof Headers || Array.isArray(init.headers)
+    ? Object.fromEntries(init.headers as Iterable<[string, string]>)
     : (init.headers ?? {});
   return fetch(url, {
     ...init,
