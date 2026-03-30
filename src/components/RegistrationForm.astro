@@ -53,6 +53,7 @@ const invoiceContactText = t.invoice.contactForInvoice.replace('{{email}}', even
   data-msg-something-went-wrong={t.error.somethingWentWrong}
   data-msg-referral-code-required={t.validation.referralCodeRequired}
   data-msg-please-wait={t.common.pleaseWait}
+  data-msg-food-preference-required={t.validation.foodPreferenceRequired}
 >
 
   <!-- Paid Initial State: two buttons (buy / have code) — only for hasPrice -->
@@ -184,13 +185,14 @@ const invoiceContactText = t.invoice.contactForInvoice.replace('{{email}}', even
               id="foodChoiceOptionId"
               name="foodChoiceOptionId"
             >
-              <option value="" disabled selected>{t.form.labelChooseOption}</option>
+              <option value="" selected>{t.form.labelChooseOption}</option>
               {event.foodOptions!.options.map(option => (
                 <option value={option.optionId}>{option.description}</option>
               ))}
             </select>
             <label for="foodChoiceOptionId" class="field__label">{t.form.labelFoodPreference}</label>
           </div>
+          <p id="error-foodChoiceOptionId" class="field__error" hidden></p>
         </div>
       )}
       <!-- Food Allergies (only if event.foodOptions.acceptAllergies) -->
@@ -398,6 +400,7 @@ const invoiceContactText = t.invoice.contactForInvoice.replace('{{email}}', even
   const msgReferralCodeRequired = wrapper.dataset.msgReferralCodeRequired ?? 'Code is required';
   const msgSomethingWentWrong = wrapper.dataset.msgSomethingWentWrong ?? 'Something went wrong';
   const msgPleaseWait = wrapper.dataset.msgPleaseWait ?? '...';
+  const msgFoodPreferenceRequired = wrapper.dataset.msgFoodPreferenceRequired ?? 'Food preference is required';
 
   // State
   let maxSeatCount = 0;
@@ -419,6 +422,8 @@ const invoiceContactText = t.invoice.contactForInvoice.replace('{{email}}', even
     wrapper.querySelectorAll<HTMLElement>('[data-state]').forEach(el => { el.hidden = true; });
     const target = wrapper.querySelector<HTMLElement>(`[data-state="${name}"]`);
     if (target) target.hidden = false;
+    const foodErrorEl = document.getElementById('error-foodChoiceOptionId') as HTMLElement | null;
+    if (foodErrorEl) foodErrorEl.hidden = true;
   }
 
   // Initial state
@@ -586,6 +591,15 @@ const invoiceContactText = t.invoice.contactForInvoice.replace('{{email}}', even
     }
   }
 
+  // Clear food error as soon as user picks an option
+  if (hasFoodOptions) {
+    (document.getElementById('foodChoiceOptionId') as HTMLSelectElement | null)
+      ?.addEventListener('change', () => {
+        const foodErrorEl = document.getElementById('error-foodChoiceOptionId') as HTMLElement | null;
+        if (foodErrorEl) foodErrorEl.hidden = true;
+      });
+  }
+
   // Seat count select change
   (document.getElementById('claimedSeatCountSelect') as HTMLSelectElement | null)
     ?.addEventListener('change', (e) => {
@@ -668,7 +682,16 @@ const invoiceContactText = t.invoice.contactForInvoice.replace('{{email}}', even
 
     if (hasFoodOptions) {
       const foodOption = document.getElementById('foodChoiceOptionId') as HTMLSelectElement | null;
-      if (foodOption?.value) payload.foodChoiceOptionId = foodOption.value;
+      const foodErrorEl = document.getElementById('error-foodChoiceOptionId') as HTMLElement | null;
+      if (!foodOption?.value) {
+        if (foodErrorEl) {
+          foodErrorEl.textContent = msgFoodPreferenceRequired;
+          foodErrorEl.hidden = false;
+        }
+        return;
+      }
+      if (foodErrorEl) foodErrorEl.hidden = true;
+      payload.foodChoiceOptionId = foodOption!.value;
     }
 
     if (foodAcceptsAllergies) {

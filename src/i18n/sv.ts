@@ -62,7 +62,7 @@ export const sv = {
     notFound: 'Eventet hittades inte',
   },
   messages: {
-    queueSuccessLine1: 'Du har nu blivit placerad i kö ⌛️.',
+    queueSuccessLine1: 'Du har nu blivit placerad i kö. ⌛️',
     queueSuccessLine2: 'Vi kommer att kontakta dig via e-post om en plats blir ledig.',
     registrationNeedToConfirmLine1: 'Nu är det nästan klart! 🎉',
     registrationNeedToConfirmLine2: 'Innan vi ses behöver vi bekräfta din e-postadress. Vi har skickat en bekräftelse till din e-post. Glöm inte att kolla din skräppost om du inte fått ett mail av oss.',

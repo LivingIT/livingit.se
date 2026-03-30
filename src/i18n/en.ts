@@ -64,7 +64,7 @@ export const en: Translations = {
     notFound: 'Event not found',
   },
   messages: {
-    queueSuccessLine1: 'You have now been placed in the queue ⌛️.',
+    queueSuccessLine1: 'You have now been placed in the queue. ⌛️',
     queueSuccessLine2: 'We will contact you by email if a spot becomes available.',
     registrationNeedToConfirmLine1: 'Almost done! 🎉',
     registrationNeedToConfirmLine2: 'Before we meet, we need to confirm your email address. We have sent a confirmation to your email. Don\'t forget to check your spam folder if you haven\'t received an email from us.',
