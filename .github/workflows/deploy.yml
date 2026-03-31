@@ -29,10 +29,12 @@ jobs:
         run: |
           echo "ROBOTS_ENV=${{ github.ref == 'refs/heads/develop' && 'develop' || 'production' }}" >> $GITHUB_ENV
           echo "PUBLIC_API_URL=${{ github.ref == 'refs/heads/develop' && env.STAGING_API_URL || env.PRODUCTION_API_URL }}" >> $GITHUB_ENV
+          echo "PUBLIC_TURNSTILE_SITE_KEY=${{ secrets.PUBLIC_TURNSTILE_SITE_KEY }}" >> $GITHUB_ENV
 
       - name: Validate build environment
         run: |
           if [ -z "$PUBLIC_API_URL" ]; then echo "ERROR: PUBLIC_API_URL is empty"; exit 1; fi
+          if [ -z "$PUBLIC_TURNSTILE_SITE_KEY" ]; then echo "ERROR: PUBLIC_TURNSTILE_SITE_KEY is empty"; exit 1; fi
 
       - name: Build
         run: npm run build
