@@ -60,7 +60,7 @@ const pageDescription = event
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
-  <main class="min-h-screen">
+  <div class="min-h-screen">
 
     {is404 && (
       <section class="error-section">
@@ -178,7 +178,6 @@ const pageDescription = event
           {showRegistrationPlaceholder ? (
             <RegistrationForm
               event={event}
-              lang={event.language}
               translations={t}
               ticketId={ticketId}
             />
@@ -189,7 +188,7 @@ const pageDescription = event
       </div>
     </section>
     )}
-  </main>
+  </div>
 </Layout>
 
 <style>

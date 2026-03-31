@@ -26,7 +26,7 @@ const currentPath = Astro.url.pathname === '/'
         {
           siteConfig.navigation.links.map((link) => {
             const isActive = currentPath === link.href;
-            const IconComponent = iconMap[link.icon];
+            const IconComponent = iconMap[link.icon] ?? LucideIcons.HelpCircle;
             return (
               <a
                 href={link.href}
@@ -66,7 +66,7 @@ const currentPath = Astro.url.pathname === '/'
         {
           siteConfig.navigation.links.map((link) => {
             const isActive = currentPath === link.href;
-            const IconComponent = iconMap[link.icon];
+            const IconComponent = iconMap[link.icon] ?? LucideIcons.HelpCircle;
             return (
               <a
                 href={link.href}

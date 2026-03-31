@@ -1,10 +1,6 @@
 // src/i18n/sv.ts
 export const sv = {
   common: {
-    siteTitle: 'Living IT Event',
-    siteDescription: 'Event med Living IT',
-    goToEvent: 'Gå till event',
-    goToHome: 'Gå till startsidan',
     timeAndLocation: 'Tid och plats',
     contactUsAt: 'Kontakta oss på',
     weWillHelpYou: 'så hjälper vi dig!',

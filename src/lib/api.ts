@@ -1,9 +1,5 @@
 import { env } from 'cloudflare:workers';
 
-if (typeof window !== 'undefined') {
-  throw new Error('api.ts must only be imported from server-side contexts');
-}
-
 /**
  * Fetch wrapper for all API calls. Attaches the API secret key as a header.
  * Must only be called from server-side contexts (SSR pages, API routes).

@@ -12,22 +12,51 @@ We offer two core consulting services:
 
 ## Technology Stack
 
-- ⚡️ **Astro 5** - Fast, static site generation
-- 🎨 **Tailwind CSS 4** - Modern styling with CSS-first config
-- 📱 **Fully Responsive** - Mobile-first design
-- ♿ **Accessible** - Semantic HTML & ARIA compliant
-- 🎭 **Smooth Animations** - Scroll-triggered effects
-- 🎯 **SEO Ready** - Meta tags & Open Graph
+- **Astro 6** - Static + SSR hybrid site generation
+- **Tailwind CSS 4** - Modern styling with CSS-first config
+- **Cloudflare Workers** - SSR runtime and deployment target
+- **Cloudflare Turnstile** - Bot protection for forms
 
 ## Pages
 
-- **Home** (index.astro) - Hero section and overview
-- **Software Consulting** (mjukvarukonsulting.astro) - Detailed service information
-- **Leadership Consulting** (ledarskapskonsulting.astro) - Detailed service information
-- **Events** (events.astro) - Upcoming events
-- **Cookie Policy** (cookies-policy.astro) - Cookie policy information
+- **Home** (`index.astro`) - Hero section and overview
+- **Software Consulting** (`mjukvarukonsulting.astro`) - Detailed service information
+- **Leadership Consulting** (`ledarskapskonsulting.astro`) - Detailed service information
+- **Contact** (`kontakt.astro`) - Contact page
+- **Events** (`events.astro`) - Event listing
+- **Event Detail** (`events/[slug].astro`) - Individual event with registration/purchase
+- **Cookie Policy** (`cookies-policy.astro`) - Cookie policy information
 
 ## Quick Start
+
+### Prerequisites
+
+- Node.js (LTS recommended)
+- npm
+
+### Environment Setup
+
+Create a `.env` file in the project root with the following variables:
+
+```env
+PUBLIC_API_URL=https://api.devingit.se
+PUBLIC_ENVIRONMENT=development
+API_SECRET_KEY=<your-api-secret-key>
+PUBLIC_TURNSTILE_SITE_KEY=1x00000000000000000000AA
+TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
+```
+
+| Variable | Description |
+|---|---|
+| `PUBLIC_API_URL` | Backend API base URL |
+| `PUBLIC_ENVIRONMENT` | `production` or `development` — controls search engine indexing |
+| `API_SECRET_KEY` | Server-side secret for authenticating with the backend API |
+| `PUBLIC_TURNSTILE_SITE_KEY` | Cloudflare Turnstile site key for bot protection |
+| `TURNSTILE_SECRET_KEY` | Cloudflare Turnstile secret key for server-side verification |
+
+In production, `API_SECRET_KEY` is stored as a Cloudflare secret (via `wrangler secret put`). Locally, Astro loads it from `.env`.
+
+### Running Locally
 
 ```bash
 # Install dependencies
@@ -40,6 +69,8 @@ npm run dev
 npm run build
 ```
 
+The dev server runs on `http://localhost:5000`.
+
 ## Content Management
 
 Edit content in:
@@ -49,11 +80,11 @@ Edit content in:
 - [src/styles/globals.css](src/styles/globals.css) - Colors and animations
 - [src/components/](src/components/) - Reusable Astro components
 
-## Deploy
+## Deployment
 
-[![Deploy to Vercel](https://vercel.com/button)](https://vercel.com/new)
+The site deploys to Cloudflare Workers via CI (`.github/workflows/deploy.yml`).
 
-Works on Replit, Vercel, Netlify, and GitHub Pages.
+The base `wrangler.toml` contains development defaults. CI patches `dist/server/wrangler.json` with production values before deploying. **Do not deploy directly** using `wrangler deploy` from the repo root — always go through the CI pipeline.
 
 ## License
 

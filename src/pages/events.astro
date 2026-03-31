@@ -54,29 +54,30 @@ const eventsWithHtml = await Promise.all(
       </div>
     </div>
 
-    <section class="bg-[var(--color-bg-main-section)] px-4 py-16 sm:px-6 lg:px-8">
-      <div class="mx-auto max-w-7xl">
-        <h2 class="scroll-fade-up text-3xl font-bold mb-8 text-center">Kommande</h2>
-        {fetchFailed && (
-          <p class="text-mono-dark">{t.error.somethingWentWrong}</p>
-        )}
-
-        {!fetchFailed && upcomingEvents !== null && upcomingEvents.length === 0 && (
-          <p class="text-mono-dark">{t.error.noActiveEvents}</p>
-        )}
-
-        {!fetchFailed && upcomingEvents !== null && upcomingEvents.length > 0 && (
-          <ul class="grid grid-cols-1 gap-8 md:grid-cols-2">
-            {upcomingEvents.map((event) => {
-              const safeLang = event.language === 'en' ? 'en' : 'sv';
-              return (
-                <li class="[&:last-child:nth-child(odd)]:col-span-full"><EventCard event={event} lang={safeLang} /></li>
-              );
-            })}
-          </ul>
-        )}
-      </div>
-    </section>
+    {/* Section only renders when fetch failed (show error) or there are active events (show list).
+        When fetch succeeds with zero events, the section is hidden entirely.
+        Invariant: upcomingEvents is non-null whenever !fetchFailed. */}
+    {(fetchFailed || (upcomingEvents !== null && upcomingEvents.length > 0)) && (
+      <section class="bg-[var(--color-bg-main-section)] px-4 py-16 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-7xl">
+          {fetchFailed ? (
+            <p class="text-mono-dark">{t.error.somethingWentWrong}</p>
+          ) : (
+            <>
+              <h2 class="scroll-fade-up text-3xl font-bold mb-8 text-center">Kommande</h2>
+              <ul class="grid grid-cols-1 gap-8 md:grid-cols-2">
+                {upcomingEvents!.map((event) => {
+                  const safeLang = event.language === 'en' ? 'en' : 'sv';
+                  return (
+                    <li class="[&:last-child:nth-child(odd)]:col-span-full"><EventCard event={event} lang={safeLang} /></li>
+                  );
+                })}
+              </ul>
+            </>
+          )}
+        </div>
+      </section>
+    )}
 
     <div class="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
       <section class="mt-16">
@@ -85,7 +86,7 @@ const eventsWithHtml = await Promise.all(
         {eventsWithHtml.map((event, index) => {
           const IconComponent = LucideIcons[event.icon] ?? LucideIcons.HelpCircle;
           return (
-          <article class="scroll-fade-up w-full rounded-2xl bg-[var(--color-bg-card)] overflow-hidden shadow-sm stagger-${(index % 9) + 1} hover:shadow-lg transition-shadow" key={event.title}>
+          <article class={`scroll-fade-up w-full rounded-2xl bg-[var(--color-bg-card)] overflow-hidden shadow-sm stagger-${(index % 9) + 1} hover:shadow-lg transition-shadow`} key={event.title}>
             <div class="grid gap-0 grid-cols-1 md:grid-cols-3">
               <div
                 class={`flex flex-col justify-center p-8 md:p-10 md:col-span-2 ${

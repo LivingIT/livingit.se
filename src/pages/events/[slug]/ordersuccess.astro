@@ -23,14 +23,14 @@ const t = getTranslations(resolvedLang);
 ---
 
 <Layout title={`${t.messages.purchaseSuccess} - Living IT Event`}>
-  <main class="confirm-main">
+  <div class="confirm-main">
     <div class="confirm-card">
       <div class="confirm-icon" aria-hidden="true">🎉</div>
       <h1 class="confirm-heading">{t.messages.purchaseSuccess}</h1>
       <p class="confirm-body">{t.messages.purchaseEmailSent}</p>
       <a href="/events" class="confirm-link confirm-back">{t.nav.backToEvents}</a>
     </div>
-  </main>
+  </div>
 </Layout>
 
 <style>

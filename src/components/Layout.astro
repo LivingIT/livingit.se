@@ -18,9 +18,9 @@ const {
 // Construct absolute URL for Open Graph image
 const ogImageUrl = new URL('/og-image.png', siteConfig.site.url).href;
 
-// Prevent dev site from being indexed
-const isDev = Astro.url.hostname === 'devingit.se';
-const robotsContent = isDev ? 'noindex, nofollow' : 'index, follow';
+// Prevent non-production sites from being indexed
+const isProduction = import.meta.env.PUBLIC_ENVIRONMENT === 'production';
+const robotsContent = isProduction ? 'index, follow' : 'noindex, nofollow';
 ---
 
 <!doctype html>

@@ -1,10 +1,9 @@
 ---
-import type { ApiEvent, SupportedLanguage } from '../types/api';
+import type { ApiEvent } from '../types/api';
 import type { Translations } from '../i18n/sv';
 
 interface Props {
   event: ApiEvent;
-  lang: SupportedLanguage;
   translations: Translations;
   ticketId?: string;
 }

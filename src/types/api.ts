@@ -35,20 +35,3 @@ export interface ApiEvent {
     saleIsOpen: boolean;
   };
 }
-
-export interface ApiRegistrationRequest {
-  eventId: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  company: string;
-  claimedSeatCount: number;
-  foodChoiceOptionId?: string;
-  foodChoiceAllergies?: string;
-  termsAccepted?: boolean;
-}
-
-export interface ApiErrorResponse {
-  error: string;
-  field?: keyof ApiRegistrationRequest;
-}

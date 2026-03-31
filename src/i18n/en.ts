@@ -3,10 +3,6 @@ import type { Translations } from './sv';
 
 export const en: Translations = {
   common: {
-    siteTitle: 'Living IT Event',
-    siteDescription: 'Event with Living IT',
-    goToEvent: 'Go to event',
-    goToHome: 'Go to home page',
     timeAndLocation: 'Time and location',
     contactUsAt: 'Contact us at',
     weWillHelpYou: 'and we will help you!',

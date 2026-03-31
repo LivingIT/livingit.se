@@ -28,6 +28,7 @@ directory = "dist/client"
 
 [vars]
 PUBLIC_API_URL = "https://api.devingit.se"
+PUBLIC_ENVIRONMENT = "development"
 
 # WARNING: DO NOT DEPLOY DIRECTLY USING --env production.
 # [env.production] is not reachable via the CI pipeline (which deploys the
@@ -38,3 +39,4 @@ name = "livingit-se"
 
 [env.production.vars]
 PUBLIC_API_URL = "https://api.livingit.se"
+PUBLIC_ENVIRONMENT = "production"
