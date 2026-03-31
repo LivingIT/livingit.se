@@ -1,0 +1,42 @@
+# Cloudflare Workers deployment configuration.
+# The adapter generates dist/server/wrangler.json (the actual deploy config).
+# This file provides the base configuration read by the vite plugin during build.
+# CI patches dist/server/wrangler.json directly and deploys with:
+#   npx wrangler deploy --config dist/server/wrangler.json
+
+name = "devingit-se"
+compatibility_date = "2026-03-27"
+
+[observability]
+enabled = false
+head_sampling_rate = 1
+
+[observability.logs]
+enabled = true
+head_sampling_rate = 1
+persist = true
+invocation_logs = true
+
+[observability.traces]
+enabled = false
+persist = true
+head_sampling_rate = 1
+
+[assets]
+binding = "ASSETS"
+directory = "dist/client"
+
+[vars]
+PUBLIC_API_URL = "https://api.devingit.se"
+PUBLIC_ENVIRONMENT = "development"
+
+# WARNING: DO NOT DEPLOY DIRECTLY USING --env production.
+# [env.production] is not reachable via the CI pipeline (which deploys the
+# patched dist/server/wrangler.json directly). This block is reference-only.
+# All production deployments must go through .github/workflows/deploy.yml.
+[env.production]
+name = "livingit-se"
+
+[env.production.vars]
+PUBLIC_API_URL = "https://api.livingit.se"
+PUBLIC_ENVIRONMENT = "production"

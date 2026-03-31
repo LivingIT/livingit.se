@@ -1,5 +1,5 @@
 {
-  "name": "astrogent",
+  "name": "livingit-se",
   "type": "module",
   "scripts": {
     "dev": "astro dev",
@@ -9,19 +9,21 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@iconify-json/simple-icons": "^1.2.69",
-    "astro": "^6.0.4",
+    "@astrojs/cloudflare": "^13.1.6",
+    "@iconify-json/simple-icons": "^1.2.75",
+    "astro": "^6.1.2",
     "astro-icon": "^1.1.5",
     "lucide-astro": "^0.556.0",
-    "marked": "^15.0.4"
+    "marked": "^17.0.5"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.16",
+    "@tailwindcss/postcss": "^4.2.2",
     "@types/node": "^25.2.0",
     "prettier": "^3.6.2",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.7.1",
-    "tailwindcss": "^4.1.16"
+    "tailwindcss": "^4.2.2",
+    "wrangler": "^4.78.0"
   },
   "prettier": {
     "bracketSpacing": true,

@@ -1,0 +1,75 @@
+# generated: 2026-03-28
+# last_updated: 2026-03-28
+# project: livingit.se
+# project_key: NOKEY
+# tracking_system: file-system
+# story_location: _bmad-output/implementation-artifacts
+
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic not yet started
+#   - in-progress: Epic actively being worked on
+#   - done: All stories in epic completed
+#
+# Epic Status Transitions:
+#   - backlog → in-progress: Automatically when first story is created (via create-story)
+#   - in-progress → done: Manually when all stories reach 'done' status
+#
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - ready-for-dev: Story file created in stories folder
+#   - in-progress: Developer actively working on implementation
+#   - review: Ready for code review (via Dev's code-review workflow)
+#   - done: Story completed
+#
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - done: Retrospective has been completed
+#
+# WORKFLOW NOTES:
+# ===============
+# - Epic transitions to 'in-progress' automatically when first story is created
+# - Stories can be worked in parallel if team capacity allows
+# - SM typically creates next story after previous one is 'done' to incorporate learnings
+# - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
+
+generated: 2026-03-28
+last_updated: 2026-03-31  # story 3-8 in review
+project: livingit.se
+project_key: NOKEY
+tracking_system: file-system
+story_location: _bmad-output/implementation-artifacts
+
+development_status:
+  # Epic 1: Hybrid Rendering Foundation
+  epic-1: done
+  1-1-enable-hybrid-rendering-with-cloudflare-adapter: done
+  1-2-configure-environment-variables-for-both-environments: done
+  1-3-create-i18n-translation-module: done
+  epic-1-retrospective: optional
+
+  # Epic 2: Event Discovery
+  epic-2: done
+  2-1-create-shared-event-components: done
+  2-2-build-the-upcoming-events-listing-page: done
+  2-3-link-events-overview-page-to-upcoming-listing: done  # superseded: listing merged into /events directly
+  epic-2-retrospective: optional
+
+  # Epic 3: Event Registration
+  epic-3: in-progress
+  3-1-build-event-detail-page-with-state-aware-display: done
+  3-2-build-registration-form-component: done
+  3-3-implement-registration-api-route: done
+  3-4-build-registration-confirmation-page: done
+  3-5-implement-purchase-api-route: done
+  3-6-build-order-success-page: done
+  3-7-gate-buy-ticket-on-sale-is-open: done
+  3-8-implement-turnstile-token-verification: review
+  epic-3-retrospective: optional
+
+  # Epic 4: Production Readiness & Consolidation
+  epic-4: backlog
+  4-1-update-robots-txt-to-exclude-event-routes: backlog
+  4-2-production-validation-and-decommission-events-livingit-se: backlog
+  epic-4-retrospective: optional

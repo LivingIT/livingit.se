@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import { siteConfig } from '../config.ts';
 import { Icon } from 'astro-icon/components';
-import * as LucideIcons from 'lucide-astro';
+import { Cookie } from 'lucide-astro';
 
 const iconMap = {
   x: 'simple-icons:x',
@@ -58,7 +58,7 @@ const iconMap = {
                       aria-label={social.name}
                       data-tooltip={social.name}
                     >
-                      <LucideIcons.Cookie class="h-6 w-6" />
+                      <Cookie class="h-6 w-6" />
                     </a>
                   ) : (
                     <a

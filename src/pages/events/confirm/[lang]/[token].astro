@@ -1,0 +1,138 @@
+---
+export const prerender = false;
+
+import { apiFetch } from '../../../../lib/api';
+import { getTranslations } from '../../../../i18n';
+import type { SupportedLanguage } from '../../../../types/api';
+import Layout from '../../../../components/Layout.astro';
+
+const { lang, token } = Astro.params as { lang: string; token: string };
+
+const supportedLangs: SupportedLanguage[] = ['sv', 'en'];
+const resolvedLang: SupportedLanguage = supportedLangs.includes(lang as SupportedLanguage)
+  ? (lang as SupportedLanguage)
+  : 'sv';
+
+const t = getTranslations(resolvedLang);
+
+let confirmed = false;
+let serverError = false;
+
+try {
+  const response = await apiFetch(`/api/events/public/confirm/${encodeURIComponent(token)}`, {
+    method: 'POST',
+  });
+
+  if (response.ok) {
+    confirmed = true;
+  } else {
+    serverError = response.status >= 500;
+    Astro.response.status = response.status >= 500 ? 502 : response.status;
+  }
+} catch (err) {
+  console.error('[confirm] apiFetch failed:', err);
+  serverError = true;
+  Astro.response.status = 502;
+}
+---
+
+<Layout title={`${t.confirmation.title} - Living IT Event`}>
+  <div class="confirm-main">
+    <div class="confirm-card">
+
+      {confirmed && (
+        <div class="confirm-success">
+          <div class="confirm-icon" aria-hidden="true">🎉</div>
+          <h1 class="confirm-heading">{t.confirmation.thankYou}</h1>
+          <p class="confirm-body">{t.confirmation.registered}</p>
+          <p class="confirm-sub">{t.messages.lookingForward}</p>
+          <a href="/events" class="confirm-link">{t.nav.backToEvents}</a>
+        </div>
+      )}
+
+      {!confirmed && (
+        <div class="confirm-error">
+          <div class="confirm-icon" aria-hidden="true">😕</div>
+          <h1 class="confirm-heading">{t.error.somethingWentWrong}</h1>
+          <p class="confirm-body">
+            {serverError ? t.messages.confirmationFailed : t.messages.confirmationExpired}
+          </p>
+          <p class="confirm-contact">
+            {t.common.contactUsAt}
+            {' '}
+            <a href="mailto:info@livingit.se" class="confirm-link">info@livingit.se</a>
+            {' '}
+            {t.common.weWillHelpYou}
+          </p>
+          <a href="/events" class="confirm-link confirm-back">{t.nav.backToEvents}</a>
+        </div>
+      )}
+
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .confirm-main {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 1rem;
+  }
+
+  .confirm-card {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-mono-lighter);
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
+    padding: 3rem 2rem;
+    max-width: 36rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  .confirm-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .confirm-heading {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--color-mono-dark);
+  }
+
+  .confirm-body {
+    font-size: 1.125rem;
+    margin-bottom: 0.75rem;
+    color: var(--color-mono-dark);
+  }
+
+  .confirm-sub {
+    font-size: 1rem;
+    color: var(--color-mono-medium, #666);
+    margin-bottom: 2rem;
+  }
+
+  .confirm-contact {
+    font-size: 0.9375rem;
+    color: var(--color-mono-dark);
+    margin-bottom: 1.5rem;
+  }
+
+  .confirm-link {
+    color: var(--color-orange);
+    text-decoration: underline;
+  }
+
+  .confirm-link:hover {
+    text-decoration: none;
+  }
+
+  .confirm-back {
+    display: inline-block;
+    margin-top: 0.5rem;
+  }
+</style>
