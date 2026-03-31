@@ -19,6 +19,7 @@ try {
   formatted = new Intl.DateTimeFormat(lang === 'sv' ? 'sv-SE' : 'en-GB', {
     dateStyle: 'long',
     timeStyle: 'short',
+    timeZone: 'Europe/Stockholm',
   }).format(d);
 } catch {
   formatted = event.startDateTime;
