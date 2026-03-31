@@ -253,7 +253,7 @@ const invoiceContactText = t.invoice.contactForInvoice.replace('{{email}}', even
         </div>
       </div>
       <!-- Turnstile widget -->
-      <div class="cf-turnstile" data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY} data-theme="light"></div>
+      <div class="cf-turnstile" id="turnstile-widget" data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY} data-theme="light" data-error-callback="onTurnstileError" data-expired-callback="onTurnstileExpired"></div>
       <!-- Terms (only if event.termsUrl || event.privacyUrl) -->
       {hasTerms && (
         <div class="form-field">
@@ -388,6 +388,15 @@ const invoiceContactText = t.invoice.contactForInvoice.replace('{{email}}', even
 </div>
 
 <script>
+  // Turnstile widget callbacks (must be global for data-error-callback / data-expired-callback)
+  let turnstileReady = true;
+  (window as any).onTurnstileError = () => { turnstileReady = false; };
+  (window as any).onTurnstileExpired = () => {
+    turnstileReady = false;
+    const w = document.getElementById('turnstile-widget');
+    if (w && (window as any).turnstile) (window as any).turnstile.reset(w);
+  };
+
   const wrapper = document.getElementById('registration-form') as HTMLElement | null;
   if (!wrapper) throw new Error('RegistrationForm: wrapper element not found');
 
@@ -675,8 +684,10 @@ const invoiceContactText = t.invoice.contactForInvoice.replace('{{email}}', even
       foodChoiceOptionId?: string;
       foodChoiceAllergies?: string;
       termsAccepted?: boolean;
+      turnstileToken: string;
     }
 
+    const turnstileInput = document.querySelector('input[name="cf-turnstile-response"]') as HTMLInputElement | null;
     const payload: RegPayload = {
       eventId,
       referralCode: regCode?.value ?? '',
@@ -685,6 +696,7 @@ const invoiceContactText = t.invoice.contactForInvoice.replace('{{email}}', even
       email: regEmail?.value ?? '',
       company: company?.value ?? '',
       claimedSeatCount: getCurrentRegSeatCount(),
+      turnstileToken: turnstileInput?.value ?? '',
     };
 
     if (hasFoodOptions) {
@@ -743,6 +755,9 @@ const invoiceContactText = t.invoice.contactForInvoice.replace('{{email}}', even
       }
     } finally {
       isSubmitting = false;
+      // Reset Turnstile widget so a fresh token is issued for any retry
+      const tw = document.getElementById('turnstile-widget');
+      if (tw && (window as any).turnstile) (window as any).turnstile.reset(tw);
       if (btnRegisterSubmit) {
         const termsOk = !hasTerms || (document.getElementById('termsAccepted') as HTMLInputElement | null)?.checked;
         btnRegisterSubmit.disabled = !termsOk;

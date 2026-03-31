@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { env } from 'cloudflare:workers';
 import { apiFetch } from '../../lib/api';
 
 export const prerender = false;
@@ -14,6 +15,7 @@ interface RegisterBody {
   foodChoiceOptionId?: string;
   foodChoiceAllergies?: string;
   termsAccepted?: boolean;
+  turnstileToken?: string;
 }
 
 interface BackendPayload {
@@ -37,7 +39,46 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  const { eventId, referralCode, firstName, lastName, email, company, claimedSeatCount } = body;
+  const { eventId, referralCode, firstName, lastName, email, company, claimedSeatCount, turnstileToken } = body;
+
+  // Verify Turnstile token before any field validation
+  if (!turnstileToken) {
+    return new Response(JSON.stringify({ error: true }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  // @ts-expect-error — TURNSTILE_SECRET_KEY is a Cloudflare secret, not in generated types
+  const turnstileSecret: string = env.TURNSTILE_SECRET_KEY;
+  if (!turnstileSecret) throw new Error('TURNSTILE_SECRET_KEY is not set');
+
+  const turnstileForm = new FormData();
+  turnstileForm.append('secret', turnstileSecret);
+  turnstileForm.append('response', turnstileToken);
+
+  let turnstileOk: boolean;
+  try {
+    const verifyRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      body: turnstileForm,
+    });
+    const outcome = await verifyRes.json() as { success: boolean };
+    turnstileOk = outcome.success === true;
+  } catch (err) {
+    console.error('[register] Turnstile verification fetch failed:', err);
+    return new Response(JSON.stringify({ error: true }), {
+      status: 502,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  if (!turnstileOk) {
+    return new Response(JSON.stringify({ error: true }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
 
   if (!eventId || !referralCode || !firstName || !lastName || !email) {
     return new Response(JSON.stringify({ error: true }), {
