@@ -67,7 +67,7 @@ jobs:
             let c;
             try { c = JSON.parse(fs.readFileSync(p, 'utf8')); } catch (e) { console.error('ERROR: Failed to parse ' + p + ': ' + e.message); process.exit(1); }
             c.name = 'livingit-se';
-            c.vars = { ...c.vars, PUBLIC_API_URL: process.env.PATCH_API_URL };
+            c.vars = { ...c.vars, PUBLIC_API_URL: process.env.PATCH_API_URL, PUBLIC_ENVIRONMENT: 'production' };
             fs.writeFileSync(p, JSON.stringify(c, null, 2));
           "
 
