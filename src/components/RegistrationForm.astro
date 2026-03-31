@@ -12,6 +12,7 @@ interface Props {
 const { event, translations: t, ticketId } = Astro.props;
 
 const hasPrice = (event.price?.ticketPrice ?? 0) > 0;
+const saleIsOpen = event.price?.saleIsOpen ?? true;
 const hasFoodOptions = event.foodOptions !== undefined;
 const hasFoodAllergies = hasFoodOptions && !!event.foodOptions?.acceptAllergies;
 const hasTerms = !!(event.termsUrl || event.privacyUrl);
@@ -43,6 +44,7 @@ const invoiceContactText = t.invoice.contactForInvoice.replace('{{email}}', even
   data-is-sold-out={String(event.isSoldOut)}
   data-is-almost-sold-out={String(event.isAlmostSoldOut)}
   data-has-price={String(hasPrice)}
+  data-sale-is-open={String(saleIsOpen)}
   data-max-seat-count={String(event.maxTicketSeatCount)}
   data-default-seat-count={String(event.defaultTicketSeatCount)}
   data-ticket-id={ticketId ?? ''}
@@ -60,9 +62,15 @@ const invoiceContactText = t.invoice.contactForInvoice.replace('{{email}}', even
   {hasPrice && (
     <div data-state="paid-initial" hidden>
       <div class="button-group button-group--vertical">
-        <button type="button" class="button" id="btn-buy-ticket">
-          {t.form.buyTicket}
-        </button>
+        {saleIsOpen ? (
+          <button type="button" class="button" id="btn-buy-ticket">
+            {t.form.buyTicket}
+          </button>
+        ) : (
+          <button type="button" class="button" disabled aria-disabled="true">
+            {t.form.saleClosed}
+          </button>
+        )}
         <button type="button" class="button button--secondary" id="btn-have-code">
           {t.form.haveCode}
         </button>

@@ -30,6 +30,7 @@ export const sv = {
     validateCode: 'Validera kod',
     validating: 'Validerar...',
     buyTicket: 'Köp biljett',
+    saleClosed: 'Biljettförsäljningen är stängd',
     haveCode: 'Jag har en kod',
     goToPayment: 'Gå till betalning',
     joinQueue: 'Ställ dig i kö',

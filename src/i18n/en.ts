@@ -32,6 +32,7 @@ export const en: Translations = {
     validateCode: 'Validate code',
     validating: 'Validating...',
     buyTicket: 'Buy ticket',
+    saleClosed: 'Sale is closed',
     haveCode: 'I have a code',
     goToPayment: 'Go to payment',
     joinQueue: 'Join queue',
