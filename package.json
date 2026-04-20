@@ -22,7 +22,7 @@
     "prettier": "^3.8.2",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.7.1",
-    "tailwindcss": "^4.2.2",
+    "tailwindcss": "^4.2.3",
     "wrangler": "^4.80.0"
   },
   "prettier": {
