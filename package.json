@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.2.1",
-    "@iconify-json/simple-icons": "^1.2.79",
+    "@iconify-json/simple-icons": "^1.2.80",
     "astro": "^6.1.9",
     "astro-icon": "^1.1.5",
     "lucide-astro": "^0.556.0",
