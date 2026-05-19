@@ -14,7 +14,7 @@
     "astro": "^6.3.1",
     "astro-icon": "^1.1.5",
     "lucide-astro": "^0.556.0",
-    "marked": "^18.0.3"
+    "marked": "^18.0.4"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.0",
