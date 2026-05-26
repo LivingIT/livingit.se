@@ -9,21 +9,21 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^13.1.6",
-    "@iconify-json/simple-icons": "^1.2.75",
-    "astro": "^6.1.2",
+    "@astrojs/cloudflare": "^13.5.4",
+    "@iconify-json/simple-icons": "^1.2.83",
+    "astro": "^6.3.7",
     "astro-icon": "^1.1.5",
     "lucide-astro": "^0.556.0",
-    "marked": "^17.0.5"
+    "marked": "^18.0.4"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.2.2",
-    "@types/node": "^25.2.0",
-    "prettier": "^3.6.2",
+    "@tailwindcss/postcss": "^4.3.0",
+    "@types/node": "^25.9.1",
+    "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-tailwindcss": "^0.7.1",
-    "tailwindcss": "^4.2.2",
-    "wrangler": "^4.78.0"
+    "prettier-plugin-tailwindcss": "^0.8.0",
+    "tailwindcss": "^4.3.0",
+    "wrangler": "^4.94.0"
   },
   "prettier": {
     "bracketSpacing": true,
