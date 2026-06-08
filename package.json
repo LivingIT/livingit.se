@@ -9,9 +9,9 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^13.5.4",
-    "@iconify-json/simple-icons": "^1.2.83",
-    "astro": "^6.3.7",
+    "@astrojs/cloudflare": "^13.5.5",
+    "@iconify-json/simple-icons": "^1.2.84",
+    "astro": "^6.3.8",
     "astro-icon": "^1.1.5",
     "lucide-astro": "^0.556.0",
     "marked": "^18.0.4"
