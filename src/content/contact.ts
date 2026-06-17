@@ -59,20 +59,20 @@ Skicka ett mail till ***hello@livingit.se*** eller ta kontakt med någon av vår
       photo: getResponsiveImage('contact/victor-sigvardsson.jpg'),
     },
     {
+      name: 'Jörgen Nilsson',
+      title: 'Affärsutvecklare',
+      phoneDisplay: '076-832 90 22',
+      phoneNumber: '+46768329022',
+      email: 'jorgen.nilsson@livingit.se',
+      photo: getResponsiveImage('contact/jorgen-nilsson.jpg'),
+    },
+    {
       name: 'Daniel Weberg',
       title: 'Interimschefskonsult',
       phoneDisplay: '076-119 49 96',
       phoneNumber: '+46761194996',
       email: 'daniel.weberg@livingit.se',
       photo: getResponsiveImage('contact/daniel-weberg.jpg'),
-    },
-    {
-      name: 'Linn Wähler',
-      title: 'Interimschefskonsult',
-      phoneDisplay: '070-972 27 62',
-      phoneNumber: '+46709722762',
-      email: 'linn.wahler@livingit.se',
-      photo: getResponsiveImage('contact/linn-wahler.jpg'),
     },
     {
       name: 'Martin Stenlund',
