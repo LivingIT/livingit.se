@@ -4,7 +4,7 @@
 # CI patches dist/server/wrangler.json directly and deploys with:
 #   npx wrangler deploy --config dist/server/wrangler.json
 
-name = "devingit-se"
+name = "livingit-se"
 compatibility_date = "2026-03-27"
 
 [observability]
