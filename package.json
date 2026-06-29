@@ -9,16 +9,16 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^13.6.1",
-    "@iconify-json/simple-icons": "^1.2.86",
-    "astro": "^6.4.6",
+    "@astrojs/cloudflare": "^13.7.0",
+    "@iconify-json/simple-icons": "^1.2.87",
+    "astro": "^6.4.8",
     "astro-icon": "^1.1.5",
     "lucide-astro": "^0.556.0",
     "marked": "^18.0.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.1",
-    "@types/node": "^25.9.3",
+    "@types/node": "^25.9.4",
     "prettier": "^3.8.4",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.8.0",
