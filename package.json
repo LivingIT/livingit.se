@@ -14,16 +14,16 @@
     "astro": "^6.4.8",
     "astro-icon": "^1.1.5",
     "lucide-astro": "^0.556.0",
-    "marked": "^18.0.5"
+    "marked": "^18.0.6"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.2",
     "@types/node": "^25.9.4",
-    "prettier": "^3.9.1",
+    "prettier": "^3.9.5",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.8.0",
     "tailwindcss": "^4.3.0",
-    "wrangler": "^4.105.0"
+    "wrangler": "^4.107.0"
   },
   "prettier": {
     "bracketSpacing": true,
