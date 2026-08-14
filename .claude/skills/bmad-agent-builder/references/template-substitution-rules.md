@@ -1,72 +1,51 @@
 # Template Substitution Rules
 
-When building the agent, you MUST apply these conditional blocks to the templates:
+The SKILL-template provides a minimal skeleton: frontmatter, overview, agent identity sections, memory, and the activation spine. The bootloader carries no standalone config-load step — `init-sanctum` bakes config into the sanctum, so wake.py loads it as part of the identity. Everything beyond the skeleton is crafted by the builder based on what was learned during discovery. Apply these rules deterministically via `uv run scripts/process-template.py <template> -o <dest> --var key=value... --true <condition>...` — one `--var` per token, one `--true` per conditional that holds. The script fails (exit 3) on any leftover `{if-...}` marker and reports remaining `{token}` placeholders as `tokens_remaining` for you to judge against the runtime-token set.
 
-## For Module-Based Agents
+## Frontmatter
 
-- `{if-module}` ... `{/if-module}` → Keep the content inside
-- `{if-standalone}` ... `{/if-standalone}` → Remove the entire block including markers
-- `{custom-config-properties}` → Replace with comma-separated custom property names (e.g., `journal_folder, adventure_logs_folder`) or remove line if none
-- `{module-code-or-empty}` → Replace with module code (e.g., `cis-`) or empty string for standalone
+- `{module-code-or-empty}` → Module code prefix with hyphen (e.g., `cis-`) or empty for standalone. The `bmad-` prefix is reserved for official BMad creations; user agents should not include it.
+- `{agent-name}` → Agent functional name (kebab-case)
+- `{skill-description}` → Two parts: [4-6 word summary]. [trigger phrases]
+- `{displayName}` → Friendly display name
+- `{skillName}` → Full skill name with module prefix
 
-## For Standalone Agents
+## Conditionals
 
-- `{if-module}` ... `{/if-module}` → Remove the entire block including markers
-- `{if-standalone}` ... `{/if-standalone}` → Keep the content inside
-- `{custom-config-properties}` → Remove (not used for standalone)
-- `{module-code-or-empty}` → Empty string
-- `{custom-init-questions}` → Add user's additional questions here (remove placeholder if none)
+A `--true` condition keeps the block's content (markers stripped); anything else removes the whole block including markers.
 
-## For Agents With Sidecar (Memory)
+- `{if-module}` / `{if-standalone}` → module-based vs standalone agent
+- `{if-memory-agent}` / `{if-stateless-agent}` → memory and autonomous agents vs stateless
+- `{if-evolvable}` → the owner can teach the agent new capabilities
+- `{if-pulse}` → autonomous mode (PULSE enabled)
+- `{if-customizable}` → the author opted in to the override surface
 
-- `{if-sidecar}` ... `{/if-sidecar}` → Keep the content inside
-- `{if-no-sidecar}` ... `{/if-no-sidecar}` → Remove the entire block including markers
+Module tokens, filled when `{if-module}` holds: `{module-code}` (no trailing hyphen, e.g. `cis`) and `{module-setup-skill}` (e.g. `cis-setup`).
 
-## For Agents Without Sidecar
+## Template Selection
 
-- `{if-sidecar}` ... `{/if-sidecar}` → Remove the entire block including markers
-- `{if-no-sidecar}` ... `{/if-no-sidecar}` → Keep the content inside
+- **Stateless agent:** `assets/SKILL-template.md` (full identity, no Three Laws/Sacred Truth)
+- **Memory/autonomous agent:** `assets/SKILL-template-bootloader.md` (lean bootloader with Three Laws, Sacred Truth, Stay in Character, the Persistent Memory directive, and the four-step "Invoke & hold" activation spine)
 
-## External Skills
+The activation is a fixed four-step spine, not a set of renumbered paths: (1) Wake via `scripts/wake.py`; (2) Become yourself; (3) Bind the standing rules; (4) Execute the Proper Mode. The Mode in step 4 is what varies — Waking and First Breath are always present; only Pulse Mode is conditional, wrapped in `{if-pulse}` for autonomous agents. The step numbers never shift, so there is no gap to renumber; keep `{if-pulse}` strictly around the Pulse Mode bullet.
 
-- `{if-external-skills}` ... `{/if-external-skills}` → Keep if agent uses external skills, otherwise remove entire block
-- `{external-skills-list}` → Replace with bulleted list of exact skill names:
-  ```markdown
-  - `bmad-skill-name-one` — Description
-  - `bmad-skill-name-two` — Description
-  ```
+## Customize.toml Emission
 
-## Custom Init Questions
+Every agent ships `customize.toml` alongside SKILL.md, from `assets/customize-template.toml`. Fill the `[agent]` metadata block from the metadata gathered during discovery:
 
-Add user's additional questions to the init.md template, replacing `{custom-init-questions}` placeholder. Remove the placeholder line if no custom questions.
+- `{agent-code}` → stable identifier (skill dir basename without module prefix)
+- `{agent-name-or-empty}` → display name, or empty string for First-Breath-named agents
+- `{agent-title}` → role title
+- `{agent-icon}` → single emoji
+- `{agent-description}` → one-sentence description
+- `{agent-type}` → `stateless` | `memory` | `autonomous`
+
+When `{if-customizable}` holds, also add the resolver step to SKILL.md and reference lifted scalars as `{agent.<name>}` in the SKILL.md body — these resolve at runtime, so emit them verbatim. When it does not hold, `customize.toml` ships metadata-only and SKILL.md uses hardcoded paths with no resolver step.
+
+## Beyond the Template
+
+The builder determines the rest of the agent structure — capabilities, activation flow, sanctum templates, init script, First Breath, capability routing, external skills, scripts — based on the agent's requirements. The template intentionally does not prescribe these.
 
 ## Path References
 
-All generated agents use these paths:
-- `init.md` — First-run setup
-- `{name}.md` — Individual capability prompts
-- `references/memory-system.md` — Memory discipline (if sidecar needed)
-- `bmad-manifest.json` — Capabilities and metadata with menu codes
-- `scripts/` — Python/shell scripts for deterministic operations (if needed)
-
-## Frontmatter Placeholders
-
-Replace all frontmatter placeholders in SKILL-template.md:
-- `{module-code-or-empty}` → Module code (e.g., `cis-`) or empty
-- `{agent-name}` → Agent functional name (kebab-case)
-- `{short phrase what agent does}` → One-line description
-- `{displayName}` → Friendly name
-- `{title}` → Role title
-- `{role}` → Functional role
-- `{skillName}` → Full skill name with module prefix
-- `{user_name}` → From config
-- `{communication_language}` → From config
-
-## Content Placeholders
-
-Replace all content placeholders with agent-specific values:
-- `{overview-template}` → Overview paragraph (2-3 sentences) following the 3-part formula (What, How, Why/Outcome)
-- `{One-sentence identity.}` → Brief identity statement
-- `{Who is this agent? One clear sentence.}` → Identity description
-- `{How does this agent communicate? Be specific with examples.}` → Communication style
-- `{Guiding principle 1/2/3}` → Agent's principles
+Everything the builder emits follows the bare-path convention the lint gate enforces: skill-internal paths are written bare from the skill root (`references/first-breath.md`, `scripts/wake.py`, `scripts/init-sanctum.py`, `assets/PERSONA-template.md`), `./` appears only for a file in the same directory as the file referencing it, and project-scope paths carry `{project-root}/`. This applies equally to SKILL.md, capability prompts, the sanctum templates the init script copies, and the emitted `scripts/wake.py` (from `assets/wake-template.py`, parameterized with the agent's `{skillName}`).

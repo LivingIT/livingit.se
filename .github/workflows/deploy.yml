@@ -51,6 +51,8 @@ jobs:
             let c;
             try { c = JSON.parse(fs.readFileSync(p, 'utf8')); } catch (e) { console.error('ERROR: Failed to parse ' + p + ': ' + e.message); process.exit(1); }
             c.name = 'devingit-se';
+            // The adapter emits legacy_env, which wrangler 4.x no longer accepts.
+            delete c.legacy_env;
             c.vars = { ...c.vars, PUBLIC_API_URL: process.env.PATCH_API_URL };
             fs.writeFileSync(p, JSON.stringify(c, null, 2));
           "
@@ -67,6 +69,8 @@ jobs:
             let c;
             try { c = JSON.parse(fs.readFileSync(p, 'utf8')); } catch (e) { console.error('ERROR: Failed to parse ' + p + ': ' + e.message); process.exit(1); }
             c.name = 'livingit-se';
+            // The adapter emits legacy_env, which wrangler 4.x no longer accepts.
+            delete c.legacy_env;
             c.vars = { ...c.vars, PUBLIC_API_URL: process.env.PATCH_API_URL, PUBLIC_ENVIRONMENT: 'production' };
             fs.writeFileSync(p, JSON.stringify(c, null, 2));
           "
