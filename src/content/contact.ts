@@ -67,14 +67,6 @@ Skicka ett mail till ***hello@livingit.se*** eller ta kontakt med någon av vår
       photo: getResponsiveImage('contact/jorgen-nilsson.jpg'),
     },
     {
-      name: 'Daniel Weberg',
-      title: 'Interimschefskonsult',
-      phoneDisplay: '076-119 49 96',
-      phoneNumber: '+46761194996',
-      email: 'daniel.weberg@livingit.se',
-      photo: getResponsiveImage('contact/daniel-weberg.jpg'),
-    },
-    {
       name: 'Martin Stenlund',
       title: 'Grundare och visionär',
       phoneDisplay: '072-201 07 20',
