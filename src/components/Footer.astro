@@ -16,7 +16,7 @@ const iconMap = {
 
 <footer class="bg-[var(--color-bg-footer)] text-white" aria-label="Site Footer">
   <div class="mx-auto max-w-7xl px-12 py-16">
-    <div class="mb-12 grid grid-cols-1 gap-12 md:grid-cols-4 items-start">
+    <div class="mb-12 grid grid-cols-1 items-start gap-12 md:grid-cols-4">
       {
         siteConfig.footer.columns.map((column) => {
           const sectionLabel = column.title
@@ -32,62 +32,74 @@ const iconMap = {
           return (
             <div>
               {sectionLabel && <h2 class="sr-only">{sectionLabel}</h2>}
-              {column.title && <h3 class="mb-4 font-semibold">{column.title}</h3>}
-            {column.address && (
-              <a href={column.mapsUrl} target="_blank" rel="noopener noreferrer" class="text-mono-light mb-4 whitespace-pre-line text-sm leading-relaxed hover:text-white transition-colors block">
-                {column.address}
-              </a>
-            )}
-            {column.logo && (
-              <div class="mb-4">
-                <Image src={column.logo} alt="Living IT Logo" width={120} height={48} class="h-12 -mt-4" />
-                {column.legalInfo && (
-                  <div class="mt-6 text-mono-light whitespace-pre-line text-sm leading-relaxed">
-                    {column.legalInfo}
-                  </div>
-                )}
-              </div>
-            )}
-            {column.social && (
-              <div class="flex space-x-4">
-                {column.social.map((social) => (
-                  social.isCookieButton ? (
-                    <a 
-                      href="/cookies-policy"
-                      class="text-mono-light hover:text-white transition-colors tooltip-above"
-                      aria-label={social.name}
-                      data-tooltip={social.name}
-                    >
-                      <Cookie class="h-6 w-6" />
-                    </a>
-                  ) : (
-                    <a
-                      href={social.href}
-                      class="text-mono-light hover:text-white transition-colors tooltip-above"
-                      aria-label={social.name}
-                      data-tooltip={social.name}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Icon name={iconMap[social.icon]} class="h-6 w-6" />
-                    </a>
-                  )
-                ))}
-              </div>
-            )}
+              {column.title && (
+                <h3 class="mb-4 font-semibold">{column.title}</h3>
+              )}
+              {column.address && (
+                <a
+                  href={column.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-mono-light mb-4 block text-sm leading-relaxed whitespace-pre-line transition-colors hover:text-white"
+                >
+                  {column.address}
+                </a>
+              )}
+              {column.logo && (
+                <div class="mb-4">
+                  <Image
+                    src={column.logo}
+                    alt="Living IT Logo"
+                    width={120}
+                    height={48}
+                    class="-mt-4 h-12"
+                  />
+                  {column.legalInfo && (
+                    <div class="text-mono-light mt-6 text-sm leading-relaxed whitespace-pre-line">
+                      {column.legalInfo}
+                    </div>
+                  )}
+                </div>
+              )}
+              {column.social && (
+                <div class="flex space-x-4">
+                  {column.social.map((social) =>
+                    social.isCookieButton ? (
+                      <a
+                        href="/cookies-policy"
+                        class="text-mono-light tooltip-above transition-colors hover:text-white"
+                        aria-label={social.name}
+                        data-tooltip={social.name}
+                      >
+                        <Cookie class="h-6 w-6" />
+                      </a>
+                    ) : (
+                      <a
+                        href={social.href}
+                        class="text-mono-light tooltip-above transition-colors hover:text-white"
+                        aria-label={social.name}
+                        data-tooltip={social.name}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Icon name={iconMap[social.icon]} class="h-6 w-6" />
+                      </a>
+                    ),
+                  )}
+                </div>
+              )}
             </div>
           );
         })
       }
     </div>
 
-    <div
-      class="border-mono-darker border-t pt-8"
-    ></div>
+    <div class="border-mono-darker border-t pt-8"></div>
   </div>
 </footer>
 
-{/* Cookie button script - DISABLED: Button now links directly to /cookies-policy
+{
+  /* Cookie button script - DISABLED: Button now links directly to /cookies-policy
 <script>
   // Handle restore cookie consent button
   const restoreButton = document.getElementById('restore-cookie-consent');
@@ -101,4 +113,5 @@ const iconMap = {
     cookieBanner?.classList.remove('hidden');
   });
 </script>
-*/}
+*/
+}

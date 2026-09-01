@@ -80,52 +80,56 @@ _No UX Design document exists for this project. UX follows existing site design 
 
 ### FR Coverage Map
 
-| FR | Epic | Notes |
-|---|---|---|
-| FR1 | Epic 2 | Upcoming listing page |
-| FR2 | Epic 2 | Event detail on listing + detail pages |
-| FR3 | Epic 2 | EventStatusBadge component |
-| FR4 | Epic 2 | Event listing integrated directly into `/events` (no separate upcoming page) |
-| FR5 | Epic 3 | Registration form |
-| FR6 | Epic 3 | Confirmation page |
-| FR7 | Epic 3 | Client + server validation |
-| FR8 | Epic 3 | Event state: past → no form |
-| FR9 | Epic 3 | Event state: full → no form |
-| FR10 | Epic 3 | `/api/register.ts` route |
-| FR11 | Epic 1 | Arch superseded: events via `api.livingit.se` / `api.devingit.se` |
-| FR12 | Epic 1 | Language field drives URL locale via API data |
-| FR13 | Epic 1 | Capacity/date/slug owned by backend |
-| FR14 | Epic 1 | `npm run dev` works once adapter in place |
-| FR15 | Epic 2 | All events served at `/events/[slug]` regardless of language |
+| FR   | Epic   | Notes                                                                                 |
+| ---- | ------ | ------------------------------------------------------------------------------------- |
+| FR1  | Epic 2 | Upcoming listing page                                                                 |
+| FR2  | Epic 2 | Event detail on listing + detail pages                                                |
+| FR3  | Epic 2 | EventStatusBadge component                                                            |
+| FR4  | Epic 2 | Event listing integrated directly into `/events` (no separate upcoming page)          |
+| FR5  | Epic 3 | Registration form                                                                     |
+| FR6  | Epic 3 | Confirmation page                                                                     |
+| FR7  | Epic 3 | Client + server validation                                                            |
+| FR8  | Epic 3 | Event state: past → no form                                                           |
+| FR9  | Epic 3 | Event state: full → no form                                                           |
+| FR10 | Epic 3 | `/api/register.ts` route                                                              |
+| FR11 | Epic 1 | Arch superseded: events via `api.livingit.se` / `api.devingit.se`                     |
+| FR12 | Epic 1 | Language field drives URL locale via API data                                         |
+| FR13 | Epic 1 | Capacity/date/slug owned by backend                                                   |
+| FR14 | Epic 1 | `npm run dev` works once adapter in place                                             |
+| FR15 | Epic 2 | All events served at `/events/[slug]` regardless of language                          |
 | FR16 | Epic 2 | UI language derived from `event.language` field via `getTranslations(event.language)` |
-| FR17 | Epic 3 | Locale-aware detail page rendering |
-| FR18 | Epic 3 | i18n error messages in form |
-| FR19 | Epic 2 | Shared `<Layout>` wraps listing page |
-| FR20 | Epic 2 | Shared `<Layout>` wraps listing page |
-| FR21 | Epic 2 | Tailwind CSS 4 design tokens applied |
-| FR22 | Epic 1 | Static `/events` build verified unchanged |
-| FR23 | Epic 3 | WCAG 2.1 AA on registration pages |
-| FR24 | Epic 3 | Keyboard-navigable form |
-| FR25 | Epic 4 | `seo/robots-livingit.txt` updated |
+| FR17 | Epic 3 | Locale-aware detail page rendering                                                    |
+| FR18 | Epic 3 | i18n error messages in form                                                           |
+| FR19 | Epic 2 | Shared `<Layout>` wraps listing page                                                  |
+| FR20 | Epic 2 | Shared `<Layout>` wraps listing page                                                  |
+| FR21 | Epic 2 | Tailwind CSS 4 design tokens applied                                                  |
+| FR22 | Epic 1 | Static `/events` build verified unchanged                                             |
+| FR23 | Epic 3 | WCAG 2.1 AA on registration pages                                                     |
+| FR24 | Epic 3 | Keyboard-navigable form                                                               |
+| FR25 | Epic 4 | `seo/robots-livingit.txt` updated                                                     |
 
 ## Epic List
 
 ### Epic 1: Hybrid Rendering Foundation
+
 The existing Astro site runs in hybrid SSG/SSR mode on Cloudflare Pages, with all infrastructure (Cloudflare adapter, environment variables, i18n module) in place and the existing static build verified unbroken. Developers can confidently build SSR pages.
 **FRs covered:** FR11, FR12, FR13, FR14, FR22
 **Env note:** `PUBLIC_API_URL` configured separately for production (`api.livingit.se`) and preview/dev (`api.devingit.se`) in Cloudflare Pages dashboard.
 
 ### Epic 2: Event Discovery
+
 Visitors can browse all upcoming Living IT events on `livingit.se` with the full brand experience — same header, footer, colours, and typography as the rest of the site.
 **FRs covered:** FR1, FR2, FR3, FR4, FR15, FR16, FR19, FR20, FR21, FR22
 
 ### Epic 3: Event Registration
+
 Visitors can register for events and receive confirmation without ever leaving `livingit.se`. The registration experience handles all states (upcoming, past, fully booked), validates input in the correct language, and is fully WCAG 2.1 AA compliant.
 **FRs covered:** FR5, FR6, FR7, FR8, FR9, FR10, FR17, FR18, FR23, FR24
 **NFRs:** NFR1, NFR3, NFR4, NFR5, NFR6, NFR7, NFR8
 **CSRF note:** Origin check in `api/register.ts` must allow both `livingit.se` and `devingit.se`.
 
 ### Epic 4: Production Readiness & Consolidation
+
 The consolidated site is production-ready with correct SEO exclusions, performance verified, and `events.livingit.se` can be decommissioned.
 **FRs covered:** FR25
 **NFRs:** NFR1, NFR2, NFR7, NFR8

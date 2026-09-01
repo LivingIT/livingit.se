@@ -40,6 +40,7 @@ so that I can find events I'm interested in without leaving the main site.
 **Architectural pivot**: Instead of creating a separate `/events/upcoming` page, the live event listing was merged into the existing `/events` page (`src/pages/events.astro`), which was converted from static to SSR. This decision was made because a separate upcoming page added navigation friction with no benefit — the `/events` page already served as the entry point for events content.
 
 Files modified:
+
 - `src/pages/events.astro` — converted to SSR, added API fetch + EventCard rendering
 - `src/types/api.ts` — updated `ApiEvent` interface to match real backend API shape
 - `src/components/EventCard.astro` — updated for new API fields (`eventId`, `startDateTime`, `eventType`, `imageUrl`), added event-type icons
@@ -47,6 +48,7 @@ Files modified:
 - `src/config.ts`, `src/content/services.ts` — renamed "Events" → "Event" (Swedish grammar)
 
 Do NOT:
+
 - Modify `src/i18n/` or `src/components/Layout.astro`
 - Create any other event pages (Stories 3.x)
 
@@ -68,7 +70,7 @@ import { apiFetch } from '../../lib/api';
 
 ```astro
 ---
-export const prerender = false;  // MUST BE FIRST LINE
+export const prerender = false; // MUST BE FIRST LINE
 
 import { apiFetch } from '../lib/api';
 import type { ApiEvent } from '../types/api';
@@ -84,7 +86,7 @@ let fetchFailed = false;
 try {
   const response = await apiFetch('/api/events/public');
   if (response.ok) {
-    const allEvents = await response.json() as ApiEvent[];
+    const allEvents = (await response.json()) as ApiEvent[];
     upcomingEvents = allEvents.filter((e) => e.isActive);
   } else {
     Astro.response.status = 500;
@@ -98,6 +100,7 @@ try {
 ```
 
 Architecture rules:
+
 - `prerender = false` **first** line
 - Use `response.ok` for HTTP error handling
 - Use `try/catch` around `apiFetch` to catch network-level errors (DNS, timeout) and prevent unhandled crashes
@@ -109,7 +112,10 @@ Architecture rules:
 `src/components/Layout.astro` props: `title?: string`, `description?: string` (both optional with site defaults from `siteConfig`).
 
 ```astro
-<Layout title="Kommande evenemang | Living IT" description="Bläddra bland kommande evenemang från Living IT.">
+<Layout
+  title="Kommande evenemang | Living IT"
+  description="Bläddra bland kommande evenemang från Living IT."
+>
   <!-- page content -->
 </Layout>
 ```
@@ -119,12 +125,16 @@ Architecture rules:
 `EventCard` props: `event: ApiEvent`, `lang: 'sv' | 'en'`. The listing shows active events. Pass a validated language (`event.language` with fallback to `'sv'`) so each card formats dates in the event's own locale:
 
 ```astro
-{upcomingEvents.map((event) => {
-  const safeLang = event.language === 'en' ? 'en' : 'sv';
-  return (
-    <li><EventCard event={event} lang={safeLang} /></li>
-  );
-})}
+{
+  upcomingEvents.map((event) => {
+    const safeLang = event.language === 'en' ? 'en' : 'sv';
+    return (
+      <li>
+        <EventCard event={event} lang={safeLang} />
+      </li>
+    );
+  })
+}
 ```
 
 `EventCard` renders the status badge internally (hidden for `'upcoming'`, shown for `'full'`/`'past'`). Do not add `<EventStatusBadge>` separately on this page.
@@ -134,21 +144,28 @@ Architecture rules:
 ### Three Rendering States
 
 **State 1 — Success with events** (`events` is non-null and length > 0):
+
 ```astro
 <ul class="...">
-  {events.map((event) => (
-    <li><EventCard event={event} lang={event.language} /></li>
-  ))}
+  {
+    events.map((event) => (
+      <li>
+        <EventCard event={event} lang={event.language} />
+      </li>
+    ))
+  }
 </ul>
 ```
 
 **State 2 — Empty** (`events` is non-null but `events.length === 0`):
+
 ```astro
 <p>{t.error.noActiveEvents}</p>
 <!-- sv: "För tillfället har vi inget planerat - kom tillbaka senare!" -->
 ```
 
 **State 3 — API failure** (`events` is null, `Astro.response.status = 500`):
+
 ```astro
 <p>{t.error.somethingWentWrong}</p>
 <!-- sv: "Något gick fel 😞" -->
@@ -160,11 +177,11 @@ Check order: `if (fetchFailed)` → state 3. `else if (upcomingEvents.length ===
 
 The page has no `[lang]` URL segment — use Swedish (`getTranslations('sv')`) for all page-level UI text.
 
-| Key | Value (sv) |
-|---|---|
-| `t.nav.upcomingEvents` | `'Kommande evenemang'` — page heading |
-| `t.error.noActiveEvents` | `'För tillfället har vi inget planerat - kom tillbaka senare!'` — empty state |
-| `t.error.somethingWentWrong` | `'Något gick fel 😞'` — error state |
+| Key                          | Value (sv)                                                                    |
+| ---------------------------- | ----------------------------------------------------------------------------- |
+| `t.nav.upcomingEvents`       | `'Kommande evenemang'` — page heading                                         |
+| `t.error.noActiveEvents`     | `'För tillfället har vi inget planerat - kom tillbaka senare!'` — empty state |
+| `t.error.somethingWentWrong` | `'Något gick fel 😞'` — error state                                           |
 
 **Do NOT invent new i18n keys.** All keys already exist in `sv.ts` and `en.ts`.
 

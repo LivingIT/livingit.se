@@ -31,10 +31,10 @@ so that I am not misled into attempting a purchase that cannot proceed.
 
 ### Files to Touch
 
-| File | Change |
-|------|--------|
-| `src/i18n/sv.ts` | Add `form.saleClosed` key |
-| `src/i18n/en.ts` | Add `form.saleClosed` key |
+| File                                    | Change                              |
+| --------------------------------------- | ----------------------------------- |
+| `src/i18n/sv.ts`                        | Add `form.saleClosed` key           |
+| `src/i18n/en.ts`                        | Add `form.saleClosed` key           |
 | `src/components/RegistrationForm.astro` | Gate the buy button on `saleIsOpen` |
 
 **Do NOT touch:** `src/types/api.ts` — `price.saleIsOpen: boolean` already exists in the `ApiEvent` interface.
@@ -92,41 +92,58 @@ This allows client-side JS to know the sale state if needed in future enhancemen
 Current code (lines ~60–71):
 
 ```astro
-{hasPrice && (
-  <div data-state="paid-initial" hidden>
-    <div class="button-group button-group--vertical">
-      <button type="button" class="button" id="btn-buy-ticket">
-        {t.form.buyTicket}
-      </button>
-      <button type="button" class="button button--secondary" id="btn-have-code">
-        {t.form.haveCode}
-      </button>
+{
+  hasPrice && (
+    <div data-state="paid-initial" hidden>
+      <div class="button-group button-group--vertical">
+        <button type="button" class="button" id="btn-buy-ticket">
+          {t.form.buyTicket}
+        </button>
+        <button
+          type="button"
+          class="button button--secondary"
+          id="btn-have-code"
+        >
+          {t.form.haveCode}
+        </button>
+      </div>
     </div>
-  </div>
-)}
+  )
+}
 ```
 
 Replace with:
 
 ```astro
-{hasPrice && (
-  <div data-state="paid-initial" hidden>
-    <div class="button-group button-group--vertical">
-      {saleIsOpen ? (
-        <button type="button" class="button" id="btn-buy-ticket">
-          {t.form.buyTicket}
+{
+  hasPrice && (
+    <div data-state="paid-initial" hidden>
+      <div class="button-group button-group--vertical">
+        {saleIsOpen ? (
+          <button type="button" class="button" id="btn-buy-ticket">
+            {t.form.buyTicket}
+          </button>
+        ) : (
+          <button
+            type="button"
+            class="button button--disabled"
+            disabled
+            aria-disabled="true"
+          >
+            {t.form.saleClosed}
+          </button>
+        )}
+        <button
+          type="button"
+          class="button button--secondary"
+          id="btn-have-code"
+        >
+          {t.form.haveCode}
         </button>
-      ) : (
-        <button type="button" class="button button--disabled" disabled aria-disabled="true">
-          {t.form.saleClosed}
-        </button>
-      )}
-      <button type="button" class="button button--secondary" id="btn-have-code">
-        {t.form.haveCode}
-      </button>
+      </div>
     </div>
-  </div>
-)}
+  )
+}
 ```
 
 The "I have a code" button (`btn-have-code`) is always rendered — it is for participants who already hold a referral code/ticket and need to access the registration form. Only the "Buy ticket" button is replaced when the sale is closed.
@@ -155,7 +172,7 @@ If `saleIsOpen` is false, the `btn-buy-ticket` element does not exist in the DOM
 
 ### Referral Code / "Have Code" Path
 
-The `btn-have-code` button is **always rendered**, regardless of `saleIsOpen`. A participant who already purchased (or received) a referral code needs to be able to enter it to access the registration form. The sale being closed only blocks *new* ticket purchases — it does not block existing code-holders from registering.
+The `btn-have-code` button is **always rendered**, regardless of `saleIsOpen`. A participant who already purchased (or received) a referral code needs to be able to enter it to access the registration form. The sale being closed only blocks _new_ ticket purchases — it does not block existing code-holders from registering.
 
 ### Key Pattern References
 
@@ -167,10 +184,12 @@ The `btn-have-code` button is **always rendered**, regardless of `saleIsOpen`. A
 ### Previous Story Intelligence
 
 From story 3.2 (RegistrationForm build):
+
 - All state rendering inside `RegistrationForm.astro` is driven by `data-state="*"` divs with `hidden` attribute — client JS manages which one is visible
 - Computed props (`hasPrice`, `hasFoodOptions`, etc.) are derived in Astro frontmatter, not inline in the template
 
 From story 3.6 (last completed story):
+
 - `saleIsOpen` was not yet used anywhere in the codebase — this is the first consumer
 - `ApiEvent.price.saleIsOpen` was added to `src/types/api.ts` in prior work (no story associated); always read from the live API response
 

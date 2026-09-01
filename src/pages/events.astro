@@ -24,10 +24,12 @@ let fetchFailed = false;
 try {
   const response = await apiFetch('/api/events/public');
   if (response.ok) {
-    const allEvents = await response.json() as ApiEvent[];
+    const allEvents = (await response.json()) as ApiEvent[];
     upcomingEvents = allEvents.filter((e) => e.isActive);
   } else {
-    console.error(`[events] API responded ${response.status} ${response.statusText}`);
+    console.error(
+      `[events] API responded ${response.status} ${response.statusText}`,
+    );
     Astro.response.status = 500;
     fetchFailed = true;
   }
@@ -41,87 +43,123 @@ const eventsWithHtml = await Promise.all(
   eventsContent.map(async (event) => ({
     ...event,
     bodyHtml: await marked(event.body),
-  }))
+  })),
 );
 ---
 
-<Layout title={`${service.title} - ${siteConfig.site.title}`} description={service.description}>
+<Layout
+  title={`${service.title} - ${siteConfig.site.title}`}
+  description={service.description}
+>
   <main class="min-h-screen">
     <div class="mx-auto max-w-7xl px-4 pt-20 sm:px-6 lg:px-8">
       <div class="mt-12 mb-12">
-        <h1 class="text-5xl font-bold mb-8 text-center">{service.title}</h1>
-        <div class="md:columns-2 gap-8 text-lg text-gray-700 leading-relaxed [&>p]:mb-4" set:html={bodyHtml}></div>
+        <h1 class="mb-8 text-center text-5xl font-bold">{service.title}</h1>
+        <div
+          class="gap-8 text-lg leading-relaxed text-gray-700 md:columns-2 [&>p]:mb-4"
+          set:html={bodyHtml}
+        />
       </div>
     </div>
 
-    {/* Section only renders when fetch failed (show error) or there are active events (show list).
+    {
+      /* Section only renders when fetch failed (show error) or there are active events (show list).
         When fetch succeeds with zero events, the section is hidden entirely.
-        Invariant: upcomingEvents is non-null whenever !fetchFailed. */}
-    {(fetchFailed || (upcomingEvents !== null && upcomingEvents.length > 0)) && (
-      <section class="bg-[var(--color-bg-main-section)] px-4 py-16 sm:px-6 lg:px-8">
-        <div class="mx-auto max-w-7xl">
-          {fetchFailed ? (
-            <p class="text-mono-dark">{t.error.somethingWentWrong}</p>
-          ) : (
-            <>
-              <h2 class="scroll-fade-up text-3xl font-bold mb-8 text-center">Kommande</h2>
-              <ul class="grid grid-cols-1 gap-8 md:grid-cols-2">
-                {upcomingEvents!.map((event) => {
-                  const safeLang = event.language === 'en' ? 'en' : 'sv';
-                  return (
-                    <li class="[&:last-child:nth-child(odd)]:col-span-full"><EventCard event={event} lang={safeLang} /></li>
-                  );
-                })}
-              </ul>
-            </>
-          )}
-        </div>
-      </section>
-    )}
+        Invariant: upcomingEvents is non-null whenever !fetchFailed. */
+    }
+    {
+      (fetchFailed ||
+        (upcomingEvents !== null && upcomingEvents.length > 0)) && (
+        <section class="bg-[var(--color-bg-main-section)] px-4 py-16 sm:px-6 lg:px-8">
+          <div class="mx-auto max-w-7xl">
+            {fetchFailed ? (
+              <p class="text-mono-dark">{t.error.somethingWentWrong}</p>
+            ) : (
+              <>
+                <h2 class="scroll-fade-up mb-8 text-center text-3xl font-bold">
+                  Kommande
+                </h2>
+                <ul class="grid grid-cols-1 gap-8 md:grid-cols-2">
+                  {upcomingEvents!.map((event) => {
+                    const safeLang = event.language === 'en' ? 'en' : 'sv';
+                    return (
+                      <li class="[&:last-child:nth-child(odd)]:col-span-full">
+                        <EventCard event={event} lang={safeLang} />
+                      </li>
+                    );
+                  })}
+                </ul>
+              </>
+            )}
+          </div>
+        </section>
+      )
+    }
 
     <div class="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
       <section class="mt-16">
-        <h2 class="scroll-fade-up text-3xl font-bold mb-8 text-center">Våra återkommande event</h2>
+        <h2 class="scroll-fade-up mb-8 text-center text-3xl font-bold">
+          Våra återkommande event
+        </h2>
         <div class="flex flex-col gap-8">
-        {eventsWithHtml.map((event, index) => {
-          const IconComponent = LucideIcons[event.icon] ?? LucideIcons.HelpCircle;
-          return (
-          <article class={`scroll-fade-up w-full rounded-2xl bg-[var(--color-bg-card)] overflow-hidden shadow-sm stagger-${(index % 9) + 1} hover:shadow-lg transition-shadow`} key={event.title}>
-            <div class="grid gap-0 grid-cols-1 md:grid-cols-3">
-              <div
-                class={`flex flex-col justify-center p-8 md:p-10 md:col-span-2 ${
-                  index % 2 === 0 ? 'order-1' : 'order-2'
-                }`}
-              >
-                <div class="flex items-center gap-4 mb-4">
-                  <div class="feature-icon bg-[var(--color-orange)] flex h-14 w-14 items-center justify-center rounded-lg text-white flex-shrink-0">
-                    <IconComponent class="h-7 w-7" />
+          {
+            eventsWithHtml.map((event, index) => {
+              const IconComponent =
+                LucideIcons[event.icon] ?? LucideIcons.HelpCircle;
+              return (
+                <article
+                  class={`scroll-fade-up w-full overflow-hidden rounded-2xl bg-[var(--color-bg-card)] shadow-sm stagger-${(index % 9) + 1} transition-shadow hover:shadow-lg`}
+                  key={event.title}
+                >
+                  <div class="grid grid-cols-1 gap-0 md:grid-cols-3">
+                    <div
+                      class={`flex flex-col justify-center p-8 md:col-span-2 md:p-10 ${
+                        index % 2 === 0 ? 'order-1' : 'order-2'
+                      }`}
+                    >
+                      <div class="mb-4 flex items-center gap-4">
+                        <div class="feature-icon flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-lg bg-[var(--color-orange)] text-white">
+                          <IconComponent class="h-7 w-7" />
+                        </div>
+                        <h2 class="card-title text-3xl font-semibold">
+                          {event.title}
+                        </h2>
+                      </div>
+                      <div
+                        class="leading-relaxed text-gray-700 [&>p]:mb-4"
+                        set:html={event.bodyHtml}
+                      />
+                    </div>
+                    <div
+                      class={`${index % 2 === 0 ? 'order-2' : 'order-1'} h-72 w-full p-10 md:h-full`}
+                    >
+                      <div
+                        class="carousel-frame"
+                        data-carousel
+                        data-interval="4500"
+                      >
+                        {event.images.map((images, imgIndex) => (
+                          <Image
+                            srcset={getImageSrcSet(images)}
+                            sizes={imageSizes.eventImage}
+                            src={images.desktop}
+                            alt={`${event.alt} ${imgIndex + 1}`}
+                            width={800}
+                            height={800}
+                            class={`carousel-image ${imgIndex === 0 ? 'is-active' : ''}`}
+                            loading={
+                              index === 0 && imgIndex === 0 ? 'eager' : 'lazy'
+                            }
+                            data-carousel-image
+                          />
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                  <h2 class="text-3xl font-semibold card-title">{event.title}</h2>
-                </div>
-                <div class="text-gray-700 leading-relaxed [&>p]:mb-4" set:html={event.bodyHtml}></div>
-              </div>
-              <div class={`${index % 2 === 0 ? 'order-2' : 'order-1'} h-72 md:h-full w-full p-10`}>
-                <div class="carousel-frame" data-carousel data-interval="4500">
-                  {event.images.map((images, imgIndex) => (
-                    <Image
-                      srcset={getImageSrcSet(images)}
-                      sizes={imageSizes.eventImage}
-                      src={images.desktop}
-                      alt={`${event.alt} ${imgIndex + 1}`}
-                      width={800}
-                      height={800}
-                      class={`carousel-image ${imgIndex === 0 ? 'is-active' : ''}`}
-                      loading={index === 0 && imgIndex === 0 ? 'eager' : 'lazy'}
-                      data-carousel-image
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </article>
-          );
-        })}
+                </article>
+              );
+            })
+          }
         </div>
       </section>
     </div>

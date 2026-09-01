@@ -11,22 +11,30 @@ const intervalMs = heroCarousel.intervalMs ?? 4500;
 
 <section class="bg-[var(--color-bg-main-section)] px-4 py-20 sm:px-6 lg:px-8">
   <div class="mx-auto max-w-7xl">
-    <div class="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+    <div
+      class="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]"
+    >
       <div class="scroll-fade-left">
-        <div class="carousel-frame carousel-frame-portrait" data-carousel data-interval={intervalMs}>
-          {heroCarousel.images.map((images, index) => (
-            <Image
-              srcset={getImageSrcSet(images)}
-              sizes={imageSizes.carouselImage}
-              src={images.desktop}
-              alt={`${altPrefix} ${index + 1}`}
-              width={800}
-              height={600}
-              class={`carousel-image ${index === 0 ? 'is-active' : ''}`}
-              loading={index === 0 ? 'eager' : 'lazy'}
-              data-carousel-image
-            />
-          ))}
+        <div
+          class="carousel-frame carousel-frame-portrait"
+          data-carousel
+          data-interval={intervalMs}
+        >
+          {
+            heroCarousel.images.map((images, index) => (
+              <Image
+                srcset={getImageSrcSet(images)}
+                sizes={imageSizes.carouselImage}
+                src={images.desktop}
+                alt={`${altPrefix} ${index + 1}`}
+                width={800}
+                height={600}
+                class={`carousel-image ${index === 0 ? 'is-active' : ''}`}
+                loading={index === 0 ? 'eager' : 'lazy'}
+                data-carousel-image
+              />
+            ))
+          }
         </div>
       </div>
       <div class="scroll-fade-right text-mono-dark">

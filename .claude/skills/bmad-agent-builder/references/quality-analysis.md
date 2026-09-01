@@ -54,19 +54,19 @@ Hand each lens the pre-pass JSON and `{target-agent-path}`, and run them as para
 
 Six base lenses run for every agent:
 
-| Lens | File | Owns |
-| --- | --- | --- |
-| Leanness | `references/scan-leanness.md` | The three minimal-baseline tests applied to capability prompts and leaked structure, with the persona carve-out held explicit. The only lens that fills `proposed_smallest` and `predicted_delta`. |
-| Architecture | `references/scan-architecture.md` | Frontmatter, topology, progressive disclosure, activation soundness (the four-step waking spine and Pulse Mode), ordering, parallelization, read-avoidance. |
-| Determinism | `references/scan-determinism.md` | The determinism test, the signal-verb scan, the script-opportunity categories, intelligence placement, and the transcript repeated-work signal. |
-| Customization | `references/scan-customization.md` | The customize.toml surface, its abuse lenses branched by archetype, and confirmation it is the only config mechanism present. |
-| Enhancement | `references/scan-enhancement.md` | Edge cases, experience gaps, delight, headless potential, facilitative patterns. |
-| Agent cohesion | `references/scan-agent-cohesion.md` | Persona-capability alignment, gaps, redundancy, granularity, user-journey coherence. |
+| Lens           | File                                | Owns                                                                                                                                                                                               |
+| -------------- | ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Leanness       | `references/scan-leanness.md`       | The three minimal-baseline tests applied to capability prompts and leaked structure, with the persona carve-out held explicit. The only lens that fills `proposed_smallest` and `predicted_delta`. |
+| Architecture   | `references/scan-architecture.md`   | Frontmatter, topology, progressive disclosure, activation soundness (the four-step waking spine and Pulse Mode), ordering, parallelization, read-avoidance.                                        |
+| Determinism    | `references/scan-determinism.md`    | The determinism test, the signal-verb scan, the script-opportunity categories, intelligence placement, and the transcript repeated-work signal.                                                    |
+| Customization  | `references/scan-customization.md`  | The customize.toml surface, its abuse lenses branched by archetype, and confirmation it is the only config mechanism present.                                                                      |
+| Enhancement    | `references/scan-enhancement.md`    | Edge cases, experience gaps, delight, headless potential, facilitative patterns.                                                                                                                   |
+| Agent cohesion | `references/scan-agent-cohesion.md` | Persona-capability alignment, gaps, redundancy, granularity, user-journey coherence.                                                                                                               |
 
 One conditional lens runs only when the pre-pass classified the agent as memory or autonomous:
 
-| Lens | File | Runs when |
-| --- | --- | --- |
+| Lens                 | File                                      | Runs when                                                                                                                                                        |
+| -------------------- | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Sanctum architecture | `references/scan-sanctum-architecture.md` | `is_memory_agent` is `true`. Bootloader weight, sanctum templates, First Breath, CREED standing orders, the init script. Skipped entirely for a stateless agent. |
 
 Read `is_memory_agent` from the pre-pass. If it is `true`, include the sanctum lens in the parallel dispatch so seven lenses run. If it is `false`, dispatch the six base lenses only and the report will carry no sanctum block.
@@ -111,9 +111,18 @@ The agent blocks are optional portrait-and-context blocks, built from the pre-pa
     "principles": "<absolute path to this builder's references/agent-quality-principles.md>",
     "scripts": "<absolute path to this builder's references/script-standards.md>"
   },
-  "agent_profile": { "name": "", "title": "", "icon": "", "agent_type": "", "mission": "" },
+  "agent_profile": {
+    "name": "",
+    "title": "",
+    "icon": "",
+    "agent_type": "",
+    "mission": ""
+  },
   "capabilities": [{ "name": "", "kind": "", "note": "" }],
-  "detailed_analysis": { "leanness": "<lens verdict>", "architecture": "<lens verdict>" },
+  "detailed_analysis": {
+    "leanness": "<lens verdict>",
+    "architecture": "<lens verdict>"
+  },
   "sanctum": { "present": true, "location": "", "files": [], "note": "" },
   "experience": { "journeys": [{ "name": "", "steps": "" }], "headless": "" },
   "themes": [
@@ -128,7 +137,9 @@ The agent blocks are optional portrait-and-context blocks, built from the pre-pa
   "recommendations": [
     { "rank": 1, "action": "<what to do>", "resolves": ["leanness-1"] }
   ],
-  "findings": ["<every lens finding unchanged, per references/lens-contract.md>"]
+  "findings": [
+    "<every lens finding unchanged, per references/lens-contract.md>"
+  ]
 }
 ```
 

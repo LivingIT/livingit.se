@@ -7,6 +7,7 @@ A modern, fast, and accessible website for Living IT consulting company. Built w
 Living IT is a consulting company based in Malmö, Helsingborg and Göteborg, Sweden. We believe that family, friends, and leisure are the most important things in life, but when we're at work, we always do our best to exceed our clients' expectations.
 
 We offer two core consulting services:
+
 - **Mjukvarukonsulting** (Software Consulting) - Creating digital solutions with curiosity, precision, and genuine commitment
 - **Ledarskapskonsulting** (Leadership Consulting) - Strengthening organizations through innovation and inclusive solutions
 
@@ -46,13 +47,13 @@ PUBLIC_TURNSTILE_SITE_KEY=1x00000000000000000000AA
 TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
 ```
 
-| Variable | Description |
-|---|---|
-| `PUBLIC_API_URL` | Backend API base URL |
-| `PUBLIC_ENVIRONMENT` | `production` or `development` — controls search engine indexing |
-| `API_SECRET_KEY` | Server-side secret for authenticating with the backend API |
-| `PUBLIC_TURNSTILE_SITE_KEY` | Cloudflare Turnstile site key for bot protection |
-| `TURNSTILE_SECRET_KEY` | Cloudflare Turnstile secret key for server-side verification |
+| Variable                    | Description                                                     |
+| --------------------------- | --------------------------------------------------------------- |
+| `PUBLIC_API_URL`            | Backend API base URL                                            |
+| `PUBLIC_ENVIRONMENT`        | `production` or `development` — controls search engine indexing |
+| `API_SECRET_KEY`            | Server-side secret for authenticating with the backend API      |
+| `PUBLIC_TURNSTILE_SITE_KEY` | Cloudflare Turnstile site key for bot protection                |
+| `TURNSTILE_SECRET_KEY`      | Cloudflare Turnstile secret key for server-side verification    |
 
 In production, `API_SECRET_KEY` is stored as a Cloudflare secret (via `wrangler secret put`). Locally, Astro loads it from `.env`.
 

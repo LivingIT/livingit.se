@@ -25,7 +25,7 @@ export const POST: APIRoute = async ({ request }) => {
   let response: Response;
   try {
     response = await apiFetch(
-      `/api/events/public/${encodeURIComponent(eventId)}/${encodeURIComponent(referralCode)}`
+      `/api/events/public/${encodeURIComponent(eventId)}/${encodeURIComponent(referralCode)}`,
     );
   } catch (err) {
     console.error('[validate-ticket] apiFetch failed:', err);
@@ -36,7 +36,7 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   if (response.ok) {
-    const data = await response.json() as { maxSeatCount: number };
+    const data = (await response.json()) as { maxSeatCount: number };
     return new Response(JSON.stringify({ maxSeatCount: data.maxSeatCount }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },

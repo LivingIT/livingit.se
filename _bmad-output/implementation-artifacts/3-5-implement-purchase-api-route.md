@@ -103,7 +103,7 @@ export const POST: APIRoute = async ({ request }) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
-      }
+      },
     );
   } catch (err) {
     console.error('[purchase] apiFetch failed:', err);
@@ -114,7 +114,7 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   if (response.ok) {
-    const data = await response.json() as { checkoutUrl: string };
+    const data = (await response.json()) as { checkoutUrl: string };
     return new Response(JSON.stringify({ checkoutUrl: data.checkoutUrl }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
@@ -124,7 +124,8 @@ export const POST: APIRoute = async ({ request }) => {
   const errorBody = await response.text().catch(() => '');
   console.error(`[purchase] backend error ${response.status}:`, errorBody);
   return new Response(JSON.stringify({ error: true }), {
-    status: response.status >= 400 && response.status < 500 ? response.status : 502,
+    status:
+      response.status >= 400 && response.status < 500 ? response.status : 502,
     headers: { 'Content-Type': 'application/json' },
   });
 };
@@ -182,6 +183,7 @@ The Turnstile widget (`div.cf-turnstile`) is in the `registration` section only 
 ### Previous Story Intelligence
 
 From `register.ts` and `validate-ticket.ts` (established patterns):
+
 - `export const prerender = false` explicitly declared in API routes (even though all `src/pages/api/` are SSR in hybrid mode)
 - All interfaces defined inline in the route file — no shared type imports needed for API routes
 - Error logging uses prefix `[purchase]` (match `[register]` / `[validate-ticket]` convention)

@@ -39,7 +39,16 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  const { eventId, referralCode, firstName, lastName, email, company, claimedSeatCount, turnstileToken } = body;
+  const {
+    eventId,
+    referralCode,
+    firstName,
+    lastName,
+    email,
+    company,
+    claimedSeatCount,
+    turnstileToken,
+  } = body;
 
   // Verify Turnstile token before any field validation
   if (!turnstileToken) {
@@ -59,11 +68,14 @@ export const POST: APIRoute = async ({ request }) => {
 
   let turnstileOk: boolean;
   try {
-    const verifyRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-      method: 'POST',
-      body: turnstileForm,
-    });
-    const outcome = await verifyRes.json() as { success: boolean };
+    const verifyRes = await fetch(
+      'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+      {
+        method: 'POST',
+        body: turnstileForm,
+      },
+    );
+    const outcome = (await verifyRes.json()) as { success: boolean };
     turnstileOk = outcome.success === true;
   } catch (err) {
     console.error('[register] Turnstile verification fetch failed:', err);
@@ -122,7 +134,7 @@ export const POST: APIRoute = async ({ request }) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
-      }
+      },
     );
   } catch (err) {
     console.error('[register] apiFetch failed:', err);
@@ -133,7 +145,7 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   if (response.ok) {
-    const data = await response.json() as { nextStep: string };
+    const data = (await response.json()) as { nextStep: string };
     return new Response(JSON.stringify({ nextStep: data.nextStep }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
@@ -143,7 +155,8 @@ export const POST: APIRoute = async ({ request }) => {
   const errorBody = await response.text().catch(() => '');
   console.error(`[register] backend error ${response.status}:`, errorBody);
   return new Response(JSON.stringify({ error: true }), {
-    status: response.status >= 400 && response.status < 500 ? response.status : 502,
+    status:
+      response.status >= 400 && response.status < 500 ? response.status : 502,
     headers: { 'Content-Type': 'application/json' },
   });
 };

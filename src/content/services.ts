@@ -67,5 +67,5 @@ skapa utrymme för lärande, samtal och nya idéer.
 Målet är att dela erfarenheter på olika sätt, väcka nyfikenhet och bygga starka \
 relationer som lever vidare även efter att eventet är slut – både \
 inom branschen och bortom den.`,
-  }
+  },
 ];

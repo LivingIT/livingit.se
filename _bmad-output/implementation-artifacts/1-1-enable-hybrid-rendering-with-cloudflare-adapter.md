@@ -37,6 +37,7 @@ so that SSR pages can run as Cloudflare Pages Functions without breaking any exi
 **Infrastructure ONLY.** This story adds the adapter and changes the rendering config. No new pages, components, or routes. Files beyond `astro.config.ts` and the auto-installed package changes are permitted only if required by adapter incompatibility (see Task 3 — the `@astrojs/cloudflare` v13 adapter is incompatible with Cloudflare Pages, which necessitated adding `wrangler.toml` and `.github/workflows/deploy.yml`).
 
 Do NOT:
+
 - Create any new `.astro` pages or components
 - Create `src/i18n/` (that is Story 1.3)
 - Add any environment variables in code (that is Story 1.2)
@@ -97,6 +98,7 @@ export default defineConfig({
 In `output: 'static'` mode with the Cloudflare adapter, **all pages default to static (pre-rendered)**. Existing pages require **zero changes** — they will remain statically pre-rendered without any `export const prerender = true` annotation. SSR is opt-in per page via `export const prerender = false` (added only in future stories).
 
 Existing pages that MUST remain static and need no changes:
+
 - `src/pages/index.astro`
 - `src/pages/events.astro`
 - `src/pages/kontakt.astro`

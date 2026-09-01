@@ -32,6 +32,7 @@ so that all locale-aware event pages and components can render content in the co
 **Translation infrastructure only.** Create `src/i18n/` and optionally `src/types/api.ts`. Do NOT create any pages, components, or routes. Do NOT modify any existing files.
 
 Do NOT:
+
 - Create `src/pages/events/` or any event pages (later epics)
 - Modify `src/content/events.ts` (serves the static `/events` marketing page)
 - Modify `astro.config.ts`, `wrangler.toml`, or any CI files
@@ -155,16 +156,16 @@ export function getTranslations(lang: 'sv' | 'en') {
 
 ### i18n Key Usage by Future Story
 
-| Key path | Used in |
-|---|---|
-| `form.*` | Story 3.2 (RegistrationForm.astro), Story 3.3 (api/register.ts) |
-| `event.status*` | Story 2.1 (EventStatusBadge.astro) |
-| `event.registrationClosed` | Story 3.1 (detail page — past event state) |
-| `event.registrationFull` | Story 3.1 (detail page — full event state) |
-| `event.notFound` | Story 3.1 (detail page — 404 state) |
-| `confirmation.*` | Story 3.4 (confirmation.astro) |
-| `nav.backToEvents` | Story 3.1 (past/404), Story 3.4 (confirmation page) |
-| `nav.upcomingEvents` | Story 2.3 (link on static /events page) |
+| Key path                   | Used in                                                         |
+| -------------------------- | --------------------------------------------------------------- |
+| `form.*`                   | Story 3.2 (RegistrationForm.astro), Story 3.3 (api/register.ts) |
+| `event.status*`            | Story 2.1 (EventStatusBadge.astro)                              |
+| `event.registrationClosed` | Story 3.1 (detail page — past event state)                      |
+| `event.registrationFull`   | Story 3.1 (detail page — full event state)                      |
+| `event.notFound`           | Story 3.1 (detail page — 404 state)                             |
+| `confirmation.*`           | Story 3.4 (confirmation.astro)                                  |
+| `nav.backToEvents`         | Story 3.1 (past/404), Story 3.4 (confirmation page)             |
+| `nav.upcomingEvents`       | Story 2.3 (link on static /events page)                         |
 
 ### Confirmation Message Interpolation Pattern
 
@@ -176,9 +177,16 @@ The `confirmation.thankYouNamed` and `confirmation.registered` keys split the pe
 const name = Astro.url.searchParams.get('name');
 const t = getTranslations(lang);
 ---
-{name
-  ? <p>{t.confirmation.thankYouNamed} <strong>{name}!</strong> {t.confirmation.registered}</p>
-  : <p>{t.confirmation.thankYou}</p>
+
+{
+  name ? (
+    <p>
+      {t.confirmation.thankYouNamed} <strong>{name}!</strong>{' '}
+      {t.confirmation.registered}
+    </p>
+  ) : (
+    <p>{t.confirmation.thankYou}</p>
+  )
 }
 ```
 
@@ -193,10 +201,13 @@ import { getTranslations } from '../../../i18n';
 const t = getTranslations(lang);
 
 // Validation error → 400 JSON
-return new Response(JSON.stringify({ error: t.form.errorRequired, field: 'name' }), {
-  status: 400,
-  headers: { 'Content-Type': 'application/json' },
-});
+return new Response(
+  JSON.stringify({ error: t.form.errorRequired, field: 'name' }),
+  {
+    status: 400,
+    headers: { 'Content-Type': 'application/json' },
+  },
+);
 
 // Backend error → 502 JSON
 return new Response(JSON.stringify({ error: t.form.errorGeneric }), {
@@ -219,7 +230,7 @@ export interface ApiEvent {
   slug: string;
   language: 'sv' | 'en';
   title: string;
-  date: string;        // ISO 8601
+  date: string; // ISO 8601
   location: string;
   description: string;
   capacity: number;
@@ -236,7 +247,7 @@ export interface ApiRegistrationRequest {
 
 export interface ApiErrorResponse {
   error: string;
-  field?: string;      // present for field-specific validation errors
+  field?: string; // present for field-specific validation errors
 }
 ```
 
@@ -253,6 +264,7 @@ import { getTranslations } from '../../i18n';
 const { lang, slug } = Astro.params as { lang: 'sv' | 'en'; slug: string };
 const t = getTranslations(lang);
 ---
+
 <EventStatusBadge status={event.status} {t} />
 ```
 
@@ -275,17 +287,20 @@ The project has no test suite. Verification is `npm run build` success only.
 ### Previous Story Intelligence
 
 **From Story 1.1:**
+
 - `output: 'hybrid'` was removed in Astro 6; `output: 'static'` with adapter is the equivalent
 - Build output lands in `dist/client/` (static) and `dist/server/` (SSR functions) — not `dist/` root
 - `src/` directory structure was untouched in stories 1.1 and 1.2
 
 **From Story 1.2:**
+
 - `src/lib/api.ts` was created — server-side only, throws at module evaluation if imported in browser
 - File-level guard pattern: `if (typeof window !== 'undefined') { throw new Error('...'); }`
 - The i18n module has no such restriction — it is pure TypeScript with string constants, safe to import anywhere (server or client)
 - `src/lib/api.ts` uses `import.meta.env.PUBLIC_API_URL` and `import.meta.env.API_SECRET_KEY`
 
 **git history pattern:**
+
 - Files land in `src/lib/` (utilities) or `src/i18n/` (locale) — no generic `src/utils/`
 - TypeScript strict, no implicit any, no untyped exports
 - Existing code style: named exports, no default exports on utility modules (see `src/lib/api.ts`, `src/config.ts`)

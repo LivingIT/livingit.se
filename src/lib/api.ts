@@ -6,7 +6,10 @@ import { env } from 'cloudflare:workers';
  *
  * Uses cloudflare:workers env binding to access secrets at runtime.
  */
-export async function apiFetch(path: string, init: RequestInit = {}): Promise<Response> {
+export async function apiFetch(
+  path: string,
+  init: RequestInit = {},
+): Promise<Response> {
   const baseUrl = import.meta.env.PUBLIC_API_URL;
   if (!baseUrl) throw new Error('PUBLIC_API_URL is not set');
 
@@ -15,9 +18,10 @@ export async function apiFetch(path: string, init: RequestInit = {}): Promise<Re
   if (!apiKey) throw new Error('API_SECRET_KEY is not set');
 
   const url = `${baseUrl}${path.startsWith('/') ? path : '/' + path}`;
-  const callerHeaders = init.headers instanceof Headers || Array.isArray(init.headers)
-    ? Object.fromEntries(init.headers as Iterable<[string, string]>)
-    : (init.headers ?? {});
+  const callerHeaders =
+    init.headers instanceof Headers || Array.isArray(init.headers)
+      ? Object.fromEntries(init.headers as Iterable<[string, string]>)
+      : (init.headers ?? {});
   return fetch(url, {
     ...init,
     headers: {

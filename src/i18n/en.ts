@@ -62,20 +62,28 @@ export const en: Translations = {
   },
   messages: {
     queueSuccessLine1: 'You have now been placed in the queue. ⌛️',
-    queueSuccessLine2: 'We will contact you by email if a spot becomes available.',
+    queueSuccessLine2:
+      'We will contact you by email if a spot becomes available.',
     registrationNeedToConfirmLine1: 'Almost done! 🎉',
-    registrationNeedToConfirmLine2: 'Before we meet, we need to confirm your email address. We have sent a confirmation to your email. Don\'t forget to check your spam folder if you haven\'t received an email from us.',
+    registrationNeedToConfirmLine2:
+      "Before we meet, we need to confirm your email address. We have sent a confirmation to your email. Don't forget to check your spam folder if you haven't received an email from us.",
     registrationConfirmationLine1: 'Done! 🎉',
-    registrationConfirmationLine2: 'We have sent a confirmation to your email. Don\'t forget to check your spam folder if you haven\'t received an email from us.',
+    registrationConfirmationLine2:
+      "We have sent a confirmation to your email. Don't forget to check your spam folder if you haven't received an email from us.",
     registrationFailedLine1: 'Something went wrong! 🤔',
-    registrationFailedLine2: 'We could not send a confirmation to your email. Please contact us.',
+    registrationFailedLine2:
+      'We could not send a confirmation to your email. Please contact us.',
     fewTicketsLeft: 'NOTE! Few tickets left!',
-    soldOutMessage: 'Unfortunately, tickets are sold out but feel free to join the queue and we will contact you if spots become available!',
-    confirmationFailed: 'Something went wrong on our end. Try refreshing the page or contact us for help.',
-    confirmationExpired: 'The confirmation link is invalid or has expired. Please contact us for help.',
+    soldOutMessage:
+      'Unfortunately, tickets are sold out but feel free to join the queue and we will contact you if spots become available!',
+    confirmationFailed:
+      'Something went wrong on our end. Try refreshing the page or contact us for help.',
+    confirmationExpired:
+      'The confirmation link is invalid or has expired. Please contact us for help.',
     lookingForward: 'We look forward to seeing you!',
     purchaseSuccess: 'Thank you for your purchase!',
-    purchaseEmailSent: 'You will now receive an email with tickets and further instructions.',
+    purchaseEmailSent:
+      'You will now receive an email with tickets and further instructions.',
   },
   confirmation: {
     title: 'Thank you!',
@@ -90,7 +98,8 @@ export const en: Translations = {
   },
   invoice: {
     payByInvoice: 'Pay by invoice?',
-    minimumTicketsRequired: 'Invoice payment is possible when purchasing at least {{count}} tickets.',
+    minimumTicketsRequired:
+      'Invoice payment is possible when purchasing at least {{count}} tickets.',
     contactForInvoice: 'Contact us at {{email}} and we will help you!',
   },
   price: {
@@ -98,7 +107,8 @@ export const en: Translations = {
     includingVat: 'Including {{percentage}} % VAT',
   },
   error: {
-    noActiveEvents: 'We don\'t have anything planned at the moment - come back later!',
+    noActiveEvents:
+      "We don't have anything planned at the moment - come back later!",
     oops: 'Oops! Something went wrong.',
     fillRequiredFields: 'Please fill in all required fields',
     somethingWentWrong: 'Something went wrong 😞',

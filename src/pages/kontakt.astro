@@ -19,109 +19,147 @@ const getInitials = (name: string) =>
     .toUpperCase();
 ---
 
-<Layout title={`Kontakta oss - ${siteConfig.site.title}`} description={siteConfig.site.description}>
+<Layout
+  title={`Kontakta oss - ${siteConfig.site.title}`}
+  description={siteConfig.site.description}
+>
   <main class="min-h-screen">
     <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
       <header class="mt-12 mb-12 text-center">
-        <h1 class="text-5xl font-bold mb-6">{contactContent.header}</h1>
+        <h1 class="mb-6 text-5xl font-bold">{contactContent.header}</h1>
       </header>
 
       <section class="mb-16">
         <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          <div class="group block scroll-fade-up bg-[var(--color-bg-card)] border-mono-lighter rounded-2xl border p-8 stagger-1 hover:shadow-lg transition-shadow">
-            <div class="flex items-start gap-4 mb-6">
-              <div class="feature-icon bg-[var(--color-orange)] flex h-14 w-14 items-center justify-center rounded-lg text-white flex-shrink-0">
-                {(() => { const IconComponent = LucideIcons[contactContent.contactGeneral.icon]; return <IconComponent class="h-7 w-7" />; })()}
+          <div
+            class="group scroll-fade-up border-mono-lighter stagger-1 block rounded-2xl border bg-[var(--color-bg-card)] p-8 transition-shadow hover:shadow-lg"
+          >
+            <div class="mb-6 flex items-start gap-4">
+              <div
+                class="feature-icon flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-lg bg-[var(--color-orange)] text-white"
+              >
+                {
+                  (() => {
+                    const IconComponent =
+                      LucideIcons[contactContent.contactGeneral.icon];
+                    return <IconComponent class="h-7 w-7" />;
+                  })()
+                }
               </div>
             </div>
-            <div class="text-lg text-gray-700 leading-relaxed space-y-4 [&>p]:mb-4 [&>em]:italic [&>strong]:font-semibold" set:html={contactGeneralHtml}></div>
+            <div
+              class="space-y-4 text-lg leading-relaxed text-gray-700 [&>em]:italic [&>p]:mb-4 [&>strong]:font-semibold"
+              set:html={contactGeneralHtml}
+            />
           </div>
-          <div class="group block scroll-fade-up bg-[var(--color-bg-card)] border-mono-lighter rounded-2xl border p-8 stagger-2 hover:shadow-lg transition-shadow">
-            <div class="flex items-start gap-4 mb-6">
-              <div class="feature-icon bg-[var(--color-orange)] flex h-14 w-14 items-center justify-center rounded-lg text-white flex-shrink-0">
-                {(() => { const IconComponent = LucideIcons[contactContent.contactStart.icon]; return <IconComponent class="h-7 w-7" />; })()}
+          <div
+            class="group scroll-fade-up border-mono-lighter stagger-2 block rounded-2xl border bg-[var(--color-bg-card)] p-8 transition-shadow hover:shadow-lg"
+          >
+            <div class="mb-6 flex items-start gap-4">
+              <div
+                class="feature-icon flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-lg bg-[var(--color-orange)] text-white"
+              >
+                {
+                  (() => {
+                    const IconComponent =
+                      LucideIcons[contactContent.contactStart.icon];
+                    return <IconComponent class="h-7 w-7" />;
+                  })()
+                }
               </div>
             </div>
-            <div class="text-lg text-gray-700 leading-relaxed space-y-4 [&>p]:mb-4 [&>em]:italic [&>strong]:font-semibold" set:html={contactStartHtml}></div>
+            <div
+              class="space-y-4 text-lg leading-relaxed text-gray-700 [&>em]:italic [&>p]:mb-4 [&>strong]:font-semibold"
+              set:html={contactStartHtml}
+            />
           </div>
         </div>
       </section>
 
       <section class="mb-16">
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {contactContent.people.map((person, index) => (
-            <article class={`group block scroll-fade-up bg-[var(--color-bg-card)] border-mono-lighter rounded-2xl border p-6 stagger-${(index % 9) + 1} hover:shadow-lg transition-shadow`}>
-              <div class="mb-5">
-                <div class="relative aspect-[4/5] overflow-hidden rounded-xl bg-gray-100">
-                  <Image
-                    srcset={getImageSrcSet(person.photo)}
-                    sizes={imageSizes.contactPhoto}
-                    src={person.photo.desktop}
-                    alt={`Foto på ${person.name}`}
-                    width={400}
-                    height={500}
-                    class="h-full w-full object-cover"
-                    loading="lazy"
-                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-                  />
-                  <div class="absolute inset-0 hidden items-center justify-center bg-gray-100 text-3xl font-semibold text-mono-dark">
-                    {getInitials(person.name)}
+          {
+            contactContent.people.map((person, index) => (
+              <article
+                class={`group scroll-fade-up border-mono-lighter block rounded-2xl border bg-[var(--color-bg-card)] p-6 stagger-${(index % 9) + 1} transition-shadow hover:shadow-lg`}
+              >
+                <div class="mb-5">
+                  <div class="relative aspect-[4/5] overflow-hidden rounded-xl bg-gray-100">
+                    <Image
+                      srcset={getImageSrcSet(person.photo)}
+                      sizes={imageSizes.contactPhoto}
+                      src={person.photo.desktop}
+                      alt={`Foto på ${person.name}`}
+                      width={400}
+                      height={500}
+                      class="h-full w-full object-cover"
+                      loading="lazy"
+                      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                    />
+                    <div class="text-mono-dark absolute inset-0 hidden items-center justify-center bg-gray-100 text-3xl font-semibold">
+                      {getInitials(person.name)}
+                    </div>
                   </div>
                 </div>
-              </div>
-              <h3 class="text-xl font-semibold text-mono-black mb-1 card-title">{person.name}</h3>
-              <p class="text-mono-dark mb-4">{person.title}</p>
-              <div class="space-y-2 text-sm">
-                <div>
-                  <p class="text-mono-gray">Telefon</p>
-                  <a
-                    href={`tel:${person.phoneNumber}`}
-                    class="text-mono-dark hover:text-mono-black"
-                  >
-                    {person.phoneDisplay}
-                  </a>
+                <h3 class="text-mono-black card-title mb-1 text-xl font-semibold">
+                  {person.name}
+                </h3>
+                <p class="text-mono-dark mb-4">{person.title}</p>
+                <div class="space-y-2 text-sm">
+                  <div>
+                    <p class="text-mono-gray">Telefon</p>
+                    <a
+                      href={`tel:${person.phoneNumber}`}
+                      class="text-mono-dark hover:text-mono-black"
+                    >
+                      {person.phoneDisplay}
+                    </a>
+                  </div>
+                  <div>
+                    <p class="text-mono-gray">E-post</p>
+                    <a
+                      href={`mailto:${person.email}`}
+                      class="text-mono-dark hover:text-mono-black break-all"
+                    >
+                      {person.email}
+                    </a>
+                  </div>
                 </div>
-                <div>
-                  <p class="text-mono-gray">E-post</p>
-                  <a
-                    href={`mailto:${person.email}`}
-                    class="text-mono-dark hover:text-mono-black break-all"
-                  >
-                    {person.email}
-                  </a>
-                </div>
-              </div>
-            </article>
-          ))}
+              </article>
+            ))
+          }
         </div>
       </section>
-      
+
       <section>
-        <div class="group block scroll-fade-up bg-[var(--color-bg-card)] border-mono-lighter rounded-2xl border p-8 md:p-10 hover:shadow-lg transition-shadow">
-          <h2 class="text-2xl font-semibold mb-6 card-title">Bolagsuppgifter</h2>
+        <div
+          class="group scroll-fade-up border-mono-lighter block rounded-2xl border bg-[var(--color-bg-card)] p-8 transition-shadow hover:shadow-lg md:p-10"
+        >
+          <h2 class="card-title mb-6 text-2xl font-semibold">
+            Bolagsuppgifter
+          </h2>
           <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
             <div>
-              <p class="text-sm uppercase text-mono-gray">Bolag</p>
-              <p class="text-lg font-semibold text-mono-black">
+              <p class="text-mono-gray text-sm uppercase">Bolag</p>
+              <p class="text-mono-black text-lg font-semibold">
                 {contactContent.company.name}
               </p>
             </div>
             <div>
-              <p class="text-sm uppercase text-mono-gray">Org.nr</p>
-              <p class="text-lg font-semibold text-mono-black">
+              <p class="text-mono-gray text-sm uppercase">Org.nr</p>
+              <p class="text-mono-black text-lg font-semibold">
                 {contactContent.company.orgNumber}
               </p>
             </div>
             <div>
-              <p class="text-sm uppercase text-mono-gray">Bankgiro</p>
-              <p class="text-lg font-semibold text-mono-black">
+              <p class="text-mono-gray text-sm uppercase">Bankgiro</p>
+              <p class="text-mono-black text-lg font-semibold">
                 {contactContent.company.bankgiro}
               </p>
             </div>
           </div>
         </div>
       </section>
-
     </div>
   </main>
 </Layout>
