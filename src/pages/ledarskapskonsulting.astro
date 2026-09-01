@@ -35,10 +35,10 @@ const bodyHtml = await marked(service.body);
                 const IconComponent = LucideIcons[item.icon];
                 return (
                   <div
-                    class={`group scroll-fade-up border-mono-lighter block rounded-xl border bg-[var(--color-bg-card)] p-8 stagger-${((groupIndex * 3 + itemIndex) % 9) + 1} transition-shadow hover:shadow-lg`}
+                    class={`group scroll-fade-up border-mono-lighter block rounded-xl border bg-(--color-bg-card) p-8 stagger-${((groupIndex * 3 + itemIndex) % 9) + 1} transition-shadow hover:shadow-lg`}
                   >
                     <div class="mb-3 flex items-center gap-4">
-                      <div class="feature-icon flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-lg bg-[var(--color-orange)] text-white">
+                      <div class="feature-icon flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-orange text-white">
                         <IconComponent class="h-7 w-7" />
                       </div>
                       <h3 class="text-mono-black card-title text-xl font-semibold">

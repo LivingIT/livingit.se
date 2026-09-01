@@ -12,7 +12,7 @@ const serviceUrls: Record<string, string> = {
 
 <section
   id="services"
-  class="relative bg-[var(--color-bg-main-default)] px-4 py-20 sm:px-6 lg:px-8"
+  class="relative bg-bg-main-default px-4 py-20 sm:px-6 lg:px-8"
 >
   <div class="mx-auto max-w-7xl">
     <div class="scroll-fade-up mx-auto mb-16 max-w-3xl text-center">
@@ -31,11 +31,11 @@ const serviceUrls: Record<string, string> = {
           return (
             <a
               href={serviceUrls[service.title]}
-              class={`group block ${index % 2 === 0 ? 'scroll-fade-left' : 'scroll-fade-right'} border-mono-lighter rounded-xl border bg-[var(--color-bg-card)] p-8 stagger-${(index % 9) + 1} flex flex-col transition-shadow hover:shadow-lg`}
+              class={`group block ${index % 2 === 0 ? 'scroll-fade-left' : 'scroll-fade-right'} border-mono-lighter rounded-xl border bg-(--color-bg-card) p-8 stagger-${(index % 9) + 1} flex flex-col transition-shadow hover:shadow-lg`}
             >
               <div>
                 <div class="mb-3 flex items-center gap-4">
-                  <div class="feature-icon flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-lg bg-[var(--color-orange)] text-white">
+                  <div class="feature-icon flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-orange text-white">
                     <IconComponent class="h-7 w-7" />
                   </div>
                   <h3 class="text-mono-black card-title text-xl font-semibold">

@@ -11,7 +11,7 @@ const currentPath =
 
 <header aria-label="Site Navigation">
   <nav
-    class="border-mono-light fixed top-0 z-50 w-full border-b bg-[var(--color-bg-navigation)] backdrop-blur-sm"
+    class="border-mono-light fixed top-0 z-50 w-full border-b bg-(--color-bg-navigation) backdrop-blur-sm"
   >
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center">
@@ -39,7 +39,7 @@ const currentPath =
               return (
                 <a
                   href={link.href}
-                  class={`text-mono-dark hover:text-mono-black flex items-center gap-2 rounded-lg py-2 transition ${isActive ? 'rounded-none border-b-4 border-[var(--color-orange)]' : ''}`}
+                  class={`text-mono-dark hover:text-mono-black flex items-center gap-2 rounded-lg py-2 transition ${isActive ? 'rounded-none border-b-4 border-orange' : ''}`}
                   aria-current={isActive ? 'page' : undefined}
                 >
                   <IconComponent class="h-6 w-6" />
@@ -53,7 +53,7 @@ const currentPath =
         <div class="hidden flex-1 items-center justify-end md:flex">
           <a
             href={siteConfig.navigation.cta.href}
-            class="rounded-lg bg-[var(--color-orange)] px-6 py-2 font-semibold text-white"
+            class="rounded-lg bg-orange px-6 py-2 font-semibold text-white"
           >
             {siteConfig.navigation.cta.text}
           </a>
@@ -66,7 +66,7 @@ const currentPath =
           aria-expanded="false"
           aria-label="Toggle navigation menu"
         >
-          <LucideIcons.Menu class="h-6 w-6 text-[var(--color-orange)]" />
+          <LucideIcons.Menu class="h-6 w-6 text-orange" />
         </button>
       </div>
 
@@ -80,7 +80,7 @@ const currentPath =
               return (
                 <a
                   href={link.href}
-                  class={`text-mono-dark flex items-center gap-3 py-2 font-semibold ${isActive ? 'border-b-4 border-[var(--color-orange)]' : ''}`}
+                  class={`text-mono-dark flex items-center gap-3 py-2 font-semibold ${isActive ? 'border-b-4 border-orange' : ''}`}
                   aria-current={isActive ? 'page' : undefined}
                 >
                   <IconComponent class="h-5 w-5" />
@@ -91,7 +91,7 @@ const currentPath =
           }
           <a
             href={siteConfig.navigation.cta.href}
-            class="rounded-lg bg-[var(--color-orange)] px-6 py-3 text-center font-semibold text-white"
+            class="rounded-lg bg-orange px-6 py-3 text-center font-semibold text-white"
           >
             {siteConfig.navigation.cta.text}
           </a>

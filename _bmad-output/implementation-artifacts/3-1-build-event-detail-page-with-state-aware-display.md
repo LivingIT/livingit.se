@@ -376,7 +376,7 @@ interface Props {
 ### Tailwind CSS 4 Token Rules
 
 - No `tailwind.config.js` — tokens in `src/styles/globals.css` via `@theme`
-- Use design tokens: `text-mono-black`, `text-mono-dark`, `text-mono-gray`, `bg-[var(--color-bg-card)]`
+- Use design tokens: `text-mono-black`, `text-mono-dark`, `text-mono-gray`, `bg-(--color-bg-card)`
 - Never hardcoded hex values
 
 Note: the living.se Tailwind design system differs from the events.livingit.se CSS variables. Use the Tailwind tokens from the existing site, not the `--dark-bg-color` etc. variables from the SvelteKit site.

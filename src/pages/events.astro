@@ -70,7 +70,7 @@ const eventsWithHtml = await Promise.all(
     {
       (fetchFailed ||
         (upcomingEvents !== null && upcomingEvents.length > 0)) && (
-        <section class="bg-[var(--color-bg-main-section)] px-4 py-16 sm:px-6 lg:px-8">
+        <section class="bg-bg-main-section px-4 py-16 sm:px-6 lg:px-8">
           <div class="mx-auto max-w-7xl">
             {fetchFailed ? (
               <p class="text-mono-dark">{t.error.somethingWentWrong}</p>
@@ -108,7 +108,7 @@ const eventsWithHtml = await Promise.all(
                 LucideIcons[event.icon] ?? LucideIcons.HelpCircle;
               return (
                 <article
-                  class={`scroll-fade-up w-full overflow-hidden rounded-2xl bg-[var(--color-bg-card)] shadow-sm stagger-${(index % 9) + 1} transition-shadow hover:shadow-lg`}
+                  class={`scroll-fade-up w-full overflow-hidden rounded-2xl bg-(--color-bg-card) shadow-sm stagger-${(index % 9) + 1} transition-shadow hover:shadow-lg`}
                   key={event.title}
                 >
                   <div class="grid grid-cols-1 gap-0 md:grid-cols-3">
@@ -118,7 +118,7 @@ const eventsWithHtml = await Promise.all(
                       }`}
                     >
                       <div class="mb-4 flex items-center gap-4">
-                        <div class="feature-icon flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-lg bg-[var(--color-orange)] text-white">
+                        <div class="feature-icon flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-orange text-white">
                           <IconComponent class="h-7 w-7" />
                         </div>
                         <h2 class="card-title text-3xl font-semibold">

@@ -32,11 +32,11 @@ const getInitials = (name: string) =>
       <section class="mb-16">
         <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
           <div
-            class="group scroll-fade-up border-mono-lighter stagger-1 block rounded-2xl border bg-[var(--color-bg-card)] p-8 transition-shadow hover:shadow-lg"
+            class="group scroll-fade-up border-mono-lighter stagger-1 block rounded-2xl border bg-(--color-bg-card) p-8 transition-shadow hover:shadow-lg"
           >
             <div class="mb-6 flex items-start gap-4">
               <div
-                class="feature-icon flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-lg bg-[var(--color-orange)] text-white"
+                class="feature-icon flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-orange text-white"
               >
                 {
                   (() => {
@@ -53,11 +53,11 @@ const getInitials = (name: string) =>
             />
           </div>
           <div
-            class="group scroll-fade-up border-mono-lighter stagger-2 block rounded-2xl border bg-[var(--color-bg-card)] p-8 transition-shadow hover:shadow-lg"
+            class="group scroll-fade-up border-mono-lighter stagger-2 block rounded-2xl border bg-(--color-bg-card) p-8 transition-shadow hover:shadow-lg"
           >
             <div class="mb-6 flex items-start gap-4">
               <div
-                class="feature-icon flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-lg bg-[var(--color-orange)] text-white"
+                class="feature-icon flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-orange text-white"
               >
                 {
                   (() => {
@@ -81,10 +81,10 @@ const getInitials = (name: string) =>
           {
             contactContent.people.map((person, index) => (
               <article
-                class={`group scroll-fade-up border-mono-lighter block rounded-2xl border bg-[var(--color-bg-card)] p-6 stagger-${(index % 9) + 1} transition-shadow hover:shadow-lg`}
+                class={`group scroll-fade-up border-mono-lighter block rounded-2xl border bg-(--color-bg-card) p-6 stagger-${(index % 9) + 1} transition-shadow hover:shadow-lg`}
               >
                 <div class="mb-5">
-                  <div class="relative aspect-[4/5] overflow-hidden rounded-xl bg-gray-100">
+                  <div class="relative aspect-4/5 overflow-hidden rounded-xl bg-gray-100">
                     <Image
                       srcset={getImageSrcSet(person.photo)}
                       sizes={imageSizes.contactPhoto}
@@ -133,7 +133,7 @@ const getInitials = (name: string) =>
 
       <section>
         <div
-          class="group scroll-fade-up border-mono-lighter block rounded-2xl border bg-[var(--color-bg-card)] p-8 transition-shadow hover:shadow-lg md:p-10"
+          class="group scroll-fade-up border-mono-lighter block rounded-2xl border bg-(--color-bg-card) p-8 transition-shadow hover:shadow-lg md:p-10"
         >
           <h2 class="card-title mb-6 text-2xl font-semibold">
             Bolagsuppgifter

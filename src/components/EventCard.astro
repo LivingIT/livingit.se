@@ -41,7 +41,7 @@ const iconType =
 ---
 
 <article
-  class="group border-mono-lighter relative overflow-hidden rounded-xl border bg-[var(--color-bg-card)] transition-shadow hover:shadow-lg"
+  class="group border-mono-lighter relative overflow-hidden rounded-xl border bg-(--color-bg-card) transition-shadow hover:shadow-lg"
 >
   {
     href && (
@@ -51,7 +51,7 @@ const iconType =
   <div class="px-8 pt-8 pb-4">
     <div class="mb-4 flex items-center gap-4">
       <div
-        class="feature-icon flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-lg bg-[var(--color-orange)] text-white"
+        class="feature-icon flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-orange text-white"
       >
         {iconType === 'film' && <Film class="h-7 w-7" />}
         {iconType === 'mic' && <MicVocal class="h-7 w-7" />}
@@ -73,7 +73,7 @@ const iconType =
         stroke-linecap="round"
         stroke-linejoin="round"
         aria-hidden="true"
-        class="flex-shrink-0"
+        class="shrink-0"
       >
         <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
         <line x1="16" x2="16" y1="2" y2="6"></line>
@@ -94,13 +94,13 @@ const iconType =
         stroke-linecap="round"
         stroke-linejoin="round"
         aria-hidden="true"
-        class="flex-shrink-0"
+        class="shrink-0"
       >
         <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
         <circle cx="12" cy="10" r="3"></circle>
       </svg>
       <span
-        class="inline-block flex-shrink-0 rounded-full bg-[var(--color-orange)] px-2.5 py-0.5 text-xs font-bold text-white"
+        class="inline-block shrink-0 rounded-full bg-orange px-2.5 py-0.5 text-xs font-bold text-white"
         >{event.city}</span
       >
       <span>{event.location}</span>
