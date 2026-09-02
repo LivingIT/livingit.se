@@ -216,7 +216,7 @@ Add to `src/styles/globals.css`:
 
 Then use in templates:
 ```html
-<div class="bg-[var(--color-my-color)]">
+<div class="bg-(--color-my-color)">
 ```
 
 ### Scroll Animations

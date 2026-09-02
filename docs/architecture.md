@@ -16,19 +16,19 @@ The site is content-light (marketing copy only, no CMS, no database) and archite
 
 ## Technology Stack
 
-| Category | Technology | Version | Notes |
-|---|---|---|---|
-| Framework | Astro | ^6.0.4 | SSG mode, `.astro` components |
-| Styling | Tailwind CSS | ^4.1.16 | CSS-first config via `@theme` in globals.css |
-| Styling pipeline | PostCSS + @tailwindcss/postcss | ^4.1.16 | No tailwind.config.js needed |
-| Language | TypeScript | strict (via Astro preset) | All source files |
-| Icons | lucide-astro | ^0.556.0 | Inline SVG Lucide icons |
-| Icons | astro-icon + @iconify-json/simple-icons | ^1.1.5 / ^1.2.69 | Social media icons |
-| Markdown | marked | ^15.0.4 | Converts content body strings to HTML |
-| Fonts | Atak (WOFF, self-hosted) | — | Primary brand font |
-| Fonts | Geist (Google Fonts) | — | Fallback / supplemental |
-| Formatter | Prettier | ^3.6.2 | With astro + tailwindcss plugins |
-| Node types | @types/node | ^25.2.0 | For build scripts |
+| Category         | Technology                              | Version                   | Notes                                        |
+| ---------------- | --------------------------------------- | ------------------------- | -------------------------------------------- |
+| Framework        | Astro                                   | ^6.0.4                    | SSG mode, `.astro` components                |
+| Styling          | Tailwind CSS                            | ^4.1.16                   | CSS-first config via `@theme` in globals.css |
+| Styling pipeline | PostCSS + @tailwindcss/postcss          | ^4.1.16                   | No tailwind.config.js needed                 |
+| Language         | TypeScript                              | strict (via Astro preset) | All source files                             |
+| Icons            | lucide-astro                            | ^0.556.0                  | Inline SVG Lucide icons                      |
+| Icons            | astro-icon + @iconify-json/simple-icons | ^1.1.5 / ^1.2.69          | Social media icons                           |
+| Markdown         | marked                                  | ^15.0.4                   | Converts content body strings to HTML        |
+| Fonts            | Atak (WOFF, self-hosted)                | —                         | Primary brand font                           |
+| Fonts            | Geist (Google Fonts)                    | —                         | Fallback / supplemental                      |
+| Formatter        | Prettier                                | ^3.6.2                    | With astro + tailwindcss plugins             |
+| Node types       | @types/node                             | ^25.2.0                   | For build scripts                            |
 
 ---
 
@@ -105,15 +105,15 @@ livingit.se/
 
 ## Page Routing
 
-| URL | File | Description |
-|---|---|---|
-| `/` | `src/pages/index.astro` | Home: Hero + HeroCarousel + Services |
-| `/mjukvarukonsulting` | `src/pages/mjukvarukonsulting.astro` | Software consulting + 9 specialization cards |
-| `/ledarskapskonsulting` | `src/pages/ledarskapskonsulting.astro` | Leadership consulting + 3×3 specialization groups |
-| `/events` | `src/pages/events.astro` | Events overview + 4 event cards with image carousels |
-| `/kontakt` | `src/pages/kontakt.astro` | Contact page: 2 info cards, 8 team members, company data |
-| `/cookies-policy` | `src/pages/cookies-policy.astro` | GDPR cookie policy (standalone layout, no Layout.astro) |
-| `/bli-konsult` | _(redirect)_ | 301 → `/kontakt` (configured in astro.config.ts) |
+| URL                     | File                                   | Description                                              |
+| ----------------------- | -------------------------------------- | -------------------------------------------------------- |
+| `/`                     | `src/pages/index.astro`                | Home: Hero + HeroCarousel + Services                     |
+| `/mjukvarukonsulting`   | `src/pages/mjukvarukonsulting.astro`   | Software consulting + 9 specialization cards             |
+| `/ledarskapskonsulting` | `src/pages/ledarskapskonsulting.astro` | Leadership consulting + 3×3 specialization groups        |
+| `/events`               | `src/pages/events.astro`               | Events overview + 4 event cards with image carousels     |
+| `/kontakt`              | `src/pages/kontakt.astro`              | Contact page: 2 info cards, 8 team members, company data |
+| `/cookies-policy`       | `src/pages/cookies-policy.astro`       | GDPR cookie policy (standalone layout, no Layout.astro)  |
+| `/bli-konsult`          | _(redirect)_                           | 301 → `/kontakt` (configured in astro.config.ts)         |
 
 ---
 
@@ -122,6 +122,7 @@ livingit.se/
 All components are Astro components (`.astro`). There is no React, Vue, or other JS framework. Components use Astro's frontmatter (`---`) for logic and templating.
 
 ### Layout.astro — Global Shell
+
 - Wraps all pages (except `cookies-policy.astro`, which has its own layout)
 - Renders `<head>` with: title, description, keywords, Open Graph tags, Twitter Card tags
 - Loads Atak + Geist fonts
@@ -130,6 +131,7 @@ All components are Astro components (`.astro`). There is no React, Vue, or other
 - Adds `noindex, nofollow` for `devingit.se` hostname (dev environment detection)
 
 ### Navigation.astro
+
 - Fixed top nav bar with backdrop blur
 - Desktop: logo left, nav links center (with active state indicator), CTA button right
 - Mobile: hamburger button → slide-down menu with same links + CTA
@@ -138,6 +140,7 @@ All components are Astro components (`.astro`). There is no React, Vue, or other
 - Uses `lucide-astro` for nav link icons
 
 ### Footer.astro
+
 - 4-column grid: 3 office addresses (Malmö, Göteborg, Helsingborg) + brand column
 - Brand column: logo, legal info (company name, VAT, copyright year)
 - Social links: LinkedIn, Facebook, X, Instagram + Cookies policy link
@@ -145,11 +148,13 @@ All components are Astro components (`.astro`). There is no React, Vue, or other
 - All data from `siteConfig.footer`
 
 ### Hero.astro
+
 - Full-width section with gradient background
 - Displays `siteConfig.hero.headline` and `siteConfig.hero.subheadline`
 - Uses `scroll-fade-up` animation class
 
 ### HeroCarousel.astro
+
 - Two-column layout: image carousel (left) + "The Living IT Way" markdown text (right)
 - Carousel: 10 images, auto-advances every 4500ms via `setInterval`
 - Images use responsive `srcset` (mobile/tablet/desktop variants)
@@ -157,6 +162,7 @@ All components are Astro components (`.astro`). There is no React, Vue, or other
 - Carousel JS: minimal vanilla JS, no library
 
 ### Services.astro
+
 - 3-column card grid on home page
 - Each card: icon, title, description, hover arrow
 - Cards link to respective service pages
@@ -164,6 +170,7 @@ All components are Astro components (`.astro`). There is no React, Vue, or other
 - Alternating scroll-fade-left / scroll-fade-right animations
 
 ### CookieBanner.astro
+
 - **Currently disabled** (HTML commented out, `{/* ... */}`)
 - Only CSS and disabled script remain active
 - Cookie policy accessible via footer link to `/cookies-policy`
@@ -175,14 +182,14 @@ All components are Astro components (`.astro`). There is no React, Vue, or other
 
 All content is **data-as-code** in `src/content/` TypeScript files. To update site content, edit these files directly:
 
-| File | What it controls |
-|---|---|
-| `src/config.ts` | Site metadata (name, title, description, URL, email), navigation links & CTA, hero text, carousel images & "Living IT Way" markdown, footer offices & social links, cookie policy text |
-| `src/content/services.ts` | 3 top-level service definitions (title, description, body) shown on home and detail pages |
-| `src/content/consulting-sw.ts` | 9 software consulting specialization cards on `/mjukvarukonsulting` |
-| `src/content/consulting-im.ts` | 9 leadership consulting specializations organized in 3 groups (Interim Management, Projektledning, Förändringsledning) on `/ledarskapskonsulting` |
-| `src/content/events.ts` | 4 event types with body copy and image arrays on `/events` |
-| `src/content/contact.ts` | 8 team contacts (name, title, phone, email, photo) + 2 contact blurbs + company registration data |
+| File                           | What it controls                                                                                                                                                                       |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/config.ts`                | Site metadata (name, title, description, URL, email), navigation links & CTA, hero text, carousel images & "Living IT Way" markdown, footer offices & social links, cookie policy text |
+| `src/content/services.ts`      | 3 top-level service definitions (title, description, body) shown on home and detail pages                                                                                              |
+| `src/content/consulting-sw.ts` | 9 software consulting specialization cards on `/mjukvarukonsulting`                                                                                                                    |
+| `src/content/consulting-im.ts` | 9 leadership consulting specializations organized in 3 groups (Interim Management, Projektledning, Förändringsledning) on `/ledarskapskonsulting`                                      |
+| `src/content/events.ts`        | 4 event types with body copy and image arrays on `/events`                                                                                                                             |
+| `src/content/contact.ts`       | 8 team contacts (name, title, phone, email, photo) + 2 contact blurbs + company registration data                                                                                      |
 
 ---
 
@@ -192,13 +199,13 @@ A custom utility in `src/config.ts` provides responsive image support:
 
 ```typescript
 // Generates three image paths from a single base path
-getResponsiveImage('carousel/01.jpg')
+getResponsiveImage('carousel/01.jpg');
 // → { mobile: '/images/mobile/carousel/01.jpg',
 //     tablet: '/images/tablet/carousel/01.jpg',
 //     desktop: '/images/desktop/carousel/01.jpg' }
 
 // Generates HTML srcset string
-getImageSrcSet(image)
+getImageSrcSet(image);
 // → "...mobile 640w, ...tablet 1024w, ...desktop 1920w"
 ```
 
@@ -212,12 +219,12 @@ Predefined `sizes` configs in `imageSizes`: `contactPhoto`, `eventImage`, `carou
 
 CSS-based scroll-triggered animations powered by `IntersectionObserver` (in `Layout.astro`):
 
-| Class | Effect |
-|---|---|
-| `.scroll-fade-up` | Fades in, moves up from below |
-| `.scroll-fade-down` | Fades in, moves down from above |
-| `.scroll-fade-left` | Fades in, slides in from right |
-| `.scroll-fade-right` | Fades in, slides in from left |
+| Class                | Effect                          |
+| -------------------- | ------------------------------- |
+| `.scroll-fade-up`    | Fades in, moves up from below   |
+| `.scroll-fade-down`  | Fades in, moves down from above |
+| `.scroll-fade-left`  | Fades in, slides in from right  |
+| `.scroll-fade-right` | Fades in, slides in from left   |
 
 Stagger delay classes `.stagger-1` through `.stagger-9` (100ms–900ms) add sequential animation to card grids.
 

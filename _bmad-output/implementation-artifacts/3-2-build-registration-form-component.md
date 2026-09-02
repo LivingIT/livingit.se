@@ -11,6 +11,7 @@ So that I can register for an upcoming event exactly as on events.livingit.se.
 ## Acceptance Criteria
 
 ### Two-Step Free Event Flow
+
 1. **Given** I am on an active event detail page, **When** the page loads, **Then** the registration column shows a referral code input with a "Validate code" button.
 2. **Given** I enter a valid referral code and submit, **When** `/api/validate-ticket` returns `{ maxSeatCount }`, **Then** the full registration form appears with the code pre-filled (read-only) and seat controls calibrated to `maxSeatCount`.
 3. **Given** I enter an invalid referral code, **When** validation fails, **Then** an inline error is shown and the registration form remains hidden.
@@ -18,11 +19,13 @@ So that I can register for an upcoming event exactly as on events.livingit.se.
 5. **Given** `?ticketid=XXX` (or `?ticketId=XXX`) is present in the URL, **When** the page loads, **Then** the referral code field is pre-filled with the value and auto-validated on mount. Both `ticketid` and `ticketId` casing are accepted server-side.
 
 ### Paid Event Flow (`event.price.ticketPrice > 0`)
+
 6. **Given** I am on a paid event detail page, **When** the form loads, **Then** two buttons are shown: `t.form.buyTicket` (primary/orange, stands out) and `t.form.haveCode` (secondary/neutral).
 7. **Given** I click `t.form.buyTicket`, **When** the purchase form appears, **Then** it contains: email field, seat count with +/- controls, optional `termsAccepted` checkbox (if `event.termsUrl || event.privacyUrl`), and an invoice `<details>` element.
 8. **Given** I submit the purchase form, **When** `/api/purchase` returns `{ checkoutUrl }`, **Then** `window.location.href` is set to `checkoutUrl` (Stripe redirect).
 
 ### Registration Form Fields
+
 9. **Given** the code is validated, **When** I view the registration form, **Then** it contains:
    - `referralCode` (readonly, pre-filled — NOT an editable field)
    - `firstName` (required) — NOT a single "name" field
@@ -45,6 +48,7 @@ So that I can register for an upcoming event exactly as on events.livingit.se.
 14. **Given** registration fails, **When** the API returns an error, **Then** an error message is shown above the form (form remains visible and submittable).
 
 ### General
+
 15. **And** all strings use the passed `translations` prop — zero hardcoded Swedish or English text.
 16. **And** all labels are programmatically associated with inputs via matching `id`/`for` attributes (WCAG 2.1 AA).
 17. **And** the form is operable via keyboard (Tab, Enter, Space).
@@ -88,11 +92,12 @@ interface Props {
   event: ApiEvent;
   lang: SupportedLanguage;
   translations: Translations;
-  ticketId?: string;   // from ?ticketid=XXX URL param — passed from [slug].astro
+  ticketId?: string; // from ?ticketid=XXX URL param — passed from [slug].astro
 }
 ```
 
 Usage in `[slug].astro`:
+
 ```astro
 ---
 import RegistrationForm from '../../components/RegistrationForm.astro';
@@ -102,16 +107,20 @@ const ticketId = Astro.url.searchParams.get('ticketid') ?? undefined;
 
 <!-- Replace reservation div contents: -->
 <div class="reservation">
-  {showRegistrationPlaceholder ? (
-    <RegistrationForm
-      event={event}
-      lang={event.language}
-      translations={t}
-      ticketId={ticketId}
-    />
-  ) : (
-    <a href="/events" class="back-link">{t.nav.backToEvents}</a>
-  )}
+  {
+    showRegistrationPlaceholder ? (
+      <RegistrationForm
+        event={event}
+        lang={event.language}
+        translations={t}
+        ticketId={ticketId}
+      />
+    ) : (
+      <a href="/events" class="back-link">
+        {t.nav.backToEvents}
+      </a>
+    )
+  }
 </div>
 ```
 
@@ -136,11 +145,11 @@ Since Astro components are server-rendered, pass event data to the inline `<scri
 
 ### API Routes Used by This Component
 
-| Client call | Astro route | Backend API |
-|---|---|---|
-| `POST /api/validate-ticket` | `src/pages/api/validate-ticket.ts` (**create this story**) | `GET /api/events/public/{eventId}/{referralCode}` |
-| `POST /api/register` | `src/pages/api/register.ts` (Story 3.3) | `POST /api/events/public/{eventId}/{referralCode}` |
-| `POST /api/purchase` | `src/pages/api/purchase.ts` (Story 3.3 — **expand scope**) | `POST /api/events/public/{eventId}/orders` |
+| Client call                 | Astro route                                                | Backend API                                        |
+| --------------------------- | ---------------------------------------------------------- | -------------------------------------------------- |
+| `POST /api/validate-ticket` | `src/pages/api/validate-ticket.ts` (**create this story**) | `GET /api/events/public/{eventId}/{referralCode}`  |
+| `POST /api/register`        | `src/pages/api/register.ts` (Story 3.3)                    | `POST /api/events/public/{eventId}/{referralCode}` |
+| `POST /api/purchase`        | `src/pages/api/purchase.ts` (Story 3.3 — **expand scope**) | `POST /api/events/public/{eventId}/orders`         |
 
 **Story 3.3 must be expanded** to include `/api/purchase` in addition to `/api/register`.
 
@@ -151,14 +160,17 @@ import type { APIRoute } from 'astro';
 import { apiFetch } from '../../lib/api';
 
 export const POST: APIRoute = async ({ request }) => {
-  const { eventId, referralCode } = await request.json() as { eventId: string; referralCode: string };
+  const { eventId, referralCode } = (await request.json()) as {
+    eventId: string;
+    referralCode: string;
+  };
 
   const response = await apiFetch(
-    `/api/events/public/${encodeURIComponent(eventId)}/${encodeURIComponent(referralCode)}`
+    `/api/events/public/${encodeURIComponent(eventId)}/${encodeURIComponent(referralCode)}`,
   );
 
   if (response.ok) {
-    const data = await response.json() as { maxSeatCount: number };
+    const data = (await response.json()) as { maxSeatCount: number };
     return new Response(JSON.stringify({ maxSeatCount: data.maxSeatCount }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
@@ -192,6 +204,7 @@ The form JS sends this JSON body to the Astro BFF route:
 ```
 
 Story 3.3 (`/api/register`) transforms and proxies to the backend:
+
 - Backend URL: `POST /api/events/public/{eventId}/{referralCode}`
 - `foodChoice` nesting: `{ optionId: foodChoiceOptionId, allergies: foodChoiceAllergies }`
 - `termsAccepted` → `hasAcceptedAllTerms`
@@ -226,7 +239,9 @@ let maxSeatCount = 0;
 let isSubmitting = false;
 
 function showSection(name) {
-  wrapper.querySelectorAll('[data-state]').forEach(el => { el.hidden = true; });
+  wrapper.querySelectorAll('[data-state]').forEach((el) => {
+    el.hidden = true;
+  });
   const target = wrapper.querySelector(`[data-state="${name}"]`);
   if (target) target.hidden = false;
 }
@@ -276,10 +291,10 @@ async function validateCode() {
 
 The seat count control depends on `maxSeatCount` returned from validation. Render all three variants and show the correct one in JS:
 
-| `maxSeatCount` | Show |
-|---|---|
-| `=== 1` | hidden input + static "1" text |
-| `2–6` | `<select>` with options 1..maxSeatCount |
+| `maxSeatCount`      | Show                                                              |
+| ------------------- | ----------------------------------------------------------------- |
+| `=== 1`             | hidden input + static "1" text                                    |
+| `2–6`               | `<select>` with options 1..maxSeatCount                           |
 | `>= 7` (or default) | `<button>-</button>` `<input type="number">` `<button>+</button>` |
 
 Function `updateSeatCountUI(max)` runs after validation to show the right variant and set min/max bounds.
@@ -310,13 +325,19 @@ The success section must contain all four message variants in HTML, all hidden i
 ```
 
 JS after success:
+
 ```javascript
 function showSuccess(nextStep, isSoldOut) {
-  const variant = isSoldOut ? 'queue'
-    : nextStep === 'NeedToConfirmEmailAddress' ? 'need-to-confirm'
-    : nextStep === 'ExpectConfirmationEmail' ? 'expect-confirmation'
-    : 'failed-email';
-  wrapper.querySelectorAll('[data-success-variant]').forEach(el => { el.hidden = true; });
+  const variant = isSoldOut
+    ? 'queue'
+    : nextStep === 'NeedToConfirmEmailAddress'
+      ? 'need-to-confirm'
+      : nextStep === 'ExpectConfirmationEmail'
+        ? 'expect-confirmation'
+        : 'failed-email';
+  wrapper.querySelectorAll('[data-success-variant]').forEach((el) => {
+    el.hidden = true;
+  });
   wrapper.querySelector(`[data-success-variant="${variant}"]`).hidden = false;
   showSection('success');
 }
@@ -332,7 +353,9 @@ let termsHtml = '';
 if (event.termsUrl && event.privacyUrl) {
   const termsLink = `<a href="${event.termsUrl}" target="_blank" rel="noopener noreferrer">${t.terms.termsLink}</a>`;
   const privacyLink = `<a href="${event.privacyUrl}" target="_blank" rel="noopener noreferrer">${t.terms.privacyLink}</a>`;
-  termsHtml = t.terms.acceptBoth.replace('{{terms}}', termsLink).replace('{{privacy}}', privacyLink);
+  termsHtml = t.terms.acceptBoth
+    .replace('{{terms}}', termsLink)
+    .replace('{{privacy}}', privacyLink);
 } else if (event.termsUrl) {
   const link = `<a href="${event.termsUrl}" target="_blank" rel="noopener noreferrer">${t.terms.termsLink}</a>`;
   termsHtml = t.terms.acceptTerms.replace('{{terms}}', link);
@@ -349,13 +372,23 @@ Same pattern applies to `t.price.includingVat` (already handled in `[slug].astro
 ### Cloudflare Turnstile
 
 Include in the component or in `Layout.astro` if not already there:
+
 ```html
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script
+  src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+  async
+  defer
+></script>
 ```
 
 Place the widget div inside the registration form (before the submit button):
+
 ```html
-<div class="cf-turnstile" data-sitekey="0x4AAAAAAAxEPDEDZFCyjeIx" data-theme="light"></div>
+<div
+  class="cf-turnstile"
+  data-sitekey="0x4AAAAAAAxEPDEDZFCyjeIx"
+  data-theme="light"
+></div>
 ```
 
 The Turnstile script auto-inserts a hidden `cf-turnstile-response` field into the form.
@@ -401,35 +434,35 @@ export interface ApiRegistrationRequest {
 
 ### i18n Keys (All Already Exist — Do NOT Add New Keys)
 
-| Key | Usage |
-|---|---|
-| `t.form.labelReferralCode` | Referral code label |
-| `t.form.labelFirstName` / `t.form.labelLastName` | Name labels |
-| `t.form.labelEmail` / `t.form.labelBuyerEmail` | Email labels |
-| `t.form.labelEmployer` → **use `t.form.labelEmployer` for display but field name is `company`** | Company label |
-| `t.form.labelFoodPreference` / `t.form.labelAllergies` | Food labels |
-| `t.form.labelChooseOption` | Food dropdown placeholder |
-| `t.form.labelTicketCount` | Seat count label |
-| `t.form.submitButton` | Register button text |
-| `t.form.joinQueue` | Submit button when `isSoldOut` |
-| `t.form.validateCode` | Validate button text |
-| `t.form.validating` | Validating state text |
-| `t.form.buyTicket` | Buy ticket button |
-| `t.form.haveCode` | "I have a code" button |
-| `t.form.goToPayment` | Purchase form submit |
-| `t.common.cancel` | Cancel/back buttons |
-| `t.common.pleaseWait` | Loading state text |
-| `t.validation.referralCodeRequired` | Empty referral code error |
-| `t.validation.referralCodeBad` | Invalid referral code error |
-| `t.validation.termsRequired` | Terms not accepted error |
-| `t.messages.fewTicketsLeft` | Almost sold out warning |
-| `t.messages.soldOutMessage` | Sold out info text |
-| `t.invoice.payByInvoice` | Invoice details summary |
-| `t.invoice.minimumTicketsRequired` | Invoice min tickets note (use `{{count}}` placeholder → `.replace('{{count}}', ...)`) |
-| `t.invoice.contactForInvoice` | Invoice contact note (use `{{email}}` placeholder) |
-| `t.terms.acceptBoth` / `t.terms.acceptTerms` / `t.terms.acceptPrivacy` | Terms checkbox text |
-| `t.terms.termsLink` / `t.terms.privacyLink` | Link anchor texts |
-| All `t.messages.*Success*` / `*Confirmation*` / `*Failed*` | Success state messages |
+| Key                                                                                             | Usage                                                                                 |
+| ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `t.form.labelReferralCode`                                                                      | Referral code label                                                                   |
+| `t.form.labelFirstName` / `t.form.labelLastName`                                                | Name labels                                                                           |
+| `t.form.labelEmail` / `t.form.labelBuyerEmail`                                                  | Email labels                                                                          |
+| `t.form.labelEmployer` → **use `t.form.labelEmployer` for display but field name is `company`** | Company label                                                                         |
+| `t.form.labelFoodPreference` / `t.form.labelAllergies`                                          | Food labels                                                                           |
+| `t.form.labelChooseOption`                                                                      | Food dropdown placeholder                                                             |
+| `t.form.labelTicketCount`                                                                       | Seat count label                                                                      |
+| `t.form.submitButton`                                                                           | Register button text                                                                  |
+| `t.form.joinQueue`                                                                              | Submit button when `isSoldOut`                                                        |
+| `t.form.validateCode`                                                                           | Validate button text                                                                  |
+| `t.form.validating`                                                                             | Validating state text                                                                 |
+| `t.form.buyTicket`                                                                              | Buy ticket button                                                                     |
+| `t.form.haveCode`                                                                               | "I have a code" button                                                                |
+| `t.form.goToPayment`                                                                            | Purchase form submit                                                                  |
+| `t.common.cancel`                                                                               | Cancel/back buttons                                                                   |
+| `t.common.pleaseWait`                                                                           | Loading state text                                                                    |
+| `t.validation.referralCodeRequired`                                                             | Empty referral code error                                                             |
+| `t.validation.referralCodeBad`                                                                  | Invalid referral code error                                                           |
+| `t.validation.termsRequired`                                                                    | Terms not accepted error                                                              |
+| `t.messages.fewTicketsLeft`                                                                     | Almost sold out warning                                                               |
+| `t.messages.soldOutMessage`                                                                     | Sold out info text                                                                    |
+| `t.invoice.payByInvoice`                                                                        | Invoice details summary                                                               |
+| `t.invoice.minimumTicketsRequired`                                                              | Invoice min tickets note (use `{{count}}` placeholder → `.replace('{{count}}', ...)`) |
+| `t.invoice.contactForInvoice`                                                                   | Invoice contact note (use `{{email}}` placeholder)                                    |
+| `t.terms.acceptBoth` / `t.terms.acceptTerms` / `t.terms.acceptPrivacy`                          | Terms checkbox text                                                                   |
+| `t.terms.termsLink` / `t.terms.privacyLink`                                                     | Link anchor texts                                                                     |
+| All `t.messages.*Success*` / `*Confirmation*` / `*Failed*`                                      | Success state messages                                                                |
 
 **Note:** `t.form.labelEmployer` is the i18n label but the actual HTML `name` attribute must be `company` (to match backend field). See `EventForms.svelte` line 449: `id="company" name="company"` with label `$t('form.company')`. In the Astro i18n, the matching key is `t.form.labelEmployer`.
 

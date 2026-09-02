@@ -18,10 +18,10 @@ export interface ResponsiveImage {
 /**
  * Creates a responsive image object from a base path
  * Automatically generates paths for mobile, tablet, and desktop versions
- * 
+ *
  * @param baseImagePath - The path without device prefix, e.g., "events/beautyincode.jpg" or "contact/emil-sigvant.jpg"
  * @returns ResponsiveImage object with mobile, tablet, and desktop paths
- * 
+ *
  * @example
  * const image = getResponsiveImage("events/beautyincode.jpg");
  * // Returns:
@@ -44,16 +44,23 @@ export function getResponsiveImage(baseImagePath: string): ResponsiveImage {
 
 /**
  * Generates a srcset string from a ResponsiveImage object
- * 
+ *
  * @param image - ResponsiveImage object with mobile, tablet, and desktop paths
  * @returns srcset string for use in img elements
- * 
+ *
  * @example
  * const srcset = getImageSrcSet(getResponsiveImage("events/beautyincode.jpg"));
  * // Returns: "/images/mobile/events/beautyincode.jpg 640w, /images/tablet/events/beautyincode.jpg 1024w, /images/desktop/events/beautyincode.jpg 1920w"
  */
 export function getImageSrcSet(image: ResponsiveImage): string {
-  return image.mobile + ' 640w, ' + image.tablet + ' 1024w, ' + image.desktop + ' 1920w';
+  return (
+    image.mobile +
+    ' 640w, ' +
+    image.tablet +
+    ' 1024w, ' +
+    image.desktop +
+    ' 1920w'
+  );
 }
 
 /**
@@ -77,10 +84,11 @@ export const siteConfig = {
   site: {
     name: 'Living IT',
     title: 'Living IT',
-    description: 'Vi är ett konsultföretag med kontor i Malmö, Helsingborg och Göteborg som värnar livet utanför jobbet – men alltid strävar efter att överträffa våra kunders förväntningar.',
+    description:
+      'Vi är ett konsultföretag med kontor i Malmö, Helsingborg och Göteborg som värnar livet utanför jobbet – men alltid strävar efter att överträffa våra kunders förväntningar.',
     keywords: 'konsult, management, IT, Malmö, Helsingborg, Göteborg',
     email: 'info@livingit.se',
-    url: 'https://livingit.se'
+    url: 'https://livingit.se',
   },
 
   // ============================================
@@ -167,7 +175,7 @@ Här sticker vi ut från mängden, och det är vi stolta över.
 
 Det är så vi arbetar.<br />
 Tryggt, öppet och mänskligt.<br />
-Det är **The Living IT Way**.`
+Det är **The Living IT Way**.`,
   },
 
   // ============================================
@@ -179,10 +187,6 @@ Det är **The Living IT Way**.`
       'Här är de tjänster vi erbjuder våra kunder för att hjälpa dem nå sina mål:',
   },
 
-
-
-
-
   // ============================================
   // FOOTER
   // ============================================
@@ -191,26 +195,41 @@ Det är **The Living IT Way**.`
       {
         title: 'Malmö',
         address: 'Gustav Adolfs torg 12\n211 39 Malmö\nSverige',
-        mapsUrl: 'https://maps.google.com/?q=55.60191580297133,12.999251168084095',
+        mapsUrl:
+          'https://maps.google.com/?q=55.60191580297133,12.999251168084095',
       },
       {
         title: 'Göteborg',
         address: 'Norra Hamngatan 18\n411 06 Göteborg\nSverige',
-        mapsUrl: 'https://maps.google.com/?q=57.70710852992462,11.968320826032762',
+        mapsUrl:
+          'https://maps.google.com/?q=57.70710852992462,11.968320826032762',
       },
       {
         title: 'Helsingborg',
         address: 'Redaregatan 48\n252 36 Helsingborg\nSverige',
-        mapsUrl: 'https://maps.google.com/?q=56.04241359644715,12.690902828836114',
+        mapsUrl:
+          'https://maps.google.com/?q=56.04241359644715,12.690902828836114',
       },
       {
         logo: '/images/logo-dark.svg',
         legalInfo: `Living IT Consulting Group AB\nVAT Number: SE559291387401\n© ${new Date().getFullYear()} Living IT`,
         social: [
-          { name: 'LinkedIn', href: 'https://www.linkedin.com/company/living-it/', icon: 'linkedin' },
-          { name: 'Facebook', href: 'https://www.facebook.com/LivingITConsulting', icon: 'facebook' },
+          {
+            name: 'LinkedIn',
+            href: 'https://www.linkedin.com/company/living-it/',
+            icon: 'linkedin',
+          },
+          {
+            name: 'Facebook',
+            href: 'https://www.facebook.com/LivingITConsulting',
+            icon: 'facebook',
+          },
           { name: 'X', href: 'https://x.com/LivingITConsult', icon: 'x' },
-          { name: 'Instagram', href: 'https://www.instagram.com/LivingITConsulting/', icon: 'instagram' },
+          {
+            name: 'Instagram',
+            href: 'https://www.instagram.com/LivingITConsulting/',
+            icon: 'instagram',
+          },
           { name: 'Cookies', href: '#', icon: 'cookie', isCookieButton: true },
         ],
       },
@@ -238,7 +257,7 @@ Det är **The Living IT Way**.`
           'Dessa cookies är nödvändiga för att sajten ska fungera. De sparar inte personlig data \
           och kan inte avaktiveras.',
         examples: ['Säkerhet', 'Load balancing'],
-      }
+      },
     },
   },
 };

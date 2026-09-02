@@ -104,13 +104,13 @@ livingit.se/                        # Project root
 
 ## Critical Entry Points
 
-| Entry Point | Path | Role |
-|---|---|---|
-| Site config | `src/config.ts` | Single source of truth for all site-wide text, links, images |
-| Root layout | `src/components/Layout.astro` | HTML wrapper for all pages |
-| Home page | `src/pages/index.astro` | Site root, composes Hero + HeroCarousel + Services |
-| Build script | `scripts/copy-robots.mjs` | Run before `astro build`, selects robots.txt |
-| Styles | `src/styles/globals.css` | All CSS: Tailwind, design tokens, animation system |
+| Entry Point  | Path                          | Role                                                         |
+| ------------ | ----------------------------- | ------------------------------------------------------------ |
+| Site config  | `src/config.ts`               | Single source of truth for all site-wide text, links, images |
+| Root layout  | `src/components/Layout.astro` | HTML wrapper for all pages                                   |
+| Home page    | `src/pages/index.astro`       | Site root, composes Hero + HeroCarousel + Services           |
+| Build script | `scripts/copy-robots.mjs`     | Run before `astro build`, selects robots.txt                 |
+| Styles       | `src/styles/globals.css`      | All CSS: Tailwind, design tokens, animation system           |
 
 ---
 

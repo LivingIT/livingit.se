@@ -37,6 +37,7 @@ so that event data from the API can be rendered consistently across all event pa
 **Components only.** Create two `.astro` component files in `src/components/`. Do NOT create any pages, routes, or API handlers. Do NOT modify any existing files.
 
 Do NOT:
+
 - Create `src/pages/events/` or any event pages (Story 2.2+)
 - Modify `src/content/events.ts`, `astro.config.ts`, or any existing components
 - Add new dependencies — all types and i18n are already in place from Stories 1.2–1.3
@@ -57,7 +58,7 @@ export interface ApiEvent {
   slug: string;
   language: 'sv' | 'en';
   title: string;
-  date: string;        // ISO 8601
+  date: string; // ISO 8601
   location: string;
   description: string;
   capacity: number;
@@ -72,9 +73,9 @@ export interface ApiEvent {
 
 ```typescript
 // t.event keys used by EventStatusBadge:
-t.event.statusUpcoming  // sv: 'Kommande',  en: 'Upcoming'
-t.event.statusPast      // sv: 'Avslutat',  en: 'Ended'
-t.event.statusFull      // sv: 'Fullbokat', en: 'Fully booked'
+t.event.statusUpcoming; // sv: 'Kommande',  en: 'Upcoming'
+t.event.statusPast; // sv: 'Avslutat',  en: 'Ended'
+t.event.statusFull; // sv: 'Fullbokat', en: 'Fully booked'
 ```
 
 Import pattern:
@@ -98,14 +99,21 @@ interface Props {
 
 const { status, translations: t } = Astro.props;
 ---
-<span class={
-  status === 'upcoming'
+
+<span
+  class={status === 'upcoming'
     ? '...tailwind upcoming classes...'
     : status === 'past'
       ? '...tailwind past classes...'
-      : '...tailwind full classes...'
-}>
-  {status === 'upcoming' ? t.statusUpcoming : status === 'past' ? t.statusPast : t.statusFull}
+      : '...tailwind full classes...'}
+>
+  {
+    status === 'upcoming'
+      ? t.statusUpcoming
+      : status === 'past'
+        ? t.statusPast
+        : t.statusFull
+  }
 </span>
 ```
 
@@ -145,22 +153,25 @@ try {
 
 const href = event.slug ? `/events/${event.slug}` : null;
 ---
+
 <article>
-  {href ? (
-    <a href={href}>
-      <h2>{event.title}</h2>
-      <p>{formatted}</p>
-      <p>{event.location}</p>
-      <EventStatusBadge status={event.status} translations={t.event} />
-    </a>
-  ) : (
-    <div>
-      <h2>{event.title}</h2>
-      <p>{formatted}</p>
-      <p>{event.location}</p>
-      <EventStatusBadge status={event.status} translations={t.event} />
-    </div>
-  )}
+  {
+    href ? (
+      <a href={href}>
+        <h2>{event.title}</h2>
+        <p>{formatted}</p>
+        <p>{event.location}</p>
+        <EventStatusBadge status={event.status} translations={t.event} />
+      </a>
+    ) : (
+      <div>
+        <h2>{event.title}</h2>
+        <p>{formatted}</p>
+        <p>{event.location}</p>
+        <EventStatusBadge status={event.status} translations={t.event} />
+      </div>
+    )
+  }
 </article>
 ```
 
@@ -181,10 +192,10 @@ const href = event.slug ? `/events/${event.slug}` : null;
 
 ### Naming Conventions
 
-| Type | Convention | Example |
-|---|---|---|
-| Astro components | `PascalCase.astro` | `EventCard.astro`, `EventStatusBadge.astro` |
-| Props interfaces | `Props` (inline in frontmatter) | `interface Props { ... }` |
+| Type             | Convention                      | Example                                     |
+| ---------------- | ------------------------------- | ------------------------------------------- |
+| Astro components | `PascalCase.astro`              | `EventCard.astro`, `EventStatusBadge.astro` |
+| Props interfaces | `Props` (inline in frontmatter) | `interface Props { ... }`                   |
 
 ### File Locations
 

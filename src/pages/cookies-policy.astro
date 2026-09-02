@@ -35,20 +35,23 @@ import Footer from '../components/Footer.astro';
         <header class="cookie-policy-header">
           <h1>{siteConfig.cookies.policy.titleSv}</h1>
           <p class="last-updated">
-            {siteConfig.cookies.policy.lastUpdatedSv}: {new Date().toLocaleDateString('sv-SE')}
+            {siteConfig.cookies.policy.lastUpdatedSv}: {
+              new Date().toLocaleDateString('sv-SE')
+            }
           </p>
         </header>
 
         <section class="cookie-section">
           <h2>Om Cookies</h2>
           <p>
-            Cookies är små textfiler som lagras på din enhet när du besöker en webbsajt. De används
-            för att förbättra din webbupplevelse och ge oss information om hur besökare använder
-            sajten.
+            Cookies är små textfiler som lagras på din enhet när du besöker en
+            webbsajt. De används för att förbättra din webbupplevelse och ge oss
+            information om hur besökare använder sajten.
           </p>
           <p>
-            Vi respekterar din integritet och följer EU:s dataskyddsregler (GDPR) och ePrivacy-direktivet.
-            Du har rätt att veta vilka cookies vi använder och att kontrollera vilka du godkänner.
+            Vi respekterar din integritet och följer EU:s dataskyddsregler
+            (GDPR) och ePrivacy-direktivet. Du har rätt att veta vilka cookies
+            vi använder och att kontrollera vilka du godkänner.
           </p>
         </section>
 
@@ -56,24 +59,31 @@ import Footer from '../components/Footer.astro';
           <h2>{siteConfig.cookies.policy.essential.titleSv}</h2>
           <p>{siteConfig.cookies.policy.essential.descriptionSv}</p>
           <ul>
-            {siteConfig.cookies.policy.essential.examples.map((example) => <li>{example}</li>)}
+            {
+              siteConfig.cookies.policy.essential.examples.map((example) => (
+                <li>{example}</li>
+              ))
+            }
           </ul>
           <p class="cookie-note">
-            <strong>Status:</strong> Dessa cookies är alltid aktiverade för att sajten ska fungera
-            korrekt.
+            <strong>Status:</strong> Dessa cookies är alltid aktiverade för att sajten
+            ska fungera korrekt.
           </p>
         </section>
 
         <section class="cookie-section">
           <h2>Kontakt</h2>
           <p>
-            Om du har frågor om vår cookie-policy eller hur vi hanterar dina data, kontakta oss gärna:
+            Om du har frågor om vår cookie-policy eller hur vi hanterar dina
+            data, kontakta oss gärna:
           </p>
           <p>
-            <strong>Email:</strong> <a href={`mailto:${siteConfig.site.email}`}>{siteConfig.site.email}</a>
+            <strong>Email:</strong>
+            <a href={`mailto:${siteConfig.site.email}`}
+              >{siteConfig.site.email}</a
+            >
           </p>
         </section>
-
       </div>
     </main>
 

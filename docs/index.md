@@ -37,16 +37,16 @@
 
 ### "Where do I find...?"
 
-| I want to... | Go to |
-|---|---|
-| Understand the project at a high level | [project-overview.md](./project-overview.md) |
-| Understand the technical architecture | [architecture.md](./architecture.md) |
-| Find where a file lives | [source-tree-analysis.md](./source-tree-analysis.md) |
-| Look up a component's props/behavior | [component-inventory.md](./component-inventory.md) |
-| Set up local development | [development-guide.md](./development-guide.md) |
-| Edit site content | [development-guide.md](./development-guide.md#content-editing) |
-| Add a team member | [development-guide.md](./development-guide.md#adding-a-team-member) |
-| Deploy the site | [development-guide.md](./development-guide.md#deployment) |
+| I want to...                           | Go to                                                               |
+| -------------------------------------- | ------------------------------------------------------------------- |
+| Understand the project at a high level | [project-overview.md](./project-overview.md)                        |
+| Understand the technical architecture  | [architecture.md](./architecture.md)                                |
+| Find where a file lives                | [source-tree-analysis.md](./source-tree-analysis.md)                |
+| Look up a component's props/behavior   | [component-inventory.md](./component-inventory.md)                  |
+| Set up local development               | [development-guide.md](./development-guide.md)                      |
+| Edit site content                      | [development-guide.md](./development-guide.md#content-editing)      |
+| Add a team member                      | [development-guide.md](./development-guide.md#adding-a-team-member) |
+| Deploy the site                        | [development-guide.md](./development-guide.md#deployment)           |
 
 ---
 
@@ -64,25 +64,25 @@ npm run format     # Format code with Prettier
 
 ## Site Pages
 
-| URL | File | Description |
-|---|---|---|
-| `/` | `src/pages/index.astro` | Home — Hero, Carousel, Services |
-| `/mjukvarukonsulting` | `src/pages/mjukvarukonsulting.astro` | Software consulting |
-| `/ledarskapskonsulting` | `src/pages/ledarskapskonsulting.astro` | Leadership consulting |
-| `/events` | `src/pages/events.astro` | Events listing |
-| `/kontakt` | `src/pages/kontakt.astro` | Contact page |
-| `/cookies-policy` | `src/pages/cookies-policy.astro` | Cookie policy |
-| `/bli-konsult` | _(301 redirect)_ | → `/kontakt` |
+| URL                     | File                                   | Description                     |
+| ----------------------- | -------------------------------------- | ------------------------------- |
+| `/`                     | `src/pages/index.astro`                | Home — Hero, Carousel, Services |
+| `/mjukvarukonsulting`   | `src/pages/mjukvarukonsulting.astro`   | Software consulting             |
+| `/ledarskapskonsulting` | `src/pages/ledarskapskonsulting.astro` | Leadership consulting           |
+| `/events`               | `src/pages/events.astro`               | Events listing                  |
+| `/kontakt`              | `src/pages/kontakt.astro`              | Contact page                    |
+| `/cookies-policy`       | `src/pages/cookies-policy.astro`       | Cookie policy                   |
+| `/bli-konsult`          | _(301 redirect)_                       | → `/kontakt`                    |
 
 ---
 
 ## Content Files (Edit These to Update Site Content)
 
-| File | Controls |
-|---|---|
-| `src/config.ts` | Site metadata, nav links, hero text, carousel, footer, cookies |
-| `src/content/services.ts` | 3 top-level service definitions |
-| `src/content/consulting-sw.ts` | 9 software consulting role cards |
-| `src/content/consulting-im.ts` | 9 leadership consulting roles (3 groups) |
-| `src/content/events.ts` | 4 event entries |
-| `src/content/contact.ts` | 8 team contacts + company data |
+| File                           | Controls                                                       |
+| ------------------------------ | -------------------------------------------------------------- |
+| `src/config.ts`                | Site metadata, nav links, hero text, carousel, footer, cookies |
+| `src/content/services.ts`      | 3 top-level service definitions                                |
+| `src/content/consulting-sw.ts` | 9 software consulting role cards                               |
+| `src/content/consulting-im.ts` | 9 leadership consulting roles (3 groups)                       |
+| `src/content/events.ts`        | 4 event entries                                                |
+| `src/content/contact.ts`       | 8 team contacts + company data                                 |

@@ -17,19 +17,22 @@ Client-side JavaScript is included inline in component `<script>` tags where nee
 ## Layout Components
 
 ### Layout.astro
+
 **Path:** `src/components/Layout.astro`
 **Used by:** All pages except `cookies-policy.astro`
 **Role:** Global HTML shell — wraps every page with consistent `<head>`, navigation, footer, and cookie banner.
 
 **Props:**
+
 ```typescript
 interface Props {
-  title?: string;      // defaults to siteConfig.site.title
+  title?: string; // defaults to siteConfig.site.title
   description?: string; // defaults to siteConfig.site.description
 }
 ```
 
 **Renders:**
+
 - Full `<!doctype html>` document
 - `<head>`: charset, viewport, robots meta, favicon, title, description, keywords
 - Open Graph tags: title, description, type, locale (`sv_SE`), image (`/og-image.png`, 1200×400)
@@ -39,6 +42,7 @@ interface Props {
 - `IntersectionObserver` script for scroll-triggered animations (`.scroll-fade-*` classes)
 
 **Special behavior:**
+
 - Detects `devingit.se` hostname → sets `noindex, nofollow` robots meta (dev environment guard)
 - Constructs absolute OG image URL from `siteConfig.site.url`
 
@@ -47,6 +51,7 @@ interface Props {
 ## Navigation Components
 
 ### Navigation.astro
+
 **Path:** `src/components/Navigation.astro`
 **Used by:** `Layout.astro` + `cookies-policy.astro` (direct import)
 **Role:** Fixed top navigation bar with desktop and mobile variants.
@@ -54,6 +59,7 @@ interface Props {
 **Props:** None (all data from `siteConfig.navigation`)
 
 **Renders:**
+
 - Fixed top bar (`position: fixed, z-50`) with backdrop blur
 - Logo (`logo-light.svg`) linking to `/`
 - Desktop nav: 3 page links with Lucide icons, active state (orange bottom border + `aria-current`)
@@ -70,6 +76,7 @@ interface Props {
 ## Content Components
 
 ### Hero.astro
+
 **Path:** `src/components/Hero.astro`
 **Used by:** `src/pages/index.astro`
 **Role:** Full-width hero section at the top of the home page.
@@ -77,6 +84,7 @@ interface Props {
 **Props:** None (all data from `siteConfig.hero`)
 
 **Renders:**
+
 - `<section>` with gradient background (`mono-mesh` + `--color-bg-main-default`)
 - `<h1>` with headline + contrasting subheadline
 - Description paragraph
@@ -87,6 +95,7 @@ interface Props {
 ---
 
 ### HeroCarousel.astro
+
 **Path:** `src/components/HeroCarousel.astro`
 **Used by:** `src/pages/index.astro`
 **Role:** Two-column section — auto-rotating image carousel (left) + "The Living IT Way" company philosophy text (right).
@@ -94,6 +103,7 @@ interface Props {
 **Props:** None (all data from `siteConfig.heroCarousel`)
 
 **Renders:**
+
 - Two-column grid (1:1 on large screens, stacked on mobile)
 - Left: Portrait-ratio image carousel (`carousel-frame-portrait`, aspect 4:5)
   - 10 images with responsive `srcset` (mobile/tablet/desktop)
@@ -109,6 +119,7 @@ interface Props {
 ---
 
 ### Services.astro
+
 **Path:** `src/components/Services.astro`
 **Used by:** `src/pages/index.astro`
 **Role:** 3-column services card grid on the home page.
@@ -116,6 +127,7 @@ interface Props {
 **Props:** None
 
 **Renders:**
+
 - Section header from `siteConfig.services.title` and `.subtitle`
 - 3 cards from `src/content/services.ts` (index 0, 1, 2)
 - Each card: Lucide icon, title, description, hover arrow (`ArrowRight`)
@@ -127,6 +139,7 @@ interface Props {
 ---
 
 ### Footer.astro
+
 **Path:** `src/components/Footer.astro`
 **Used by:** `Layout.astro` + `cookies-policy.astro` (direct import)
 **Role:** Site footer with office addresses and brand information.
@@ -134,6 +147,7 @@ interface Props {
 **Props:** None (all data from `siteConfig.footer.columns`)
 
 **Renders:**
+
 - Dark background footer (`--color-bg-footer`)
 - 4-column grid:
   - Column 1: Malmö office address (links to Google Maps)
@@ -152,6 +166,7 @@ interface Props {
 ## Utility Components
 
 ### CookieBanner.astro
+
 **Path:** `src/components/CookieBanner.astro`
 **Used by:** `Layout.astro`
 **Role:** GDPR cookie consent banner. **Currently disabled.**
@@ -159,6 +174,7 @@ interface Props {
 **Status:** The banner HTML is commented out with `{/* ... */}`. Only the CSS styles remain active. The component renders nothing visually.
 
 **Original design:**
+
 - Fixed bottom-of-screen banner with background image
 - Accept button → stores consent in `localStorage` (`cookie-notice-acknowledged: 'true'`)
 - Link to `/cookies-policy`
@@ -205,20 +221,20 @@ Services.astro
 
 Defined in `src/styles/globals.css` via Tailwind 4's `@theme`:
 
-| Token | Value | Usage |
-|---|---|---|
-| `--color-mono-black` | `#000000` | Primary text |
-| `--color-mono-darker` | `#303132` | Hero subheadline |
-| `--color-mono-dark` | `#414243` | Body text |
-| `--color-mono-gray` | `#757779` | Labels |
-| `--color-mono-light` | `#a3a5a8` | Secondary/footer text |
-| `--color-mono-lighter` | `#e5e8ec` | Borders |
-| `--color-bg-navigation` | `#f8f9ff` | Nav bar background |
-| `--color-bg-main-default` | `#f0f1f7` | Page background |
-| `--color-bg-main-section` | `#e3e4ea` | Alternate section background |
-| `--color-bg-card` | `#f8f9ff` | Card background |
-| `--color-bg-footer` | `#1c1c1a` | Footer background |
-| `--color-orange` | `#ff8705` | Brand accent: CTAs, icons, active indicators |
-| `--font-sans` | `Atak, system-ui, sans-serif` | Body font |
+| Token                     | Value                         | Usage                                        |
+| ------------------------- | ----------------------------- | -------------------------------------------- |
+| `--color-mono-black`      | `#000000`                     | Primary text                                 |
+| `--color-mono-darker`     | `#303132`                     | Hero subheadline                             |
+| `--color-mono-dark`       | `#414243`                     | Body text                                    |
+| `--color-mono-gray`       | `#757779`                     | Labels                                       |
+| `--color-mono-light`      | `#a3a5a8`                     | Secondary/footer text                        |
+| `--color-mono-lighter`    | `#e5e8ec`                     | Borders                                      |
+| `--color-bg-navigation`   | `#f8f9ff`                     | Nav bar background                           |
+| `--color-bg-main-default` | `#f0f1f7`                     | Page background                              |
+| `--color-bg-main-section` | `#e3e4ea`                     | Alternate section background                 |
+| `--color-bg-card`         | `#f8f9ff`                     | Card background                              |
+| `--color-bg-footer`       | `#1c1c1a`                     | Footer background                            |
+| `--color-orange`          | `#ff8705`                     | Brand accent: CTAs, icons, active indicators |
+| `--font-sans`             | `Atak, system-ui, sans-serif` | Body font                                    |
 
 **Typography:** Atak font (self-hosted WOFF) — Regular (400), Regular Italic, Semibold (600), Semibold Italic. Geist from Google Fonts as fallback.

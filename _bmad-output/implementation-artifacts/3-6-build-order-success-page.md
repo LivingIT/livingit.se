@@ -43,6 +43,7 @@ The Stripe `return_url` is `/events/{eventId}/ordersuccess` (set by the backend,
 ### Copy Pattern from `[slug].astro`
 
 `src/pages/events/[slug].astro` is the canonical reference for how to:
+
 - Declare `export const prerender = false`
 - Import and call `apiFetch`
 - Extract `slug` from `Astro.params`
@@ -60,7 +61,9 @@ The Stripe `return_url` is `/events/{eventId}/ordersuccess` (set by the backend,
       <div class="confirm-icon" aria-hidden="true">🎉</div>
       <h1 class="confirm-heading">{t.messages.purchaseSuccess}</h1>
       <p class="confirm-body">{t.messages.purchaseEmailSent}</p>
-      <a href="/events" class="confirm-link confirm-back">{t.nav.backToEvents}</a>
+      <a href="/events" class="confirm-link confirm-back"
+        >{t.nav.backToEvents}</a
+      >
     </div>
   </main>
 </Layout>
@@ -101,9 +104,11 @@ const { slug } = Astro.params as { slug: string };
 
 let event: ApiEvent | null = null;
 try {
-  const response = await apiFetch(`/api/events/public/${encodeURIComponent(slug)}`);
+  const response = await apiFetch(
+    `/api/events/public/${encodeURIComponent(slug)}`,
+  );
   if (response.ok) {
-    event = await response.json() as ApiEvent;
+    event = (await response.json()) as ApiEvent;
   }
 } catch (err) {
   console.error('[ordersuccess] apiFetch failed:', err);
@@ -134,12 +139,14 @@ const t = getTranslations(resolvedLang);
 ### Previous Story Intelligence
 
 From story 3.4 (confirmation page — most similar pattern):
+
 - Card-style centred layout with `class="confirm-main"` / `confirm-card` / `confirm-heading` etc.
 - `<Layout title="...">` wraps all content — title uses a translated string + " - Living IT Event"
 - Language derived server-side from `event.language`, not URL params
 - `apiFetch` wrapped in try/catch; errors logged with `[prefix]` convention
 
 From story 3.5 (purchase API — immediate predecessor):
+
 - `apiFetch` import path from `src/pages/api/` is `../../lib/api`; from `src/pages/events/[slug]/` it is `../../../lib/api`
 - `encodeURIComponent(slug)` when building API URL path segments
 - Error logging prefix convention: `[ordersuccess]`

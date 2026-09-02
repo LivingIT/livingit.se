@@ -73,14 +73,16 @@ interface RegPayload {
   foodChoiceOptionId?: string;
   foodChoiceAllergies?: string;
   termsAccepted?: boolean;
-  turnstileToken: string;  // ← ADD THIS
+  turnstileToken: string; // ← ADD THIS
 }
 ```
 
 **Build the payload (after existing assignments, before the fetch call):**
 
 ```typescript
-const turnstileInput = document.querySelector('input[name="cf-turnstile-response"]') as HTMLInputElement | null;
+const turnstileInput = document.querySelector(
+  'input[name="cf-turnstile-response"]',
+) as HTMLInputElement | null;
 const payload: RegPayload = {
   // ... existing fields ...
   turnstileToken: turnstileInput?.value ?? '',
@@ -103,7 +105,16 @@ interface RegisterBody {
 **Add verification after body parsing, before field validation:**
 
 ```typescript
-const { eventId, referralCode, firstName, lastName, email, company, claimedSeatCount, turnstileToken } = body;
+const {
+  eventId,
+  referralCode,
+  firstName,
+  lastName,
+  email,
+  company,
+  claimedSeatCount,
+  turnstileToken,
+} = body;
 
 // Verify Turnstile token
 if (!turnstileToken) {
@@ -119,11 +130,14 @@ formData.append('response', turnstileToken);
 
 let turnstileOk: boolean;
 try {
-  const verifyRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-    method: 'POST',
-    body: formData,
-  });
-  const outcome = await verifyRes.json() as { success: boolean };
+  const verifyRes = await fetch(
+    'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+    {
+      method: 'POST',
+      body: formData,
+    },
+  );
+  const outcome = (await verifyRes.json()) as { success: boolean };
   turnstileOk = outcome.success === true;
 } catch (err) {
   console.error('[register] Turnstile verification fetch failed:', err);
@@ -162,12 +176,13 @@ if (!turnstileOk) {
 
 ### Files to Touch
 
-| File | Change |
-|------|--------|
-| `src/components/RegistrationForm.astro` | Read `cf-turnstile-response` input; add `turnstileToken` to payload |
-| `src/pages/api/register.ts` | Add `turnstileToken` to `RegisterBody`; call siteverify before proxying |
+| File                                    | Change                                                                  |
+| --------------------------------------- | ----------------------------------------------------------------------- |
+| `src/components/RegistrationForm.astro` | Read `cf-turnstile-response` input; add `turnstileToken` to payload     |
+| `src/pages/api/register.ts`             | Add `turnstileToken` to `RegisterBody`; call siteverify before proxying |
 
 **Do NOT touch:**
+
 - `src/pages/api/purchase.ts` — explicitly no Turnstile on purchase flow
 - `src/pages/api/validate-ticket.ts` — unrelated
 - `wrangler.toml` — secrets are set via Cloudflare dashboard, not in vars
@@ -183,14 +198,17 @@ This project has no `src/env.d.ts`. Astro infers env vars from usage. If TypeScr
 ### Previous Story Intelligence
 
 From story 3.2 (RegistrationForm build):
+
 - All API calls from the form use `e.preventDefault()` + `fetch()` with JSON body — the auto-injected Turnstile hidden input is never picked up by native form submission
 - This is exactly why the token must be read explicitly from the DOM
 
 From story 3.3 (register API route):
+
 - The 400/502 error response pattern: `new Response(JSON.stringify({ error: true }), { status: NNN, headers: ... })` — use exactly this shape
 - Field validation returns 400 before calling `apiFetch`; Turnstile verification should be added **before** field validation so bots fail fast
 
 From story 3.7 (last completed):
+
 - `npm run build` with zero TypeScript errors is the build gate — verify this passes
 
 ## Dev Agent Record

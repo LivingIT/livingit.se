@@ -51,11 +51,11 @@ This is not a feature addition — it is a brand repair. The core insight is tha
 
 ## Project Classification
 
-| Attribute | Value |
-|---|---|
-| **Project Type** | Web App (static site → hybrid SSR) |
-| **Domain** | General (corporate marketing / consulting) |
-| **Complexity** | Low-medium |
+| Attribute           | Value                                                  |
+| ------------------- | ------------------------------------------------------ |
+| **Project Type**    | Web App (static site → hybrid SSR)                     |
+| **Domain**          | General (corporate marketing / consulting)             |
+| **Complexity**      | Low-medium                                             |
 | **Project Context** | Brownfield — extending an existing Astro 5 static site |
 
 ## Success Criteria
@@ -91,12 +91,14 @@ The events functionality is maintained as part of a single codebase (`livingit.s
 **Resource requirements:** 1 developer, estimated 3–4 days.
 
 **Core journeys supported:**
+
 - Visitor browses upcoming events on `/events`
 - Visitor registers for an event (`/events/[slug]`)
 - Visitor receives registration confirmation (`/events/[slug]/confirmation`)
 - Developer adds/updates events via TypeScript content files
 
 **Must-have capabilities:**
+
 - Astro hybrid rendering mode (`output: 'hybrid'`) + server adapter
 - `/events` — SSR listing page (all events, sv + en, merged into existing page)
 - `/events/[slug]` — SSR event detail + registration form (language from `event.language`)
@@ -120,9 +122,10 @@ To be defined in a future initiative.
 ### Risk Mitigation
 
 **Technical risks:**
-- *Server adapter integration*: Add adapter and verify existing static site works before building any new pages
-- *Astro Actions cookie limit*: Mitigated by using standard API route instead of Astro Actions for form submission
-- *Hybrid mode performance*: Low risk — static pages are unaffected by SSR configuration
+
+- _Server adapter integration_: Add adapter and verify existing static site works before building any new pages
+- _Astro Actions cookie limit_: Mitigated by using standard API route instead of Astro Actions for form submission
+- _Hybrid mode performance_: Low risk — static pages are unaffected by SSR configuration
 
 **Resource risks:** Low — the event listing is already integrated into `/events`. Individual event detail URLs can be shared directly without the listing page.
 
@@ -130,7 +133,7 @@ To be defined in a future initiative.
 
 ### Journey 1: Visitor Registers for an Event (Happy Path)
 
-**Meet Erik.** He's a software developer at a mid-sized company in Malmö. A colleague mentions Living IT's *Beauty in Code* conference over lunch. He searches, lands on `livingit.se`, and browses briefly — the site feels polished and professional.
+**Meet Erik.** He's a software developer at a mid-sized company in Malmö. A colleague mentions Living IT's _Beauty in Code_ conference over lunch. He searches, lands on `livingit.se`, and browses briefly — the site feels polished and professional.
 
 He spots "Events" in the navigation and clicks through to `/events`. The page shows a general overview of Living IT events along with a live listing of upcoming events — mixing Swedish and English entries.
 
@@ -142,7 +145,7 @@ He finds Beauty in Code, clicks through to `/events/beauty-in-code`. Same header
 
 ### Journey 2: Visitor Hits a Problem During Registration (Edge Case)
 
-**Meet Anna.** A team lead in Göteborg who found out about a Swedish workshop the day before it starts. She navigates to `/events`, finds *IT-helg April*, and clicks through to `/events/it-helg-april`. The page is in Swedish throughout (language derived from the event's `language: 'sv'` field).
+**Meet Anna.** A team lead in Göteborg who found out about a Swedish workshop the day before it starts. She navigates to `/events`, finds _IT-helg April_, and clicks through to `/events/it-helg-april`. The page is in Swedish throughout (language derived from the event's `language: 'sv'` field).
 
 She submits the form with an invalid email. An inline error appears in Swedish: "Ange en giltig e-postadress." She corrects it and resubmits successfully.
 
@@ -172,12 +175,12 @@ No admin panel or CMS on the frontend. The `language` field returned by the API 
 
 **Route map:**
 
-| Route | Type |
-|---|---|
-| `/events` | SSR — event listing (upcoming events from API) + static marketing content |
-| `/events/[slug]` | SSR — event detail + registration form |
-| `/events/[slug]/confirmation` | SSR — registration confirmation |
-| `/api/register` | Server API route |
+| Route                         | Type                                                                      |
+| ----------------------------- | ------------------------------------------------------------------------- |
+| `/events`                     | SSR — event listing (upcoming events from API) + static marketing content |
+| `/events/[slug]`              | SSR — event detail + registration form                                    |
+| `/events/[slug]/confirmation` | SSR — registration confirmation                                           |
+| `/api/register`               | Server API route                                                          |
 
 **Language routing:** Language determined by the `language` field in the API event response. No locale prefix in URL. `getTranslations(event.language)` drives all UI strings on detail and confirmation pages.
 

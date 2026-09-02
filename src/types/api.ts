@@ -10,8 +10,8 @@ export interface ApiEvent {
   description: string;
   agenda: string;
   imageUrl: string;
-  startDateTime: string;  // ISO 8601
-  endDateTime: string;    // ISO 8601
+  startDateTime: string; // ISO 8601
+  endDateTime: string; // ISO 8601
   location: string;
   city: string;
   geo: { latitude: number; longitude: number; googlePlaceId?: string | null };

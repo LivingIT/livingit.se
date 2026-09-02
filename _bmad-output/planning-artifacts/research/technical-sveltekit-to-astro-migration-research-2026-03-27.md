@@ -99,6 +99,7 @@ The migration is technically viable with well-understood patterns. No architectu
 ### Programming Languages & Frameworks
 
 **Current stacks:**
+
 - **livingit.se (main):** Astro 6, TypeScript, Tailwind CSS 4 — pure SSG, zero runtime
 - **events.livingit.se:** SvelteKit (SSR), TypeScript, Zod, i18n (sv/en)
 
@@ -111,11 +112,11 @@ _Source: https://dev.to/polliog/astro-in-2026-why-its-beating-nextjs-for-content
 
 Astro supports three output modes, making hybrid integration straightforward:
 
-| Mode | Setting | Use case |
-|---|---|---|
-| Static (SSG) | `output: 'static'` | Current main site — marketing pages |
-| Hybrid | `output: 'hybrid'` | **Recommended target** — static pages stay static, event routes opt into SSR |
-| Full SSR | `output: 'server'` | All pages server-rendered |
+| Mode         | Setting            | Use case                                                                     |
+| ------------ | ------------------ | ---------------------------------------------------------------------------- |
+| Static (SSG) | `output: 'static'` | Current main site — marketing pages                                          |
+| Hybrid       | `output: 'hybrid'` | **Recommended target** — static pages stay static, event routes opt into SSR |
+| Full SSR     | `output: 'server'` | All pages server-rendered                                                    |
 
 **Hybrid mode is the key enabler:** existing pages remain pre-rendered at build time; only new event pages use on-demand rendering. Build times improve up to 30% vs. static-only for dynamic routes.
 
@@ -160,12 +161,12 @@ _Source: https://docs.astro.build/en/guides/internationalization/_
 
 All current deployment targets (Vercel, Netlify, Cloudflare Pages) have official Astro SSR adapters:
 
-| Platform | Adapter | Notes |
-|---|---|---|
-| Vercel | `@astrojs/vercel` | Serverless functions, ISR support |
-| Netlify | `@astrojs/netlify` | Server islands, actions, sessions |
+| Platform         | Adapter               | Notes                                                 |
+| ---------------- | --------------------- | ----------------------------------------------------- |
+| Vercel           | `@astrojs/vercel`     | Serverless functions, ISR support                     |
+| Netlify          | `@astrojs/netlify`    | Server islands, actions, sessions                     |
 | Cloudflare Pages | `@astrojs/cloudflare` | Pages Functions; Workers recommended for new projects |
-| Node.js | `@astrojs/node` | Self-hosted |
+| Node.js          | `@astrojs/node`       | Self-hosted                                           |
 
 One-line setup: `npx astro add [platform]`
 
@@ -183,6 +184,7 @@ This is the core of the migration. Every SvelteKit server pattern has a direct A
 #### Server-Side Data Fetching
 
 **SvelteKit (`+page.server.ts`):**
+
 ```typescript
 export const load: PageServerLoad = async ({ fetch }) => {
   const response = await fetch(`${BASE_URL}/api/events/public`);
@@ -192,12 +194,15 @@ export const load: PageServerLoad = async ({ fetch }) => {
 ```
 
 **Astro (frontmatter in `.astro` page, SSR mode):**
+
 ```astro
 ---
 export const prerender = false;
-const response = await fetch(`${import.meta.env.PUBLIC_API_URL}/api/events/public`);
+const response = await fetch(
+  `${import.meta.env.PUBLIC_API_URL}/api/events/public`,
+);
 const data = await response.json();
-const events = data.filter(e => e.isActive);
+const events = data.filter((e) => e.isActive);
 ---
 ```
 
@@ -216,10 +221,13 @@ In hybrid mode, add `export const prerender = false` — no `getStaticPaths()` n
 ---
 export const prerender = false;
 const { eventId } = Astro.params;
-const response = await fetch(`${import.meta.env.PUBLIC_API_URL}/api/events/${eventId}`);
+const response = await fetch(
+  `${import.meta.env.PUBLIC_API_URL}/api/events/${eventId}`,
+);
 const event = await response.json();
 ---
 ```
+
 _Source: https://docs.astro.build/en/guides/on-demand-rendering/_
 
 #### Redirects
@@ -237,6 +245,7 @@ _Source: https://docs.astro.build/en/guides/server-side-rendering/_
 **SvelteKit:** `throw error(404, { message: 'No active events', code: 'no-active-event' })`
 
 **Astro:**
+
 ```astro
 ---
 return new Response('Not found', { status: 404, statusText: 'Not found' });
@@ -244,6 +253,7 @@ return new Response('Not found', { status: 404, statusText: 'Not found' });
 Astro.response.status = 404;
 ---
 ```
+
 _Source: https://docs.astro.build/en/guides/server-side-rendering/_
 
 #### Form Actions / Registration Flow
@@ -251,6 +261,7 @@ _Source: https://docs.astro.build/en/guides/server-side-rendering/_
 **SvelteKit:** `+page.server.ts` `actions` export with `fail()` and `redirect()`
 
 **Astro Actions** (`src/actions/index.ts`):
+
 ```typescript
 import { defineAction } from 'astro:actions';
 import { z } from 'astro/zod';
@@ -271,12 +282,13 @@ export const server = {
         body: JSON.stringify(input),
       });
       return response.json();
-    }
-  })
-}
+    },
+  }),
+};
 ```
 
 In the page, check result and redirect:
+
 ```astro
 ---
 const result = Astro.getActionResult(actions.registerAttendee);
@@ -285,6 +297,7 @@ if (result && !result.error) {
 }
 ---
 ```
+
 _Source: https://docs.astro.build/en/guides/actions/_
 _Source: https://blog.logrocket.com/exploring-actions-request-rewriting-astro/_
 
@@ -305,7 +318,7 @@ The main site stays fully static. Only the new event routes opt into SSR:
 ```javascript
 // astro.config.ts
 export default defineConfig({
-  output: 'hybrid',   // ← change from 'static'
+  output: 'hybrid', // ← change from 'static'
   adapter: YOUR_ADAPTER,
 });
 ```
@@ -328,7 +341,6 @@ src/pages/
 
 _Source: https://docs.astro.build/en/guides/on-demand-rendering/_
 _Source: https://blog.logrocket.com/hybrid-rendering-astro-guide/_
-
 
 ---
 
@@ -397,10 +409,10 @@ _Source: https://docs.astro.build/en/guides/middleware/_
 
 The events site uses `PUBLIC_API_URL` — this pattern maps directly:
 
-| SvelteKit | Astro | Browser-visible? |
-|---|---|---|
-| `PUBLIC_API_URL` ($env/static/public) | `import.meta.env.PUBLIC_API_URL` | Yes |
-| Private env vars ($env/static/private) | `import.meta.env.API_SECRET` (no PUBLIC_ prefix) | No |
+| SvelteKit                              | Astro                                            | Browser-visible? |
+| -------------------------------------- | ------------------------------------------------ | ---------------- |
+| `PUBLIC_API_URL` ($env/static/public)  | `import.meta.env.PUBLIC_API_URL`                 | Yes              |
+| Private env vars ($env/static/private) | `import.meta.env.API_SECRET` (no PUBLIC_ prefix) | No               |
 
 **Recommendation:** The API base URL can stay `PUBLIC_` if it is not sensitive. Any API tokens/keys must use non-`PUBLIC_` names and are automatically server-only.
 
@@ -453,6 +465,7 @@ _Source: https://developers.cloudflare.com/pages/framework-guides/deploy-an-astr
 **Approach:** Add SSR capability to the existing Astro site incrementally. All existing static pages stay untouched.
 
 **Sequence:**
+
 1. Add server adapter to `astro.config.ts`, switch to `output: 'hybrid'`
 2. Add `PUBLIC_API_URL` env var
 3. Implement event detail page (`/events/[eventId]`) with API fetch
@@ -481,13 +494,13 @@ _Source: https://docs.astro.build/en/guides/testing/_
 
 ### Known Risks and Mitigations
 
-| Risk | Severity | Mitigation |
-|---|---|---|
-| Astro Actions cookie limit (>2-3 fields exceeds 4096 chars) | Medium | The registration form has ~7 fields — monitor for cookie overflow. Consider using API endpoint instead of Actions for complex forms. |
-| Astro v5.16.0 regression: `accept: 'form'` causes 500 errors | Medium | Pin to a stable Astro version; check changelog before upgrading |
-| Action named 'apply' fails outside index.ts | Low | Avoid naming actions 'apply'; keep all actions in `src/actions/index.ts` |
-| Redirects must happen at page level (not components) | Low | Keep all redirect logic in `.astro` page frontmatter |
-| Cloudflare Workers: no persistent /tmp filesystem | Low | No file system usage in event flows — not applicable |
+| Risk                                                         | Severity | Mitigation                                                                                                                           |
+| ------------------------------------------------------------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| Astro Actions cookie limit (>2-3 fields exceeds 4096 chars)  | Medium   | The registration form has ~7 fields — monitor for cookie overflow. Consider using API endpoint instead of Actions for complex forms. |
+| Astro v5.16.0 regression: `accept: 'form'` causes 500 errors | Medium   | Pin to a stable Astro version; check changelog before upgrading                                                                      |
+| Action named 'apply' fails outside index.ts                  | Low      | Avoid naming actions 'apply'; keep all actions in `src/actions/index.ts`                                                             |
+| Redirects must happen at page level (not components)         | Low      | Keep all redirect logic in `.astro` page frontmatter                                                                                 |
+| Cloudflare Workers: no persistent /tmp filesystem            | Low      | No file system usage in event flows — not applicable                                                                                 |
 
 _Source: https://github.com/withastro/astro/issues/11675_
 _Source: https://github.com/withastro/astro/issues/14970_
@@ -496,38 +509,43 @@ _Source: https://github.com/withastro/astro/issues/14970_
 
 ### Team Skill Requirements
 
-| Skill | Current level (SvelteKit) | Gap |
-|---|---|---|
-| Astro SSR/hybrid mode | None | Low — patterns are similar |
-| Astro Actions | None | Low — simpler than SvelteKit actions |
-| Astro middleware | None | Low — same concept as hooks.server.ts |
-| TypeScript | Strong | None |
-| Zod | Strong | None (same library) |
+| Skill                 | Current level (SvelteKit) | Gap                                   |
+| --------------------- | ------------------------- | ------------------------------------- |
+| Astro SSR/hybrid mode | None                      | Low — patterns are similar            |
+| Astro Actions         | None                      | Low — simpler than SvelteKit actions  |
+| Astro middleware      | None                      | Low — same concept as hooks.server.ts |
+| TypeScript            | Strong                    | None                                  |
+| Zod                   | Strong                    | None (same library)                   |
 
 Learning curve is minimal — the concepts are the same, only the API surface differs.
 
 ### Implementation Roadmap
 
 **Phase 1 — Setup (½ day)**
+
 - Add adapter (`npx astro add node` or platform-specific)
 - Switch `output: 'hybrid'` in `astro.config.ts`
 - Add env vars, verify existing site still works
 
 **Phase 2 — Event detail page (1 day)**
+
 - `src/pages/events/[eventId]/index.astro` with API fetch
 - Display event details, registration form
 - Handle sold out / inactive states
 
 **Phase 3 — Registration flow (1-2 days)**
+
 - Registration form action or API endpoint
 - Zod validation (port from existing schema)
 - Order success page
 
 **Phase 4 — Confirmation page (½ day)**
+
 - `src/pages/confirm/[confirmationData].astro`
 - Server-side confirmation handling
 
 **Phase 5 — Polish and decommission (½ day)**
+
 - i18n (if needed — assess if Swedish-only is acceptable initially)
 - Redirect `events.livingit.se` → `livingit.se/events`
 - Monitor and decommission old app
@@ -546,19 +564,19 @@ _Source: https://vercel.com/docs/frameworks/frontend/astro_
 
 ### Summary of Key Technical Findings
 
-| Area | Finding |
-|---|---|
-| Architecture | Astro hybrid mode (`output: 'hybrid'`) is the correct target — static pages stay static, 3 event routes become SSR |
-| Rendering | `export const prerender = false` on dynamic event pages — no `getStaticPaths()` needed |
-| Data fetching | `await fetch()` directly in Astro frontmatter replaces SvelteKit `load()` |
-| Form handling | Use Astro API routes (`src/pages/api/`) not Astro Actions for the multi-field registration form |
-| Validation | Zod schemas port verbatim; only import path changes |
-| Middleware | `src/middleware.ts` with `onRequest()` replaces `hooks.server.ts` |
-| Redirects | `return Astro.redirect('/path', 302)` — must be at page level only |
-| Error handling | `return new Response('...', { status: 404 })` or set `Astro.response.status` |
-| Env vars | `PUBLIC_API_URL` maps directly; non-PUBLIC vars are automatically server-only |
-| Deployment | One change: add adapter via `npx astro add [platform]` |
-| Testing | Playwright config ports directly from events site |
+| Area           | Finding                                                                                                            |
+| -------------- | ------------------------------------------------------------------------------------------------------------------ |
+| Architecture   | Astro hybrid mode (`output: 'hybrid'`) is the correct target — static pages stay static, 3 event routes become SSR |
+| Rendering      | `export const prerender = false` on dynamic event pages — no `getStaticPaths()` needed                             |
+| Data fetching  | `await fetch()` directly in Astro frontmatter replaces SvelteKit `load()`                                          |
+| Form handling  | Use Astro API routes (`src/pages/api/`) not Astro Actions for the multi-field registration form                    |
+| Validation     | Zod schemas port verbatim; only import path changes                                                                |
+| Middleware     | `src/middleware.ts` with `onRequest()` replaces `hooks.server.ts`                                                  |
+| Redirects      | `return Astro.redirect('/path', 302)` — must be at page level only                                                 |
+| Error handling | `return new Response('...', { status: 404 })` or set `Astro.response.status`                                       |
+| Env vars       | `PUBLIC_API_URL` maps directly; non-PUBLIC vars are automatically server-only                                      |
+| Deployment     | One change: add adapter via `npx astro add [platform]`                                                             |
+| Testing        | Playwright config ports directly from events site                                                                  |
 
 ### Strategic Technical Assessment
 

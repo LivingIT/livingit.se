@@ -48,6 +48,7 @@ so that I can read event information and understand whether registration is avai
 The `src/pages/events/` directory may not exist (it was created for Story 2.2, then `upcoming.astro` was deleted when the listing was merged into `/events` in commit 6b52f62). Create the directory and file.
 
 Do NOT:
+
 - Modify `EventCard.astro`, `EventStatusBadge.astro`, `Layout.astro`
 - Modify `src/pages/events.astro` (the `/events` listing page)
 - Modify `src/lib/api.ts`, `src/types/api.ts`, `src/i18n/`
@@ -70,26 +71,35 @@ The architecture doc shows a simplified type. The **actual** `ApiEvent` in `src/
 
 ```typescript
 interface ApiEvent {
-  eventId: string;          // URL identifier (NOT a "slug" field)
+  eventId: string; // URL identifier (NOT a "slug" field)
   eventType: string;
   language: 'sv' | 'en';
   title: string;
-  description: string;      // HTML string — use set:html
-  agenda: string;           // HTML string — use set:html
+  description: string; // HTML string — use set:html
+  agenda: string; // HTML string — use set:html
   imageUrl: string;
-  startDateTime: string;    // ISO 8601 — NOT "date"
-  endDateTime: string;      // ISO 8601
+  startDateTime: string; // ISO 8601 — NOT "date"
+  endDateTime: string; // ISO 8601
   location: string;
-  isActive: boolean;        // true = upcoming
-  isSoldOut: boolean;       // true = full/queue
+  isActive: boolean; // true = upcoming
+  isSoldOut: boolean; // true = full/queue
   isAlmostSoldOut: boolean;
   defaultTicketSeatCount: number;
   maxTicketSeatCount: number;
   contactEmail: string;
   termsUrl: string;
   privacyUrl: string;
-  price?: { ticketPrice: number; vatAmount: number; vatPercentage: number; minimumTicketsForInvoicing: number; saleIsOpen: boolean };
-  foodOptions?: { options: Array<{ optionId: string; description: string }>; acceptAllergies: boolean };
+  price?: {
+    ticketPrice: number;
+    vatAmount: number;
+    vatPercentage: number;
+    minimumTicketsForInvoicing: number;
+    saleIsOpen: boolean;
+  };
+  foodOptions?: {
+    options: Array<{ optionId: string; description: string }>;
+    acceptAllergies: boolean;
+  };
   geo: { latitude: number; longitude: number };
 }
 ```
@@ -99,6 +109,7 @@ interface ApiEvent {
 In the existing `events.livingit.se` site, a sold-out event **still shows the registration form** — the button text changes to "Join queue" (`t.form.joinQueue`). The `EventForms` component handles `isSoldOut` as a different form variant, not a "no form" state.
 
 Therefore, status rendering rules are:
+
 - `isActive && !isSoldOut` → `'upcoming'` → show registration form placeholder
 - `isActive && isSoldOut` → still `'upcoming'` (queue mode) → show registration form placeholder (Story 3.2 handles the queue button text)
 - `!isActive` → `'past'` → no form, show back link
@@ -106,7 +117,11 @@ Therefore, status rendering rules are:
 For the `EventStatusBadge`: only show `'full'` badge when `isSoldOut`, use `'upcoming'` otherwise.
 
 ```typescript
-const status: EventStatus = event.isSoldOut ? 'full' : event.isActive ? 'upcoming' : 'past';
+const status: EventStatus = event.isSoldOut
+  ? 'full'
+  : event.isActive
+    ? 'upcoming'
+    : 'past';
 const showRegistrationPlaceholder = event.isActive; // includes sold-out (queue)
 ```
 
@@ -114,7 +129,7 @@ const showRegistrationPlaceholder = event.isActive; // includes sold-out (queue)
 
 ```astro
 ---
-export const prerender = false;  // MUST BE FIRST LINE
+export const prerender = false; // MUST BE FIRST LINE
 
 import { apiFetch } from '../../lib/api';
 import type { ApiEvent, EventStatus } from '../../types/api';
@@ -131,17 +146,22 @@ if (!response.ok) {
 }
 
 const event: ApiEvent | null = response.ok
-  ? (await response.json() as ApiEvent)
+  ? ((await response.json()) as ApiEvent)
   : null;
 
 const status: EventStatus | null = event
-  ? (event.isSoldOut ? 'full' : event.isActive ? 'upcoming' : 'past')
+  ? event.isSoldOut
+    ? 'full'
+    : event.isActive
+      ? 'upcoming'
+      : 'past'
   : null;
 
 const showRegistrationPlaceholder = event?.isActive ?? false;
 
 const isOneDayEvent = event
-  ? new Date(event.startDateTime).toDateString() === new Date(event.endDateTime).toDateString()
+  ? new Date(event.startDateTime).toDateString() ===
+    new Date(event.endDateTime).toDateString()
   : false;
 
 const t = event ? getTranslations(event.language) : getTranslations('sv');
@@ -149,6 +169,7 @@ const t = event ? getTranslations(event.language) : getTranslations('sv');
 ```
 
 Architecture rules (no exceptions):
+
 - `prerender = false` **first** line
 - **Never** `try/catch` around fetch — use `response.ok` (note: `events.astro` deviates with try/catch — do NOT copy)
 - **Never** call `.json()` on a failed response
@@ -168,6 +189,7 @@ The existing SvelteKit site layout for the detail page:
 **Mobile**: single column (stacked). **Desktop** (≥ 768px): two columns side-by-side.
 
 Minimal Astro structure:
+
 ```astro
 <!-- Fixed home/back button -->
 <a href="/events" class="home-button" aria-label={t.common.goToHome}>
@@ -181,8 +203,10 @@ Minimal Astro structure:
 
 <!-- Content section -->
 <section>
-  <div class="content">         <!-- flex row at ≥768px -->
-    <div class="event">         <!-- flex: 2 -->
+  <div class="content">
+    <!-- flex row at ≥768px -->
+    <div class="event">
+      <!-- flex: 2 -->
       <h1>{event.title}</h1>
       <EventStatusBadge ... />
       <div class="event__details">
@@ -192,7 +216,8 @@ Minimal Astro structure:
       <div set:html={event.description} />
       <div set:html={event.agenda} />
     </div>
-    <div class="reservation">   <!-- flex: 1 -->
+    <div class="reservation">
+      <!-- flex: 1 -->
       <!-- placeholder or back link -->
     </div>
   </div>
@@ -202,20 +227,34 @@ Minimal Astro structure:
 ### Date / Time Range Display
 
 ```typescript
-function formatDate(isoDate: string, lang: 'sv' | 'en', options: Intl.DateTimeFormatOptions): string {
+function formatDate(
+  isoDate: string,
+  lang: 'sv' | 'en',
+  options: Intl.DateTimeFormatOptions,
+): string {
   try {
     const d = new Date(isoDate);
     if (isNaN(d.getTime())) throw new RangeError('invalid');
-    return new Intl.DateTimeFormat(lang === 'sv' ? 'sv-SE' : 'en-GB', options).format(d);
+    return new Intl.DateTimeFormat(
+      lang === 'sv' ? 'sv-SE' : 'en-GB',
+      options,
+    ).format(d);
   } catch {
     return isoDate;
   }
 }
 
-const startFormatted = formatDate(event.startDateTime, event.language, { dateStyle: 'long', timeStyle: 'short' });
+const startFormatted = formatDate(event.startDateTime, event.language, {
+  dateStyle: 'long',
+  timeStyle: 'short',
+});
 // One-day event: end shows time only (no date)
-const endFormatted = formatDate(event.endDateTime, event.language,
-  isOneDayEvent ? { timeStyle: 'short' } : { dateStyle: 'long', timeStyle: 'short' }
+const endFormatted = formatDate(
+  event.endDateTime,
+  event.language,
+  isOneDayEvent
+    ? { timeStyle: 'short' }
+    : { dateStyle: 'long', timeStyle: 'short' },
 );
 // Display: "{startFormatted} - {endFormatted}"
 ```
@@ -225,12 +264,18 @@ const endFormatted = formatDate(event.endDateTime, event.language,
 Only show if `event.price && event.price.ticketPrice > 0`:
 
 ```astro
-{event.price && event.price.ticketPrice > 0 && (
-  <p class="event__price">
-    {event.price.ticketPrice} {t.price.sek}
-    ({t.price.includingVat.replace('{{percentage}}', String(event.price.vatPercentage))})
-  </p>
-)}
+{
+  event.price && event.price.ticketPrice > 0 && (
+    <p class="event__price">
+      {event.price.ticketPrice} {t.price.sek}(
+      {t.price.includingVat.replace(
+        '{{percentage}}',
+        String(event.price.vatPercentage),
+      )}
+      )
+    </p>
+  )
+}
 ```
 
 Note: `t.price.includingVat` is a string with `{{percentage}}` placeholder — replace it manually (not a function). Check the actual i18n key value in `src/i18n/sv.ts`.
@@ -249,21 +294,21 @@ Both `event.description` and `event.agenda` are **HTML strings** from the API (c
 For `showRegistrationPlaceholder === true`, render a placeholder that Story 3.2 will replace with `<RegistrationForm>`:
 
 ```astro
-{showRegistrationPlaceholder && (
-  <div id="registration-form-placeholder">
-    {/* TODO Story 3.2: Replace this with:
+{
+  showRegistrationPlaceholder && (
+    <div id="registration-form-placeholder">
+      {/* TODO Story 3.2: Replace this with:
         <RegistrationForm
           event={event}
           lang={event.language}
           translations={t}
         />
     */}
-    <p class="placeholder-text">{t.form.submitButton}</p>
-  </div>
-)}
-{!showRegistrationPlaceholder && (
-  <a href="/events">{t.nav.backToEvents}</a>
-)}
+      <p class="placeholder-text">{t.form.submitButton}</p>
+    </div>
+  )
+}
+{!showRegistrationPlaceholder && <a href="/events">{t.nav.backToEvents}</a>}
 ```
 
 ### ⚠️ IMPORTANT Context for Story 3.2 (Registration Form)
@@ -271,6 +316,7 @@ For `showRegistrationPlaceholder === true`, render a placeholder that Story 3.2 
 The architecture doc describes a simplified form (name, email, employer → POST /api/register). The **actual** `events.livingit.se` form is far more complex:
 
 **Form fields:**
+
 - `referralCode` (required) — validated first via `GET /api/events/public/{eventId}/{referralCode}`
 - `firstName` + `lastName` (required) — NOT a single "name" field
 - `email` (required)
@@ -281,6 +327,7 @@ The architecture doc describes a simplified form (name, email, employer → POST
 - `termsAccepted` (conditional checkbox: if `event.termsUrl` or `event.privacyUrl`)
 
 **Two-step registration flow:**
+
 1. Visitor enters `referralCode` → `GET /api/events/public/{eventId}/{referralCode}` validates it; returns `{ maxSeatCount: number }`
 2. Visitor fills rest of form → `POST /api/events/public/{eventId}/{referralCode}` with JSON body
 
@@ -300,25 +347,25 @@ All `src/i18n/sv.ts` and `en.ts` already have keys for this — `form.labelRefer
 
 ### i18n Keys for This Story (All Exist — Do NOT Add)
 
-| Key | Usage |
-|-----|-------|
-| `t.common.goToHome` | fixed back button aria-label |
-| `t.common.eventPromotion` | hero image alt text |
-| `t.common.timeAndLocation` | section heading |
-| `t.price.sek` | price currency label |
-| `t.price.includingVat` | VAT label (has `{{percentage}}` placeholder) |
-| `t.event.statusUpcoming/Past/Full` | EventStatusBadge |
-| `t.nav.backToEvents` | back link for past events |
-| `t.event.notFound` | 404 error state |
-| `t.error.somethingWentWrong` | 500 error state |
-| `t.form.submitButton` | registration placeholder text |
+| Key                                | Usage                                        |
+| ---------------------------------- | -------------------------------------------- |
+| `t.common.goToHome`                | fixed back button aria-label                 |
+| `t.common.eventPromotion`          | hero image alt text                          |
+| `t.common.timeAndLocation`         | section heading                              |
+| `t.price.sek`                      | price currency label                         |
+| `t.price.includingVat`             | VAT label (has `{{percentage}}` placeholder) |
+| `t.event.statusUpcoming/Past/Full` | EventStatusBadge                             |
+| `t.nav.backToEvents`               | back link for past events                    |
+| `t.event.notFound`                 | 404 error state                              |
+| `t.error.somethingWentWrong`       | 500 error state                              |
+| `t.form.submitButton`              | registration placeholder text                |
 
 ### EventStatusBadge Usage
 
 ```typescript
 interface Props {
-  status: EventStatus;             // 'upcoming' | 'past' | 'full'
-  translations: Translations['event'];  // pass t.event
+  status: EventStatus; // 'upcoming' | 'past' | 'full'
+  translations: Translations['event']; // pass t.event
 }
 ```
 
@@ -329,7 +376,7 @@ interface Props {
 ### Tailwind CSS 4 Token Rules
 
 - No `tailwind.config.js` — tokens in `src/styles/globals.css` via `@theme`
-- Use design tokens: `text-mono-black`, `text-mono-dark`, `text-mono-gray`, `bg-[var(--color-bg-card)]`
+- Use design tokens: `text-mono-black`, `text-mono-dark`, `text-mono-gray`, `bg-(--color-bg-card)`
 - Never hardcoded hex values
 
 Note: the living.se Tailwind design system differs from the events.livingit.se CSS variables. Use the Tailwind tokens from the existing site, not the `--dark-bg-color` etc. variables from the SvelteKit site.
