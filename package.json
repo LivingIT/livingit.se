@@ -10,11 +10,11 @@
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.7.0",
-    "@iconify-json/simple-icons": "^1.2.93",
+    "@iconify-json/simple-icons": "^1.2.94",
     "astro": "^6.4.8",
-    "astro-icon": "^1.1.5",
+    "astro-icon": "^1.2.0",
     "lucide-astro": "^0.556.0",
-    "marked": "^18.0.10"
+    "marked": "^18.0.11"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",
@@ -23,7 +23,7 @@
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4.3.0",
-    "wrangler": "^4.123.0"
+    "wrangler": "^4.125.0"
   },
   "prettier": {
     "bracketSpacing": true,
