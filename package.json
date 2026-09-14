@@ -23,7 +23,7 @@
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4.3.0",
-    "wrangler": "^4.125.0"
+    "wrangler": "^4.127.1"
   },
   "prettier": {
     "bracketSpacing": true,
