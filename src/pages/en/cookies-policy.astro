@@ -1,10 +1,10 @@
 ---
-import '../styles/globals.css';
-import { siteConfig } from '../config.ts';
-import { getTranslations } from '../i18n';
-import type { SupportedLanguage } from '../types/api';
-import Navigation from '../components/Navigation.astro';
-import Footer from '../components/Footer.astro';
+import '../../styles/globals.css';
+import { siteConfig } from '../../config.ts';
+import { getTranslations } from '../../i18n';
+import type { SupportedLanguage } from '../../types/api';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
 
 const lang = (Astro.currentLocale ?? 'sv') as SupportedLanguage;
 const t = getTranslations(lang);

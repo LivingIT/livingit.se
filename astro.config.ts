@@ -39,6 +39,11 @@ export default defineConfig({
   output: 'static',
   adapter: cloudflare({ platformProxy: { enabled: false } }),
   integrations: [icon()],
+  i18n: {
+    defaultLocale: 'sv',
+    locales: ['sv', 'en'],
+    routing: { prefixDefaultLocale: false },
+  },
   vite: {
     plugins: [debugEsmShim],
   },

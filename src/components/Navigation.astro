@@ -1,12 +1,24 @@
 ---
 import { Image } from 'astro:assets';
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import { siteConfig } from '../config.ts';
+import { getTranslations, getLocalizedPaths } from '../i18n';
+import type { SupportedLanguage } from '../types/api';
 import * as LucideIcons from 'lucide-astro';
 const iconMap = LucideIcons as Record<string, any>;
 
+const lang = (Astro.currentLocale ?? 'sv') as SupportedLanguage;
+const t = getTranslations(lang);
+const navLabels: Record<string, string> = {
+  software: t.siteNav.software,
+  leadership: t.siteNav.leadership,
+  events: t.siteNav.events,
+};
+const alternatePaths = getLocalizedPaths(Astro.url.pathname);
+
 // Normalize pathname by removing trailing slash (except for root)
-const currentPath = Astro.url.pathname === '/' 
-  ? '/' 
+const currentPath = Astro.url.pathname === '/'
+  ? '/'
   : Astro.url.pathname.replace(/\/$/, '');
 ---
 
@@ -17,7 +29,7 @@ const currentPath = Astro.url.pathname === '/'
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="flex h-16 items-center">
       <div class="flex flex-1 items-center">
-        <a href="/" class="flex items-center">
+        <a href={getRelativeLocaleUrl(lang, '/')} class="flex items-center">
           <Image src="/images/logo-light.svg" alt="Living IT logo" width={120} height={40} class="h-10 w-auto" loading="eager" />
         </a>
       </div>
@@ -25,28 +37,46 @@ const currentPath = Astro.url.pathname === '/'
       <div class="hidden flex-1 items-center justify-center space-x-6 md:flex">
         {
           siteConfig.navigation.links.map((link) => {
-            const isActive = currentPath === link.href;
+            const href = getRelativeLocaleUrl(lang, link.href);
+            const isActive = currentPath === href;
             const IconComponent = iconMap[link.icon] ?? LucideIcons.HelpCircle;
             return (
               <a
-                href={link.href}
+                href={href}
                 class={`text-mono-dark flex items-center gap-2 rounded-lg py-2 transition hover:text-mono-black ${isActive ? 'border-b-4 border-[var(--color-orange)] rounded-none' : ''}`}
                 aria-current={isActive ? 'page' : undefined}
               >
                 <IconComponent class="h-6 w-6" />
-                <span class="font-semibold">{link.name}</span>
+                <span class="font-semibold">{navLabels[link.key]}</span>
               </a>
             );
           })
         }
       </div>
 
-      <div class="hidden flex-1 items-center justify-end md:flex">
+      <div class="hidden flex-1 items-center justify-end gap-4 md:flex">
+        <div class="flex items-center gap-1 text-sm font-semibold" aria-label="Language switcher">
+          <a
+            href={alternatePaths.sv}
+            class={`px-1.5 ${lang === 'sv' ? 'text-mono-black' : 'text-mono-light hover:text-mono-black'}`}
+            aria-current={lang === 'sv' ? 'true' : undefined}
+          >
+            SV
+          </a>
+          <span class="text-mono-light">/</span>
+          <a
+            href={alternatePaths.en}
+            class={`px-1.5 ${lang === 'en' ? 'text-mono-black' : 'text-mono-light hover:text-mono-black'}`}
+            aria-current={lang === 'en' ? 'true' : undefined}
+          >
+            EN
+          </a>
+        </div>
         <a
-          href={siteConfig.navigation.cta.href}
+          href={getRelativeLocaleUrl(lang, siteConfig.navigation.cta.href)}
           class="bg-[var(--color-orange)] rounded-lg px-6 py-2 font-semibold text-white"
         >
-          {siteConfig.navigation.cta.text}
+          {t.siteNav.cta}
         </a>
       </div>
 
@@ -65,26 +95,44 @@ const currentPath = Astro.url.pathname === '/'
       <div class="flex flex-col space-y-3">
         {
           siteConfig.navigation.links.map((link) => {
-            const isActive = currentPath === link.href;
+            const href = getRelativeLocaleUrl(lang, link.href);
+            const isActive = currentPath === href;
             const IconComponent = iconMap[link.icon] ?? LucideIcons.HelpCircle;
             return (
               <a
-                href={link.href}
+                href={href}
                 class={`text-mono-dark flex items-center gap-3 py-2 font-semibold ${isActive ? 'border-b-4 border-[var(--color-orange)]' : ''}`}
                 aria-current={isActive ? 'page' : undefined}
               >
                 <IconComponent class="h-5 w-5" />
-                <span>{link.name}</span>
+                <span>{navLabels[link.key]}</span>
               </a>
             );
           })
         }
         <a
-          href={siteConfig.navigation.cta.href}
+          href={getRelativeLocaleUrl(lang, siteConfig.navigation.cta.href)}
           class="bg-[var(--color-orange)] rounded-lg px-6 py-3 text-center font-semibold text-white"
         >
-          {siteConfig.navigation.cta.text}
+          {t.siteNav.cta}
         </a>
+        <div class="flex items-center gap-1 pt-1 text-sm font-semibold" aria-label="Language switcher">
+          <a
+            href={alternatePaths.sv}
+            class={`px-1.5 ${lang === 'sv' ? 'text-mono-black' : 'text-mono-light hover:text-mono-black'}`}
+            aria-current={lang === 'sv' ? 'true' : undefined}
+          >
+            SV
+          </a>
+          <span class="text-mono-light">/</span>
+          <a
+            href={alternatePaths.en}
+            class={`px-1.5 ${lang === 'en' ? 'text-mono-black' : 'text-mono-light hover:text-mono-black'}`}
+            aria-current={lang === 'en' ? 'true' : undefined}
+          >
+            EN
+          </a>
+        </div>
       </div>
     </div>
   </div>
