@@ -34,7 +34,7 @@ const currentPath = Astro.url.pathname === '/'
         </a>
       </div>
 
-      <div class="hidden flex-1 items-center justify-center space-x-6 md:flex">
+      <div class="hidden flex-1 items-center justify-center space-x-6 nav:flex">
         {
           siteConfig.navigation.links.map((link) => {
             const href = getRelativeLocaleUrl(lang, link.href);
@@ -43,10 +43,10 @@ const currentPath = Astro.url.pathname === '/'
             return (
               <a
                 href={href}
-                class={`text-mono-dark flex items-center gap-2 rounded-lg py-2 transition hover:text-mono-black ${isActive ? 'border-b-4 border-[var(--color-orange)] rounded-none' : ''}`}
+                class={`text-mono-dark flex items-center gap-2 whitespace-nowrap rounded-lg py-2 transition hover:text-mono-black ${isActive ? 'border-b-4 border-[var(--color-orange)] rounded-none' : ''}`}
                 aria-current={isActive ? 'page' : undefined}
               >
-                <IconComponent class="h-6 w-6" />
+                <IconComponent class="h-6 w-6 flex-shrink-0" />
                 <span class="font-semibold">{navLabels[link.key]}</span>
               </a>
             );
@@ -54,7 +54,7 @@ const currentPath = Astro.url.pathname === '/'
         }
       </div>
 
-      <div class="hidden flex-1 items-center justify-end gap-4 md:flex">
+      <div class="hidden flex-1 items-center justify-end gap-4 nav:flex">
         <div class="flex items-center gap-1 text-sm font-semibold" aria-label="Language switcher">
           <a
             href={alternatePaths.sv}
@@ -82,7 +82,7 @@ const currentPath = Astro.url.pathname === '/'
 
       <button
         id="mobileMenuButton"
-        class="rounded-lg p-2 md:hidden"
+        class="rounded-lg p-2 nav:hidden"
         aria-controls="mobileMenu"
         aria-expanded="false"
         aria-label="Toggle navigation menu"
@@ -91,7 +91,7 @@ const currentPath = Astro.url.pathname === '/'
       </button>
     </div>
 
-    <div id="mobileMenu" class="hidden pb-4 md:hidden" aria-hidden="true">
+    <div id="mobileMenu" class="hidden pb-4 nav:hidden" aria-hidden="true">
       <div class="flex flex-col space-y-3">
         {
           siteConfig.navigation.links.map((link) => {
@@ -101,10 +101,10 @@ const currentPath = Astro.url.pathname === '/'
             return (
               <a
                 href={href}
-                class={`text-mono-dark flex items-center gap-3 py-2 font-semibold ${isActive ? 'border-b-4 border-[var(--color-orange)]' : ''}`}
+                class={`text-mono-dark flex items-center gap-3 whitespace-nowrap py-2 font-semibold ${isActive ? 'border-b-4 border-[var(--color-orange)]' : ''}`}
                 aria-current={isActive ? 'page' : undefined}
               >
-                <IconComponent class="h-5 w-5" />
+                <IconComponent class="h-5 w-5 flex-shrink-0" />
                 <span>{navLabels[link.key]}</span>
               </a>
             );
