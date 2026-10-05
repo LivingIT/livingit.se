@@ -27,7 +27,7 @@ try {
   const response = await apiFetch('/api/events/public');
   if (response.ok) {
     const allEvents = await response.json() as ApiEvent[];
-    upcomingEvents = allEvents.filter((e) => e.isActive && e.language === lang);
+    upcomingEvents = allEvents.filter((e) => e.isActive);
   } else {
     console.error(`[events] API responded ${response.status} ${response.statusText}`);
     Astro.response.status = 500;

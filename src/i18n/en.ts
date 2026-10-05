@@ -59,6 +59,8 @@ export const en: Translations = {
     registrationClosed: 'Registration closed',
     registrationFull: 'This event is fully booked',
     notFound: 'Event not found',
+    languageLabel: 'Language',
+    languageNames: { sv: 'Swedish', en: 'English' },
   },
   messages: {
     queueSuccessLine1: 'You have now been placed in the queue. ⌛️',

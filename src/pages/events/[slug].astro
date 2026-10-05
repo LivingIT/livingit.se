@@ -7,6 +7,7 @@ import type { ApiEvent, EventStatus, SupportedLanguage } from '../../types/api';
 import { getTranslations } from '../../i18n';
 import Layout from '../../components/Layout.astro';
 import EventStatusBadge from '../../components/EventStatusBadge.astro';
+import { Languages } from 'lucide-astro';
 import RegistrationForm from '../../components/RegistrationForm.astro';
 
 const lang = (Astro.currentLocale ?? 'sv') as SupportedLanguage;
@@ -49,6 +50,8 @@ function formatDate(isoDate: string, lang: 'sv' | 'en', options: Intl.DateTimeFo
     return isoDate;
   }
 }
+
+const languageName = event?.language ? t.event.languageNames[event.language] : undefined;
 
 const startFormatted = event
   ? formatDate(event.startDateTime, event.language, { dateStyle: 'long', timeStyle: 'short' })
@@ -151,6 +154,12 @@ const pageDescription = event
                 aria-label={`${event.location} (${t.common.opensInGoogleMaps})`}
               >{event.location}</a>
             </p>
+            {languageName && (
+              <p class="event__language">
+                <Languages size={20} aria-hidden="true" />
+                <span><span class="sr-only">{t.event.languageLabel}: </span>{languageName}</span>
+              </p>
+            )}
             {event.price && event.price.ticketPrice > 0 && (
               <p class="event__price">
                 <svg
@@ -270,7 +279,8 @@ const pageDescription = event
   }
 
   .event__time-range,
-  .event__location {
+  .event__location,
+  .event__language {
     display: flex;
     align-items: center;
     gap: 0.5rem;

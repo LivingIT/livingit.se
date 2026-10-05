@@ -57,6 +57,8 @@ export const sv = {
     registrationClosed: 'Anmälan stängd',
     registrationFull: 'Det här eventet är fullbokat',
     notFound: 'Eventet hittades inte',
+    languageLabel: 'Språk',
+    languageNames: { sv: 'Svenska', en: 'Engelska' },
   },
   messages: {
     queueSuccessLine1: 'Du har nu blivit placerad i kö. ⌛️',
