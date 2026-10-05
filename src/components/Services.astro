@@ -1,13 +1,13 @@
 ---
-import { siteConfig } from '../config.ts';
 import * as LucideIcons from 'lucide-astro';
-import { servicesContent } from '../content/services';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getServicesContent } from '../content/services';
+import { getTranslations } from '../i18n';
+import type { SupportedLanguage } from '../types/api';
 
-const serviceUrls: Record<string, string> = {
-  'Mjukvaru­konsulting': '/mjukvarukonsulting',
-  'Ledarskaps­konsulting': '/ledarskapskonsulting',
-  'Events': '/events',
-};
+const lang = (Astro.currentLocale ?? 'sv') as SupportedLanguage;
+const t = getTranslations(lang);
+const servicesContent = getServicesContent(lang);
 ---
 
 <section id="services" class="relative bg-[var(--color-bg-main-default)] px-4 py-20 sm:px-6 lg:px-8">
@@ -16,10 +16,10 @@ const serviceUrls: Record<string, string> = {
   <div class="mx-auto max-w-7xl">
     <div class="scroll-fade-up mx-auto mb-16 max-w-3xl text-center">
       <h2 class="text-mono-black mb-4 text-4xl font-bold sm:text-5xl">
-        {siteConfig.services.title}
+        {t.services.title}
       </h2>
       <p class="text-mono-dark text-xl">
-        {siteConfig.services.subtitle}
+        {t.services.subtitle}
       </p>
     </div>
 
@@ -29,7 +29,7 @@ const serviceUrls: Record<string, string> = {
           const IconComponent = LucideIcons[service.icon];
           return (
           <a
-            href={serviceUrls[service.title]}
+            href={getRelativeLocaleUrl(lang, service.href)}
             class={`group block ${index % 2 === 0 ? 'scroll-fade-left' : 'scroll-fade-right'} bg-[var(--color-bg-card)] border-mono-lighter rounded-xl border p-8 stagger-${(index % 9) + 1} hover:shadow-lg transition-shadow flex flex-col`}
           >
             <div>

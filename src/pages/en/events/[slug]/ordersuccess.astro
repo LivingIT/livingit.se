@@ -2,10 +2,10 @@
 export const prerender = false;
 
 import { getRelativeLocaleUrl } from 'astro:i18n';
-import { apiFetch } from '../../../lib/api';
-import { getTranslations } from '../../../i18n';
-import type { ApiEvent, SupportedLanguage } from '../../../types/api';
-import Layout from '../../../components/Layout.astro';
+import { apiFetch } from '../../../../lib/api';
+import { getTranslations } from '../../../../i18n';
+import type { ApiEvent, SupportedLanguage } from '../../../../types/api';
+import Layout from '../../../../components/Layout.astro';
 
 const lang = (Astro.currentLocale ?? 'sv') as SupportedLanguage;
 const { slug } = Astro.params as { slug: string };

@@ -1,4 +1,6 @@
-export const consultingSWContent = [
+import type { SupportedLanguage } from '../types/api';
+
+const sv = [
   {
     icon: 'Code2',
     title: 'Kodarkitekten',
@@ -70,6 +72,86 @@ Devops för oss är inte bara teknik, det är ett löfte om smidighet, kvalitet 
       'Kod och teknik i all ära, det är så klart väldigt viktigt – men människor är viktigare. \
 Vi tror på delade skratt, öppen feedback och en laganda som håller även under press när deadlines närmar sig. \
 Våra konsulter tar ansvar, samarbetar i teamet och bygger kultur lika självklart som de bygger kod.',
-  }
-
+  },
 ];
+
+const en: typeof sv = [
+  {
+    icon: 'Code2',
+    title: 'The Code Architect',
+    description:
+      'Our developers see the beauty in clean code and the small joy of a well-named interface. \
+They see the big picture, spot patterns, and shape solutions that hold up – even as needs grow and reality changes. \
+The focus is always on the end result; we don\'t just build systems – we build confidence, clarity and a future.',
+  },
+  {
+    icon: 'FlaskConical',
+    title: 'The Test Pilot',
+    description:
+      'Our testers are curious explorers who know that quality isn\'t about never making mistakes, but about always learning from them. \
+It\'s not just about hitting "Run Tests" – they think, question and verify. \
+They simply test with both heart and mind – so our clients can sleep soundly at night.',
+  },
+  {
+    icon: 'Palette',
+    title: 'The Designer',
+    description:
+      'Our frontend developers combine the craft of code with an understanding of UX to create experiences that are intuitive, accessible and reliable. \
+Technically, they adapt to the codebase, or help decide what best fits the need. \
+With a feel for behavior, design and technology alike, they shape flows that hold together from the first click to the last interaction.',
+  },
+  {
+    icon: 'GraduationCap',
+    title: 'The Knowledge Sharer',
+    description:
+      'We know knowledge grows best in an environment where curiosity is encouraged and experience is shared. \
+Sometimes that happens over lunch at a client\'s office, sometimes during an after-work at our own office with pizza and laughs. \
+For us, professional development isn\'t just about courses and certificates, but about creating a culture where we learn from each other – every day.',
+  },
+  {
+    icon: 'BrainCircuit',
+    title: 'The AI Tamer',
+    description:
+      'We look beyond the hype and help organizations understand what AI can actually do – here and now. \
+Our AI consultants combine technology, curiosity and common sense to guide you from first idea to working solution. \
+Sometimes it\'s about building your own, sometimes about choosing the right tool – but always with understanding, responsibility and clear purpose.',
+  },
+  {
+    icon: 'Lightbulb',
+    title: 'The Value Creator',
+    description:
+      'Our problem solvers move confidently in the space between business, users and technology. \
+With curiosity, structure and business acumen, they make sure the right problems get solved, in the right order, with the right tools. \
+Because problem solving isn\'t about delivering the most code – it\'s about creating real value that lasts.',
+  },
+  {
+    icon: 'CloudCog',
+    title: 'The Cloud Maker',
+    description:
+      'It matters less whose cloud it is; we build solutions that work regardless of the provider behind them. \
+Our consultants make sure systems talk to each other, scale when they need to, and simply just work. \
+We think architecture from the start, automate wherever we can, and build robust platforms that handle both everyday operations and growth.',
+  },
+  {
+    icon: 'GitBranchPlus',
+    title: 'The DevOps Engineer',
+    description:
+      'Everything should flow; from commit to production – without drama, without waiting. \
+We love automation, pipelines and clear workflows that make everyday life easier for everyone on the team. \
+To us, DevOps isn\'t just technology, it\'s a promise of agility, quality and joy in delivery.',
+  },
+  {
+    icon: 'MessageCircle',
+    title: 'The Team Player',
+    description:
+      'Code and technology are important, of course – but people matter more. \
+We believe in shared laughs, open feedback and a team spirit that holds up even under pressure as deadlines approach. \
+Our consultants take ownership, collaborate within the team, and build culture just as naturally as they build code.',
+  },
+];
+
+const content = { sv, en };
+
+export function getConsultingSWContent(lang: SupportedLanguage) {
+  return content[lang];
+}

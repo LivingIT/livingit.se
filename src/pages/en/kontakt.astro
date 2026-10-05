@@ -1,10 +1,10 @@
 ---
-import Layout from '../components/Layout.astro';
+import Layout from '../../components/Layout.astro';
 import { Image } from 'astro:assets';
-import { siteConfig, getImageSrcSet, imageSizes } from '../config.ts';
-import { getContactContent } from '../content/contact';
-import { getTranslations } from '../i18n';
-import type { SupportedLanguage } from '../types/api';
+import { siteConfig, getImageSrcSet, imageSizes } from '../../config.ts';
+import { getContactContent } from '../../content/contact';
+import { getTranslations } from '../../i18n';
+import type { SupportedLanguage } from '../../types/api';
 import * as LucideIcons from 'lucide-astro';
 import { marked } from 'marked';
 
@@ -101,7 +101,7 @@ const getInitials = (name: string) =>
           ))}
         </div>
       </section>
-      
+
       <section>
         <div class="group block scroll-fade-up bg-[var(--color-bg-card)] border-mono-lighter rounded-2xl border p-8 md:p-10 hover:shadow-lg transition-shadow">
           <h2 class="text-2xl font-semibold mb-6 card-title">{t.contactPage.companyDetailsHeading}</h2>

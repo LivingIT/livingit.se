@@ -1,5 +1,10 @@
 ---
 import { siteConfig } from '../config.ts';
+import { getTranslations } from '../i18n';
+import type { SupportedLanguage } from '../types/api';
+
+const lang = (Astro.currentLocale ?? 'sv') as SupportedLanguage;
+const t = getTranslations(lang);
 ---
 
 <section
@@ -16,7 +21,7 @@ import { siteConfig } from '../config.ts';
       <p
         class="text-mono-dark scroll-fade-up mb-10 text-xl leading-relaxed sm:text-2xl"
       >
-        {siteConfig.hero.description}
+        {t.hero.description}
       </p>
     </div>
   </div>
