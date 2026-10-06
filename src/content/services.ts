@@ -1,6 +1,9 @@
-export const servicesContent = [
+import type { SupportedLanguage } from '../types/api';
+
+const sv = [
   {
     icon: 'Code2',
+    href: '/mjukvarukonsulting',
     title: 'Mjukvaru­konsulting',
     description:
       'Med vår expertis hjälper vi er att skapa digitala lösningar genom att kombinera nyfikenhet, \
@@ -29,6 +32,7 @@ digital utveckling som gör skillnad, idag och imorgon.
   },
   {
     icon: 'Users',
+    href: '/ledarskapskonsulting',
     title: 'Ledarskaps­konsulting',
     description:
       'Vi förstärker organisationer genom att kombinera nyfikenhet, \
@@ -54,6 +58,7 @@ håller över tid.
   },
   {
     icon: 'CalendarDays',
+    href: '/events',
     title: 'Event',
     description:
       'Sist men inte minst skapar vi mötesplatser genom konferenser, \
@@ -67,5 +72,86 @@ skapa utrymme för lärande, samtal och nya idéer.
 Målet är att dela erfarenheter på olika sätt, väcka nyfikenhet och bygga starka \
 relationer som lever vidare även efter att eventet är slut – både \
 inom branschen och bortom den.`,
-  }
+  },
 ];
+
+const en: typeof sv = [
+  {
+    icon: 'Code2',
+    href: '/mjukvarukonsulting',
+    title: 'Software Consulting',
+    description:
+      'With our expertise, we help you build digital solutions by combining curiosity, \
+precision and genuine commitment. Our focus is on building \
+sustainable, well-structured systems that make a real difference – for \
+both the team and the business.',
+    body: `With our expertise, we help you build digital solutions by combining curiosity,
+precision and genuine commitment. Our focus is on building
+sustainable, well-structured systems that make a real difference – for
+both the team and the business.
+
+When development needs grow, we're there – as a reliable
+partner throughout the journey. Our developers and architects step in
+with a steady hand and fresh energy, ready to shape structures that hold
+up over time.
+
+Together with our specialists in quality assurance,
+collaborative workflows and modern ways of working, we help you unlock
+the potential in your systems and deliver tangible improvements in
+stability, development speed and user experience.
+
+We believe success is built together – with clarity, responsiveness,
+and a focus on solutions that last. Together, we build
+digital solutions that make a difference, today and tomorrow.
+`,
+  },
+  {
+    icon: 'Users',
+    href: '/ledarskapskonsulting',
+    title: 'Leadership Consulting',
+    description:
+      'We strengthen organizations by combining curiosity, \
+innovation and genuine commitment. Our goal is to create \
+inclusive, sustainable solutions that make a difference – for \
+both people and the business.',
+    body: `We strengthen organizations by combining curiosity,
+innovation and genuine commitment. Our goal is to create
+inclusive, sustainable solutions that make a difference – for
+both people and the business.
+
+When change is on the horizon, we're with you – as a partner you can
+rely on. Our interim managers step in with a steady hand and fresh energy,
+ready to drive progress forward. Together with our experts in
+business governance and process optimization, we help you unlock
+the potential in your organization and create results that are felt – both
+day to day and on the bottom line.
+
+We believe development happens together – with clarity, presence
+and a focus on concrete results. Together we create success that
+lasts.
+`,
+  },
+  {
+    icon: 'CalendarDays',
+    href: '/events',
+    title: 'Events',
+    description:
+      'Last but not least, we create meeting places through conferences, \
+workshops and other gatherings that inspire, deepen knowledge and build community. We love sharing \
+knowledge, sparking curiosity and giving back to the industry and our community.',
+    body: `We arrange meeting places through conferences, workshops and other \
+events where knowledge, inspiration and community take center stage. \
+By bringing together people with different experiences and perspectives, we want to \
+create space for learning, conversation and new ideas.
+
+The goal is to share experiences in different ways, spark curiosity and build strong \
+relationships that live on even after the event is over – both \
+within the industry and beyond it.`,
+  },
+];
+
+const content = { sv, en };
+
+export function getServicesContent(lang: SupportedLanguage) {
+  return content[lang];
+}

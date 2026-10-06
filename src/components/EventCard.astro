@@ -1,8 +1,9 @@
 ---
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import type { ApiEvent } from '../types/api';
 import { getTranslations } from '../i18n';
 import EventStatusBadge from './EventStatusBadge.astro';
-import { Film, MicVocal, Users } from 'lucide-astro';
+import { Film, Languages, MicVocal, Users } from 'lucide-astro';
 
 interface Props {
   event: ApiEvent;
@@ -26,7 +27,9 @@ try {
 }
 
 const status: import('../types/api').EventStatus = event.isSoldOut ? 'full' : event.isActive ? 'upcoming' : 'past';
-const href = event.eventId ? `/events/${event.eventId}` : null;
+const href = event.eventId ? getRelativeLocaleUrl(lang, `/events/${event.eventId}`) : null;
+
+const languageName = event.language ? t.event.languageNames[event.language] : undefined;
 
 const iconType = event.eventType === 'ItBio' ? 'film'
   : event.eventType === 'BeautyInCode' ? 'mic'
@@ -62,6 +65,12 @@ const iconType = event.eventType === 'ItBio' ? 'film'
       <span class="inline-block bg-[var(--color-orange)] text-white text-xs font-bold px-2.5 py-0.5 rounded-full flex-shrink-0">{event.city}</span>
       <span>{event.location}</span>
     </div>
+    {languageName && (
+      <div class="flex items-center gap-2 text-mono-gray text-sm mt-1">
+        <Languages class="h-4 w-4 flex-shrink-0" aria-hidden="true" />
+        <span><span class="sr-only">{t.event.languageLabel}: </span>{languageName}</span>
+      </div>
+    )}
     {status !== 'upcoming' && (
       <div class="mt-3">
         <EventStatusBadge status={status} translations={t.event} />

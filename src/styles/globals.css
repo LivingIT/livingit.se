@@ -39,6 +39,11 @@ body {
 }
 
 @theme {
+  /* Custom breakpoint: the nav needs more room than `lg` (1024px) once
+     English labels like "Leadership Consulting" are in play — 1100px is
+     the measured minimum width where the desktop nav stops crowding. */
+  --breakpoint-nav: 1100px;
+
   --color-mono-black: #000000;
   --color-mono-darker: #303132;
   --color-mono-dark: #414243;

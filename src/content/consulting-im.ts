@@ -1,4 +1,6 @@
-export const consultingIMContent = [
+import type { SupportedLanguage } from '../types/api';
+
+const sv = [
   {
     groupTitle: 'Interim Management',
     items: [
@@ -98,3 +100,110 @@ export const consultingIMContent = [
     ],
   },
 ];
+
+const en: typeof sv = [
+  {
+    groupTitle: 'Interim Management',
+    items: [
+      {
+        icon: 'Zap',
+        title: 'The Crisis Solver',
+        description:
+          'We step in when things get rough – not to patch things ' +
+          'up, but to sharpen them. We shake things up, find new ' +
+          'paths and turn problems into opportunities. Fast, bold ' +
+          'and with plenty of experience in the bag.',
+      },
+      {
+        icon: 'ShieldCheck',
+        title: 'The Steady Hand',
+        description:
+          'Need a captain who holds the course? We make sure ' +
+          'the business runs smoothly and reliably – without unnecessary ' +
+          'drama. An experienced interim manager who steers, balances and ' +
+          'creates calm in the organization.',
+      },
+      {
+        icon: 'Compass',
+        title: 'The Compass',
+        description:
+          'Want a wise sparring partner who both listens and ' +
+          'challenges? We see the big picture, point the way and guide you ' +
+          'safely through change. A senior leader who becomes your ' +
+          'and your organization\'s own strategic friend.',
+      },
+    ],
+  },
+  {
+    groupTitle: 'Project Management',
+    items: [
+      {
+        icon: 'Star',
+        title: 'The Visionary',
+        description:
+          'Fast, flexible and always one step ahead. We lead projects ' +
+          'with modern methods, create energy in the team and make ' +
+          'innovation happen for real. The result? Deliveries on ' +
+          'time, within budget – and with a bunch of motivated people ' +
+          'along the way.',
+      },
+      {
+        icon: 'ChartBar',
+        title: 'The Strategic Master',
+        description:
+          'Here you get the project manager who plans, structures and ' +
+          'delivers with surgical precision. Certified, steady and ' +
+          'used to holding the course in complex projects. For those ' +
+          'who want clear direction, smart risk management and a ' +
+          'leader who gives the steering committee peace of mind.',
+      },
+      {
+        icon: 'Users',
+        title: 'The Relationship Expert',
+        description:
+          'People first – always. We build strong teams that thrive, ' +
+          'develop and perform at their best. With a focus on ' +
+          'communication, culture and collaboration, we turn groups ' +
+          'into winning teams and projects into success stories.',
+      },
+    ],
+  },
+  {
+    groupTitle: 'Change Management',
+    items: [
+      {
+        icon: 'Sparkles',
+        title: 'Develop & Refine',
+        description:
+          'We tweak, polish and sharpen what\'s already there. Small ' +
+          'adjustments, big results – without a complicated ' +
+          'change journey. Think of it as refining a classic, but for ' +
+          'your processes and systems.',
+      },
+      {
+        icon: 'Maximize2',
+        title: 'Complex Transitions',
+        description:
+          'When the puzzle gets tricky, we\'re there. We take on the ' +
+          'truly tricky projects – the ones that require new solutions, ' +
+          'smart adaptation and a bit more change management. Like ' +
+          'solving a Rubik\'s cube with precision and patience.',
+      },
+      {
+        icon: 'Flame',
+        title: 'Larger Transformations',
+        description:
+          'Time to think big? We help you redraw the map – in ' +
+          'structure, systems and culture. This is about bold ' +
+          'steps, radical change and going from sparks to ' +
+          'a whole galaxy of possibilities.',
+      },
+    ],
+  },
+];
+
+const content = { sv, en };
+
+export function getConsultingIMContent(lang: SupportedLanguage) {
+  return content[lang];
+}

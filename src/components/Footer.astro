@@ -1,8 +1,14 @@
 ---
 import { Image } from 'astro:assets';
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import { siteConfig } from '../config.ts';
+import { getTranslations } from '../i18n';
+import type { SupportedLanguage } from '../types/api';
 import { Icon } from 'astro-icon/components';
 import { Cookie } from 'lucide-astro';
+
+const lang = (Astro.currentLocale ?? 'sv') as SupportedLanguage;
+const t = getTranslations(lang);
 
 const iconMap = {
   x: 'simple-icons:x',
@@ -19,23 +25,27 @@ const iconMap = {
     <div class="mb-12 grid grid-cols-1 gap-12 md:grid-cols-4 items-start">
       {
         siteConfig.footer.columns.map((column) => {
-          const sectionLabel = column.title
-            ? `Office in ${column.title}`
+          const city = column.title?.[lang];
+          const address = column.street
+            ? `${column.street}\n${column.postalCode} ${city}\n${t.footer.country}`
+            : null;
+          const sectionLabel = city
+            ? t.footer.officeIn.replace('{{city}}', city)
             : column.logo
-              ? 'Living IT information and social media links'
+              ? t.footer.logoSection
               : column.social
-                ? 'Social media links'
-                : column.address
-                  ? 'Kontorsadress'
+                ? t.footer.socialSection
+                : address
+                  ? t.footer.addressLabel
                   : null;
 
           return (
             <div>
               {sectionLabel && <h2 class="sr-only">{sectionLabel}</h2>}
-              {column.title && <h3 class="mb-4 font-semibold">{column.title}</h3>}
-            {column.address && (
+              {city && <h3 class="mb-4 font-semibold">{city}</h3>}
+            {address && (
               <a href={column.mapsUrl} target="_blank" rel="noopener noreferrer" class="text-mono-light mb-4 whitespace-pre-line text-sm leading-relaxed hover:text-white transition-colors block">
-                {column.address}
+                {address}
               </a>
             )}
             {column.logo && (
@@ -43,7 +53,7 @@ const iconMap = {
                 <Image src={column.logo} alt="Living IT Logo" width={120} height={48} class="h-12 -mt-4" />
                 {column.legalInfo && (
                   <div class="mt-6 text-mono-light whitespace-pre-line text-sm leading-relaxed">
-                    {column.legalInfo}
+                    {column.legalInfo}{`\n© ${new Date().getFullYear()} Living IT`}
                   </div>
                 )}
               </div>
@@ -52,8 +62,8 @@ const iconMap = {
               <div class="flex space-x-4">
                 {column.social.map((social) => (
                   social.isCookieButton ? (
-                    <a 
-                      href="/cookies-policy"
+                    <a
+                      href={getRelativeLocaleUrl(lang, '/cookies-policy')}
                       class="text-mono-light hover:text-white transition-colors tooltip-above"
                       aria-label={social.name}
                       data-tooltip={social.name}

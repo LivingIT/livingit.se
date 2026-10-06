@@ -2,13 +2,13 @@
 export const prerender = false;
 
 import { getRelativeLocaleUrl } from 'astro:i18n';
-import { apiFetch } from '../../lib/api';
-import type { ApiEvent, EventStatus, SupportedLanguage } from '../../types/api';
-import { getTranslations } from '../../i18n';
-import Layout from '../../components/Layout.astro';
-import EventStatusBadge from '../../components/EventStatusBadge.astro';
+import { apiFetch } from '../../../lib/api';
+import type { ApiEvent, EventStatus, SupportedLanguage } from '../../../types/api';
+import { getTranslations } from '../../../i18n';
+import Layout from '../../../components/Layout.astro';
+import EventStatusBadge from '../../../components/EventStatusBadge.astro';
 import { Languages } from 'lucide-astro';
-import RegistrationForm from '../../components/RegistrationForm.astro';
+import RegistrationForm from '../../../components/RegistrationForm.astro';
 
 const lang = (Astro.currentLocale ?? 'sv') as SupportedLanguage;
 const eventsHref = getRelativeLocaleUrl(lang, '/events');

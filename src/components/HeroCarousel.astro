@@ -2,10 +2,15 @@
 import { marked } from 'marked';
 import { Image } from 'astro:assets';
 import { siteConfig, getImageSrcSet, imageSizes } from '../config.ts';
+import { getTranslations } from '../i18n';
+import type { SupportedLanguage } from '../types/api';
+
+const lang = (Astro.currentLocale ?? 'sv') as SupportedLanguage;
+const t = getTranslations(lang);
 
 const { heroCarousel } = siteConfig;
-const markdownHtml = marked.parse(heroCarousel.markdown);
-const altPrefix = heroCarousel.imageAltPrefix ?? 'Carousel image';
+const markdownHtml = marked.parse(t.heroCarousel.markdown);
+const altPrefix = t.heroCarousel.imageAltPrefix;
 const intervalMs = heroCarousel.intervalMs ?? 4500;
 ---
 
