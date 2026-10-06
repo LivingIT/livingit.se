@@ -144,7 +144,7 @@ What matters is that when the workday is over, \
 you still have the time and energy left for what matters most to you.
 
 **When people feel good, the results get better.** \
-We put just as much energy into security and well-being as into technology and delivery.<br />
+We put just as much energy into a sense of security and well-being as into technology and delivery.<br />
 We invest in professional development, fair terms, and the best compensation model on the market – \
 a unique combination of the security of employment and the freedom of being your own boss.
 
@@ -157,7 +157,7 @@ Our agreements are free of clauses that prevent open collaboration. \
 This is where we stand out from the crowd, and we're proud of it.
 
 That's how we work.<br />
-Safely, openly, and humanly.<br />
+With care, openness and a human touch.<br />
 That's **The Living IT Way**.`,
   },
   services: {
@@ -169,6 +169,7 @@ That's **The Living IT Way**.`,
     addressLabel: 'Office address',
     logoSection: 'Living IT information and social media links',
     socialSection: 'Social media links',
+    country: 'Sweden',
   },
   cookiesBanner: {
     title: 'Cookie consent',

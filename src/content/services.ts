@@ -83,11 +83,11 @@ const en: typeof sv = [
     description:
       'With our expertise, we help you build digital solutions by combining curiosity, \
 precision and genuine commitment. Our focus is on building \
-sustainable, clear systems that make a real difference – for \
+sustainable, well-structured systems that make a real difference – for \
 both the team and the business.',
     body: `With our expertise, we help you build digital solutions by combining curiosity,
 precision and genuine commitment. Our focus is on building
-sustainable, clear systems that make a real difference – for
+sustainable, well-structured systems that make a real difference – for
 both the team and the business.
 
 When development needs grow, we're there – as a reliable
@@ -96,13 +96,13 @@ with a steady hand and fresh energy, ready to shape structures that hold
 up over time.
 
 Together with our specialists in quality assurance,
-collaboration flows and modern ways of working, we help you unlock
-the potential in your systems and create results that are felt – in
-stability, in pace, and in user experience.
+collaborative workflows and modern ways of working, we help you unlock
+the potential in your systems and deliver tangible improvements in
+stability, development speed and user experience.
 
 We believe success is built together – with clarity, responsiveness,
-and a focus on solutions that last. Together we create
-digital development that makes a difference, today and tomorrow.
+and a focus on solutions that last. Together, we build
+digital solutions that make a difference, today and tomorrow.
 `,
   },
   {

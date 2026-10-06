@@ -59,7 +59,7 @@ const people = [
   {
     name: 'Mattias Larsson',
     titleSv: 'Grundare och ordningsman',
-    titleEn: 'Founder and Steward',
+    titleEn: 'Founder and Keeper of Order',
     phoneDisplay: '076-390 60 54',
     phoneNumber: '+46763906054',
     email: 'mattias.larsson@livingit.se',

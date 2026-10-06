@@ -167,6 +167,7 @@ Det är **The Living IT Way**.`,
     addressLabel: 'Kontorsadress',
     logoSection: 'Living IT-information och länkar till sociala medier',
     socialSection: 'Länkar till sociala medier',
+    country: 'Sverige',
   },
   cookiesBanner: {
     title: 'Cookiesamtycke',

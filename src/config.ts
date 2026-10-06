@@ -145,23 +145,28 @@ export const siteConfig = {
   footer: {
     columns: [
       {
-        title: 'Malmö',
-        address: 'Gustav Adolfs torg 12\n211 39 Malmö\nSverige',
+        title: { sv: 'Malmö', en: 'Malmö' },
+        street: 'Gustav Adolfs torg 12',
+        postalCode: '211 39',
         mapsUrl: 'https://maps.google.com/?q=55.60191580297133,12.999251168084095',
       },
       {
-        title: 'Göteborg',
-        address: 'Norra Hamngatan 18\n411 06 Göteborg\nSverige',
+        title: { sv: 'Göteborg', en: 'Gothenburg' },
+        street: 'Norra Hamngatan 18',
+        postalCode: '411 06',
         mapsUrl: 'https://maps.google.com/?q=57.70710852992462,11.968320826032762',
       },
       {
-        title: 'Helsingborg',
-        address: 'Redaregatan 48\n252 36 Helsingborg\nSverige',
+        title: { sv: 'Helsingborg', en: 'Helsingborg' },
+        street: 'Redaregatan 48',
+        postalCode: '252 36',
         mapsUrl: 'https://maps.google.com/?q=56.04241359644715,12.690902828836114',
       },
       {
         logo: '/images/logo-dark.svg',
-        legalInfo: `Living IT Consulting Group AB\nVAT Number: SE559291387401\n© ${new Date().getFullYear()} Living IT`,
+        // The © year is added in Footer.astro at render time: Cloudflare Workers
+        // freeze Date at the epoch during module init, so it can't be computed here.
+        legalInfo: 'Living IT Consulting Group AB\nVAT Number: SE559291387401',
         social: [
           { name: 'LinkedIn', href: 'https://www.linkedin.com/company/living-it/', icon: 'linkedin' },
           { name: 'Facebook', href: 'https://www.facebook.com/LivingITConsulting', icon: 'facebook' },

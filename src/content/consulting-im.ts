@@ -119,7 +119,7 @@ const en: typeof sv = [
         title: 'The Steady Hand',
         description:
           'Need a captain who holds the course? We make sure ' +
-          'the business runs stably and safely – without unnecessary ' +
+          'the business runs smoothly and reliably – without unnecessary ' +
           'drama. An experienced interim manager who steers, balances and ' +
           'creates calm in the organization.',
       },
@@ -155,7 +155,7 @@ const en: typeof sv = [
           'delivers with surgical precision. Certified, steady and ' +
           'used to holding the course in complex projects. For those ' +
           'who want clear direction, smart risk management and a ' +
-          'leader who makes the steering committee breathe out.',
+          'leader who gives the steering committee peace of mind.',
       },
       {
         icon: 'Users',
@@ -182,7 +182,7 @@ const en: typeof sv = [
       },
       {
         icon: 'Maximize2',
-        title: 'Complex Moves',
+        title: 'Complex Transitions',
         description:
           'When the puzzle gets tricky, we\'re there. We take on the ' +
           'truly tricky projects – the ones that require new solutions, ' +
