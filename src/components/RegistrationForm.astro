@@ -57,7 +57,7 @@ const invoiceContactText = t.invoice.contactForInvoice.replace('{{email}}', even
   data-msg-food-preference-required={t.validation.foodPreferenceRequired}
 >
 
-  <!-- Paid Initial State: two buttons (buy / have code) — only for hasPrice -->
+  <!-- Paid Initial State: two buttons (buy / have code) - only for hasPrice -->
   {hasPrice && (
     <div data-state="paid-initial" hidden>
       <div class="button-group button-group--vertical">
@@ -284,7 +284,7 @@ const invoiceContactText = t.invoice.contactForInvoice.replace('{{email}}', even
     </form>
   </div>
 
-  <!-- Purchase State: email, seatCount +/-, terms, submit + invoice details — only for hasPrice -->
+  <!-- Purchase State: email, seatCount +/-, terms, submit + invoice details - only for hasPrice -->
   {hasPrice && (
     <div data-state="purchase" hidden>
       <h3 class="purchase-form__title">{t.form.buyTicket}</h3>

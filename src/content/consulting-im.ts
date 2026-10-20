@@ -130,7 +130,7 @@ const en: typeof sv = [
           'Want a wise sparring partner who both listens and ' +
           'challenges? We see the big picture, point the way and guide you ' +
           'safely through change. A senior leader who becomes your ' +
-          'and your organization\'s own strategic friend.',
+          "and your organization's own strategic friend.",
       },
     ],
   },
@@ -175,7 +175,7 @@ const en: typeof sv = [
         icon: 'Sparkles',
         title: 'Develop & Refine',
         description:
-          'We tweak, polish and sharpen what\'s already there. Small ' +
+          "We tweak, polish and sharpen what's already there. Small " +
           'adjustments, big results – without a complicated ' +
           'change journey. Think of it as refining a classic, but for ' +
           'your processes and systems.',
@@ -184,10 +184,10 @@ const en: typeof sv = [
         icon: 'Maximize2',
         title: 'Complex Transitions',
         description:
-          'When the puzzle gets tricky, we\'re there. We take on the ' +
+          "When the puzzle gets tricky, we're there. We take on the " +
           'truly tricky projects – the ones that require new solutions, ' +
           'smart adaptation and a bit more change management. Like ' +
-          'solving a Rubik\'s cube with precision and patience.',
+          "solving a Rubik's cube with precision and patience.",
       },
       {
         icon: 'Flame',

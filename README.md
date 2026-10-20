@@ -49,7 +49,7 @@ TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
 | Variable | Description |
 |---|---|
 | `PUBLIC_API_URL` | Backend API base URL |
-| `PUBLIC_ENVIRONMENT` | `production` or `development` — controls search engine indexing |
+| `PUBLIC_ENVIRONMENT` | `production` or `development` - controls search engine indexing |
 | `API_SECRET_KEY` | Server-side secret for authenticating with the backend API |
 | `PUBLIC_TURNSTILE_SITE_KEY` | Cloudflare Turnstile site key for bot protection |
 | `TURNSTILE_SECRET_KEY` | Cloudflare Turnstile secret key for server-side verification |
@@ -84,7 +84,14 @@ Edit content in:
 
 The site deploys to Cloudflare Workers via CI (`.github/workflows/deploy.yml`).
 
-The base `wrangler.toml` contains development defaults. CI patches `dist/server/wrangler.json` with production values before deploying. **Do not deploy directly** using `wrangler deploy` from the repo root — always go through the CI pipeline.
+The base `wrangler.toml` contains development defaults. CI patches `dist/server/wrangler.json` with production values before deploying. **Do not deploy directly** using `wrangler deploy` from the repo root - always go through the CI pipeline.
+
+## Contributing
+
+Work is planned and built through GitHub issues, as the
+[delivery workflow](WAY_OF_WORKING.md) describes. Coding agents start from
+[AGENTS.md](AGENTS.md). Local setup, checks and deployment are in
+[docs/development/](docs/development/).
 
 ## License
 

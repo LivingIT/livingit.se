@@ -40,7 +40,7 @@ body {
 
 @theme {
   /* Custom breakpoint: the nav needs more room than `lg` (1024px) once
-     English labels like "Leadership Consulting" are in play — 1100px is
+     English labels like "Leadership Consulting" are in play - 1100px is
      the measured minimum width where the desktop nav stops crowding. */
   --breakpoint-nav: 1100px;
 
@@ -130,7 +130,6 @@ body {
 }
 
 @keyframes float {
-
   0%,
   100% {
     transform: translateY(0px);
@@ -142,7 +141,6 @@ body {
 }
 
 @keyframes pulse-slow {
-
   0%,
   100% {
     opacity: 1;

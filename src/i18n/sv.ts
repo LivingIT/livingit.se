@@ -62,20 +62,28 @@ export const sv = {
   },
   messages: {
     queueSuccessLine1: 'Du har nu blivit placerad i kö. ⌛️',
-    queueSuccessLine2: 'Vi kommer att kontakta dig via e-post om en plats blir ledig.',
+    queueSuccessLine2:
+      'Vi kommer att kontakta dig via e-post om en plats blir ledig.',
     registrationNeedToConfirmLine1: 'Nu är det nästan klart! 🎉',
-    registrationNeedToConfirmLine2: 'Innan vi ses behöver vi bekräfta din e-postadress. Vi har skickat en bekräftelse till din e-post. Glöm inte att kolla din skräppost om du inte fått ett mail av oss.',
+    registrationNeedToConfirmLine2:
+      'Innan vi ses behöver vi bekräfta din e-postadress. Vi har skickat en bekräftelse till din e-post. Glöm inte att kolla din skräppost om du inte fått ett mail av oss.',
     registrationConfirmationLine1: 'Nu är det klart! 🎉',
-    registrationConfirmationLine2: 'Vi har skickat en bekräftelse till din e-post. Glöm inte att kolla din skräppost om du inte fått ett mail av oss.',
+    registrationConfirmationLine2:
+      'Vi har skickat en bekräftelse till din e-post. Glöm inte att kolla din skräppost om du inte fått ett mail av oss.',
     registrationFailedLine1: 'Något gick fel! 🤔',
-    registrationFailedLine2: 'Vi kunde inte skicka en bekräftelse till din e-post. Vänligen kontakta oss.',
+    registrationFailedLine2:
+      'Vi kunde inte skicka en bekräftelse till din e-post. Vänligen kontakta oss.',
     fewTicketsLeft: 'OBS! Fåtal biljetter kvar!',
-    soldOutMessage: 'Tyvärr, biljetterna är slut men ställ dig gärna i kö så kontaktar vi dig om några platser blir lediga!',
-    confirmationFailed: 'Något gick fel på vår sida. Försök ladda om sidan eller kontakta oss för hjälp.',
-    confirmationExpired: 'Bekräftelselänken är ogiltig eller har löpt ut. Vänligen kontakta oss för hjälp.',
+    soldOutMessage:
+      'Tyvärr, biljetterna är slut men ställ dig gärna i kö så kontaktar vi dig om några platser blir lediga!',
+    confirmationFailed:
+      'Något gick fel på vår sida. Försök ladda om sidan eller kontakta oss för hjälp.',
+    confirmationExpired:
+      'Bekräftelselänken är ogiltig eller har löpt ut. Vänligen kontakta oss för hjälp.',
     lookingForward: 'Vi ser fram emot att träffa dig!',
     purchaseSuccess: 'Tack för ditt köp!',
-    purchaseEmailSent: 'Ni kommer nu att få ett mail med biljetter och vidare instruktioner.',
+    purchaseEmailSent:
+      'Ni kommer nu att få ett mail med biljetter och vidare instruktioner.',
   },
   confirmation: {
     title: 'Tack!',
@@ -90,7 +98,8 @@ export const sv = {
   },
   invoice: {
     payByInvoice: 'Betala med faktura?',
-    minimumTicketsRequired: 'Fakturabetalning är möjlig vid köp av minst {{count}} biljetter.',
+    minimumTicketsRequired:
+      'Fakturabetalning är möjlig vid köp av minst {{count}} biljetter.',
     contactForInvoice: 'Kontakta oss på {{email}} så hjälper vi dig!',
   },
   price: {
@@ -98,7 +107,8 @@ export const sv = {
     includingVat: 'Inklusive {{percentage}} % moms',
   },
   error: {
-    noActiveEvents: 'För tillfället har vi inget planerat - kom tillbaka senare!',
+    noActiveEvents:
+      'För tillfället har vi inget planerat - kom tillbaka senare!',
     oops: 'Hoppsan! Något gick snett.',
     fillRequiredFields: 'Vänligen fyll i alla obligatoriska fält',
     somethingWentWrong: 'Något gick fel 😞',
@@ -160,7 +170,8 @@ Det är **The Living IT Way**.`,
   },
   services: {
     title: 'Vad vi gör',
-    subtitle: 'Här är de tjänster vi erbjuder våra kunder för att hjälpa dem nå sina mål:',
+    subtitle:
+      'Här är de tjänster vi erbjuder våra kunder för att hjälpa dem nå sina mål:',
   },
   footer: {
     officeIn: 'Kontor i {{city}}',
@@ -178,7 +189,8 @@ Det är **The Living IT Way**.`,
   },
   cookiesPolicy: {
     pageTitle: 'Cookie Policy - Living IT',
-    metaDescription: 'Läs mer om hur Living IT använder cookies och hur du kan hantera dina inställningar.',
+    metaDescription:
+      'Läs mer om hur Living IT använder cookies och hur du kan hantera dina inställningar.',
     title: 'Cookie Policy',
     lastUpdated: 'Senast uppdaterad',
     aboutHeading: 'Om Cookies',
@@ -191,9 +203,11 @@ Det är **The Living IT Way**.`,
       'Dessa cookies är nödvändiga för att sajten ska fungera. De sparar inte personlig data och kan inte avaktiveras.',
     essentialExamples: ['Säkerhet', 'Load balancing'],
     statusLabel: 'Status:',
-    statusText: 'Dessa cookies är alltid aktiverade för att sajten ska fungera korrekt.',
+    statusText:
+      'Dessa cookies är alltid aktiverade för att sajten ska fungera korrekt.',
     contactHeading: 'Kontakt',
-    contactIntro: 'Om du har frågor om vår cookie-policy eller hur vi hanterar dina data, kontakta oss gärna:',
+    contactIntro:
+      'Om du har frågor om vår cookie-policy eller hur vi hanterar dina data, kontakta oss gärna:',
     emailLabel: 'Email:',
   },
   eventsPage: {

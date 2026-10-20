@@ -5,6 +5,7 @@
     "dev": "astro dev",
     "build": "node scripts/copy-robots.mjs && astro build",
     "preview": "astro preview",
+    "lint": "remark . .agents --ignore-path .gitignore --ignore-pattern .claude --frail --quiet --no-stdout && prettier --check . && node scripts/check-repo-rules.mjs",
     "format": "prettier --write .",
     "astro": "astro"
   },
@@ -22,6 +23,8 @@
     "prettier": "^3.9.10",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.8.1",
+    "remark-cli": "^12.0.1",
+    "remark-validate-links": "^13.1.0",
     "tailwindcss": "^4.3.0",
     "wrangler": "^4.147.0"
   },

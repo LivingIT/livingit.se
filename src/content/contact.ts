@@ -92,14 +92,16 @@ Skicka ett mail till ***hello@livingit.se*** eller ta kontakt med någon av vår
   Maila ***start@livingit.se***, så tar vi det därifrån! 🙂`,
   },
   company,
-  people: people.map(({ name, titleSv, phoneDisplay, phoneNumber, email, photo }) => ({
-    name,
-    title: titleSv,
-    phoneDisplay,
-    phoneNumber,
-    email,
-    photo,
-  })),
+  people: people.map(
+    ({ name, titleSv, phoneDisplay, phoneNumber, email, photo }) => ({
+      name,
+      title: titleSv,
+      phoneDisplay,
+      phoneNumber,
+      email,
+      photo,
+    }),
+  ),
 };
 
 const en: typeof sv = {
@@ -121,14 +123,16 @@ Send an email to ***hello@livingit.se*** or get in touch with one of our busines
   Email ***start@livingit.se***, and we'll take it from there! 🙂`,
   },
   company,
-  people: people.map(({ name, titleEn, phoneDisplay, phoneNumber, email, photo }) => ({
-    name,
-    title: titleEn,
-    phoneDisplay,
-    phoneNumber,
-    email,
-    photo,
-  })),
+  people: people.map(
+    ({ name, titleEn, phoneDisplay, phoneNumber, email, photo }) => ({
+      name,
+      title: titleEn,
+      phoneDisplay,
+      phoneNumber,
+      email,
+      photo,
+    }),
+  ),
 };
 
 const content = { sv, en };

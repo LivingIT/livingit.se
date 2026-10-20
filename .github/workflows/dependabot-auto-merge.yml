@@ -1,4 +1,4 @@
-name: Dependabot — Build & Auto-merge to Develop
+name: Dependabot - Build & Auto-merge to Develop
 
 # Runs on every Dependabot PR targeting develop.
 # Builds the site; merges the PR automatically if the build succeeds.
@@ -22,8 +22,8 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "24"
-          cache: "npm"
+          node-version: '24'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci

@@ -38,7 +38,9 @@ const dateLocale = lang === 'en' ? 'en-GB' : 'sv-SE';
         <header class="cookie-policy-header">
           <h1>{t.cookiesPolicy.title}</h1>
           <p class="last-updated">
-            {t.cookiesPolicy.lastUpdated}: {new Date().toLocaleDateString(dateLocale)}
+            {t.cookiesPolicy.lastUpdated}: {
+              new Date().toLocaleDateString(dateLocale)
+            }
           </p>
         </header>
 
@@ -52,10 +54,15 @@ const dateLocale = lang === 'en' ? 'en-GB' : 'sv-SE';
           <h2>{t.cookiesPolicy.essentialTitle}</h2>
           <p>{t.cookiesPolicy.essentialDescription}</p>
           <ul>
-            {t.cookiesPolicy.essentialExamples.map((example) => <li>{example}</li>)}
+            {
+              t.cookiesPolicy.essentialExamples.map((example) => (
+                <li>{example}</li>
+              ))
+            }
           </ul>
           <p class="cookie-note">
-            <strong>{t.cookiesPolicy.statusLabel}</strong> {t.cookiesPolicy.statusText}
+            <strong>{t.cookiesPolicy.statusLabel}</strong>
+            {t.cookiesPolicy.statusText}
           </p>
         </section>
 
@@ -63,10 +70,12 @@ const dateLocale = lang === 'en' ? 'en-GB' : 'sv-SE';
           <h2>{t.cookiesPolicy.contactHeading}</h2>
           <p>{t.cookiesPolicy.contactIntro}</p>
           <p>
-            <strong>{t.cookiesPolicy.emailLabel}</strong> <a href={`mailto:${siteConfig.site.email}`}>{siteConfig.site.email}</a>
+            <strong>{t.cookiesPolicy.emailLabel}</strong>
+            <a href={`mailto:${siteConfig.site.email}`}
+              >{siteConfig.site.email}</a
+            >
           </p>
         </section>
-
       </div>
     </main>
 
