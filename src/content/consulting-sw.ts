@@ -80,9 +80,9 @@ const en: typeof sv = [
     icon: 'Code2',
     title: 'The Code Architect',
     description:
-      'Our developers see the beauty in clean code and the small joy of a well-named interface. \
+      "Our developers see the beauty in clean code and the small joy of a well-named interface. \
 They see the big picture, spot patterns, and shape solutions that hold up – even as needs grow and reality changes. \
-The focus is always on the end result; we don\'t just build systems – we build confidence, clarity and a future.',
+The focus is always on the end result; we don't just build systems – we build confidence, clarity and a future.",
   },
   {
     icon: 'FlaskConical',
@@ -104,25 +104,25 @@ With a feel for behavior, design and technology alike, they shape flows that hol
     icon: 'GraduationCap',
     title: 'The Knowledge Sharer',
     description:
-      'We know knowledge grows best in an environment where curiosity is encouraged and experience is shared. \
-Sometimes that happens over lunch at a client\'s office, sometimes during an after-work at our own office with pizza and laughs. \
-For us, professional development isn\'t just about courses and certificates, but about creating a culture where we learn from each other – every day.',
+      "We know knowledge grows best in an environment where curiosity is encouraged and experience is shared. \
+Sometimes that happens over lunch at a client's office, sometimes during an after-work at our own office with pizza and laughs. \
+For us, professional development isn't just about courses and certificates, but about creating a culture where we learn from each other – every day.",
   },
   {
     icon: 'BrainCircuit',
     title: 'The AI Tamer',
     description:
-      'We look beyond the hype and help organizations understand what AI can actually do – here and now. \
+      "We look beyond the hype and help organizations understand what AI can actually do – here and now. \
 Our AI consultants combine technology, curiosity and common sense to guide you from first idea to working solution. \
-Sometimes it\'s about building your own, sometimes about choosing the right tool – but always with understanding, responsibility and clear purpose.',
+Sometimes it's about building your own, sometimes about choosing the right tool – but always with understanding, responsibility and clear purpose.",
   },
   {
     icon: 'Lightbulb',
     title: 'The Value Creator',
     description:
-      'Our problem solvers move confidently in the space between business, users and technology. \
+      "Our problem solvers move confidently in the space between business, users and technology. \
 With curiosity, structure and business acumen, they make sure the right problems get solved, in the right order, with the right tools. \
-Because problem solving isn\'t about delivering the most code – it\'s about creating real value that lasts.',
+Because problem solving isn't about delivering the most code – it's about creating real value that lasts.",
   },
   {
     icon: 'CloudCog',
@@ -136,9 +136,9 @@ We think architecture from the start, automate wherever we can, and build robust
     icon: 'GitBranchPlus',
     title: 'The DevOps Engineer',
     description:
-      'Everything should flow; from commit to production – without drama, without waiting. \
+      "Everything should flow; from commit to production – without drama, without waiting. \
 We love automation, pipelines and clear workflows that make everyday life easier for everyone on the team. \
-To us, DevOps isn\'t just technology, it\'s a promise of agility, quality and joy in delivery.',
+To us, DevOps isn't just technology, it's a promise of agility, quality and joy in delivery.",
   },
   {
     icon: 'MessageCircle',

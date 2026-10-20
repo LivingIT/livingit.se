@@ -57,7 +57,7 @@ export const POST: APIRoute = async ({ request }) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
-      }
+      },
     );
   } catch (err) {
     console.error('[purchase] apiFetch failed:', err);
@@ -68,7 +68,7 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   if (response.ok) {
-    const data = await response.json() as { checkoutUrl: string };
+    const data = (await response.json()) as { checkoutUrl: string };
     return new Response(JSON.stringify({ checkoutUrl: data.checkoutUrl }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
@@ -78,7 +78,8 @@ export const POST: APIRoute = async ({ request }) => {
   const errorBody = await response.text().catch(() => '');
   console.error(`[purchase] backend error ${response.status}:`, errorBody);
   return new Response(JSON.stringify({ error: true }), {
-    status: response.status >= 400 && response.status < 500 ? response.status : 502,
+    status:
+      response.status >= 400 && response.status < 500 ? response.status : 502,
     headers: { 'Content-Type': 'application/json' },
   });
 };

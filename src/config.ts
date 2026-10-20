@@ -18,10 +18,10 @@ export interface ResponsiveImage {
 /**
  * Creates a responsive image object from a base path
  * Automatically generates paths for mobile, tablet, and desktop versions
- * 
+ *
  * @param baseImagePath - The path without device prefix, e.g., "events/beautyincode.jpg" or "contact/emil-sigvant.jpg"
  * @returns ResponsiveImage object with mobile, tablet, and desktop paths
- * 
+ *
  * @example
  * const image = getResponsiveImage("events/beautyincode.jpg");
  * // Returns:
@@ -44,16 +44,23 @@ export function getResponsiveImage(baseImagePath: string): ResponsiveImage {
 
 /**
  * Generates a srcset string from a ResponsiveImage object
- * 
+ *
  * @param image - ResponsiveImage object with mobile, tablet, and desktop paths
  * @returns srcset string for use in img elements
- * 
+ *
  * @example
  * const srcset = getImageSrcSet(getResponsiveImage("events/beautyincode.jpg"));
  * // Returns: "/images/mobile/events/beautyincode.jpg 640w, /images/tablet/events/beautyincode.jpg 1024w, /images/desktop/events/beautyincode.jpg 1920w"
  */
 export function getImageSrcSet(image: ResponsiveImage): string {
-  return image.mobile + ' 640w, ' + image.tablet + ' 1024w, ' + image.desktop + ' 1920w';
+  return (
+    image.mobile +
+    ' 640w, ' +
+    image.tablet +
+    ' 1024w, ' +
+    image.desktop +
+    ' 1920w'
+  );
 }
 
 /**
@@ -78,13 +85,13 @@ export const siteConfig = {
     name: 'Living IT',
     title: 'Living IT',
     email: 'info@livingit.se',
-    url: 'https://livingit.se'
+    url: 'https://livingit.se',
   },
 
   // ============================================
   // NAVIGATION
   // ============================================
-  // Labels come from t.siteNav in src/i18n — href/icon are locale-independent.
+  // Labels come from t.siteNav in src/i18n - href/icon are locale-independent.
   navigation: {
     links: [
       {
@@ -138,7 +145,6 @@ export const siteConfig = {
     intervalMs: 4500,
   },
 
-
   // ============================================
   // FOOTER
   // ============================================
@@ -148,19 +154,22 @@ export const siteConfig = {
         title: { sv: 'Malmö', en: 'Malmö' },
         street: 'Gustav Adolfs torg 12',
         postalCode: '211 39',
-        mapsUrl: 'https://maps.google.com/?q=55.60191580297133,12.999251168084095',
+        mapsUrl:
+          'https://maps.google.com/?q=55.60191580297133,12.999251168084095',
       },
       {
         title: { sv: 'Göteborg', en: 'Gothenburg' },
         street: 'Norra Hamngatan 18',
         postalCode: '411 06',
-        mapsUrl: 'https://maps.google.com/?q=57.70710852992462,11.968320826032762',
+        mapsUrl:
+          'https://maps.google.com/?q=57.70710852992462,11.968320826032762',
       },
       {
         title: { sv: 'Helsingborg', en: 'Helsingborg' },
         street: 'Redaregatan 48',
         postalCode: '252 36',
-        mapsUrl: 'https://maps.google.com/?q=56.04241359644715,12.690902828836114',
+        mapsUrl:
+          'https://maps.google.com/?q=56.04241359644715,12.690902828836114',
       },
       {
         logo: '/images/logo-dark.svg',
@@ -168,10 +177,22 @@ export const siteConfig = {
         // freeze Date at the epoch during module init, so it can't be computed here.
         legalInfo: 'Living IT Consulting Group AB\nVAT Number: SE559291387401',
         social: [
-          { name: 'LinkedIn', href: 'https://www.linkedin.com/company/living-it/', icon: 'linkedin' },
-          { name: 'Facebook', href: 'https://www.facebook.com/LivingITConsulting', icon: 'facebook' },
+          {
+            name: 'LinkedIn',
+            href: 'https://www.linkedin.com/company/living-it/',
+            icon: 'linkedin',
+          },
+          {
+            name: 'Facebook',
+            href: 'https://www.facebook.com/LivingITConsulting',
+            icon: 'facebook',
+          },
           { name: 'X', href: 'https://x.com/LivingITConsult', icon: 'x' },
-          { name: 'Instagram', href: 'https://www.instagram.com/LivingITConsulting/', icon: 'instagram' },
+          {
+            name: 'Instagram',
+            href: 'https://www.instagram.com/LivingITConsulting/',
+            icon: 'instagram',
+          },
           { name: 'Cookies', href: '#', icon: 'cookie', isCookieButton: true },
         ],
       },

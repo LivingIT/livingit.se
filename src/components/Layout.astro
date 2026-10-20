@@ -15,10 +15,8 @@ interface Props {
 const lang = (Astro.currentLocale ?? 'sv') as SupportedLanguage;
 const t = getTranslations(lang);
 
-const {
-  title = siteConfig.site.title,
-  description = t.site.description
-} = Astro.props;
+const { title = siteConfig.site.title, description = t.site.description } =
+  Astro.props;
 
 // Construct absolute URL for Open Graph image
 const ogImageUrl = new URL('/og-image.png', siteConfig.site.url).href;

@@ -64,20 +64,28 @@ export const en: Translations = {
   },
   messages: {
     queueSuccessLine1: 'You have now been placed in the queue. ⌛️',
-    queueSuccessLine2: 'We will contact you by email if a spot becomes available.',
+    queueSuccessLine2:
+      'We will contact you by email if a spot becomes available.',
     registrationNeedToConfirmLine1: 'Almost done! 🎉',
-    registrationNeedToConfirmLine2: 'Before we meet, we need to confirm your email address. We have sent a confirmation to your email. Don\'t forget to check your spam folder if you haven\'t received an email from us.',
+    registrationNeedToConfirmLine2:
+      "Before we meet, we need to confirm your email address. We have sent a confirmation to your email. Don't forget to check your spam folder if you haven't received an email from us.",
     registrationConfirmationLine1: 'Done! 🎉',
-    registrationConfirmationLine2: 'We have sent a confirmation to your email. Don\'t forget to check your spam folder if you haven\'t received an email from us.',
+    registrationConfirmationLine2:
+      "We have sent a confirmation to your email. Don't forget to check your spam folder if you haven't received an email from us.",
     registrationFailedLine1: 'Something went wrong! 🤔',
-    registrationFailedLine2: 'We could not send a confirmation to your email. Please contact us.',
+    registrationFailedLine2:
+      'We could not send a confirmation to your email. Please contact us.',
     fewTicketsLeft: 'NOTE! Few tickets left!',
-    soldOutMessage: 'Unfortunately, tickets are sold out but feel free to join the queue and we will contact you if spots become available!',
-    confirmationFailed: 'Something went wrong on our end. Try refreshing the page or contact us for help.',
-    confirmationExpired: 'The confirmation link is invalid or has expired. Please contact us for help.',
+    soldOutMessage:
+      'Unfortunately, tickets are sold out but feel free to join the queue and we will contact you if spots become available!',
+    confirmationFailed:
+      'Something went wrong on our end. Try refreshing the page or contact us for help.',
+    confirmationExpired:
+      'The confirmation link is invalid or has expired. Please contact us for help.',
     lookingForward: 'We look forward to seeing you!',
     purchaseSuccess: 'Thank you for your purchase!',
-    purchaseEmailSent: 'You will now receive an email with tickets and further instructions.',
+    purchaseEmailSent:
+      'You will now receive an email with tickets and further instructions.',
   },
   confirmation: {
     title: 'Thank you!',
@@ -92,7 +100,8 @@ export const en: Translations = {
   },
   invoice: {
     payByInvoice: 'Pay by invoice?',
-    minimumTicketsRequired: 'Invoice payment is possible when purchasing at least {{count}} tickets.',
+    minimumTicketsRequired:
+      'Invoice payment is possible when purchasing at least {{count}} tickets.',
     contactForInvoice: 'Contact us at {{email}} and we will help you!',
   },
   price: {
@@ -100,7 +109,8 @@ export const en: Translations = {
     includingVat: 'Including {{percentage}} % VAT',
   },
   error: {
-    noActiveEvents: 'We don\'t have anything planned at the moment - come back later!',
+    noActiveEvents:
+      "We don't have anything planned at the moment - come back later!",
     oops: 'Oops! Something went wrong.',
     fillRequiredFields: 'Please fill in all required fields',
     somethingWentWrong: 'Something went wrong 😞',
@@ -114,8 +124,9 @@ export const en: Translations = {
   },
   site: {
     description:
-      'We are a consulting company with offices in Malmö, Helsingborg and Gothenburg that values life outside of work – while always striving to exceed our clients\' expectations.',
-    keywords: 'consulting, management, IT, Malmö, Helsingborg, Gothenburg, Sweden',
+      "We are a consulting company with offices in Malmö, Helsingborg and Gothenburg that values life outside of work – while always striving to exceed our clients' expectations.",
+    keywords:
+      'consulting, management, IT, Malmö, Helsingborg, Gothenburg, Sweden',
   },
   siteNav: {
     software: 'Software Consulting',
@@ -125,7 +136,7 @@ export const en: Translations = {
   },
   hero: {
     description:
-      'We are a consulting company with offices in Malmö, Helsingborg and Gothenburg. We believe family, friends and free time matter most, but when we\'re at work we always do our best to exceed our clients\' expectations.',
+      "We are a consulting company with offices in Malmö, Helsingborg and Gothenburg. We believe family, friends and free time matter most, but when we're at work we always do our best to exceed our clients' expectations.",
   },
   heroCarousel: {
     imageAltPrefix: 'Living IT carousel image',
@@ -162,7 +173,8 @@ That's **The Living IT Way**.`,
   },
   services: {
     title: 'What we do',
-    subtitle: 'Here are the services we offer our clients to help them reach their goals:',
+    subtitle:
+      'Here are the services we offer our clients to help them reach their goals:',
   },
   footer: {
     officeIn: 'Office in {{city}}',
@@ -180,22 +192,25 @@ That's **The Living IT Way**.`,
   },
   cookiesPolicy: {
     pageTitle: 'Cookie Policy - Living IT',
-    metaDescription: 'Read more about how Living IT uses cookies and how you can manage your preferences.',
+    metaDescription:
+      'Read more about how Living IT uses cookies and how you can manage your preferences.',
     title: 'Cookie Policy',
     lastUpdated: 'Last updated',
     aboutHeading: 'About Cookies',
     aboutPara1:
       'Cookies are small text files stored on your device when you visit a website. They are used to improve your browsing experience and give us information about how visitors use the site.',
     aboutPara2:
-      'We respect your privacy and comply with the EU\'s data protection rules (GDPR) and the ePrivacy Directive. You have the right to know which cookies we use and to control which ones you accept.',
+      "We respect your privacy and comply with the EU's data protection rules (GDPR) and the ePrivacy Directive. You have the right to know which cookies we use and to control which ones you accept.",
     essentialTitle: 'Essential Cookies (Technical)',
     essentialDescription:
       'These cookies are necessary for the site to function. They do not store personal data and cannot be disabled.',
     essentialExamples: ['Security', 'Load balancing'],
     statusLabel: 'Status:',
-    statusText: 'These cookies are always enabled for the site to function correctly.',
+    statusText:
+      'These cookies are always enabled for the site to function correctly.',
     contactHeading: 'Contact',
-    contactIntro: 'If you have questions about our cookie policy or how we handle your data, feel free to contact us:',
+    contactIntro:
+      'If you have questions about our cookie policy or how we handle your data, feel free to contact us:',
     emailLabel: 'Email:',
   },
   eventsPage: {

@@ -16,7 +16,9 @@ export function getTranslations(lang: SupportedLanguage) {
  * supported locale. Swedish is the unprefixed default locale; English
  * pages are mirrored under /en/... with the same slug.
  */
-export function getLocalizedPaths(pathname: string): Record<SupportedLanguage, string> {
+export function getLocalizedPaths(
+  pathname: string,
+): Record<SupportedLanguage, string> {
   const withoutEnPrefix = pathname.replace(/^\/en(\/|$)/, '/');
   const canonicalPath = withoutEnPrefix === '' ? '/' : withoutEnPrefix;
 
