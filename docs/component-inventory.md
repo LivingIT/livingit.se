@@ -135,11 +135,10 @@ interface Props {
 
 **Renders:**
 - Dark background footer (`--color-bg-footer`)
-- 4-column grid:
+- 3-column grid:
   - Column 1: Malmö office address (links to Google Maps)
   - Column 2: Göteborg office address (links to Google Maps)
-  - Column 3: Helsingborg office address (links to Google Maps)
-  - Column 4: Logo + legal info (company name, VAT, copyright year) + social icon links
+  - Column 3: Logo + legal info (company name, VAT, copyright year) + social icon links
 - Social icons: LinkedIn, Facebook, X, Instagram (via `astro-icon` + simple-icons)
 - Cookies link → `/cookies-policy` (Lucide `Cookie` icon)
 - All addresses open `target="_blank" rel="noopener noreferrer"`

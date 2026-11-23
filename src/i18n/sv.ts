@@ -112,8 +112,8 @@ export const sv = {
   },
   site: {
     description:
-      'Vi är ett konsultföretag med kontor i Malmö, Helsingborg och Göteborg som värnar livet utanför jobbet – men alltid strävar efter att överträffa våra kunders förväntningar.',
-    keywords: 'konsult, management, IT, Malmö, Helsingborg, Göteborg',
+      'Vi är ett konsultföretag med kontor i Malmö och Göteborg som värnar livet utanför jobbet – men alltid strävar efter att överträffa våra kunders förväntningar.',
+    keywords: 'konsult, management, IT, Malmö, Göteborg',
   },
   siteNav: {
     software: 'Mjukvarukonsulting',
@@ -123,7 +123,7 @@ export const sv = {
   },
   hero: {
     description:
-      'Vi är ett konsultföretag med kontor i Malmö, Helsingborg och Göteborg som tycker att familjen, vännerna och fritiden är det viktigaste vi har, men när vi är på jobbet gör vi alltid vårt bästa för att leverera över våra kunders förväntningar.',
+      'Vi är ett konsultföretag med kontor i Malmö och Göteborg som tycker att familjen, vännerna och fritiden är det viktigaste vi har, men när vi är på jobbet gör vi alltid vårt bästa för att leverera över våra kunders förväntningar.',
   },
   heroCarousel: {
     imageAltPrefix: 'Living IT karusellbild',

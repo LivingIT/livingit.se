@@ -114,8 +114,8 @@ export const en: Translations = {
   },
   site: {
     description:
-      'We are a consulting company with offices in Malmö, Helsingborg and Gothenburg that values life outside of work – while always striving to exceed our clients\' expectations.',
-    keywords: 'consulting, management, IT, Malmö, Helsingborg, Gothenburg, Sweden',
+      'We are a consulting company with offices in Malmö and Gothenburg that values life outside of work – while always striving to exceed our clients\' expectations.',
+    keywords: 'consulting, management, IT, Malmö, Gothenburg, Sweden',
   },
   siteNav: {
     software: 'Software Consulting',
@@ -125,7 +125,7 @@ export const en: Translations = {
   },
   hero: {
     description:
-      'We are a consulting company with offices in Malmö, Helsingborg and Gothenburg. We believe family, friends and free time matter most, but when we\'re at work we always do our best to exceed our clients\' expectations.',
+      'We are a consulting company with offices in Malmö and Gothenburg. We believe family, friends and free time matter most, but when we\'re at work we always do our best to exceed our clients\' expectations.',
   },
   heroCarousel: {
     imageAltPrefix: 'Living IT carousel image',
