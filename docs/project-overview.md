@@ -6,7 +6,7 @@
 
 ## About the Project
 
-**livingit.se** is the corporate marketing website for **Living IT Consulting Group AB**, a Swedish IT and leadership consulting firm with offices in Malmö, Helsingborg, and Göteborg. The site presents the company's services, events, and contact information.
+**livingit.se** is the corporate marketing website for **Living IT Consulting Group AB**, a Swedish IT and leadership consulting firm with offices in Malmö and Göteborg. The site presents the company's services, events, and contact information.
 
 The company's tagline is *"Dreaming today, living it tomorrow"* — and their philosophy ("The Living IT Way") emphasizes that work-life balance enables better professional results.
 

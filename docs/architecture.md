@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-The Living IT website (`livingit.se`) is a static marketing site for Living IT Consulting Group AB — a Swedish IT and leadership consulting firm with offices in Malmö, Helsingborg, and Göteborg. It is built with **Astro 5** using the SSG output model: all pages are pre-rendered to static HTML at build time, resulting in zero server-side runtime and maximum performance.
+The Living IT website (`livingit.se`) is a static marketing site for Living IT Consulting Group AB — a Swedish IT and leadership consulting firm with offices in Malmö and Göteborg. It is built with **Astro 5** using the SSG output model: all pages are pre-rendered to static HTML at build time, resulting in zero server-side runtime and maximum performance.
 
 The site is content-light (marketing copy only, no CMS, no database) and architecture-simple: a flat set of Astro pages that share a single Layout component. All site content is authored as TypeScript data files in `src/content/`.
 
@@ -138,7 +138,7 @@ All components are Astro components (`.astro`). There is no React, Vue, or other
 - Uses `lucide-astro` for nav link icons
 
 ### Footer.astro
-- 4-column grid: 3 office addresses (Malmö, Göteborg, Helsingborg) + brand column
+- 3-column grid: 2 office addresses (Malmö, Göteborg) + brand column
 - Brand column: logo, legal info (company name, VAT, copyright year)
 - Social links: LinkedIn, Facebook, X, Instagram + Cookies policy link
 - Social icons from `astro-icon` + `@iconify-json/simple-icons`

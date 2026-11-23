@@ -157,12 +157,6 @@ export const siteConfig = {
         mapsUrl: 'https://maps.google.com/?q=57.70710852992462,11.968320826032762',
       },
       {
-        title: { sv: 'Helsingborg', en: 'Helsingborg' },
-        street: 'Redaregatan 48',
-        postalCode: '252 36',
-        mapsUrl: 'https://maps.google.com/?q=56.04241359644715,12.690902828836114',
-      },
-      {
         logo: '/images/logo-dark.svg',
         // The © year is added in Footer.astro at render time: Cloudflare Workers
         // freeze Date at the epoch during module init, so it can't be computed here.
